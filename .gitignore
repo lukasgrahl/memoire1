@@ -131,3 +131,4 @@ dmypy.json
 # exclude folders
 /env_memoire1
 /data
+.idea/
