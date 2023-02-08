@@ -1,0 +1,126 @@
+options
+{
+    output logfile = FALSE;
+    output LaTeX = FALSE;
+};
+
+tryreduce
+{
+    TC[] ;
+};
+
+block HOUSEHOLD
+{
+    definitions
+    {
+        u[] = C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L);
+    };
+
+    controls
+    {
+        C[], L[], I[], K[];
+    };
+
+    objective
+    {
+        U[] = u[] + beta * E[][U[1]];
+    };
+
+    constraints
+    {
+        P[] * (C[] + I[]) = R[] * K[-1] + w[] * L[] + Pi[] : lambda[] ;  
+        K[] = (1 - delta) * K[-1] + I[] : q[] ;
+    };
+
+    identities
+    {
+        Q[] = q[] / lambda[];               # Tobin's q
+    };
+
+    calibration
+    {
+        beta = 0.99;
+        delta = 0.02;
+        sigma_C = 1.5;
+        sigma_L = 2.0;
+    };
+};
+
+block FIRM
+{
+    controls
+    {
+        K[-1], L[];
+    };
+
+    objective
+    {
+        TC[] = -(R[] * K[-1] + w[] * L[]);
+    };
+
+    constraints
+    {
+        Y[] = A[] * K[-1] ^ alpha * L[] ^ (1 - alpha) : mc[];
+    };
+
+    calibration
+    {
+        alpha = 0.35;
+    };
+};
+
+block TECHNOLOGY_SHOCKS
+{
+    identities
+    {
+        log(A[]) = rho_A * log(A[-1]) + epsilon_A[];
+    };
+
+    shocks
+    {
+        epsilon_A[];
+    };
+
+    calibration
+    {
+        rho_A = 0.95;
+    };
+};
+
+block PRICE_SETTING
+# obtain P_star, the optimal price at pricing signal
+{
+    identities
+    {
+        g1[] = psi / (1 - psi) *  P_star[] ^ (- 1) * g2[] ;
+        g1[] = lambda[] * Y[] + beta * Theta * E[][g1[1]] ;
+        g2[] = lambda[] * Y[] * mc[] + beta * Theta * E[][g2[1]] ;
+    };
+
+    calibration
+    {
+        Theta = .99 ;         # Calvo pricing probability
+        psi = 1.5 ;
+    };   
+
+};
+
+block PRICE_EVOLUTION
+# determine the price level of the economy and thus inflation
+{
+    identities
+    {
+        P[] = ( Theta * P[-1] ^ (1 - psi) + (1 - Theta) * P_star[] ^ (1 - psi) ) ^ (1 / (1 - psi)) ;
+
+        pi[] = P[-1] / P[] ;                                        # inflation identity
+    };
+};
+
+block EQUILIBRIUM
+{
+    identities
+    {
+        Y[] = C[] + I[] ;
+        Pi = (Y[] - TC[]) * r[] ;            # need of interest on dividends?
+    };  
+};
