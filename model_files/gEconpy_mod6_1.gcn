@@ -1,6 +1,7 @@
 # --------------------------------------------------------------
-# Base Model
+# Base Model with wage Calvo based on Smets-Wouters
 # Reference: Costas
+# Author: Lukas Grahl
 # --------------------------------------------------------------
 
 options

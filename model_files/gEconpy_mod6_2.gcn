@@ -1,5 +1,5 @@
 # --------------------------------------------------------------
-# Base Model with sticky wages
+# Base Model with sticky wages with L_t and C_t in W_start
 # Reference: Costas
 # Author: Lukas Grahl
 # --------------------------------------------------------------
