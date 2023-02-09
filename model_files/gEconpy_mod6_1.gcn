@@ -116,6 +116,30 @@ block PRICE_SETTING
 
 };
 
+block WAGE_SETTING
+{
+    identities
+    {
+        f1[] = Ld[] ^ (1 + sigma_L) * (w[] / w_hat[]) ^ ((1 + sigma_L) * psi_w) * psi_w / w_hat[] 
+                + pis_w / w_hat[] * beta * Theta_w * E[][f1[1]] ;
+
+        f2[] = (psi_w - 1) * Ld[] * (w[] / w_hat[]) ^ psi_w
+                + (psi_w - 1) * beta * Theta_w * E[][f2[1]] ;
+
+        f1[] = f2[] ;
+
+        w[] = (Theta_w * w[-1] ^ (1 - psi_w) + (1 - Theta_w) * w_hat[] ^ (1 - psi_w)) ^ (1 / (1 - psi_w)) ; 
+
+        pi_w[] = w[] / w[-1] ;
+    };
+
+    calibration
+    {
+        Theta_w = .75 ;
+        psi_w = 21 ;
+    };
+};
+
 block EQUILIBRIUM
 {
     identities

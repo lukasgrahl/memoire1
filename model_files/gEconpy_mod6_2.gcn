@@ -1,6 +1,7 @@
 # --------------------------------------------------------------
-# Base Model
+# Base Model with sticky wages
 # Reference: Costas
+# Author: Lukas Grahl
 # --------------------------------------------------------------
 
 options
@@ -18,7 +19,7 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = C[] ^ (1 - sigma_C) / (1 - sigma_C) - Ls[] ^ (1 + sigma_L) / (1 + sigma_L);
+        u[] = C[] ^ (1 - sigma_C) / (1 - sigma_C) - Ls[] ^ (1 + sigma_L) / (1 + sigma_L) ;
     };
 
     controls
@@ -28,13 +29,13 @@ block HOUSEHOLD
 
     objective
     {
-        U[] = u[] + beta * E[][U[1]];
+        U[] = u[] + beta * E[][U[1]] ;
     };
 
     constraints
     {
-        P[] * (C[] + I[]) = r[] * Ks[-1] + w[] * Ls[] + Pi[] : lambda[];
-        Ks[] = (1 - delta) * Ks[-1] + I[] : q[];
+        P[] * (C[] + I[]) = r[] * Ks[-1] + w[] * Ls[] + Pi[] : lambda[] ;
+        Ks[] = (1 - delta) * Ks[-1] + I[] : q[] ;
     };
 
     identities
@@ -98,10 +99,9 @@ block PRICE_SETTING
 {
     identities
     {
+        g[] = mc[] + (beta * Theta) * E[][g[1]] ;
 
-        g1[] = mc[] + (beta * Theta) * E[][g1[1]] ;
-
-        P_hat[] = (psi / (psi - 1)) * g1[] ;
+        P_hat[] = (psi / (psi - 1)) * g[] ;
         
         P[] = (Theta  * P[-1] ^ (1 - psi) + (1 - Theta) * P_hat[] ^ (1 - psi)) ^ (1 / (1 - psi)) ;
 
@@ -116,6 +116,26 @@ block PRICE_SETTING
 
 };
 
+block WAGE_SETTING
+{
+    identities
+    {
+        w_hat[] = (psi_w / (psi_w - 1)) * f[] ;
+
+        f[] = C[] ^ sigma_C * L_d[] ^ sigma_L * P[] + beta * Theta * E[][f[1]] ;
+
+        w[] = (Theta_w * w[-1] ^ (1 - psi_w) + (1 - Theta_w) * w_hat[] ^ (1 - psi_w)) ^ (1 / (1 - psi_w)) ; 
+
+        pi_w[] = w[] / w[-1] ;
+    };
+
+    calibration
+    {
+        Theta_w = .75 ;
+        psi_w = 21 ;
+    };
+};
+
 block EQUILIBRIUM
 {
     identities
@@ -125,5 +145,4 @@ block EQUILIBRIUM
         Ld[] = Ls[] ;
         Pi[] = Y[] - TC[] ;
     };  
-
 };
