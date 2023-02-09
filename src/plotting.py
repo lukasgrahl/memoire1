@@ -5,8 +5,6 @@ import numpy as np
 
 from src.utils import all_equal
 
-from src.utils import all_equal
-
 
 def plot_dfs(dfs: pd.DataFrame,
              plotfunc,
@@ -31,7 +29,7 @@ def plot_dfs(dfs: pd.DataFrame,
     end = max([item.index.max() for item in dfs])
 
     fig, ax = plt.subplots(nrows=rows, ncols=cols, figsize=(figsize[0], figsize[1] * rows))
-    fig.autofmt_xdate(rotation=45)
+    # fig.autofmt_xdate(rotation=45)
 
     for df in dfs:
 
