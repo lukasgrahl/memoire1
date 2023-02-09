@@ -5,6 +5,8 @@ import numpy as np
 
 from src.utils import all_equal
 
+from src.utils import all_equal
+
 
 def plot_dfs(dfs: pd.DataFrame,
              plotfunc,
@@ -20,10 +22,10 @@ def plot_dfs(dfs: pd.DataFrame,
     for df in dfs:
         assert type(df) == pd.core.frame.DataFrame, "dfs list item is not a pandas data frame"
 
-    # assert all_equal([item.columns for item in dfs]) == True, "df columns have to be the same"
+    assert all_equal([list(item.columns) for item in dfs]) == True, "df columns have to be the same"
 
     # set rows based on max dimensions
-    rows = int(round(max([item.shape[1] for item in dfs]) / cols))
+    rows = int(np.ceil(max([item.shape[1] for item in dfs]) / cols))
 
     start = min([item.index.min() for item in dfs])
     end = max([item.index.max() for item in dfs])
@@ -37,8 +39,13 @@ def plot_dfs(dfs: pd.DataFrame,
             _axr = int(np.floor(i / cols))
             _axc = int(round((i / cols - np.floor(i / cols)) * cols))
 
-            plotfunc(df[col], ax=ax[_axr, _axc], **kwargs)
-            ax[_axr, _axc].set_title(df[col].name)
+            if len(ax.shape) == 1:  # excluding axcol value, in case of one dimensional axis
+                _ax = ax[_axc]
+            else:
+                _ax = ax[_axr, _axc]
+
+            plotfunc(df[col], ax=_ax, **kwargs)
+            _ax.set_title(df[col].name)
 
             if fill_arr is not None:
                 # only inlcude relevant recessions
@@ -52,9 +59,8 @@ def plot_dfs(dfs: pd.DataFrame,
                     if t[1] > end:
                         t[1] = end
                     # plot recessions
-                    ax[_axr, _axc].axvspan(t[0], t[1], alpha=.1, color='red')
+                    _ax.axvspan(t[0], t[1], alpha=.1, color='red')
 
     fig.tight_layout()
-
     plt.show()
     pass

@@ -18,9 +18,8 @@ if __name__ == "__main__":
     # get data from fred
     df = get_fred_data(fred_dict, fred_start, fred_end)
     recessions = get_recs_dict(df['recs'])
-
     # save recession dict
     np.save(os.path.join(DATA_DIR, 'recessions_periods.npy'), recessions)
 
     # plot data
-    plot_dfs([df, df * 1.1], sns.lineplot, cols=2, fill_arr=recessions)
+    plot_dfs([df[["Y", "C", "pi_s"]], df[["Y", "C", "pi_s"]] * 1.1], sns.lineplot, cols=2, fill_arr=recessions)
