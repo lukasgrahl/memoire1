@@ -19,9 +19,11 @@ fred_dict = {
     'recs': 'JHGDPBRINDX', # GDP-Based Recession Indicator Index
 }
 
+# time frame for FRED data
 fred_start = "01/01/1990"
 fred_end = "01/01/2023"
 
+# matplotlib config
 plt_config = {
     'figure.figsize':(10,3),
     'figure.dpi':144,
@@ -35,5 +37,36 @@ plt_config = {
     'axes.spines.right':False
 }
 
+# dictionary of recessions in the US economy, pulled from FRED through main.py
+# made available for easy import here
 recession_dict = np.load(os.path.join(DATA_DIR, 'recessions_periods.npy'))
 
+## DSGE PARAMS
+
+# gEconpy mod 5
+mod5_params = {
+    "sigma_C": 2,
+    "sigma_L": 1.5,
+    "alpha": .35,
+    "beta": .985,
+    "delta": .025,
+    "rho_A": .95,
+    "Theta": .75,
+    "psi": 8
+}
+mod5_shocks = {
+    "epsilon": .22
+}
+
+mod6_params = {
+    "sigma_C": 1,
+    "sigma_L": 1,
+    "alpha": .35,
+    "beta": .985,
+    "delta": .025,
+    "rho_A": .95,
+    "Theta": .75,
+    "Theta_w": .75,
+    "psi": 8,
+    "psi_w": 21
+}
