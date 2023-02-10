@@ -70,3 +70,19 @@ mod6_params = {
     "psi": 8,
     "psi_w": 21
 }
+
+mod7_params = {
+    "sigma_C": 1,
+    "sigma_L": 1,
+    "alpha": .35,
+    "beta": .985,
+    "delta": .025,
+    "rho_A": .95,
+    "Theta": .75,
+    "Theta_w": .75,
+    "psi": 8,
+    "psi_w": 21,
+    "gamma_r": .79,
+    "gamma_y": .16,
+    "gamma_pi": 2.43
+}
