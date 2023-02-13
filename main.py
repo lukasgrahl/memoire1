@@ -22,4 +22,9 @@ if __name__ == "__main__":
     np.save(os.path.join(DATA_DIR, 'recessions_periods.npy'), recessions)
 
     # plot data
-    plot_dfs([df[["Y", "C", "pi_s"]], df[["Y", "C", "pi_s"]] * 1.1], sns.lineplot, cols=2, fill_arr=recessions)
+    # plot_dfs([df], sns.lineplot, cols=2, fill_arr=recessions)
+
+    # save data to DATA_DIR
+    df.reset_index(names='date').to_csv(os.path.join(DATA_DIR, 'raw_data.csv'))
+
+    pass
