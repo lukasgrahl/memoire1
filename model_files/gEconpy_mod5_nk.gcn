@@ -1,17 +1,21 @@
-# --------------------------------------------------------------
-# Base Model
-# Reference: Costas
-# --------------------------------------------------------------
 
-options
-{
-    output logfile = FALSE;
-    output LaTeX = FALSE;
-};
 
-tryreduce
+block TECHNOLOGY_SHOCKS
 {
-   U[], TC[] ;
+    identities
+    {
+        log(A[]) = rho_A * log(A[-1]) + epsilon_A[];
+    };
+
+    shocks
+    {
+        epsilon_A[];
+    };
+
+    calibration
+    {
+        rho_A = 0.95;
+    };
 };
 
 block HOUSEHOLD
@@ -65,7 +69,7 @@ block FIRM
 
     constraints
     {
-        Y[] = A[] * K[-1] ^ alpha * L[] ^ (1 - alpha) : mc[];
+        Y[] = A[] * K[-1] ^ alpha * L[] ^ (1 - alpha) : MC[];
     };
 
     calibration
@@ -74,36 +78,16 @@ block FIRM
     };
 };
 
-block TECHNOLOGY_SHOCKS
-{
-    identities
-    {
-        log(A[]) = rho_A * log(A[-1]) + epsilon_A[];
-    };
-
-    shocks
-    {
-        epsilon_A[];
-    };
-
-    calibration
-    {
-        rho_A = 0.95;
-    };
-};
 
 block PRICE_SETTING
-# obtain P_hat, the optimal price at pricing signal
 {
     identities
     {
 
-        g1[] = mc[] + (beta * Theta) * E[][g1[1]] ;
-
+        g1[] = MC[] + (beta * Theta) * E[][g1[1]] ;
         P_hat[] = (psi / (psi - 1)) * g1[] ;
         
         P[] = (Theta  * P[-1] ^ (1 - psi) + (1 - Theta) * P_hat[] ^ (1 - psi)) ^ (1 / (1 - psi)) ;
-
         pi[] = P[] / P[-1] ;
     };
 
