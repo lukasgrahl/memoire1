@@ -1,4 +1,3 @@
-import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -9,7 +8,7 @@ from src.utils import all_equal
 def plot_dfs(dfs: pd.DataFrame,
              plotfunc,
              cols: int = 3,
-             figsize: tuple = (8, 3),
+             figsize: tuple = (14, 4),
              fill_arr=None,
              **kwargs):
     # plotfunc kwargs
@@ -62,3 +61,5 @@ def plot_dfs(dfs: pd.DataFrame,
     fig.tight_layout()
     plt.show()
     pass
+
+
