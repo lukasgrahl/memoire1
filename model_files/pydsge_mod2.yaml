@@ -40,38 +40,6 @@ equations:
     # Technology Shock
     ~ v = rho_v * v(-1) + e_v
 
-
-
-    # labour supply
-    ~ l = (1 / sigma_L) * (w - p - sigma_C * c)
-
-    # law of motion capital
-    # ~ k = (1 / (1 - delta)) * (k(+1) - delta * i)
-
-    # production function
-    ~ y = a + (1 - alpha) * l # + alpha * k 
-
-    # demand for capital
-    # ~ k = mc + y - r
-
-    # demand for labour
-    ~ l = mc + y - w
-
-    # euqilibrium condition
-    ~ yss * y = css * c + iss * i
-
-    # gross inflation
-    # ~ pi = p - p(-1)
-
-    # marginal costs
-    ~ mc = ((1 - alpha) * w + alpha * r - a)
-
-    # Technology Shock
-    ~ a = rho_a * a(-1) + e_a
-
-    # Output Growth
-    ~ dy = y - y(-1)
-
   # constraint:
     # the actual constraint in the form r = max(..., x_bar). The constrained variable MUST be at the LHS. Here it is the ZLB. This reads r = max(rn, x_bar), hence the nominal rate is either the notational rate but never smaller than x_bar.
     
