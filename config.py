@@ -19,6 +19,21 @@ fred_dict = {
     'recs': 'JHGDPBRINDX', # GDP-Based Recession Indicator Index
 }
 
+fred_dict2 = {
+    'Y':   ['GDP', "Gross Domestic Product"],
+    'pi_s': ['CORESTICKM159SFRBATL', 'Sticky Price Consumer Price Index less Food and Energy'],
+    'pi_c': ['MEDCPIM158SFRBCLE', 'Median Consumer Price Index (core inflation)'],
+    'r': ['FEDFUNDS', 'Federal Funds Effective Rate'],
+    'I': ['GPDI', 'Gross Private Domestic Investment'],
+    'C': ['PCEPILFE', 'Personal Consumption Expenditures Excluding Food and Energy'],
+    'Ix': ['IMPGS', 'Imports of Goods and Services'],
+    'Zx': ['EXPGS', 'Exports of Goods and Services'],
+    'L': ['HOANBS', 'Nonfarm Business Sector: Hours Worked for All Workers'],
+    'w': ['CES0500000003', 'Average Hourly Earnings of All Employees, Total Private'],
+    'defl': ['A191RI1Q225SBEA', 'Gross Domestic Product: Implicit Price Deflator'],
+    'recs': ['JHGDPBRINDX', 'GDP-Based Recession Indicator Index']
+}
+
 # time frame for FRED data
 fred_start = "01/01/1990"
 fred_end = "01/01/2023"
