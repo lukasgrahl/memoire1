@@ -3,6 +3,29 @@ import numpy as np
 
 from pandas_datareader import fred
 from src.utils import str_time_format
+from statsmodels.tsa.filters.hp_filter import hpfilter
+
+import os
+
+
+def load_data(filename: str,
+              path: str,
+              file_dict: dict,
+              index_col: str = 'date',
+              time_freq: str = 'QS'):
+    # only support csv atm
+
+    df = pd.read_csv(os.path.join(path, filename), index_col=index_col)
+    if 'Unnamed: 0' in df.columns:
+        df = df.drop('Unnamed: 0', axis=1)
+
+    df.index = pd.to_datetime(df.index)
+    df = df.asfreq(time_freq)
+
+    for col in df.columns:
+        df[col].name = file_dict[col][1]
+
+    return df
 
 
 def get_fred_data(fred_dict: dict,
@@ -13,8 +36,9 @@ def get_fred_data(fred_dict: dict,
     df.index = pd.date_range(start, end, freq=freq)
 
     for col, sym in fred_dict.items():
-        data = fred.FredReader(symbols=sym, start=start, end=end).read()
+        data = fred.FredReader(symbols=sym[0], start=start, end=end).read()
         data.columns = [col]
+        data[col].name = sym[1]
 
         data.index = pd.Series(data.index).apply(lambda x: str_time_format(str(x), '%Y-%m-%d %H:%M:%S'))
 
@@ -43,11 +67,6 @@ def ser_adf(ser: pd.Series, maxlag: int=10, p_level: float=.05):
     # print(test)
     print('\n')
     pass
-
-
-
-from statsmodels.tsa.filters.hp_filter import hpfilter
-
 
 def get_seasonal_hp(ser: pd.Series, lamb: float = 1600.0, **kwargs):
     """

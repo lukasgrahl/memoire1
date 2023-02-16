@@ -1,4 +1,4 @@
-from config import fred_end, fred_start, fred_dict, plt_config
+from config import fred_end, fred_start, fred_dict2, plt_config
 from settings import DATA_DIR
 
 from src.process_data import get_fred_data, get_recs_dict
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     plt.rcParams.update(plt_config)
 
     # get data from fred
-    df = get_fred_data(fred_dict, fred_start, fred_end)
+    df = get_fred_data(fred_dict2, fred_start, fred_end)
     recessions = get_recs_dict(df['recs'])
     # save recession dict
     np.save(os.path.join(DATA_DIR, 'recessions_periods.npy'), recessions)
