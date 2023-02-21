@@ -5,21 +5,6 @@ import numpy as np
 
 # data to be pulled from FRED
 fred_dict = {
-    'Y': 'GDP', # Gross Domestic Product
-    'pi_s': 'CORESTICKM159SFRBATL', # Sticky Price Consumer Price Index less Food and Energy
-    'pi_c': 'MEDCPIM158SFRBCLE', # Median Consumer Price Index (core inflation)
-    'r': 'FEDFUNDS', # Federal Funds Effective Rate
-    'I': 'GPDI', # Gross Private Domestic Investment
-    'C': 'PCEPILFE', # Personal Consumption Expenditures Excluding Food and Energy
-    'Ix': 'IMPGS', # Imports of Goods and Services
-    'Zx': 'EXPGS', # Exports of Goods and Services
-    'L': 'HOANBS', # Nonfarm Business Sector: Hours Worked for All Workers
-    'w': 'CES0500000003', # Average Hourly Earnings of All Employees, Total Private
-    'defl': 'A191RI1Q225SBEA', # Gross Domestic Product: Implicit Price Deflator
-    'recs': 'JHGDPBRINDX', # GDP-Based Recession Indicator Index
-}
-
-fred_dict2 = {
     'Y':   ['GDP', "Gross Domestic Product"],
     'pi_s': ['CORESTICKM159SFRBATL', 'Sticky Price Consumer Price Index less Food and Energy'],
     'pi_c': ['MEDCPIM158SFRBCLE', 'Median Consumer Price Index (core inflation)'],
@@ -36,7 +21,7 @@ fred_dict2 = {
 
 # time frame for FRED data
 fred_start = "01/01/1990"
-fred_end = "01/01/2023"
+fred_end = "12/31/2022"
 
 # matplotlib config
 plt_config = {
@@ -87,17 +72,21 @@ mod6_params = {
 }
 
 mod7_params = {
-    "sigma_C": 1,
-    "sigma_L": 1,
-    "alpha": .35,
-    "beta": .985,
-    "delta": .025,
-    "rho_A": .95,
-    "Theta": .75,
-    "Theta_w": .75,
-    "psi": 8,
-    "psi_w": 21,
-    "gamma_r": .79,
-    "gamma_y": .16,
-    "gamma_pi": 2.43
+    'alpha': 0.35,
+     'beta': 0.99,
+     'delta': 0.025,
+     'eta_p': 0.75,
+     'eta_w': 0.75,
+     'gamma_I': 10.0,
+     'gamma_R': 0.9,
+     'gamma_Y': 0.05,
+     'gamma_pi': 1.5,
+     'phi_H': 0.5,
+     'psi_p': 0.6,
+     'psi_w': 0.782,
+     'rho_pi_dot': 0.924,
+     'rho_preference': 0.95,
+     'rho_technology': 0.95,
+     'sigma_C': 2.0,
+     'sigma_L': 1.5
 }
