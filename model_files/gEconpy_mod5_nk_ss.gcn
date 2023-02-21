@@ -1,4 +1,30 @@
 
+block STEADY_STATE
+{
+    definitions
+    {
+
+    };
+
+    identities
+    {
+        A[ss] = 1 ;
+        P[ss] = 1 ;
+
+        w[ss] = (1 - alpha) * mc[ss] ^ (1 / (1 - alpha)) * (alpha / r[ss]) ^ (alpha / (1 - alpha)) ;
+        r[ss] = P[ss] * (1 / beta - (1 - delta)) ;
+        mc[ss] = ((psi -1) / psi) * (1 - beta * Theta) * P[ss] ;
+        
+        Y[ss] = (r[ss] / (r[ss] - mc[ss] * delta * alpha)) ^ (sigma_C / (sigma_C + sigma_L)) * ((w[ss] / P[ss]) * (w[ss] / ((1 - alpha) * mc[ss])) ^ sigma_L ) ^ (1 / (sigma_C + sigma_L)) ;
+        
+        I[ss] = ((delta * alpha * mc[ss]) / r[ss]) * Y[ss] ;
+        C[ss] = Y[ss] ^ (-sigma_L / sigma_C) * ((w[ss] / P[ss]) * (w[ss] / ((1 - alpha) * mc[ss])) ^ sigma_L) ^ (1 / sigma_C) ;
+        
+        L[ss] = (1 - alpha) * mc[ss] * (Y[ss] / w[ss]) ;
+        K[ss] = alpha * mc[ss] * (Y[ss] / r[ss]) ;
+    };    
+
+};
 
 block TECHNOLOGY_SHOCKS
 {

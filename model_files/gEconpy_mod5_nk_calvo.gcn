@@ -1,0 +1,183 @@
+options
+{
+    output logfile = TRUE;
+    output LaTeX = TRUE;
+    output LaTeX landscape = TRUE;
+};
+
+tryreduce
+{
+    Div[], TC[];
+};
+
+assumptions
+{
+    negative
+    {
+        TC[];
+    };
+
+    positive
+    {
+        delta, beta, sigma_C, sigma_L, phi;
+    };
+};
+
+
+block HOUSEHOLD
+{
+    definitions
+    {
+        u[] = C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L);
+    };
+
+    controls
+    {
+        C[], L[], I[], K[], B[];
+    };
+
+    objective
+    {
+        U[] = u[] + beta * E[][U[1]];
+    };
+
+    constraints
+    {
+        P[] * (C[] + I[]) + B[] / r_G[] = B[-1] / pi[] + r[] * K[-1] + w[] * L[] + Div[] : lambda[];
+        K[] = (1 - delta) * K[-1] + I[] : q[];
+    };
+
+    identities
+    {
+#        Q[] = q[] / lambda[] ;                                  # Tobin's q
+    };
+
+    calibration
+    {
+        beta = 0.985;
+        delta = 0.02;
+        sigma_C = 2;
+        sigma_L = 1.5;
+    };
+};
+
+block FIRM
+{
+    controls
+    {
+        K[-1], L[];
+    };
+
+    objective
+    {
+        TC[] = -(r[] * K[-1] + w[] * L[]);
+    };
+
+    constraints
+    {
+        Y[] = A[] * K[-1] ^ alpha * L[] ^ (1 - alpha) : mc[];
+    };
+
+    identities
+    {
+        Div[] = Y[] + TC[] ;
+    };
+
+    calibration
+    {
+        alpha = 0.35;
+    };
+};
+
+block TECHNOLOGY_SHOCKS
+{
+    identities
+    {
+        log(A[]) = rho_A * log(A[-1]) + epsilon_A[];
+    };
+
+    shocks
+    {
+        epsilon_A[];
+    };
+
+    calibration
+    {
+        rho_A = 0.95;
+    };
+};
+
+
+block FIRM_PRICE_SETTING_PROBLEM
+{
+    identities
+    {
+        LHS[] = psi_p / ((1 + psi_p) * P_star[]) * RHS[];
+
+
+        LHS[] = lambda[] * Y[] + beta * eta_p * E[][LHS[1]];
+
+        RHS[] = lambda[] * mc[] * Y[] + beta * eta_p * E[][RHS[1]];
+    };
+
+    calibration
+    {
+        psi_p   = 0.6;
+        eta_p   = 0.75;
+    };
+};
+
+
+block PRICE_EVOLUTION
+{
+    identities
+    {
+        P[] = (eta_p * P[-1] ^ (1 - psi_p) + (1 - eta_p) * P_star[] ^ (1 - psi_p)) ^ (1/(1 - psi_p));
+
+        pi[] = P[] / P[-1] ;
+    };
+};
+
+block MONETARY_POLICY
+{
+    identities
+    {
+        log(r_G[] / r_G[ss]) = (r_G[-1] / r_G[ss]) ^ gamma_R * ((pi[] / pi[ss]) ^ gamma_pi * (Y[] / Y[ss]) ^ gamma_Y ) ^ (1 - gamma_R) ;
+
+
+#        log(r_G[] / r_G[ss]) + phi_pi = gamma_R * log(r_G[-1] / r_G[ss]) + (1 - gamma_R) * log(pi_obj[]) +
+#            (1 - gamma_R) * gamma_pi * log(pi[] / pi[ss] - log(pi_obj[])) + (1 - gamma_R) * gamma_Y * log(Y[] / Y[-1]) + epsilon_R[];
+
+#        log(pi_obj[]) = (1 - rho_pi_dot) * log(phi_pi_obj) + rho_pi_dot * log(pi_obj[-1]) + epsilon_pi[];
+    };
+
+    shocks
+    {
+#        epsilon_R[], epsilon_pi[];
+    };
+
+
+    calibration
+    {
+        gamma_R = 0.9;
+        gamma_pi = 1.5;
+        gamma_Y = 0.05;
+
+#        pi_obj[ss]  = 1 -> phi_pi_obj;
+#        pi[ss]      = pi_obj[ss]-> phi_pi;
+#        rho_pi_dot  = 0.924;
+    };
+};
+
+
+block EQUILIBRIUM
+{
+    identities
+    {
+#        Y[] = I[] + C[] ; 
+#       Pi[] = (Y[] - TC[]) ;
+        B[] = 0 ;
+#        r_G[ss] = 1 / beta ;
+    };  
+
+};
