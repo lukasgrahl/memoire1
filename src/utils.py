@@ -1,6 +1,7 @@
 import pandas as pd
 from itertools import groupby
 import datetime as dt
+from src.wrappers import skipna
 
 
 def all_equal(iterable):
@@ -17,7 +18,7 @@ def ser_time_format(ser: pd.Series,
                     t_format: str = "%Y-%m-%d"):
     return ser.apply(lambda x: str_time_format(str(x), t_format))
 
-
+@skipna
 def apply_func(arr, func, **kwargs):
     """
     *args:

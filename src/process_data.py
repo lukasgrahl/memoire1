@@ -2,8 +2,10 @@ import pandas as pd
 import numpy as np
 
 from pandas_datareader import fred
-from src.utils import str_time_format
 from statsmodels.tsa.filters.hp_filter import hpfilter
+
+from src.utils import str_time_format
+from src.wrappers import skipna
 
 import os
 
@@ -23,7 +25,10 @@ def load_data(filename: str,
     df = df.asfreq(time_freq)
 
     for col in df.columns:
-        df[col].name = file_dict[col][1]
+        try:
+            df[col].name = file_dict[col][1]
+        except Exception as e:
+            print(f'Error occured {e}, file_dict may be incomplete')
 
     return df
 
@@ -56,11 +61,13 @@ def get_recs_dict(ser: pd.Series):
     return np.array([beg[beg == True].index, end[end == True].index]).transpose()
 
 from statsmodels.tsa.stattools import adfuller
+@skipna
 def ser_adf(ser: pd.Series, maxlag: int=10, p_level: float=.05):
     """
     The null hypothesis of the Augmented Dickey-Fuller states there is a unit root, hence data is non-stationary.
     """
-    test = adfuller(ser, maxlag=maxlag)
+    _ = ser.copy()
+    test = adfuller(_, maxlag=maxlag)
     print("Augmented Dickey-Fuller Test: H0 -> unit root")
     print(f"{'-'*20} {ser.name} {'-'*20}")
     print(f" p-val: {test[1]},  reject: {test[1] <= p_level}")

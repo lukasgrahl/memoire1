@@ -42,7 +42,7 @@ def plot_dfs(dfs: pd.DataFrame,
                 _ax = ax[_axr, _axc]
 
             plotfunc(df[col], ax=_ax, **kwargs)
-            _ax.set_title(df[col].name)
+            _ax.set_title(col)
 
             if fill_arr is not None:
                 # only inlcude relevant recessions
