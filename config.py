@@ -6,6 +6,7 @@ import numpy as np
 # data to be pulled from FRED
 fred_dict = {
     'Y':   ['GDP', "Gross Domestic Product"],
+    'Y_p': ['GDPPOT', 'Real Potential Gross Domestic Product'],
     'pi_s': ['CORESTICKM159SFRBATL', 'Sticky Price Consumer Price Index less Food and Energy'],
     'pi_c': ['MEDCPIM158SFRBCLE', 'Median Consumer Price Index (core inflation)'],
     'r': ['FEDFUNDS', 'Federal Funds Effective Rate'],
@@ -16,11 +17,12 @@ fred_dict = {
     'L': ['HOANBS', 'Nonfarm Business Sector: Hours Worked for All Workers'],
     'w': ['CES0500000003', 'Average Hourly Earnings of All Employees, Total Private'],
     'defl': ['A191RI1Q225SBEA', 'Gross Domestic Product: Implicit Price Deflator'],
-    'recs': ['JHGDPBRINDX', 'GDP-Based Recession Indicator Index']
+    'recs': ['JHGDPBRINDX', 'GDP-Based Recession Indicator Index'],
+    'Pop': ['CNP16OV', 'Population Level']
 }
 
 # time frame for FRED data
-fred_start = "01/01/1990"
+fred_start = "01/01/1975"
 fred_end = "12/31/2022"
 
 # matplotlib config
@@ -70,6 +72,7 @@ mod6_params = {
     "psi": 8,
     "psi_w": 21
 }
+
 
 mod7_params = {
     'alpha': 0.35,
