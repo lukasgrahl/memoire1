@@ -1,3 +1,10 @@
+# --------------------------------------------------------------
+# New Keynsian Model with
+#	preference shocks, 
+# Reference: Smets Wouters
+# Author: Lukas A. Grahl
+# --------------------------------------------------------------
+
 options
 {
     output logfile = TRUE;
@@ -75,17 +82,10 @@ block WAGE_SETTING
 	{
 		LHS_w[] = RHS_w[];
 
-		#Equation 23
-		LHS_w[] =  1 / (1 + psi_w) * w_star[] * lambda[] * L_d_star[] +
-			beta * eta_w * E[][
-				pi[1] * (w_star[1] / w_star[]) ^ (1 / psi_w) * LHS_w[1]
-			];
+		# Equation 23
+		LHS_w[] =  1 / (1 + psi_w) * w_star[] * lambda[] * L_d_star[] + beta * eta_w * E[][pi[1] * (w_star[1] / w_star[]) ^ (1 / psi_w) * LHS_w[1]];
 
-		RHS_w[] = shock_preference[] * L_d_star[] ^ (1 + sigma_L) +
-			beta * eta_w * E[][
-				(pi[1] * w_star[1] / w_star[]) ^ ((1 + psi_w) * (1 + sigma_L) / psi_w) *
-				RHS_w[1]
-			];
+		RHS_w[] = shock_preference[] * L_d_star[] ^ (1 + sigma_L) + beta * eta_w * E[][(pi[1] * w_star[1] / w_star[]) ^ ((1 + psi_w) * (1 + sigma_L) / psi_w) * RHS_w[1]];
 
 	};
 
@@ -100,8 +100,7 @@ block WAGE_EVOLUTION
 {
 	identities
 	{
-		1 = eta_w * (pi[] * w[] / w[-1]) ^ (1 / psi_w) +
-			(1 - eta_w) * (w[] / w_star[]) ^ (1 / psi_w);
+		1 = eta_w * (pi[] * w[] / w[-1]) ^ (1 / psi_w) + (1 - eta_w) * (w[] / w_star[]) ^ (1 / psi_w);
 	};
 };
 
@@ -134,7 +133,7 @@ block FIRM
 
     objective
     {
-        TC[] = -(L[] * w[] + K[-1] * r[]);
+        TC[] = -(L[] * w[] + K[-1] * r[]) + shock_energy[];
     };
 
     constraints
@@ -150,6 +149,22 @@ block FIRM
     calibration
     {
         alpha  = 0.35;
+    };
+};
+
+block ENERGY_SHOCK
+{
+    identities
+    {
+        log(shock_energy[]) = rho_energy * log(shock_energy[-1]) + epsilon_T[];
+    };
+    shocks
+    {
+        epsilon_T[];
+    };
+    calibration
+    {
+        rho_energy = 0.95;
     };
 };
 
@@ -209,8 +224,7 @@ block MONETARY_POLICY
 			(1 - gamma_R) * gamma_Y * log(Y[] / Y[-1]) +
 			epsilon_R[];
 
-		log(pi_obj[]) = (1 - rho_pi_dot) * log(phi_pi_obj) +
-			rho_pi_dot * log(pi_obj[-1]) + epsilon_pi[];
+		log(pi_obj[]) = (1 - rho_pi_dot) * log(phi_pi_obj) + rho_pi_dot * log(pi_obj[-1]) + epsilon_pi[];
 	};
 
 	shocks
@@ -225,7 +239,7 @@ block MONETARY_POLICY
 		gamma_pi = 1.5;
 		gamma_Y = 0.05;
 		pi_obj[ss]	= 1	-> phi_pi_obj;
-		pi[ss]		= pi_obj[ss]-> phi_pi;
+		pi[ss]		= pi_obj[ss] -> phi_pi;
 		rho_pi_dot	= 0.924;
 	};
 };
