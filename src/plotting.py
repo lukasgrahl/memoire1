@@ -4,6 +4,8 @@ import numpy as np
 
 from src.utils import all_equal
 
+from src.utils import all_equal
+
 
 def plot_dfs(dfs: pd.DataFrame,
              plotfunc,
@@ -43,6 +45,7 @@ def plot_dfs(dfs: pd.DataFrame,
                 _ax = ax[_axr, _axc]
 
             plotfunc(df[col], ax=_ax, **kwargs)
+            _ax.legend(legend) if legend != None else False
             _ax.set_title(col)
 
             if fill_arr is not None and i == len(dfs) - 1:
@@ -59,7 +62,6 @@ def plot_dfs(dfs: pd.DataFrame,
                     # plot recessions
                     _ax.axvspan(t[0], t[1], alpha=.1, color='red')
 
-    fig.legend(legend)
     fig.tight_layout()
     plt.show()
     pass
