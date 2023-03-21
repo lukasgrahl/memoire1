@@ -45,6 +45,15 @@ recession_dict = np.load(os.path.join(DATA_DIR, 'recessions_periods.npy'))
 
 ## DSGE PARAMS
 
+mod4_params = {
+    'alpha': 0.35,
+     'beta': 0.99,
+     'delta': 0.02,
+     'rho_A': 0.95,
+     'sigma_C': 1.5,
+     'sigma_L': 2.0
+}
+
 # gEconpy mod 5
 mod5_params = {
     "sigma_C": 2,
