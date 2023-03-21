@@ -6,10 +6,12 @@ from src.utils import all_equal
 
 from src.utils import all_equal
 
+from src.utils import all_equal
+
 
 def plot_dfs(dfs: pd.DataFrame,
              plotfunc, cols: int = 3, figsize: tuple = (14, 4), fill_arr=None,
-             legend: list = None, recs_lable='Recessions', **kwargs):
+             legend: list = None, recs_lable='Recessions', conf_int: np.array = None, **kwargs):
     # plotfunc kwargs
 
     if type(dfs) != list:
@@ -30,6 +32,8 @@ def plot_dfs(dfs: pd.DataFrame,
     # fig.autofmt_xdate(rotation=45)
 
     for id, df in enumerate(dfs):
+        if conf_int is not None:
+            conf = conf_int[id]
 
         for i, col in enumerate(df.columns):
             _axr = int(np.floor(i / cols))
@@ -40,6 +44,12 @@ def plot_dfs(dfs: pd.DataFrame,
             else:
                 _ax = ax[_axr, _axc]
 
+            # plot confidence intervals
+
+            if conf_int is not None:
+                _ax.fill_between(df[col].index, (df[col] - conf[0]), (df[col] + conf[1]), color='b', alpha=.1)
+
+            # plot graph
             if legend is not None:
                 plotfunc(df[col], ax=_ax, label=legend[id], **kwargs)
             else:
@@ -59,7 +69,6 @@ def plot_dfs(dfs: pd.DataFrame,
                         t[1] = end
                     # plot recessions
                     _ax.axvspan(t[0], t[1], alpha=.1, color='red')
-
 
     fig.tight_layout()
     plt.show()

@@ -2,7 +2,7 @@ import pandas as pd
 from itertools import groupby
 import datetime as dt
 from src.wrappers import skipna
-
+import os
 
 def all_equal(iterable):
     g = groupby(iterable)
@@ -40,3 +40,11 @@ def printProgBar(iteration, total, prefix = '', suffix = '', decimals = 1, lengt
     if iteration == total:
         print()
     pass
+
+
+def get_most_recent_mod_output(path: str, mod_name: str) -> str:
+    mod_list = [item for item in os.listdir(path) if mod_name in item]
+    if len(mod_list) == 0:
+        raise KeyError('No model file found')
+    else:
+        return mod_list[-1]
