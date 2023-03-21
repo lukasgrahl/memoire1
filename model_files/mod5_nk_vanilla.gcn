@@ -1,7 +1,7 @@
 
 tryreduce
 {
-    Div[], TC[];
+    TC[];
 };
 
 
@@ -10,7 +10,7 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L)) + ;
+        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L));
     };
 
     controls
@@ -25,7 +25,7 @@ block HOUSEHOLD
 
     constraints
     {
-        P[] * C[] + + B[] / (1 + r_G[]) = B[-1] + w[] * L[] + Div[] : lambda[];
+        C[] + I[] + B[] / r[] = w[] * L[] + B[-1] / pi[] : lambda[];
     };
 
     calibration
@@ -53,11 +53,6 @@ block FIRM
     constraints
     {
         Y[] = A[] * L[] ^ (1 - alpha) : mc[];
-    };
-
-    identities
-    {
-        Div[] = Y[] - C[] ;
     };
 
     calibration
@@ -115,7 +110,7 @@ block MONETARY_POLICY
 {
     identities
     {
-        log(r_G[] / r_G[ss]) + phi_pi = gamma_R * log(r_G[-1] / r_G[ss]) +
+        log(r[] / r[ss]) + phi_pi = gamma_R * log(r[-1] / r[ss]) +
             (1 - gamma_R) * log(pi_obj[]) +
             (1 - gamma_R) * gamma_pi * log(pi[] / pi[ss] - log(pi_obj[])) +
             (1 - gamma_R) * gamma_Y * log(Y[] / Y[-1]) +
@@ -146,5 +141,6 @@ block EQUILIBRIUM
     identities
     {
         B[] = 0;
+        Y[] = C[] ;
     };
 };

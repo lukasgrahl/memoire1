@@ -1,13 +1,12 @@
 ###########################################################################
-# RBC fixed labour supply
-# Source:  Campbell - Investigating the mechanism
-# Author: Lukas A. Grahl
+# Basic HH Firm RBC model
+# PSME Macro RBC complete
 ###########################################################################
 
 
 tryreduce
 {
-    U[], TC[];
+#    U[] ;
 };
 
 
@@ -16,7 +15,7 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = (C[] ^ (1 - sigma_C)) / (1 - sigma_C) ;
+        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C));
     };
 
     controls
@@ -31,10 +30,7 @@ block HOUSEHOLD
 
     constraints
     {
-#        C[] + I[] = r[] * K[-1] + w[] : lambda[];
-#        K[] = (1 - delta) * K[-1] + I[];
-
-        K[] = (1 - delta) * K[-1] + Y[] - C[] : lambda[];
+        C[] = r[] * ((K[] - Y[] + C[]) / (1 - delta)) : lambda[];
     };
 
     calibration
@@ -43,40 +39,19 @@ block HOUSEHOLD
         delta = 0.02;
 
         sigma_C = 1.5;
+        sigma_L = 2.0;
     };
 };
 
 block FIRM
 {
-    controls
-    {
-        K[-1] ;
-    };
-
-    objective
-    {
-        TC[] = -(r[] * K[-1] + w[]) ;
-    };
-
-    constraints
-    {
-        Y[] = A[] ^ alpha * K[-1] ^ (1 - alpha) : mc[];
-    };
-
     identities
     {
-        # Perfect competition
-        mc[] = 1;
-        # no flexible labour supply
-        w[] = 1; 
-        R[] = (1 - alpha) * (A[] / K[]) ^ alpha + (1 - delta) ;
-    };
-
-    calibration
-    {
-        alpha  = 0.35;
+        r[] = (1 - alpha) * (A[] / K[]) ^ alpha ;
+        Y[] = A[] ^ alpha * K[-1] ^ (1 - alpha) ;
     };
 };
+
 
 block TECHNOLOGY_SHOCKS
 {
@@ -87,12 +62,13 @@ block TECHNOLOGY_SHOCKS
 
     shocks
     {
-        epsilon_A[] ~ N(mean=0, sd=sigma_epsilon_A);
+        epsilon_A[] ;
     };
 
     calibration
     {
-        rho_A ~ Beta(mean=0.95, sd=0.04) = 0.95;
-        sigma_epsilon_A ~ Gamma(alpha=2, beta=0.1) = 0.05;
+        rho_A = 0.95;
+        sigma_epsilon_A = 0.05;
     };
 };
+

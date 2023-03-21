@@ -15,7 +15,7 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L));
+        u[] = (C[] ^ sigma_L  * (1 - L[]) ^ (1 + sigma_L)) ^ (1 - sigma_C) / (1 + sigma_L) ;
     };
 
     controls
@@ -39,8 +39,8 @@ block HOUSEHOLD
         beta  = 0.99;
         delta = 0.02;
 
-        sigma_C ~ N(loc=2.0, scale=2.0, lower=1.0) = 1.5;
-        sigma_L ~ N(loc=2.0, scale=2.0, lower=1.0) = 2.0;
+        sigma_C = 1.5;
+        sigma_L = 2.0;
     };
 };
 
@@ -69,7 +69,7 @@ block FIRM
 
     calibration
     {
-        alpha ~ Beta(alpha=2, beta=5) = 0.35;
+        alpha = 0.35;
     };
 };
 
@@ -82,12 +82,12 @@ block TECHNOLOGY_SHOCKS
 
     shocks
     {
-        epsilon_A[] ~ N(mean=0, sd=sigma_epsilon_A);
+        epsilon_A[] ;
     };
 
     calibration
     {
-        rho_A ~ Beta(mean=0.95, sd=0.04) = 0.95;
-        sigma_epsilon_A ~ Gamma(alpha=2, beta=0.1) = 0.05;
+        rho_A = 0.95;
+        sigma_epsilon_A = 0.05;
     };
 };
