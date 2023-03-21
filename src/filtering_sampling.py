@@ -1,10 +1,41 @@
 import numpy as np
 import pandas as pd
-from numba import njit
+from numba import jit, njit
 from scipy import linalg
 
 
+def solve_updated_mod(mod, verbose: bool = True) -> (bool, object):
+    # solve for steady state
+    mod.steady_state(verbose=verbose)
+    is_solved = mod.steady_state_solved
+    if not is_solved:
+        return False, mod
+
+    # solve model, capture np.LinAlgEr
+    try:
+        mod.solve_model(verbose=verbose)
+    except np.linalg.LinAlgError:
+        return False, mod
+
+    # check blanchard kahn
+    is_bk = mod.check_bk_condition(return_value='bool', verbose=verbose)
+
+    return is_solved & is_bk, mod
+
+
+# @jit(cache=True)
+def sample_from_priors(priors: dict, mod_params: dict, shock_names: list) -> (dict, dict, dict):
+    params = {k: v for k, v in zip(priors.keys(), [item.rvs() for item in priors.values()]) if k in mod_params}
+    shocks = {k: v for k, v in zip(priors.keys(), [item.rvs() for item in priors.values()]) if k in shock_names}
+    return params, shocks
+
 # @njit
+def get_arr_pdf_from_dist(dict_vals, dict_dists):
+    # Get pdf from distribution for val
+    return np.array([dict_dists[item].pdf(dict_vals[item]) for item in dict_vals.keys()])
+
+
+# @jit(cache=True)
 def get_Q_H(shocks_dict: dict, observed_names: list, noise_diag):
     """
 

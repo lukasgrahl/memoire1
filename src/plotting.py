@@ -8,12 +8,8 @@ from src.utils import all_equal
 
 
 def plot_dfs(dfs: pd.DataFrame,
-             plotfunc,
-             cols: int = 3,
-             figsize: tuple = (14, 4),
-             fill_arr=None,
-             legend: list = None,
-             **kwargs):
+             plotfunc, cols: int = 3, figsize: tuple = (14, 4), fill_arr=None,
+             legend: list = None, recs_lable='Recessions', **kwargs):
     # plotfunc kwargs
 
     if type(dfs) != list:
@@ -33,7 +29,7 @@ def plot_dfs(dfs: pd.DataFrame,
     fig, ax = plt.subplots(nrows=rows, ncols=cols, figsize=(figsize[0], figsize[1] * rows))
     # fig.autofmt_xdate(rotation=45)
 
-    for i, df in enumerate(dfs):
+    for id, df in enumerate(dfs):
 
         for i, col in enumerate(df.columns):
             _axr = int(np.floor(i / cols))
@@ -44,11 +40,13 @@ def plot_dfs(dfs: pd.DataFrame,
             else:
                 _ax = ax[_axr, _axc]
 
-            plotfunc(df[col], ax=_ax, **kwargs)
-            _ax.legend(legend) if legend != None else False
+            if legend is not None:
+                plotfunc(df[col], ax=_ax, label=legend[id], **kwargs)
+            else:
+                plotfunc(df[col], ax=_ax, **kwargs)
             _ax.set_title(col)
 
-            if fill_arr is not None and i == len(dfs) - 1:
+            if fill_arr is not None and id == len(dfs) - 1:
                 # only inlcude relevant recessions
                 for t in fill_arr:
                     if t[1] < start:
@@ -61,6 +59,7 @@ def plot_dfs(dfs: pd.DataFrame,
                         t[1] = end
                     # plot recessions
                     _ax.axvspan(t[0], t[1], alpha=.1, color='red')
+
 
     fig.tight_layout()
     plt.show()
