@@ -46,14 +46,15 @@ recession_dict = np.load(os.path.join(DATA_DIR, 'recessions_periods.npy'))
 
 ## DSGE PARAMS
 
-mod4_params = {
-    'alpha': 0.35,
-     'beta': 0.99,
-     'delta': 0.02,
-     'rho_A': 0.95,
-     'sigma_C': 1.5,
-     'sigma_L': 2.0
+mod4_params = {'alpha': 0.35,
+                 'beta': 0.99,
+                 'delta': 0.02,
+                 'rho_A': 0.95,
+                 'sigma_C': 1.5,
+                 'sigma_L': 2.0,
+                 'sigma_epsilon_A': 0.05
 }
+
 mod4_priors = {
     'alpha': beta(2, 5),
      'epsilon_A': beta(1.2, 1.2),
@@ -63,14 +64,18 @@ mod4_priors = {
 
 # gEconpy mod 5
 mod5_params = {
-    "sigma_C": 2,
-    "sigma_L": 1.5,
-    "alpha": .35,
-    "beta": .985,
-    "delta": .025,
-    "rho_A": .95,
-    "Theta": .75,
-    "psi": 8
+    'alpha': 0.35,
+     'beta': 0.99,
+     'delta': 0.02,
+     'eta_p': 0.75,
+     'gamma_R': 0.9,
+     'gamma_Y': 0.05,
+     'gamma_pi': 1.5,
+     'psi_p': 0.6,
+     'rho_A': 0.95,
+     'rho_pi_dot': 0.924,
+     'sigma_C': 1.5,
+     'sigma_L': 2.0
 }
 
 mod5_priors = {
@@ -86,41 +91,4 @@ mod5_priors = {
      'epsilon_T': beta(1.2, 1.2),
     'epsilon_Y': beta(1.2, 1.2),
     'epsilon_pi': beta(1.2, 1.2),
-}
-mod5_shocks = {
-    "epsilon": .22
-}
-
-mod6_params = {
-    "sigma_C": 1,
-    "sigma_L": 1,
-    "alpha": .35,
-    "beta": .985,
-    "delta": .025,
-    "rho_A": .95,
-    "Theta": .75,
-    "Theta_w": .75,
-    "psi": 8,
-    "psi_w": 21
-}
-
-
-mod7_params = {
-    'alpha': 0.35,
-     'beta': 0.99,
-     'delta': 0.025,
-     'eta_p': 0.75,
-     'eta_w': 0.75,
-     'gamma_I': 10.0,
-     'gamma_R': 0.9,
-     'gamma_Y': 0.05,
-     'gamma_pi': 1.5,
-     'phi_H': 0.5,
-     'psi_p': 0.6,
-     'psi_w': 0.782,
-     'rho_pi_dot': 0.924,
-     'rho_preference': 0.95,
-     'rho_technology': 0.95,
-     'sigma_C': 2.0,
-     'sigma_L': 1.5
 }

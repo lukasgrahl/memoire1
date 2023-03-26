@@ -4,7 +4,14 @@ from numba import jit, njit
 from scipy import linalg
 
 
-def solve_updated_mod(mod, verbose: bool = True) -> (bool, object):
+def solve_updated_mod(mod, verbose: bool = True, **kwargs) -> (bool, object):
+    """
+
+    :param mod:
+    :param verbose:
+    :param kwargs: solver, default is cycle_reduction, 'gensys' also supported
+    :return:
+    """
     # solve for steady state
     mod.steady_state(verbose=verbose)
     is_solved = mod.steady_state_solved
@@ -13,8 +20,9 @@ def solve_updated_mod(mod, verbose: bool = True) -> (bool, object):
 
     # solve model, capture np.LinAlgEr
     try:
-        mod.solve_model(verbose=verbose)
+        mod.solve_model(verbose=verbose, )
     except np.linalg.LinAlgError:
+        if verbose: print("LinAlg Erorr in solving")
         return False, mod
 
     # check blanchard kahn
@@ -57,6 +65,8 @@ def set_up_kalman_filter(R: np.array, T: np.array, observed_data: np.array, shoc
         -> (np.array, np.array, np.array, np.array, np.array, np.array):
     """
 
+    :param shock_names:
+    :param observed_data:
     :param R: gEconpy Model.R, shock covariance matrix
     :param T: gEconpy Model.T, policy matrix
     :param shocks_drawn_prior: dictionary containing shock: parameter value

@@ -43,12 +43,15 @@ def printProgBar(iteration, total, prefix = '', suffix = '', decimals = 1, lengt
     pass
 
 
-def get_most_recent_mod_output(path: str, mod_name: str) -> str:
+def get_most_recent_mod_output(path: str, mod_name: str, return_all: bool = False) -> str:
     mod_list = [item for item in os.listdir(path) if mod_name in item]
     if len(mod_list) == 0:
         raise KeyError('No model file found')
     else:
-        return mod_list[-1]
+        if return_all:
+            return mod_list
+        else:
+            return mod_list[-1]
 
 
 def get_confidence_interval(mu: np.array, cov: np.array, sigma=1.96):
