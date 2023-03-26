@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from itertools import groupby
 import datetime as dt
 from src.wrappers import skipna
@@ -48,3 +49,10 @@ def get_most_recent_mod_output(path: str, mod_name: str) -> str:
         raise KeyError('No model file found')
     else:
         return mod_list[-1]
+
+
+def get_confidence_interval(mu: np.array, cov: np.array, sigma=1.96):
+    assert len(mu) == len(cov), 'mu and cov do not correspond in legnth'
+    upper = mu + cov * 1.96
+    lower = mu - cov * 1.96
+    return upper, lower

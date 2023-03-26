@@ -2,6 +2,7 @@ from settings import DATA_DIR
 
 import os
 import numpy as np
+from scipy.stats import gamma, beta, norm
 
 # data to be pulled from FRED
 fred_dict = {
@@ -53,6 +54,12 @@ mod4_params = {
      'sigma_C': 1.5,
      'sigma_L': 2.0
 }
+mod4_priors = {
+    'alpha': beta(2, 5),
+     'epsilon_A': beta(1.2, 1.2),
+     'sigma_C': norm(2, 2),
+     'sigma_L': norm(2, 2),
+}
 
 # gEconpy mod 5
 mod5_params = {
@@ -64,6 +71,21 @@ mod5_params = {
     "rho_A": .95,
     "Theta": .75,
     "psi": 8
+}
+
+mod5_priors = {
+    'alpha': beta(2, 5),
+     'eta_p': beta(10, 3.4),
+    'gamma_R': gamma(4, 0, .5),
+    'gamma_Y': gamma(4, 0, .5),
+     'gamma_pi': gamma(4, 0, .5),
+     'epsilon_A': beta(1.2, 1.2),
+     'epsilon_R': beta(1.2, 1.2),
+     'sigma_C': norm(2, 2),
+     'sigma_L': norm(2, 2),
+     'epsilon_T': beta(1.2, 1.2),
+    'epsilon_Y': beta(1.2, 1.2),
+    'epsilon_pi': beta(1.2, 1.2),
 }
 mod5_shocks = {
     "epsilon": .22
