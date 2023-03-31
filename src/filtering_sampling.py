@@ -20,7 +20,7 @@ def solve_updated_mod(mod, verbose: bool = True, **kwargs) -> (bool, object):
 
     # solve model, capture np.LinAlgEr
     try:
-        mod.solve_model(verbose=verbose, )
+        mod.solve_model(verbose=verbose, **kwargs)
     except np.linalg.LinAlgError:
         if verbose: print("LinAlg Erorr in solving")
         return False, mod
@@ -166,3 +166,17 @@ def kalman_filter(R: np.array, T: np.array, state_variables: list, observed_vars
             return None, None, None, False
 
     return np.array(X_out), np.array(P), np.array(LL_out), solved
+
+
+def kalman_filter_forecast(kfilter, data):
+    mu, cov, ll = [], [], []
+    zs = data.copy()
+    for i, z in enumerate(zs):
+        kfilter.predict()
+        mu.append(kfilter.x)
+        cov.append(kfilter.P)
+
+        kfilter.update(z)
+        ll.append(kfilter.log_likelihood)
+
+    return np.array(mu), np.array(cov), np.array(ll)

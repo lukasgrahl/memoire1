@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from src.utils import all_equal, get_confidence_interval
 
 
-def plot_dfs(dfs_data: list, plotfunc, cols: int = 3, figsize: tuple = (14, 4), fill_arr=None,
+def plot_dfs(dfs_data: list, plotfunc, fig_title: str=None, cols: int = 3, figsize: tuple = (14, 4), fill_arr=None,
              legend: list = None, recs_lable='Recessions', dfs_cov: list=None, conf_sigma: float=1.96, **kwargs):
     # if single data frame put into list
     if type(dfs_data) != list: dfs_data = [dfs_data]
@@ -83,6 +83,7 @@ def plot_dfs(dfs_data: list, plotfunc, cols: int = 3, figsize: tuple = (14, 4), 
                     _ax.axvspan(t[0], t[1], alpha=.1, color='red')
 
     # if legend is not None: plt.legend()
+    if fig_title is not None: fig.suptitle(fig_title)
     fig.tight_layout()
     plt.show()
     pass
