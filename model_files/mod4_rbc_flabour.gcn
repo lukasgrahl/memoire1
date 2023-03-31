@@ -6,7 +6,7 @@
 
 tryreduce
 {
-#    U[] ;
+    U[], TC[];
 };
 
 
@@ -15,12 +15,12 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C));
+        u[] = C[] ^ (1 - sigma_C) / (1 - sigma_C) ; 
     };
 
     controls
     {
-        C[], K[];
+        C[], I[], K[];
     };
 
     objective
@@ -30,28 +30,36 @@ block HOUSEHOLD
 
     constraints
     {
-        C[] = r[] * ((K[] - Y[] + C[]) / (1 - delta)) : lambda[];
+        C[] + I[] = r[] * K[-1] : lambda[];
+        K[] = (1 - delta) * K[-1] + I[];
     };
 
     calibration
     {
-        beta  = 0.99;
+        beta  = 0.95;
         delta = 0.02;
 
-        sigma_C = 1.5;
-        sigma_L = 2.0;
+        sigma_C = .8;
+        sigma_L = .8;
     };
 };
 
 block FIRM
 {
+    
     identities
     {
-        r[] = (1 - alpha) * (A[] / K[]) ^ alpha ;
+
+        r[] = (1 - alpha) * (A[] / K[]) ^ alpha;
+
         Y[] = A[] ^ alpha * K[-1] ^ (1 - alpha) ;
     };
-};
 
+    calibration
+    {
+        alpha = 0.4;
+    };
+};
 
 block TECHNOLOGY_SHOCKS
 {
@@ -71,4 +79,3 @@ block TECHNOLOGY_SHOCKS
         sigma_epsilon_A = 0.05;
     };
 };
-
