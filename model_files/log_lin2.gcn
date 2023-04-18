@@ -1,0 +1,78 @@
+
+block EQUILIBRIUM
+{
+	identities
+	{
+
+		Y[] = omega * (sigma * E[][ Y[1] ] + (1 - beta) * phi_pi * E[][ pi[1] ]) + omega * (r[] - v[]) ;
+
+		pi[] = omega * (sigma * kappa * E[][ Y[1] ] + (kappa + beta * ( sigma + phi_y ) ) * E[][ pi[1] ] ) + omega * kappa * (r[] - v[]) ;
+
+		r[] = rho + sigma * psi_ya * E[][a[1] - a[]] ;
+
+
+	};
+
+	calibration
+	{
+	
+		sigma = 1 ; # consumption elasticity
+		phi = 1 ; # labour elasticity
+		phi_y = 1.5 ; # CB 
+		phi_pi = .125 ; # CB
+		alpha = .35 ; # capital share
+		theta = .66 ; # calvo number
+		epsilon = 6 ; # production function aggregator - desired mark-up
+		beta = .99 ; # time discount
+#		eta = 4 ; 
+
+
+		omega = 1 / (sigma + phi_y + phi_pi * kappa) ;
+		kappa = Lambda * (sigma + (phi + alpha) / (1 - alpha)) ;
+		Lambda = ((1 - theta) * (1 - beta * theta) / theta) * Theta ; 
+		Theta = (1 - alpha) / (1 - alpha + alpha * epsilon) ;
+		psi_ya = (1 + phi) / (sigma * (1 - alpha) + phi + alpha) ;
+		rho = - log(beta) ;
+	};
+	
+};
+
+
+block TECHNOLOGY_SHOCK
+{
+    identities
+    {
+        a[] = rho_v * a[-1] + epsilon_a[];
+    };
+
+    shocks
+    {
+        epsilon_a[] ;
+    };
+
+    calibration
+    {
+        rho_a = 0.8;
+        sigma_epsilon_a = 0.05 ;
+    };
+};
+
+
+block MONETARY_SHOCK
+{
+    identities
+    {
+        v[] = rho_v * v[-1] + epsilon_v[];
+    };
+
+    shocks
+    {
+        epsilon_v[] ;
+    };
+
+    calibration
+    {
+        rho_v = 0.5;
+        sigma_epsilon_v = 0.0625;
+    };
+};
