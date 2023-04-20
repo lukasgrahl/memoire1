@@ -1,10 +1,3 @@
-# --------------------------------------------------------------
-# New Keynsian Model with
-#	preference shocks, 
-# Reference: Smets Wouters
-# Author: Lukas A. Grahl
-# --------------------------------------------------------------
-
 options
 {
     output logfile = TRUE;
@@ -26,7 +19,7 @@ assumptions
 
 	positive
 	{
-		delta, beta, sigma_C, sigma_L, gamma_I, phi_H;
+		delta, beta, sigma_C, sigma_L;
 	};
 };
 
@@ -35,7 +28,7 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = shock_preference[] * ((C[] - phi_H * C[-1]) ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L));
+        u[] = C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L);
     };
     controls
     {
@@ -49,13 +42,9 @@ block HOUSEHOLD
 
     constraints
     {
-        C[] + I[] + B[] / r_G[]  =
-			  r[] * K[-1] +
-			  w[] * L[] +
-			  B[-1] / pi[] +
-			  Div[] : lambda[];
+        C[] + I[] + B[] / r_G[]  = r[] * K[-1] + w[] * L[] + B[-1] / pi[] + Div[] : lambda[];
 
-		K[] = (1 - delta) * K[-1] + I[] * (1 - gamma_I / 2 * (I[] / I[-1] - 1) ^ 2) : q[];
+		K[] = (1 - delta) * K[-1] + I[] : q[];
     };
 
     calibration
@@ -63,67 +52,9 @@ block HOUSEHOLD
         delta = 0.025;
         beta = 0.99;
 
-#        sigma_C = 2;
-#        sigma_L = 1.5;
-
-        sigma_C ~ N(loc=2.0, scale=2.0, lower=1.0) = 1.5;
-        sigma_L ~ N(loc=2.0, scale=2.0, lower=1.0) = 2.0;
-
-		gamma_I = 10;
-		phi_H = 0.5;
+        sigma_C = 2;
+        sigma_L = 1.5;
     };
-};
-
-block WAGE_SETTING
-{
-	definitions
-	{
-		L_d_star[] = (w[] / w_star[]) ^ ((1 + psi_w) / psi_w) * L[];
-	};
-
-	identities
-	{
-		LHS_w[] = RHS_w[];
-
-		# Equation 23
-		LHS_w[] =  1 / (1 + psi_w) * w_star[] * lambda[] * L_d_star[] + beta * eta_w * E[][pi[1] * (w_star[1] / w_star[]) ^ (1 / psi_w) * LHS_w[1]];
-
-		RHS_w[] = shock_preference[] * L_d_star[] ^ (1 + sigma_L) + beta * eta_w * E[][(pi[1] * w_star[1] / w_star[]) ^ ((1 + psi_w) * (1 + sigma_L) / psi_w) * RHS_w[1]];
-
-	};
-
-	calibration
-	{
-		psi_w	= 0.782;	# Elasticity of substitution between forms of labor
-		eta_w	= 0.75;		# Probability of not receiving the update signal
-	};
-};
-
-block WAGE_EVOLUTION
-{
-	identities
-	{
-		1 = eta_w * (pi[] * w[] / w[-1]) ^ (1 / psi_w) + (1 - eta_w) * (w[] / w_star[]) ^ (1 / psi_w);
-	};
-};
-
-
-block PREFERENCE_SHOCKS
-{
-	identities
-	{
-		log(shock_preference[]) = rho_preference * log(shock_preference[-1]) + epsilon_preference[];
-	};
-
-	shocks
-	{
-		epsilon_preference[];
-	};
-
-	calibration
-	{
-		rho_preference = 0.95;
-	};
 };
 
 
@@ -136,7 +67,7 @@ block FIRM
 
     objective
     {
-        TC[] = -(L[] * w[] + K[-1] * r[]) + shock_energy[];
+        TC[] = -(L[] * w[] + K[-1] * r[]);
     };
 
     constraints
@@ -155,22 +86,6 @@ block FIRM
     };
 };
 
-block ENERGY_SHOCK
-{
-    identities
-    {
-        log(shock_energy[]) = rho_energy * log(shock_energy[-1]) + epsilon_T[];
-    };
-    shocks
-    {
-        epsilon_T[];
-    };
-    calibration
-    {
-        rho_energy = 0.95;
-    };
-};
-
 
 block TECHNOLOGY_SHOCKS
 {
@@ -184,7 +99,7 @@ block TECHNOLOGY_SHOCKS
     };
     calibration
     {
-        rho_technology ~ Beta(mean=0.95, sd=0.04) = 0.95;
+        rho_technology = 0.95;
     };
 };
 
@@ -242,7 +157,7 @@ block MONETARY_POLICY
 		gamma_pi = 1.5;
 		gamma_Y = 0.05;
 		pi_obj[ss]	= 1	-> phi_pi_obj;
-		pi[ss]		= pi_obj[ss] -> phi_pi;
+		pi[ss]		= pi_obj[ss]-> phi_pi;
 		rho_pi_dot	= 0.924;
 	};
 };

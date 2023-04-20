@@ -31,6 +31,8 @@ block HOUSEHOLD
     calibration
     {
         beta  = 0.99;
+        delta = 0.02;
+
         sigma_C = 1.5;
         sigma_L = 2.0;
     };
@@ -50,7 +52,7 @@ block FIRM
 
     constraints
     {
-        Y[] = A[] * L[] ^ (1 - alpha) : mc[];
+        Y[] = A[] * L[] ^ (1 - alpha)  * O[] ^ alpha : mc[];
     };
 
     calibration
@@ -76,6 +78,26 @@ block TECHNOLOGY_SHOCKS
         rho_A = 0.95;
     };
 };
+
+
+block OIL_PRICE_SHOCKS
+{
+    identities
+    {
+        log(O[]) = rho_O * log(O[-1]) + epsilon_O[];
+    };
+
+    shocks
+    {
+        epsilon_O[] ;
+    };
+
+    calibration
+    {
+        rho_O = 0.95;
+    };
+};
+
 
 block FIRM_PRICE_SETTING_PROBLEM
 {

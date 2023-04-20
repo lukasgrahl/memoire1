@@ -15,7 +15,7 @@ block HOUSEHOLD
 
     controls
     {
-        C[], L[], B[];
+        C[], L[], B[], K[];
     };
 
     objective
@@ -26,11 +26,14 @@ block HOUSEHOLD
     constraints
     {
         C[] + I[] + B[] / r[] = w[] * L[] + B[-1] / pi[] : lambda[];
+        I[] = K[1] - (1 - delta) * K[] ;
     };
 
     calibration
     {
         beta  = 0.99;
+        delta = 0.02;
+
         sigma_C = 1.5;
         sigma_L = 2.0;
     };

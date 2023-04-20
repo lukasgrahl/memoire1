@@ -17,6 +17,9 @@ declarations:
 equations:
   model:
     # Phillips Curve
+
+    ~ y = omega * (sigma * y(+1) + (1 - beta) * phi_pi * pi(+1)) + omega * (r - v) 
+
     - Pi = beta*Pi(+1) + kappa*y - z
 
     # Euler Equation
