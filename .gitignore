@@ -130,6 +130,7 @@ dmypy.json
 
 # exclude folders
 /env_memoire1
+/env_macro_rbc
 /data
 .idea/
 /model_files/arch
