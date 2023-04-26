@@ -1,0 +1,136 @@
+
+block HOUSEHOLD
+{
+	definitions
+	{
+		u[] = log(C[]) - L[] ^ (1 + sigma_L) / (1 + sigma_L) ;
+	};
+
+	controls
+	{
+		Ce[], Cq[], K[], B[] ;
+	};
+
+	objective
+	{
+		U[] = u[] + beta * E[][ U[1] ] ;
+	};
+
+	constraints
+	{
+		Pe[] * Ce[] + Pq[] * Cq[] + Pk[] * (K[1] - (1 - delta) * K[]) + B[] = (1 + i[-1]) * B[-1] + W[] * L[] + r[] * Pk[] * K[] + T[] + Div[] ;
+	};
+
+	calibration
+	{
+		beta = .99 ;
+		sigma_L = 1 ;
+		delta = .02 ;
+
+	};
+};
+
+block FIRM
+{
+	controls
+	{
+		K[], L[] ;
+	};
+
+	objective
+	{
+		TC[] = - (L[] * w[] + Pk[] * r[] * K[] + Pe[] * O[]) ;
+	};
+
+	constraints
+	{
+		Y[] = A[] * O[] ^ alpha_O * L[] ^ alpha_L * K[] ^ alpha_K : mc[] ;
+	};	
+
+	identities
+	{
+		Div[] = Y[] + TC[] ;
+	};
+
+	calibration
+	{
+		alpha_O = .33 ;
+		alpha_L = .33 ;
+		alpha_K = .33 ;
+	};
+};
+
+
+block TECHNOLOGY_SHOCKS
+{
+    identities
+    {
+        log(A[]) = rho_technology * log(A[-1]) + epsilon_Y[];
+    };
+    shocks
+    {
+        epsilon_Y[];
+    };
+    calibration
+    {
+        rho_technology = 0.95;
+    };
+};
+
+block FIRM_PRICE_SETTING_PROBLEM
+{
+	identities
+	{
+		LHS[] = (1 + psi_p) * RHS[];
+
+		LHS[] = lambda[] * Y[] * pi_star[] + beta * eta_p * E[][ pi_star[] / pi_star[1] * pi[1] ^ (1 / psi_p) * LHS[1] ];
+
+		RHS[] = lambda[] * mc[] * Y[] + beta * eta_p * E[][ pi[1] ^ ((1 + psi_p) / psi_p) * RHS[1] ];
+
+		pi[] = Pq[] / Pq[-1] ;
+	};
+
+	calibration
+	{
+		psi_p   = 0.6;
+		eta_p   = 0.75;
+	};
+};
+
+
+block PRICE_EVOLUTION
+{
+	identities
+	{
+		1 = eta_p * pi[] ^ (1 / psi_p) + (1 - eta_p) * pi_star[] ^ (-1 / psi_p);
+	};
+};
+
+block MONETARY_POLICY
+{
+	identities
+	{
+
+		i[] = 1 / beta * (pi[]) ^ phi_pi * (Y[] / Y[ss]) ^ phi_y * epsilon_R[] ;
+
+	};
+
+	shocks
+	{
+		epsilon_R[], epsilon_pi[] ;
+	};
+
+	calibration
+	{
+		phi_pi = .9 ;
+		phi_y = .05 ;
+	};
+};
+
+block EQUILIBRIUM
+{
+	identities
+	{
+		B[ss] = 0 ;
+	};	
+};

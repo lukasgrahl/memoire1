@@ -1,7 +1,11 @@
 import numpy as np
 import pandas as pd
-from numba import jit, njit
+# from numba import jit, njit
 from scipy import linalg
+
+import arviz as az
+
+az.compare
 
 
 def solve_updated_mod(mod, verbose: bool = True, **kwargs) -> (bool, object):
@@ -13,7 +17,7 @@ def solve_updated_mod(mod, verbose: bool = True, **kwargs) -> (bool, object):
     :return:
     """
     # solve for steady state
-    mod.steady_state(verbose=verbose)
+    mod.steady_state(verbose=verbose, **kwargs)
     is_solved = mod.steady_state_solved
     if not is_solved:
         return False, mod
@@ -80,6 +84,9 @@ def set_up_kalman_filter(R: np.array, T: np.array, observed_data: np.array, shoc
     _ = [item for item in shock_names if item not in shocks_drawn_prior.keys()]
     assert len(_) == 0, f"The following shocks have no defined priors {_}"
 
+    _ = [item for item in observed_vars if item not in state_variables]
+    assert len(_) == 0, f"The following variables are not contained in the model specification {_}"
+
     xdim = len(state_variables)
     zdim = len(observed_vars)
 
@@ -92,7 +99,7 @@ def set_up_kalman_filter(R: np.array, T: np.array, observed_data: np.array, shoc
     return H, Z, T, R, QN, zs
 
 
-@njit
+# @njit
 def kalman_predict(x, P, T, QN) -> (np.array, np.array):
     # predict
     x_pred = T @ x

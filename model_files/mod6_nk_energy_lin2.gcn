@@ -1,0 +1,96 @@
+#block STEADY_STATE
+#{
+#	identities
+#	{
+#		Y[ss] = - lambda_pi / kappa ;
+#		pi[ss] = 0 ;
+#		i[ss] = 0 ;
+#	};
+#}; 
+
+block LINEAR_MODEL
+{
+	identities
+	{
+
+		# NKP
+		pi[] = beta * E[][ pi[1] ] + kappa * Y[] + lambda_p * Gamma_s * S[] ;
+
+		# Euler with Y[]
+		Y[] = E[][ Y[1] ] - (i[] - E[][ pi[1] ]) + alpha_m * (1 - rho_s) / (1 - alpha_m) * S[] ;
+
+		# monetary policy
+		i[] = phi_pi * pi[] ;
+
+		# real interest rate
+		r[] = i[] + pi[] ;
+
+
+		# consumer price index
+		CPI[] = pi[] + X * (S[] - S[-1]) ;
+
+		# consumption
+		C[] = Y[] ;
+
+
+	};
+
+
+	calibration
+	{
+
+		alpha_m = .4 ;
+		alpha_n = .4 ;
+		
+		beta = .995 ; # time discount factor
+
+		gamma = .1 ; # real wage rigidity, at gamma = 0 -> w[] = mrs
+
+		phi_pi = 1.1 ; # CB monetary policy
+
+		theta = .75 ; # Calvo pricing
+
+		epsilon = 1 ; # elasticity of substiution between domestic goods and consumption
+
+		X = 0.03 ; # natural share of oil in consumpition
+
+		M = 3 ; # average mark-up
+
+				
+		# Aggregated parameters
+
+		eta = alpha_m / (M - alpha_m) ;
+
+		Gamma_n = ((1 - alpha_n - alpha_m) * gamma + (1 - alpha_m) * (1 - gamma) * (1 + phi_pi)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m) * eta)) ;
+
+		Gamma_a = gamma / ( 1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta) ;
+
+		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * X)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
+
+
+		lambda_p = ((1 - theta) * (1 - beta * theta) / theta) / (1 + (1 - alpha_m + alpha_n) * (epsilon - 1)) ;
+
+		kappa = lambda_p * Gamma_n * (1 - alpha_m) / alpha_m ;
+
+	};
+
+};
+
+block OIL_PRICE_SHOCK
+{
+    identities
+    {	
+    	# real price of oil law of motion 
+        S[] = rho_s * S[-1] + epsilon_s[];
+    };
+    shocks
+    {
+        epsilon_s[];
+    };
+    calibration
+    {
+    rho_s = .9 ; # AR(1) parameter real oil price
+    };
+};
+
+

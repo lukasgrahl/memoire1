@@ -1,0 +1,83 @@
+block LINEAR_MODEL
+{
+	identities
+	{
+		# Euler Equation
+		c[] =  E[][ c[+1] ] - ( i[] - pi_[+1]) ;
+
+		
+		# consumer price inflation
+		pi_c[] = p_c[] - p_c[-1] ;
+
+
+		# labour supply
+		w[] - p[] = (1 - gamma) * (phi * n[] + c[]) ;
+
+		# GPD deflator
+		p_y[] = p_q[] - alpha_m / (1 - alpha_m) * s[] ;
+
+		# value added
+		y[] = q[] + alpha_m / (1 - alpha_m) * (a[] + alpha_n * n[]) ;
+
+		# real price of oil
+		s[] = p_m[] - pq[] ;
+
+		# technology shock
+		a[] = rho_a * a[] + epsilon_a[]
+		
+
+
+		# Final system of equations
+
+		# real price of oil law of motion 
+		s[] = rho_s * s[] + epsilon_s[] ;
+
+		# NKP
+		pi_q[] = beta * E[][ pi_q[+1] ] + kappa * y[] + lambda_p * Gamma_s * s[] ;
+
+		# Euler with y[]
+		y[] = E[][ y[+1] ] - (i[] - E[][ pi_q[+1] ]) + alpha_m * (1 - rho_s) / (1 - alpha) * s[];
+
+		# monetary policy
+		i[] = phi_pi * pi_q[] ;
+
+		
+
+	};	
+
+	calibration
+	{
+		sigma = 1 ; # HH risk aversion 
+		h = .1 ; # habit formation
+		
+		beta = .995 ; # time discount factor
+
+		gamma = .1 ; # real wage rigidity, at gamma = 0 -> w[] = mrs
+
+		phi_pi = 1.1 ; # CB monetary policy
+
+		theta = .75 ; # Calvo pricing
+		epsilon = 1 ; # elasticity of substiution between domestic goods and consumption
+		X = ; #
+
+
+		eta = alpha_m / (M - alpha_m) ;
+
+		Gamma_n = (1 - alpha_n - alpha_m) * gamma + (1 - alpha_m) * (1 - gamma) * (1 + phi)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m) * eta)) ;
+
+		Gamma_a = gamma / ( 1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta) ;
+
+		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * X)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
+
+
+		lambda_p = ((1 - theta) * (1 - beta*theta) / theta) / (1 + (1 - alpha_m - alpha_n) * (epsilon - 1))
+
+		kappa = lambda_p * Gamma_n * (1 - alpha_m) / alpha_m ;
+
+	};
+};
+
+block TECH_SHOCK
+{
+	
+};

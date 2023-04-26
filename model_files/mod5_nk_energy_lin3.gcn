@@ -1,0 +1,90 @@
+#block STEADY_STATE
+#{
+#	identities
+#	{
+#		y[ss] = - lambda_pi / kappa ;
+#		pi_q[ss] = 0 ;
+#		i[ss] = 0 ;
+#	};
+#}; 
+
+block LINEAR_MODEL
+{
+	identities
+	{
+
+		# pi_q
+		pi_q[] = psi_pi * s[] ;
+
+		y[] = psi_y * s[] ;
+
+		pi_c[] = psi_pi * s[] + X * (s[] - s[-1]) ;
+
+		n[] = psi_y * (1 - alpha_m) / alpha_n * s[] ;
+
+	};
+
+
+	calibration
+	{
+
+		alpha_m = .4 ;
+		alpha_n = .4 ;
+		
+		beta = .995 ; # time discount factor
+
+		gamma = .1 ; # real wage rigidity, at gamma = 0 -> w[] = mrs
+
+		phi_pi = 1.1 ; # CB monetary policy
+
+		theta = .75 ; # Calvo pricing
+
+		epsilon = 1 ; # elasticity of substiution between domestic goods and consumption
+
+		X = 0.023 ; # natural share of oil in consumpition
+
+		M = 3 ; # average mark-up
+
+		# Aggregated parameters 1st order
+
+		eta = alpha_m / (M - alpha_m) ;
+
+		Gamma_n = ((1 - alpha_n - alpha_m) * gamma + (1 - alpha_m) * (1 - gamma) * (1 + phi_pi)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m) * eta)) ;
+
+		Gamma_a = gamma / ( 1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta) ;
+
+		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * X)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
+
+
+		lambda_p = ((1 - theta) * (1 - beta * theta) / theta) / (1 + (1 - alpha_m + alpha_n) * (epsilon - 1)) ;
+
+		kappa = lambda_p * Gamma_n * (1 - alpha_m) / alpha_m ;
+
+
+		# Aggregation second order
+
+		psi_pi = ((1 - rho_s) * (kappa * alpha_m / (1 - alpha_m) + lambda_p * Gamma_s) ) / ( (1 - rho_s) * (1 - beta * rho_s) + (phi_pi - rho_s) * kappa ) ;
+
+		psi_y = ( alpha_m / (1 - alpha_m) * (1 - rho_s) * (1 - beta * rho_s) - 
+				(phi_pi - rho_s) * lambda_p * Gamma_s ) / ((1 - rho_s) * (1 - beta * rho_s) + (phi_pi - rho_s) * kappa) ;	
+		
+	};
+
+};
+
+block TECHNOLOGY_SHOCKS
+{
+    identities
+    {	
+    	# real price of oil law of motion 
+        s[] = rho_s * s[-1] + epsilon_s[];
+    };
+    shocks
+    {
+        epsilon_s[];
+    };
+    calibration
+    {
+    rho_s = .9 ; # AR(1) parameter real oil price
+    };
+};

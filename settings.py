@@ -5,3 +5,5 @@ DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
 POST_EST_DIR = os.path.join(DATA_DIR, 'posterior_est_out')
 MODEL_DIR = os.path.join(PROJECT_ROOT, 'model_files')
 GRAHP_DIR = os.path.join(PROJECT_ROOT, 'latex', 'graphs')
+
+print(f'Current venv: {os.environ["VIRTUAL_ENV"]}')

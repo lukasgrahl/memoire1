@@ -2,6 +2,7 @@ from statsmodels.tsa.arima.model import ARIMA
 import pandas as pd
 import numpy as np
 
+
 def get_arma_model(train_ser: pd.Series, test_ser: pd.Series, order=(2, 1)):
     col = train_ser.name
     arima = ARIMA(train_ser.values, order=(order[0], 0, order[1]))

@@ -34,7 +34,7 @@ block HOUSEHOLD
     };
     controls
     {
-		C[], I[], K[], B[];
+		C[], I[], K[], B[] ;
     };
 
     objective

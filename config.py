@@ -2,7 +2,7 @@ from settings import DATA_DIR
 
 import os
 import numpy as np
-from scipy.stats import gamma, beta, norm
+from scipy.stats import gamma, beta, norm, lognorm
 
 # data to be pulled from FRED
 fred_dict = {
@@ -80,15 +80,42 @@ mod5_params = {
 
 mod5_priors = {
     'alpha': beta(2, 5),
-     'eta_p': beta(10, 3.4),
+    'eta_p': beta(10, 3.4),
     'gamma_R': gamma(4, 0, .5),
     'gamma_Y': gamma(4, 0, .5),
-     'gamma_pi': gamma(4, 0, .5),
-     'epsilon_A': beta(1.2, 1.2),
-     'epsilon_R': beta(1.2, 1.2),
-     'sigma_C': norm(2, 2),
-     'sigma_L': norm(2, 2),
-     'epsilon_T': beta(1.2, 1.2),
-    'epsilon_Y': beta(1.2, 1.2),
-    'epsilon_pi': beta(1.2, 1.2),
+    'gamma_pi': gamma(4, 0, .5),
+    'epsilon_A': beta(1.2, 1.2),
+    'epsilon_R': beta(1.2, 1.2),
+    'sigma_C': norm(2, 2),
+    'sigma_L': norm(2, 2),
+    'epsilon_T': beta(1.1, 8),
+    'epsilon_Y': beta(1.1, 8),
+    'epsilon_pi': beta(1.1, 8)
+}
+
+# model 6
+mod6_params = {
+    'alpha': 0.35,
+     'beta': 0.99,
+     'delta': 0.02,
+     'eta_p': 0.75,
+     'gamma_R': 0.9,
+     'gamma_Y': 0.05,
+     'gamma_pi': 1.5,
+     'psi_p': 0.6,
+     'rho_A': 0.95,
+     'rho_pi_dot': 0.924,
+     'sigma_C': 1.5,
+     'sigma_L': 2.0
+}
+
+mod6_priors = {
+    'alpha_m': beta(2, 5),
+    'alpha_n': beta(2, 5),
+    'M': lognorm(scale=7.38905609893065, s=0.7),
+    'gamma_pi': gamma(4, 0, .5),
+    'epsilon': beta(1.2, 1.2),
+    'sigma_C': norm(2, 2),
+    'sigma_L': norm(2, 2),
+    'epsilon_s': beta(1.2, 1.2),
 }

@@ -42,7 +42,7 @@ block HOUSEHOLD
 
     constraints
     {
-        C[] + I[] + B[] / r_G[]  = r[] * K[-1] + w[] * L[] + B[-1] / pi[] + Div[] : lambda[];
+        C[] + I[] + B[] / r[]  = r[] * K[-1] + w[] * L[] + B[-1] / pi[] + Div[] : lambda[];
 
 		K[] = (1 - delta) * K[-1] + I[] : q[];
     };
@@ -136,7 +136,7 @@ block MONETARY_POLICY
 {
 	identities
 	{
-		log(r_G[] / r_G[ss]) + phi_pi = gamma_R * log(r_G[-1] / r_G[ss]) +
+		log(r[] / r[ss]) + phi_pi = gamma_R * log(r[-1] / r[ss]) +
 			(1 - gamma_R) * log(pi_obj[]) +
 			(1 - gamma_R) * gamma_pi * log(pi[] / pi[ss] - log(pi_obj[])) +
 			(1 - gamma_R) * gamma_Y * log(Y[] / Y[-1]) +

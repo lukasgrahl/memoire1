@@ -4,61 +4,151 @@ tryreduce
     TC[];
 };
 
-
-
 block HOUSEHOLD
 {
     definitions
     {
-        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L));
+        u[] = log(C[]) - L[] ^ (1 + sigma_L) / (1 + sigma_L) ;
     };
 
     controls
     {
-        C[], L[], B[], K[];
+        C[], L[], I[], K[], B[] ;
     };
 
     objective
     {
-        U[] = u[] + beta * E[][U[1]];
+        U[] = u[] + beta * E[][U[1]] ;
     };
 
     constraints
     {
-        C[] + I[] + B[] / r[] = w[] * L[] + B[-1] / pi[] + r[] * K[-1] : lambda[];
-        K[] = (1 - delta) * K[-1] + I[] ;
+        CPI[] * C[] + Pk[] * I[] + B[] = (1 + i[-1]) * B[-1] + W[] * L[] + r[] * Pk[] * K[-1] + Div[] : lambda[] ;
+
+        I[] = K[] - (1 - delta) * K[-1] ;
     };
 
     calibration
     {
-        beta  = 0.99;
-        delta = 0.01;
-
-        sigma_C = 1.5;
-        sigma_L = 2.0;
+        beta  = 0.99 ;
+        sigma_L = 1.5 ;
+        delta = 0.025 ;
     };
 };
+
+
+block PRODUCTION
+{
+    objective
+    {
+        ProTC[] = - (Pq[] * Cq[] + Po[] * Co[]) ;
+    };
+
+    controls
+    {
+        Co[], Cq[] ;
+    };
+
+    constraints
+    {
+        C[] = x ^ (-x) * (1 - x) ^ (1 - x) * Cq[] ^ x * Co[] ^ (1 - x) : CPI[] ;
+    };  
+
+    calibration
+    {   
+        x = 0.03 ; # equilibrium share of oil consumption
+    };
+};
+
 
 block FIRM
 {
     controls
     {
-        L[];
+        L[], K[-1], O[] ;
     };
 
     objective
     {
-        TC[] = -(w[] * L[]);
+        TC[] = -(W[] * L[] + r[] * K[-1] + Po[] * O[]) ;
     };
 
     constraints
     {
-        Y[] = A[] * L[] ^ (1 - alpha) : mc[];
+        Y[] = A[] * O[] ^ alpha_O * K[-1] ^ alpha_K * L[] ^ alpha_L  : mc[] ;
+    };
+
+    identities
+    {
+        Div[] = Y[] + TC[] ;
     };
 
     calibration
     {
-        alpha = 0.35;
+        alpha_O = 0.3 ;
+        alpha_K = 0.35 ;
+        alpha_L = 0.3 ;
+    };
+};
+
+
+block FIRM_PRICE_SETTING_PROBLEM
+{
+    identities
+    {
+        LHS[] = (1 + psi_p) * RHS[];
+
+        LHS[] = lambda[] * Y[] * pi_star[] + beta * eta_p * E[][pi_star[] / pi_star[1] * pi[1] ^ (1 / psi_p) * LHS[1]];
+
+        RHS[] = lambda[] * mc[] * Y[] + beta * eta_p * E[][pi[1] ^ ((1 + psi_p) / psi_p) * RHS[1]];
+
+        pi[] = Pq[] / Pq[-1] ;
+    };
+
+    calibration
+    {
+        psi_p   = 8 ;
+        eta_p   = 0.5 ;
+    };
+};
+
+block PRICE_EVOLUTION
+{
+    identities
+    {
+        1 = eta_p * pi[] ^ (1 / psi_p) + (1 - eta_p) * pi_star[] ^ (-1 / psi_p) ;
+    };
+
+};
+
+
+block MONETARY_POLICY
+{
+    identities
+    {
+
+        log(i[] / i[ss]) + phi_pi = (1 - gamma_R) * log(pi_obj[]) +
+                                    (1 - gamma_R) * gamma_pi * log(pi[] / pi[ss] - log(pi_obj[])) +
+                                    (1 - gamma_R) * gamma_Y * log(Y[] / Y[-1]) +
+                                    epsilon_R[];
+
+        log(pi_obj[]) = (1 - rho_pi_dot) * log(phi_pi_obj) + rho_pi_dot * log(pi_obj[-1]) + epsilon_pi[];
+    };
+
+    shocks
+    {
+        epsilon_R[], epsilon_pi[];
+    };
+
+
+    calibration
+    {
+        gamma_R = 0.5 ;
+        gamma_pi = 1 ;
+        gamma_Y = 0.9 ;
+        pi_obj[ss]  = 1 -> phi_pi_obj;
+        pi[ss]      = pi_obj[ss] -> phi_pi;
+        rho_pi_dot  = 0.924;
     };
 };
 
@@ -80,60 +170,40 @@ block TECHNOLOGY_SHOCKS
     };
 };
 
-block FIRM_PRICE_SETTING_PROBLEM
+
+block EXOGENEOUS_OIL_PRICE
 {
     identities
     {
-        LHS[] = (1 + psi_p) * RHS[];
-
-        LHS[] = lambda[] * Y[] * pi_star[] + beta * eta_p * E[][pi_star[] / pi_star[1] * pi[1] ^ (1 / psi_p) * LHS[1]];
-
-        RHS[] = lambda[] * mc[] * Y[] + beta * eta_p * E[][pi[1] ^ ((1 + psi_p) / psi_p) * RHS[1]];
-    };
-
-    calibration
-    {
-        psi_p   = 0.6;
-        eta_p   = 0.75;
-    };
-};
-
-block PRICE_EVOLUTION
-{
-    identities
-    {
-        1 = eta_p * pi[] ^ (1 / psi_p) + (1 - eta_p) * pi_star[] ^ (-1 / psi_p);
-    };
-};
-
-
-block MONETARY_POLICY
-{
-    identities
-    {
-        log(r[] / r[ss]) + phi_pi = gamma_R * log(r[-1] / r[ss]) +
-            (1 - gamma_R) * log(pi_obj[]) +
-            (1 - gamma_R) * gamma_pi * log(pi[] / pi[ss] - log(pi_obj[])) +
-            (1 - gamma_R) * gamma_Y * log(Y[] / Y[-1]) +
-            epsilon_R[];
-
-        log(pi_obj[]) = (1 - rho_pi_dot) * log(phi_pi_obj) + rho_pi_dot * log(pi_obj[-1]) + epsilon_pi[];
+        log(Po[]) = rho_Pe * log(Po[-1]) + epsilon_Pe[];
     };
 
     shocks
     {
-        epsilon_R[], epsilon_pi[];
+        epsilon_Pe[] ;
     };
-
 
     calibration
     {
-        gamma_R = 0.9;
-        gamma_pi = 1.5;
-        gamma_Y = 0.05;
-        pi_obj[ss]  = 1 -> phi_pi_obj;
-        pi[ss]      = pi_obj[ss] -> phi_pi;
-        rho_pi_dot  = 0.924;
+        rho_Pe = 0.95;
+    };
+};
+
+block EXOGENEOUS_CAPITAL_PRICE
+{
+    identities
+    {
+        log(Pk[]) = rho_Pk * log(Pk[-1]) + epsilon_Pk[];
+    };
+
+    shocks
+    {
+        epsilon_Pk[] ;
+    };
+
+    calibration
+    {
+        rho_Pk = 0.95;
     };
 };
 
@@ -142,6 +212,5 @@ block EQUILIBRIUM
     identities
     {
         B[] = 0;
-        Y[] = C[] ;
     };
 };
