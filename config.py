@@ -6,7 +6,7 @@ from scipy.stats import gamma, beta, norm, lognorm
 
 # data to be pulled from FRED
 fred_dict = {
-    'Y':   ['GDP', "Gross Domestic Product"],
+    'Y': ['GDP', "Gross Domestic Product"],
     'Y_p': ['GDPPOT', 'Real Potential Gross Domestic Product'],
     'pi_s': ['CORESTICKM159SFRBATL', 'Sticky Price Consumer Price Index less Food and Energy'],
     'pi_c': ['MEDCPIM158SFRBCLE', 'Median Consumer Price Index (core inflation)'],
@@ -28,16 +28,16 @@ fred_end = "12/31/2022"
 
 # matplotlib config
 plt_config = {
-    'figure.figsize':(10,3),
-    'figure.dpi':144,
-    'figure.facecolor':'white',
-    'axes.grid':True,
-    'grid.linestyle':'--',
-    'grid.linewidth':0.5,
-    'axes.spines.top':False,
-    'axes.spines.bottom':False,
-    'axes.spines.left':False,
-    'axes.spines.right':False
+    'figure.figsize': (10, 3),
+    'figure.dpi': 144,
+    'figure.facecolor': 'white',
+    'axes.grid': True,
+    'grid.linestyle': '--',
+    'grid.linewidth': 0.5,
+    'axes.spines.top': False,
+    'axes.spines.bottom': False,
+    'axes.spines.left': False,
+    'axes.spines.right': False
 }
 
 # dictionary of recessions in the US economy, pulled from FRED through main.py
@@ -47,35 +47,35 @@ recession_dict = np.load(os.path.join(DATA_DIR, 'recessions_periods.npy'))
 ## DSGE PARAMS
 
 mod4_params = {'alpha': 0.35,
-                 'beta': 0.99,
-                 'delta': 0.02,
-                 'rho_A': 0.95,
-                 'sigma_C': 1.5,
-                 'sigma_L': 2.0,
-                 'sigma_epsilon_A': 0.05
-}
+               'beta': 0.99,
+               'delta': 0.02,
+               'rho_A': 0.95,
+               'sigma_C': 1.5,
+               'sigma_L': 2.0,
+               'sigma_epsilon_A': 0.05
+               }
 
 mod4_priors = {
     'alpha': beta(2, 5),
-     'epsilon_A': beta(1.2, 1.2),
-     'sigma_C': norm(2, 2),
-     'sigma_L': norm(2, 2),
+    'epsilon_A': beta(1.1, 10),
+    'sigma_C': norm(2, 2),
+    'sigma_L': norm(2, 2),
 }
 
 # gEconpy mod 5
 mod5_params = {
     'alpha': 0.35,
-     'beta': 0.99,
-     'delta': 0.02,
-     'eta_p': 0.75,
-     'gamma_R': 0.9,
-     'gamma_Y': 0.05,
-     'gamma_pi': 1.5,
-     'psi_p': 0.6,
-     'rho_A': 0.95,
-     'rho_pi_dot': 0.924,
-     'sigma_C': 1.5,
-     'sigma_L': 2.0
+    'beta': 0.99,
+    'delta': 0.02,
+    'eta_p': 0.75,
+    'gamma_R': 0.9,
+    'gamma_Y': 0.05,
+    'gamma_pi': 1.5,
+    'psi_p': 0.6,
+    'rho_A': 0.95,
+    'rho_pi_dot': 0.924,
+    'sigma_C': 1.5,
+    'sigma_L': 2.0
 }
 
 mod5_priors = {
@@ -88,26 +88,23 @@ mod5_priors = {
     'epsilon_R': beta(1.2, 1.2),
     'sigma_C': norm(2, 2),
     'sigma_L': norm(2, 2),
-    'epsilon_T': beta(1.1, 8),
-    'epsilon_Y': beta(1.1, 8),
-    'epsilon_pi': beta(1.1, 8)
+    'epsilon_T': beta(1.1, 10),
+    'epsilon_Y': beta(1.1, 10),
+    'epsilon_pi': beta(1.1, 10)
 }
 
 # model 6
 mod6_params = {
-    'alpha': 0.35,
-     'beta': 0.99,
-     'delta': 0.02,
-     'eta_p': 0.75,
-     'gamma_R': 0.9,
-     'gamma_Y': 0.05,
-     'gamma_pi': 1.5,
-     'psi_p': 0.6,
-     'rho_A': 0.95,
-     'rho_pi_dot': 0.924,
-     'sigma_C': 1.5,
-     'sigma_L': 2.0
-}
+    'M': 3.0,
+    'X': 0.03,
+    'alpha_m': 0.4,
+    'alpha_n': 0.4,
+    'beta': 0.995,
+    'epsilon': 1.0,
+    'gamma': 0.1,
+    'phi_pi': 1.1,
+    'rho_s': 0.9,
+    'theta': 0.75}
 
 mod6_priors = {
     'alpha_m': beta(2, 5),
@@ -117,5 +114,5 @@ mod6_priors = {
     'epsilon': beta(1.2, 1.2),
     'sigma_C': norm(2, 2),
     'sigma_L': norm(2, 2),
-    'epsilon_s': beta(1.2, 1.2),
+    'epsilon_s': beta(1.1, 10),
 }
