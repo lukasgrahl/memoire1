@@ -1,0 +1,226 @@
+\documentclass[11pt,a4paper,english]{article} % document type and language
+
+\usepackage{babel}   % multi-language support
+\usepackage{float}   % floats
+\usepackage{url}     % urls
+\usepackage{graphicx}
+\graphicspath{{./graphs/}}	% graphics
+
+\bibliographystyle{alpha}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\author{Lukas Gahl}
+\title{\textbf{\huge Memoire }\\}
+\date{} 
+
+
+\begin{document}
+	
+	\maketitle
+	\pagebreak	
+	
+	\section{Introduction}
+	
+	This work is joining 3 strains of literature
+	- Literature on the RBC, the origin of all new keynesian models
+	- Literature on bayesian estimation of structural macroeconomics models
+	- Literature on energy price shocks and their role in the 
+		- This refers to the nature of the shock
+		- Shocks as theoretical origin on business cycles are at the origine of this research, 
+		identifying suitable shocks that explain more thus adds to the literature on business cycles
+	
+	The Lucas 1976 critique: 
+	
+	Intertamperol evoluation of macreoconomic variables
+	
+	Kydland and Prescott (1982) introduced the RBC \\
+	- became main model of macroeconomy
+	- rational expectation model
+	
+	The New Keynesian model extends the RBC by inflation
+	- 
+	
+	Rational expectation models build on two corner stones Chair et al
+	- Structural parameters which are unaffected by policy changes
+	- shocks that have a relevant economic interpretation
+	
+	Kocherlakota (2007) adjustment principle
+	- the better a model fits to data the better it is for policy advise
+	- in assessing this fit one needs to be wary of over fitting specific data
+	
+
+	
+	
+	\section{RBC model}
+	The theoretical benchmark model a classic RBC 
+	The aim of analysing business cycles
+	
+	The micro foundation, instead of clear behavioural rules agents optimise their behaviour according to utility optimisation
+	
+	Conceptual ideas:
+	The efficiency of business cycles (Gali, 2008)
+	in a world of perfect competition and lack of nominal rigidities business cycles might be efficient
+	they are the response to changes in productivity, and are actually the result of a "correcting" force towards an efficient equilibrium
+	this raises questions on the desirability of policy interventions
+	This goes against (Keynes, 1936) who regarded recession as inefficient, due to under-utilisation of ressources
+	
+	Technology shocks
+	Technological shocks for a correctly calibrated model allowed to simulate cycles similar to actual business cycles in first and second order moment (ref). This shed new light on the assumption that technology was solely a driver of long-term growth with neglible impact on business cycles (Gali, 2008, p.3).
+	
+	RBCs succesfully abstraced from monetary rigidities in their explanation of business cycles
+	
+	The assumptions of the RBC and their consequences, namely the non-existance of money and monetary rigidities in the economy are greatly contratsted by emperical evidence (Gali, 2008, p 15)
+	
+		
+	
+	Assumptions
+	- perfect compitions
+	- flexible prices
+	- technology shocks
+	- infinetly lived households and firms
+	- identical technology across firms
+	
+	Agents
+	- representative households, where the sum of all households is normed to one
+	- Firms, the representative firm normed to unity
+	
+	Allocation decisions
+	HH
+	- intertamperol consumption and leasure choice
+	- intertemperol consumption savings 
+	
+	Firm
+	- static optimisation of profit
+	
+	
+	the model
+	-	Non-linearity arises from multiplicative Cobb-Douglas production and additive law of motion of e.g. capital (Campbell)
+	o	This raises the need for linear approximations, overview of possible methods:
+	-	Models become more complex as researchers are trying to use more realistic functions of utility and incorporate heterogeneity (Taylor  Uhlig, 1990)
+	o	The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
+	o	
+	
+	Methods of linearisation
+	-	This work builds on models that can be solved analytically
+	o	All models are solved analytically and then log-linearised with 1st order Taylor approximation following (Cambpell)
+	o	Based on the log-linearisation the predictions are performed
+	-	Log-linear quadratic approximation Rebello (1987)
+	o	Under a deterministic singular solution it solves correctly (Cambell)
+	This work follows Campbell and uses the capital stock as the state variable
+	As there is no multiple steady states, this work solves the models anlytically
+	
+	
+	
+	Criticism
+	the correlation of real wage and hours worked does not correspond to reality, this is the lacmus test of RBC models (Christiano Eichenbaum 1992)
+	"Robert E. Lucas (1981 p. 226) says that "observed real wages are not constant over the cycle, but neither do they exhibit consistent pro- or countercyclical tendencies. This suggests that any attempt to assign systematic real wage movements a central role in an explanation of business cycles is doomed to failure" \cite{christiano_current_1992}
+	
+	
+	\section{NK}
+	
+	Additional NK assumptions (Gali)
+	- monopolistic competition, inputs are set by private agents according to their own optimisation problem
+	- nominal rigidity, price setting is limited in frequency
+		- this results in short-run neutrality of monetary policy where changes in interest are note directly matched by changes in expected inflation
+		- this is the source of short-run fluctuations
+		- However, in the long-run prices adjust 
+	- This causes the response of the economy to be inefficient, unlike RBC where cycles are result of efficient adjustments
+	
+	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)
+	
+	
+	\section{Petrol}
+	High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
+	
+	
+	One such 'new' shock is the the inclusion of petrol as an exogenous shock series \cite{kim_role_1992}
+	
+	
+	
+	
+	
+	
+	\section{Bring model to data}
+	
+	\subsection{The Data}
+	Data sources
+	References for data sources
+	\subsubsection{Preprocessing}
+	per capita
+	log
+	HP filter
+	- what is natural GDP
+	- what is cyclicity
+	- why does it yield log-deviations
+	\subsubsection{Descriptives}
+	Descriptives
+	Plot data
+	
+	\subsection{Analysis of models}
+	Compare model covariance matrices, to actual covariance in data
+	
+	Show theoretical impulse response functions, differences between NK and RBC
+	
+	
+	\subsection{Estimation methods}
+	
+	\subsubsection{Frequentist estimation}
+	Traditional calibration of DSGE models relied on guessing or taking averages.
+	
+	Early attempts of linking DSGE models to data have mainly relied on frequentists statistics in using maximum-likelihood estimators (MLE) or general mehtod of moments (GMM).
+	The purpose of these methods lied in identifying the parameters of strucutral economic models (ref). These parameters are expected to be stable over time, wherefore they can be estimated off large time series. 
+	
+	One such attempt has been pioneered by \cite{christiano_current_1992} who employ GMM to discriminate between two model specification. Comparing the estimated parameters of the model with real data values then serves as inspection of model fit to data.
+	
+	Short-coming of GMM is that with the growing number of parameters the moment conditions are no longer sufficient to estimate model fit \cite{quintana_bayesian_nodate}. Likewise, the ML estimator is limited in its ability to estimated the entirety of parameters, requiring manual calibration or assumptions \cite{quintana_bayesian_nodate}.
+	
+	While frequentists estimation knew to overcome the identification problem using theoretical movements as suggested by Smith (1993) the frequentist approach was soon deemed inappropriate to DSGE estimation. 
+	- Frequentists assume the model to be the 'true' model, if not the estimation process is biased and needs adaption
+	- Many adaptions have been suggested by e.g. Smith (1993) or Dridi, Guay, and Renault (2007) who select the parameters relevant to overall model moments for the econometric estimation. The non-relevant parameters are then kept constant throughout the estimation, yet it is argued that this approach fails to overcome the conditional bias introduced by non-relevant parameters \cite{quintana_bayesian_nodate}.
+	- It is thus a question of modelling phylosophie that lead to frequentists methods being surpassed by bayesian estimation \cite{quintana_bayesian_nodate}.
+	
+	
+	\subsubsection{Bayesian estimation}
+	
+	Bayesian estimation as an alternative \cite{quintana_bayesian_nodate}.
+	- Poirier (1998) also suggests a separation of parameters into two groups
+	- Bayesian statistics circumvents any assumption about a singular true model in referring to conditional likelihood of a model specification
+	
+	\[
+		P( \Theta | Y_{T}) = L(Y_{T} | \Theta) P(\Theta)
+	\]
+	
+	Mapping a DSGE model to its posterior is non-linear in $\Theta$, wherefore the posterior distribution cannot be evaluated analytically demanding a numerical solution \cite{quintana_bayesian_nodate}.
+	
+	Metropolis Hastings sampling algorithm
+	- a multivariate random walk to update the posterior distribution
+	- the posterior then is updated based on improvements in the overall model likelihood
+	- it is important to note that a draw from the shocks prior, factors into the drawing process
+	
+	MH-MCMC sampler
+	- predominant estimation method in linear Bayesian estimation literature\cite{guerron-quintana_bayesian_2013}
+	
+	The log-likelihood
+	The Kalman filter serves as means of evaluating the log-likelihood of a linear state space system. The filter is a good remedy, as for a given system the Kalman Filter is the optimal forecast (ref). This of course is conditional on the believe that the underlying system is normally distributed.
+	- For the non-normal case a Kalman-Particle filter is used, which however is not discussed here
+	
+	\[
+		L = \frac{1}{\sqrt{2 \pi S}} \exp [- \frac{1}{2} y^T S^{-1} y]
+	\]
+	
+	\subsubsection{Priors}
+	
+	
+	
+	
+	\subsubsection{Reference Model BVar}
+	\cite{schorfheide_loss_2000}
+	
+	
+
+	
+	\pagebreak
+	\bibliography{20230505_m1_dsge}
+
+
+\end{document}

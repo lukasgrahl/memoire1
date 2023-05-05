@@ -1,0 +1,27 @@
+\begin{thebibliography}{GQN13}
+
+\bibitem[CE92]{christiano_current_1992}
+Lawrence~J. Christiano and Martin Eichenbaum.
+\newblock Current real-business-cycle theories and aggregate labor-market
+  fluctuations.
+\newblock {\em The American Economic Review}, pages 430--450, 1992.
+\newblock Publisher: JSTOR.
+
+\bibitem[GQN13]{guerron-quintana_bayesian_2013}
+Pablo~A. Guerrón-Quintana and James~M. Nason.
+\newblock Bayesian estimation of {DSGE} models.
+\newblock In {\em Handbook of research methods and applications in empirical
+  macroeconomics}, pages 486--512. Edward Elgar Publishing, 2013.
+
+\bibitem[KL92]{kim_role_1992}
+In-Moo Kim and Prakash Loungani.
+\newblock The role of energy in real business cycle models.
+\newblock {\em Journal of Monetary Economics}, 29(2):173--189, April 1992.
+
+\bibitem[Sch00]{schorfheide_loss_2000}
+Frank Schorfheide.
+\newblock Loss function-based evaluation of {DSGE} models.
+\newblock {\em Journal of Applied Econometrics}, 15(6):645--670, 2000.
+\newblock Publisher: Wiley Online Library.
+
+\end{thebibliography}
