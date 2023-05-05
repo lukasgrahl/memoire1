@@ -1,9 +1,50 @@
+import os
 import pandas as pd
 import numpy as np
 from itertools import groupby
 import datetime as dt
 from src.wrappers import skipna
-import os
+
+
+def solve_updated_mod(mod, verbose: bool = True, **kwargs) -> (bool, object):
+    """
+
+    :param mod:
+    :param verbose:
+    :param kwargs: solver, default is cycle_reduction, 'gensys' also supported
+    :return:
+    """
+    # solve for steady state
+    mod.steady_state(verbose=verbose, **kwargs)
+    is_solved = mod.steady_state_solved
+    if not is_solved:
+        return False, mod
+
+    # solve model, capture np.LinAlgEr
+    try:
+        mod.solve_model(verbose=verbose, **kwargs)
+    except np.linalg.LinAlgError:
+        if verbose: print("LinAlg Erorr in solving")
+        return False, mod
+
+    # check blanchard kahn
+    is_bk = mod.check_bk_condition(return_value='bool', verbose=verbose)
+
+    return is_solved & is_bk, mod
+
+
+# @jit(cache=True)
+def sample_from_priors(priors: dict, mod_params: dict, shock_names: list) -> (dict, dict, dict):
+    params = {k: v for k, v in zip(priors.keys(), [item.rvs() for item in priors.values()]) if k in mod_params}
+    shocks = {k: v for k, v in zip(priors.keys(), [item.rvs() for item in priors.values()]) if k in shock_names}
+    return params, shocks
+
+
+# @njit
+def get_arr_pdf_from_dist(dict_vals, dict_dists):
+    # Get pdf from distribution for val
+    return np.array([dict_dists[item].pdf(dict_vals[item]) for item in dict_vals.keys()])
+
 
 def all_equal(iterable):
     g = groupby(iterable)

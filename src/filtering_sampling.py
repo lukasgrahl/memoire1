@@ -3,51 +3,60 @@ import pandas as pd
 # from numba import jit, njit
 from scipy import linalg
 
+from filterpy.kalman import KalmanFilter
+from filterpy.common import Saver
+from src.utils import sample_from_priors, solve_updated_mod
+
 import arviz as az
 
-az.compare
+
+def run_kalman_filter_forecast(model, observed_vars: list, train_data: pd.DataFrame, test_data: pd.DataFrame, prior_dist: dict,
+                               mod_params: list, parameters: dict):
+    shock_names = [x.base_name for x in model.shocks]
+    state_variables = [x.base_name for x in model.variables]
+
+    # update mod params with posterior mean
+    model.free_param_dict.update(parameters)
+    _, shocks = sample_from_priors(prior_dist, mod_params, shock_names)
+
+    solved, model = solve_updated_mod(model, verbose=False)
+    if not solved: raise ValueError('Model not solved')
+
+    T, R = model.T.values, model.R.values
+    H, Z, T, R, QN, zs = set_up_kalman_filter(R=R, T=T, observed_data=train_data[observed_vars].values,
+                                              observed_vars=observed_vars,
+                                              shock_names=shock_names, shocks_drawn_prior=shocks,
+                                              state_variables=state_variables, H0=.01)
+
+    kfilter = KalmanFilter(len(state_variables), len(observed_vars))
+    kfilter.F = T
+    kfilter.Q = QN
+    kfilter.H = Z
+    kfilter.R = H
+
+    # filtering
+    saver = Saver(kfilter)
+    mu, cov, _, _ = kfilter.batch_filter(zs, saver=saver)
+    ll_train = saver.log_likelihood
+
+    mu_df_train = pd.DataFrame(mu.reshape(len(mu), -1),
+                               columns=[item.base_name for item in model.variables],
+                               index=train_data.index)
+    cov_df_train = pd.DataFrame(cov.diagonal(axis1=1, axis2=2), columns=[item.base_name for item in model.variables],
+                                index=train_data.index)
+
+    # forecasting
+    mu, cov, ll_test = kalman_filter_forecast(kfilter, test_data[observed_vars].values)
+
+    mu_df_test = pd.DataFrame(mu.reshape(len(mu), -1),
+                              columns=[item.base_name for item in model.variables],
+                              index=test_data.index)
+    cov_df_test = pd.DataFrame(cov.diagonal(axis1=1, axis2=2), columns=[item.base_name for item in model.variables],
+                               index=test_data.index)
+
+    return mu_df_train, cov_df_train, ll_test, mu_df_test, cov_df_test, ll_train
 
 
-def solve_updated_mod(mod, verbose: bool = True, **kwargs) -> (bool, object):
-    """
-
-    :param mod:
-    :param verbose:
-    :param kwargs: solver, default is cycle_reduction, 'gensys' also supported
-    :return:
-    """
-    # solve for steady state
-    mod.steady_state(verbose=verbose, **kwargs)
-    is_solved = mod.steady_state_solved
-    if not is_solved:
-        return False, mod
-
-    # solve model, capture np.LinAlgEr
-    try:
-        mod.solve_model(verbose=verbose, **kwargs)
-    except np.linalg.LinAlgError:
-        if verbose: print("LinAlg Erorr in solving")
-        return False, mod
-
-    # check blanchard kahn
-    is_bk = mod.check_bk_condition(return_value='bool', verbose=verbose)
-
-    return is_solved & is_bk, mod
-
-
-# @jit(cache=True)
-def sample_from_priors(priors: dict, mod_params: dict, shock_names: list) -> (dict, dict, dict):
-    params = {k: v for k, v in zip(priors.keys(), [item.rvs() for item in priors.values()]) if k in mod_params}
-    shocks = {k: v for k, v in zip(priors.keys(), [item.rvs() for item in priors.values()]) if k in shock_names}
-    return params, shocks
-
-# @njit
-def get_arr_pdf_from_dist(dict_vals, dict_dists):
-    # Get pdf from distribution for val
-    return np.array([dict_dists[item].pdf(dict_vals[item]) for item in dict_vals.keys()])
-
-
-# @jit(cache=True)
 def get_Q_H(shocks_dict: dict, observed_names: list, noise_diag):
     """
 

@@ -1,6 +1,10 @@
 import numpy as np
 import xarray as xr
+from statsmodels.tsa.api import VAR
+import pandas as pd
 
+from config import seed
+rng = np.random.default_rng(seed=seed)
 
 def get_xarr_InferenceData(xarr_in: xr.Dataset):
     xarr = xarr_in.where(xarr_in.is_solved).copy()
@@ -76,11 +80,6 @@ def get_xarr_InferenceData(xarr_in: xr.Dataset):
     return xr_prior, xr_post, xr_loglike
 
 
-import statsmodels.api as sm
-from statsmodels.tsa.api import VAR
-
-import pandas as pd
-
 def grid_serach_var(data: pd.DataFrame, p_max: int = 15, ic: str = 'aic'):
     ic_res = []
     for p in range(1, p_max + 1):
@@ -93,3 +92,21 @@ def grid_serach_var(data: pd.DataFrame, p_max: int = 15, ic: str = 'aic'):
         elif ic == 'bic':
             ic_res.append(res.bic)
     return ic_res
+
+
+# Function that takes a single draw of parameters and forecasts n steps
+def bvar_forecast(data, coords, lags, intercept, lag_coefs, noise, forecast=10):
+    len_data = len(data)
+    new_draws = np.zeros((data.shape[0]+forecast, data.shape[1]))
+    # Fill the new array with the observed data
+    new_draws[:len_data] = data[:]
+    for i in range(forecast):
+        ar_list = []
+        for ind in range(0, len(coords['cross_vars'])):
+            ar = np.sum(lag_coefs[:, ind] * new_draws[len_data+i-lags: len_data+i])
+            ar_list.append(ar)
+        mean = intercept + np.stack(ar_list)
+        new_draws[len_data+i] = rng.normal(mean, noise)
+    # Replace all observed data with nan, so they don't show when we plot it
+    new_draws[:-forecast-1] = np.nan
+    return new_draws
