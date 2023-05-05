@@ -1,8 +1,11 @@
+
 from settings import DATA_DIR
 
 import os
 import numpy as np
 from scipy.stats import gamma, beta, norm, lognorm
+
+seed = sum(map(ord, "PyMC LABS - BVAR"))
 
 # data to be pulled from FRED
 fred_dict = {
@@ -44,6 +47,8 @@ plt_config = {
 # made available for easy import here
 recession_dict = np.load(os.path.join(DATA_DIR, 'recessions_periods.npy'))
 
+
+
 ## DSGE PARAMS
 
 mod4_params = {'alpha': 0.35,
@@ -66,7 +71,6 @@ mod4_priors = {
 mod5_params = {
     'alpha': 0.35,
     'beta': 0.99,
-    'delta': 0.02,
     'eta_p': 0.75,
     'gamma_R': 0.9,
     'gamma_Y': 0.05,
@@ -84,8 +88,8 @@ mod5_priors = {
     'gamma_R': gamma(4, 0, .5),
     'gamma_Y': gamma(4, 0, .5),
     'gamma_pi': gamma(4, 0, .5),
-    'epsilon_A': beta(1.2, 1.2),
-    'epsilon_R': beta(1.2, 1.2),
+    'epsilon_A': beta(1.1, 10),
+    'epsilon_R': beta(1.1, 10),
     'sigma_C': norm(2, 2),
     'sigma_L': norm(2, 2),
     'epsilon_T': beta(1.1, 10),
