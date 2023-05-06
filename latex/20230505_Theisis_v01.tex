@@ -218,6 +218,7 @@
 	
 	MH-MCMC sampler
 	- predominant estimation method in linear Bayesian estimation literature \cite{guerron-quintana_bayesian_2013}\\
+	- the MH sampler is applicable to small scale New Keynesian models and usually delivers good results on this scale. For larger models a different kind of sampling is required \cite{herbst_bayesian_2014}. As this thesis is concerned with such small scale model it will follow the Metropolis Hastings sampling procedure.
 	
 	
 	The algorithm proceeds as follows \cite{herbst_bayesian_2014}\\
@@ -247,7 +248,12 @@
 
 	As illustrated in the above MH-MCMC is a recursive method and as such requires an initial value for the posterior $\Gamma_0$. This values is usually obtained throughout a so-called burn in period corresponding to 10 \% of total iterations (ref). The total number of iterations depends on the 
 	
-	Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).
+	Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).\\
+	
+	
+	The MH random walk is highly suceptible to mis specification of the posterior of the prior distribution is far away from the true posterior \cite{herbst_bayesian_2014}
+	
+	
 	
 	
 	
@@ -385,6 +391,16 @@
 	
 	\pagebreak
 	\bibliography{20230505_m1_dsge}
-
+	
+	
+	\part{Appendix}
+	
+	\section{Appendix A}
+	
+	\subsection{RBC}
+	
+	\includegraphics[scale=.3]{mod4_rbc_vanilla_epsilon_A_irfs_quantiles.png}\\
+	
+	\includegraphics[scale=.3]{mod4_rbc_vanilla_posterior_hist.png}
 
 \end{document}
