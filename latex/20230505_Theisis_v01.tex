@@ -169,41 +169,46 @@
 	Show theoretical impulse response functions, differences between NK and RBC
 	
 	\section{Estimation methods}
+		
+	As explained in the above the RBC and later NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1976 critique as their parameters do not  directly depend on the choices of agents (ref). Instead, they represent the deep-rooted dynamics of the dynamic system describing the economy, as such they should exhibit a certain stability over time (ref). \\
 	
-	\subsection{Frequentist estimation}
-	Traditional calibration of DSGE models relied on guessing or taking averages.
+	This perspective makes an implicit but important assumption: DSGE model corresponds to the real dynamic system describing the economy. A far reaching assumption which has been considered at least partially validated based on the ability of early DSGE models to generate data matching 1st and 2nd order moments of real variables such as output, consumption and investment (ref). 
+	In an attempt to tweak this capability  early attempts to parameter to identifying the true parameters of the economy were made. In doing so academics first relied on what \cite{prescott_theory_1986} referred to as great ratios of the economy. Calculating for example the real interest rate allowed to derive the discount factor $\beta$. 
+	Other parameters had fewer empirical counterfactuals and where thus not estimated by manually calibrated to sensible values. These inaccuracy gave rise to approaches more deeply rooted in econometric analysis. They were undertaken in the aim of reliably estimating the economy's true structural parameters.\\
 	
-	Early attempts of linking DSGE models to data have mainly relied on frequentists statistics in using maximum-likelihood estimators (MLE) or general mehtod of moments (GMM).
-	The purpose of these methods lied in identifying the parameters of strucutral economic models (ref). These parameters are expected to be stable over time, wherefore they can be estimated off large time series. 
+	Such early attempts of econometric identification relied on standard frequentists statistics such as the maximum-likelihood estimators (MLE) (ref). Another approach pioneered by Blanchard \& Kahn (ref) referred to as simulation method of moments, later progressed into the general method of moments (GMM) attempted to minimize the distance between simulated and real data moments. The GMM allowed to discriminate between several competing specification of the same structural model \cite{christiano_current_1992}. Comparing the estimated parameters of the model with real data values then served as inspection of model fit to data. However, as models grew in size a major short-coming of GMM became apparent. The method of moment conditions were no longer sufficient to estimate model fit across the variety of parameters \cite{guerron-quintana_bayesian_2013}. Likewise, the ML estimator turned out to be limited in its ability to estimated the entirety of parameters, requiring manual calibration of some parameters \cite{guerron-quintana_bayesian_2013}.\\
 	
-	One such attempt has been pioneered by \cite{christiano_current_1992} who employ GMM to discriminate between two model specification. Comparing the estimated parameters of the model with real data values then serves as inspection of model fit to data.
+	While frequentists statistics knew to overcome the identification problem in introducing theoretical moments Smith (1993) it was soon challenged by a different perspective. At the heart of all frequentist statistics lies the assumption that a given model corresponds to the true structural process, it is the 'true' model (ref). If this assumption cannot be met all estimation will be biased and thus need to be corrected for. Again remedies where found (ref) Smith (1993) or Dridi, Guay, and Renault (2007) in varying parameters most relevant to overall model moments and keeping less relevant ones constant throughout econometric estimation. Yet it is argued that this approach at least partly failed in overcoming the conditional bias introduced by non-relevant parameters \cite{guerron-quintana_bayesian_2013}.\\
 	
-	Short-coming of GMM is that with the growing number of parameters the moment conditions are no longer sufficient to estimate model fit \cite{guerron-quintana_bayesian_2013}. Likewise, the ML estimator is limited in its ability to estimated the entirety of parameters, requiring manual calibration or assumptions \cite{guerron-quintana_bayesian_2013}.
+% explain Baye's law ?
+	Consequently, a new philosophy of linking models to data was identified. Bayesian statistics replaces the assumption of a single true model by the convenient formulation of conditional likelihood making it more appealing to the purposes of DSGE modelling \cite{guerron-quintana_bayesian_2013}. In doing so the Bayesian statistics relies on Bayes law linking the conditional likelihood of an event to the prior distribution.
+		
+	\[
+	P( \Theta | Y_{T}) = L(Y_{T} | \Theta) P(\Theta)
+	\]
+		
+	A given model specification can be linked to a likelihood evaluated against the backdrop of data the system is meant to generate (ref). This allows to assess a model's suitability. The frequentist's idea of a single true parameter is replaced by distributions assigning different probabilities to parameter values. These prior distribution reflect previous knowledge allowing to narrow down the possible space of parameters. Instead of identifying a true parameter Bayesian statistics, aims at evaluating these believes and at decreasing uncertainty around the parameter space i.e. the variance of the distribution. This process translates the prior distribution into a posterior distribution, not necessarily belonging to the same class. 
+	This process of evaluation is referred to as sampling and builds on numerical and stochastic calculus to approximate the true posterior distribution (ref). Furthermore, Bayesian statistics naturally provides great forecasting properties. Once uncertainty around the space of the real system has been reduced it allows for make informed forecasts, naturally providing confidence bans. \\
 	
-	While frequentists estimation knew to overcome the identification problem using theoretical movements as suggested by Smith (1993) the frequentist approach was soon deemed inappropriate to DSGE estimation. 
-	- Frequentists assume the model to be the 'true' model, if not the estimation process is biased and needs adaption
-	- Many adaptions have been suggested by e.g. Smith (1993) or Dridi, Guay, and Renault (2007) who select the parameters relevant to overall model moments for the econometric estimation. The non-relevant parameters are then kept constant throughout the estimation, yet it is argued that this approach fails to overcome the conditional bias introduced by non-relevant parameters \cite{guerron-quintana_bayesian_2013}.
-	- It is thus a question of modelling philosophy that lead to frequentists methods being surpassed by Bayesian estimation \cite{guerron-quintana_bayesian_2013}.
+	The following section will therefore be concerned with these four concepts, conditional likelihood, prior and posterior distribution, sampling and forecasting. DSGE literature has developed a rich body of literature covering the case of the canonical DSGE model rather well (ref). The state of research is currently concerned with the estimation of larger models and non-linear and not normally distributed posterior distributions (ref). However, given the simplicity of the above discussed models current techniques are more than sufficient for this thesis purposes.
 	
 	
-	\subsection{Bayesian estimation}
-	
-	For the majority of DSGE models the prior distribution cannot be directly analysed \cite{herbst_bayesian_2014}
-	
-	
-	Bayesian estimation as an alternative \cite{guerron-quintana_bayesian_2013}.
-	- Poirier (1998) also suggests a separation of parameters into two groups
-	- Bayesian statistics circumvents any assumption about a singular true model in referring to conditional likelihood of a model specification
+	\subsubsection{The log-likelihood}
+	The Kalman filter serves as means of evaluating the log-likelihood of a linear state space system. The filter is a good remedy, as for a given system the Kalman Filter is the optimal forecast (ref). This of course is conditional on the believe that the underlying system is normally distributed.
+	- Linear Gaussian state space system for the Kalman filter, this requires shocks to be normally distributed \cite{herbst_bayesian_2014}
+	- For the non-normal case a Kalman-Particle filter is used, which however is not discussed here
 	
 	\[
-		P( \Theta | Y_{T}) = L(Y_{T} | \Theta) P(\Theta)
+	L = \frac{1}{\sqrt{2 \pi S}} \exp [- \frac{1}{2} y^T S^{-1} y]
 	\]
+
+	
 	
 	\subsubsection{Sampler}
 	
 	There are local and global identification problems \cite{herbst_bayesian_2014}
 	
-	Mapping a DSGE model to its posterior is non-linear in $\Theta$, wherefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2014}. It thus requires a numerical solution \cite{guerron-quintana_bayesian_2013}.
+	Mapping a DSGE model to its posterior is non-linear in the parameter vector $\Theta$. Therefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2014}. Instead a numerical approximation mechanism is require, this is referred to as the sampler \cite{guerron-quintana_bayesian_2013}.
 	
 	Metropolis Hastings belongs to the Markov Chain Monte Carlo (MCMC) group of alogrithms. 
 	It generates a stable Markov chain, which is equivalent to the posterior distribution \cite{herbst_bayesian_2014}
@@ -223,8 +228,20 @@
 	
 	The algorithm proceeds as follows \cite{herbst_bayesian_2014}\\
 	
+	Posterior $\Theta$, prior $p$, suggestions $\theta$
+	
 	\begin{enumerate}
 		\item A new draw $\zeta$ is suggested based on a random draw from the prior distribution of parameters $\Theta$. In order to determine whether this draw is admissible to the posterior $\Gamma_{1:i}$ the following steps are followed.
+		\[
+			\zeta = \Theta_{i-1} + \eta
+		\]
+		\[
+			\eta \sim N(0, c \hat{\Sigma})
+		\]
+		
+		\cite{herbst_bayesian_2014} recommends to set $\Sigma$ either to the identity matrix or as a diagonal matrix with the posterior variances on its diagonal.
+		
+		The scaling factor $c$ is under the assumption of Gaussian normal joint posterior distribution usually put between .2 and .4
 		
 		\item The new draw $\zeta$ is evaluated in likelihood using the DSGE model's likelihood function given the data $Y$, yielding $p(Y | \zeta)$. 
 				
@@ -257,14 +274,7 @@
 	
 	
 	
-	\subsubsection{The log-likelihood}
-	The Kalman filter serves as means of evaluating the log-likelihood of a linear state space system. The filter is a good remedy, as for a given system the Kalman Filter is the optimal forecast (ref). This of course is conditional on the believe that the underlying system is normally distributed.
-	- Linear Gaussian state space system for the Kalman filter, this requires shocks to be normally distributed \cite{herbst_bayesian_2014}
-	- For the non-normal case a Kalman-Particle filter is used, which however is not discussed here
 	
-	\[
-		L = \frac{1}{\sqrt{2 \pi S}} \exp [- \frac{1}{2} y^T S^{-1} y]
-	\]
 	
 	
 	
