@@ -5,6 +5,8 @@
 \usepackage{url}     % urls
 \usepackage{graphicx}
 \graphicspath{{./graphs/}}	% graphics
+\usepackage{multirow} % tables
+\usepackage{booktabs} % tables
 
 \bibliographystyle{alpha}
 \addcontentsline{toc}{chapter}{Bibliography}
@@ -95,17 +97,17 @@
 	
 	the model
 	-	Non-linearity arises from multiplicative Cobb-Douglas production and additive law of motion of e.g. capital (Campbell)
-	o	This raises the need for linear approximations, overview of possible methods:
-	-	Models become more complex as researchers are trying to use more realistic functions of utility and incorporate heterogeneity (Taylor  Uhlig, 1990)
-	o	The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
-	o	
+	- This raises the need for linear approximations, overview of possible methods:
+	- Models become more complex as researchers are trying to use more realistic functions of utility and incorporate heterogeneity (Taylor  Uhlig, 1990)
+	- The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
+	
 	
 	Methods of linearisation
 	-	This work builds on models that can be solved analytically
-	o	All models are solved analytically and then log-linearised with 1st order Taylor approximation following (Cambpell)
-	o	Based on the log-linearisation the predictions are performed
-	-	Log-linear quadratic approximation Rebello (1987)
-	o	Under a deterministic singular solution it solves correctly (Cambell)
+	- All models are solved analytically and then log-linearised with 1st order Taylor approximation following (Cambpell)
+	- Based on the log-linearisation the predictions are performed
+	- Log-linear quadratic approximation Rebello (1987)
+	- Under a deterministic singular solution it solves correctly (Cambell)
 	This work follows Campbell and uses the capital stock as the state variable
 	As there is no multiple steady states, this work solves the models anlytically
 	
@@ -128,6 +130,10 @@
 	
 	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)
 	
+	Small scale new keynesian model solved with first order log-approximation \cite{herbst_bayesian_2014}
+	
+	Define stability condition of the linear state-space, Blanchard-Kahn
+	
 	
 	\section{Petrol}
 	High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
@@ -138,33 +144,33 @@
 	
 	
 	
+	\part{Bringing the model to data}
 	
-	
-	\section{Bring model to data}
-	
-	\subsection{The Data}
+	\section{The Data}
 	Data sources
 	References for data sources
-	\subsubsection{Preprocessing}
+	
+	\section{Preprocessing}
 	per capita
 	log
 	HP filter
 	- what is natural GDP
 	- what is cyclicity
 	- why does it yield log-deviations
-	\subsubsection{Descriptives}
+	
+	
+	\section{Descriptives}
 	Descriptives
 	Plot data
 	
-	\subsection{Analysis of models}
+	\section{Analysis of models}
 	Compare model covariance matrices, to actual covariance in data
 	
 	Show theoretical impulse response functions, differences between NK and RBC
 	
+	\section{Estimation methods}
 	
-	\subsection{Estimation methods}
-	
-	\subsubsection{Frequentist estimation}
+	\subsection{Frequentist estimation}
 	Traditional calibration of DSGE models relied on guessing or taking averages.
 	
 	Early attempts of linking DSGE models to data have mainly relied on frequentists statistics in using maximum-likelihood estimators (MLE) or general mehtod of moments (GMM).
@@ -172,17 +178,20 @@
 	
 	One such attempt has been pioneered by \cite{christiano_current_1992} who employ GMM to discriminate between two model specification. Comparing the estimated parameters of the model with real data values then serves as inspection of model fit to data.
 	
-	Short-coming of GMM is that with the growing number of parameters the moment conditions are no longer sufficient to estimate model fit \cite{quintana_bayesian_nodate}. Likewise, the ML estimator is limited in its ability to estimated the entirety of parameters, requiring manual calibration or assumptions \cite{quintana_bayesian_nodate}.
+	Short-coming of GMM is that with the growing number of parameters the moment conditions are no longer sufficient to estimate model fit \cite{guerron-quintana_bayesian_2013}. Likewise, the ML estimator is limited in its ability to estimated the entirety of parameters, requiring manual calibration or assumptions \cite{guerron-quintana_bayesian_2013}.
 	
 	While frequentists estimation knew to overcome the identification problem using theoretical movements as suggested by Smith (1993) the frequentist approach was soon deemed inappropriate to DSGE estimation. 
 	- Frequentists assume the model to be the 'true' model, if not the estimation process is biased and needs adaption
-	- Many adaptions have been suggested by e.g. Smith (1993) or Dridi, Guay, and Renault (2007) who select the parameters relevant to overall model moments for the econometric estimation. The non-relevant parameters are then kept constant throughout the estimation, yet it is argued that this approach fails to overcome the conditional bias introduced by non-relevant parameters \cite{quintana_bayesian_nodate}.
-	- It is thus a question of modelling phylosophie that lead to frequentists methods being surpassed by bayesian estimation \cite{quintana_bayesian_nodate}.
+	- Many adaptions have been suggested by e.g. Smith (1993) or Dridi, Guay, and Renault (2007) who select the parameters relevant to overall model moments for the econometric estimation. The non-relevant parameters are then kept constant throughout the estimation, yet it is argued that this approach fails to overcome the conditional bias introduced by non-relevant parameters \cite{guerron-quintana_bayesian_2013}.
+	- It is thus a question of modelling philosophy that lead to frequentists methods being surpassed by Bayesian estimation \cite{guerron-quintana_bayesian_2013}.
 	
 	
-	\subsubsection{Bayesian estimation}
+	\subsection{Bayesian estimation}
 	
-	Bayesian estimation as an alternative \cite{quintana_bayesian_nodate}.
+	For the majority of DSGE models the prior distribution cannot be directly analysed \cite{herbst_bayesian_2014}
+	
+	
+	Bayesian estimation as an alternative \cite{guerron-quintana_bayesian_2013}.
 	- Poirier (1998) also suggests a separation of parameters into two groups
 	- Bayesian statistics circumvents any assumption about a singular true model in referring to conditional likelihood of a model specification
 	
@@ -190,34 +199,189 @@
 		P( \Theta | Y_{T}) = L(Y_{T} | \Theta) P(\Theta)
 	\]
 	
-	Mapping a DSGE model to its posterior is non-linear in $\Theta$, wherefore the posterior distribution cannot be evaluated analytically demanding a numerical solution \cite{quintana_bayesian_nodate}.
+	\subsubsection{Sampler}
+	
+	There are local and global identification problems \cite{herbst_bayesian_2014}
+	
+	Mapping a DSGE model to its posterior is non-linear in $\Theta$, wherefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2014}. It thus requires a numerical solution \cite{guerron-quintana_bayesian_2013}.
+	
+	Metropolis Hastings belongs to the Markov Chain Monte Carlo (MCMC) group of alogrithms. 
+	It generates a stable Markov chain, which is equivalent to the posterior distribution \cite{herbst_bayesian_2014}
+	\\
+	
 	
 	Metropolis Hastings sampling algorithm
 	- a multivariate random walk to update the posterior distribution
 	- the posterior then is updated based on improvements in the overall model likelihood
 	- it is important to note that a draw from the shocks prior, factors into the drawing process
+	- procedure also followed by, with 300,000 draws of which 20,000 are considered burn in \cite{chin_bayesian_2019}
 	
 	MH-MCMC sampler
-	- predominant estimation method in linear Bayesian estimation literature\cite{guerron-quintana_bayesian_2013}
+	- predominant estimation method in linear Bayesian estimation literature \cite{guerron-quintana_bayesian_2013}\\
 	
-	The log-likelihood
+	
+	The algorithm proceeds as follows \cite{herbst_bayesian_2014}\\
+	
+	\begin{enumerate}
+		\item A new draw $\zeta$ is suggested based on a random draw from the prior distribution of parameters $\Theta$. In order to determine whether this draw is admissible to the posterior $\Gamma_{1:i}$ the following steps are followed.
+		
+		\item The new draw $\zeta$ is evaluated in likelihood using the DSGE model's likelihood function given the data $Y$, yielding $p(Y | \zeta)$. 
+				
+		\item In a two stage procedure the algorithm then either accepts or rejects the new draw $\zeta$ as part of the Markov chain of posterior distributions. 
+		
+		\item First the posterior likelihood of $\zeta$ is calculated based on Bayes theorem. It is then compared to the the posterior likelihood of the last accepted draw, that is now part of the posterior $\Gamma_{i-1}$. 
+		\[
+			\omega_i = \min \{\frac{L(Y| \zeta, \Gamma) * P(\zeta)}{L(Y| \Gamma_{i-1}, \Gamma) P(\Gamma_{i-1})}, 1 \}
+		\]
+
+		\item The second step of the decision algorithm draws from a uniform random variable $\psi \sim U(0, 1)$. The new draw $\zeta$ is accepted if its likelihood ration $\omega_i$ is accepted if $\omega_i \geq \phi$. This step is equivalent to moving to a higher point on the likelihood surface \cite{herbst_bayesian_2014}
+		
+		\item If accepted $\zeta$ will become $\Gamma_i$
+		
+		\item The algorithm is then repeated
+		
+	\end{enumerate}
+
+	How many runs\\
+	
+
+	As illustrated in the above MH-MCMC is a recursive method and as such requires an initial value for the posterior $\Gamma_0$. This values is usually obtained throughout a so-called burn in period corresponding to 10 \% of total iterations (ref). The total number of iterations depends on the 
+	
+	Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).
+	
+	
+	
+	\subsubsection{The log-likelihood}
 	The Kalman filter serves as means of evaluating the log-likelihood of a linear state space system. The filter is a good remedy, as for a given system the Kalman Filter is the optimal forecast (ref). This of course is conditional on the believe that the underlying system is normally distributed.
+	- Linear Gaussian state space system for the Kalman filter, this requires shocks to be normally distributed \cite{herbst_bayesian_2014}
 	- For the non-normal case a Kalman-Particle filter is used, which however is not discussed here
 	
 	\[
 		L = \frac{1}{\sqrt{2 \pi S}} \exp [- \frac{1}{2} y^T S^{-1} y]
 	\]
 	
-	\subsubsection{Priors}
 	
+	
+	
+	
+	
+	
+	\subsection{Priors}
+	
+	The assumption for prior selection is that priors are obtained from some past knowledge. If this knowledge is independent of the data used to evluate the liklihood function than the prior holds. This is fullfiled if the data for prior building at least predates the data for likelihood evluation \cite{herbst_bayesian_2014}.
+	
+	
+	Priors are statistical distributions which either reflect believes about the strucutral mechanism or are derived from data, external to the estimation process \cite{del_negro_forming_2008}
+	- Priors thus refelect microeconomic evidence, for example regarding labour supply and elasticity
+	- However, they are a simplication of the real joint likelihood function of the strucutural model. Such function is difficult and sometimes impossible to evaluate
+	
+	Priors \cite{del_negro_forming_2008}
+	- Priors are usually assumed to be independent for simplicities sake
+	- Priors are often calibrated for the model to match the covariance of real data
+		
+	\cite{del_negro_forming_2008} suggest two kinds of data sources. Pre-sample data, which is not included in the model evaluation process or in-sample data, that is explicitly excluded from the model evaluating likelihood function.
+	As the model parameters are thought of as structural, hence relatively time-invariant, more dated data can be used to estimate them. 
+	
+	Priors are divided into three groups, following \cite{del_negro_forming_2008}
+	
+	\subsubsection{Steady state priors}
+	The 'great ratios' or long-run relationships as \cite{kydland_time_1982} referred to them pin down the steady state
+	\[
+		\theta_{ss} = \{\alpha, \beta, \delta, \pi^*, \eta_p\} % eta is calvo
+	\]
+	When determining the steady-state priors $\theta_{ss}$ and assuming independence it is possible that the resulting joint prior distributions assigns high probability to unrealistic steady state values \cite{del_negro_forming_2008}. To circumvent this issue other method
+	
+	This priors are usually estimated from pre-sample data \cite{herbst_bayesian_2014}
+	this work follows this approach and thus 
+	
+	
+	
+	
+	\subsubsection{Exogenous priors}
+	The exogenenous propagation paraemeters 
+	these are the exogenenous shock parameters, their autoregressive coefficient and their standard deviation
+	\[
+		\theta_{exog} = \{\rho_a, \rho_s, \sigma_a, \sigma_s \}
+	\]
+	
+	Exogenous priors can be evaluated from the model specification in keeping the influence of other priors minimal. Del Negro suggests, to set all other parameters to zero where possible. The system of equations then reduces to variables that are depend on the exogenous shocks. This reduced system can then be used to evaluate the likelihood of prior values, using out-of sample data of the later calibration. 
+	An evaluation based on the likelihood of the reduced system is not necessary if the variation in observable variables can be directly retraced to individual shocks. In a simple model where shocks do not intersect in their influence on observable variables, e.g. in the case of a singular technology shock the variance of the shock can be directly inferred from the observable variable. In case of intersecting multiple shocks the likelihood of the reduced system needs to be consulted to choose appropriate priors, as their influence on observables cannot be directly inferred. 
+	
+	In case of exogenous observable shocks, such as energy prices, the above procedure is not required. Other than the level of technology energy price shocks are measurable, wherefore one can rely on the observable first and second order moments (ref).
+	
+	
+	\subsubsection{Endogenous priors}
+	The endogenous propagation parameters, including the shock autoregressive coefficients are parameters involved with the propagation of shocks through the system.
+	These parameters heavily rely on micro-evidence from external data sets \cite{del_negro_forming_2008}
+	All remaining parameters are stacked into the the following
+	\[
+		\theta_{endog} = \{\sigma_C, \sigma_L, \}
+	\]\}
+	Priors of the remaining variables are chosen in order to reflect believes or micro evidence. This work draws from the choice of \cite{del_negro_forming_2008} in their endogenous priors, given the similarity in models
+	
+	
+	
+	
+	
+	
+		
+	Priors are chosen in order to match first and second order moments individually as well as in a joint distribution across all parameters \cite{del_negro_forming_2008}
+	
+	\input{{./graphs/priors_table.tex}}
+
+	
+	
+%	"Also, rather than imposing priors on the great ratios, C∗/Y ∗, I∗/K∗, K∗/Y ∗, and G∗/Y ∗, we fix the capital share, α, the depreciation rate, δ, and the share of government expenditure, g∗. This follows well established practices that pre-date Bayesian estimation of NKDSGE models." \cite{guerron-quintana_bayesian_2013}
 	
 	
 	
 	\subsubsection{Reference Model BVar}
 	\cite{schorfheide_loss_2000}
 	
+	BVar with normally indpendently distributed lag parameters \cite{chin_bayesian_2019}
 	
+	This work uses a frequentist VAR to determine the optimal number of lags, which are found to be 4. This corresponds to the choice of four lags in \cite{chin_bayesian_2019}
+	
+	
+	
+	
+	
+	
+	
+	\subsection{Forecasts}
+	Relevant to policy recommendations
+	How well can models capture the dynamics of the economy, e.g. as a spectrum of possible outcomes
+	
+	Including priors into bayesian VAR makes the model better at forecasting \cite{chin_bayesian_2019}
+	
+	
+	To compare models this work follows a bayesian averaging approach as in \cite{chin_bayesian_2019}
+	- (Stock Watson 2003) argue that a simple average of models provides the best forecast
+	- ()Jacobson and Karlsson (2004) and Wright (2009)) argue in favour of BMA
+	
+	
+	BMA
+	- the weights of each model are calculated from its posterior model probability \cite{chin_bayesian_2019}
+	- This is traditionally done for structurally similar models in order to discriminate between different priors
+	- the posterior probability is thereby obtained from \cite{chin_bayesian_2019}
+	\[
+		p(M_k | y) = \frac{p(y | M_k) p(M_k)}{\sum_{K}^{k=1} py(y | M_k) p(M_k)}
+	\]
+	\[
+		p(y | M_k) = \int p( y| \theta_k, M_k) p(\theta_k | M_k) d \theta_k
+	\]
+	where $p(M_k)$ is the prior density, and $p(y | M_k)$ is the model's marginal likelihood
+	
+	Anderson (2008) suggest to use the predictive likelihood instead of the marginal model likelihood
+	
+	"Simply speaking, our Bayesian combination forecast (point forecast) is a weighted average of the K individual point forecasts, wherein the weights are determined by their predictive likelihoods" \cite{chin_bayesian_2019}
+	
+	Comparing forecasting performance
+	Diebold-Mariano test for point forecast comparison following \cite{chin_bayesian_2019}
+	- MSE based point forecast comparison 
+	Amisano–Giacomini test for density forecast performance following  \cite{chin_bayesian_2019}
 
+	
 	
 	\pagebreak
 	\bibliography{20230505_m1_dsge}
