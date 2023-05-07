@@ -1,31 +1,62 @@
-\documentclass[11pt,a4paper,english]{article} % document type and language
+\documentclass[12pt,a4paper,english]{article} % document type and language
 
+\usepackage{layout}
 \usepackage{babel}   % multi-language support
 \usepackage{float}   % floats
 \usepackage{url}     % urls
 \usepackage{graphicx}
-\graphicspath{{./graphs/}}	% graphics
+\usepackage{amsmath} % matrix algebra
 \usepackage{multirow} % tables
 \usepackage{booktabs} % tables
+\usepackage{blindtext}
+\usepackage{geometry}
+\usepackage[parfill]{parskip} % no indent
 
-\bibliographystyle{alpha}
-\addcontentsline{toc}{chapter}{Bibliography}
+% graphics path
+\graphicspath{{./graphs/}}	% graphics
 
+
+% title slide
 \author{Lukas Gahl}
 \title{\textbf{\huge Memoire }\\}
-\date{} 
+\date{\today} 
 
 % user commands
 \newcommand{\matr}[1]{\mathbf{#1}} % matrix font
 \newcommand{\Lagr}{\mathcal{L}} % likelihood L
 
+% set layout
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=25mm,
+	right=30mm,
+	top=25mm,
+	bottom=25mm,
+}
+\linespread{1.5}
+
+% bibliography
+\bibliographystyle{apalike}
 
 \begin{document}
 	
-	\maketitle
-	\pagebreak	
 	
-	\section{Introduction}
+	\maketitle
+	\pagebreak
+
+	\section*{Abstract}
+	\pagebreak
+
+	
+	\tableofcontents
+	\pagebreak
+	
+	
+	 \section{Introduction}
 	
 	This work is joining 3 strains of literature
 	- Literature on the RBC, the origin of all new keynesian models
@@ -54,10 +85,22 @@
 	- the better a model fits to data the better it is for policy advise
 	- in assessing this fit one needs to be wary of over fitting specific data
 	
+	\section{Literature Review}
+	
 
+	\section{DSGE Models}
+	
+	Methods of linearisation
+	-	This work builds on models that can be solved analytically
+	- All models are solved analytically and then log-linearised with 1st order Taylor approximation following (Cambpell)
+	- Based on the log-linearisation the predictions are performed
+	- Log-linear quadratic approximation Rebello (1987)
+	- Under a deterministic singular solution it solves correctly (Cambell)
+	This work follows Campbell and uses the capital stock as the state variable
+	As there is no multiple steady states, this work solves the models anlytically
 	
 	
-	\section{RBC model}
+	\subsection{RBC model}
 	The theoretical benchmark model a classic RBC 
 	The aim of analysing business cycles
 	
@@ -106,15 +149,7 @@
 	- The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
 	
 	
-	Methods of linearisation
-	-	This work builds on models that can be solved analytically
-	- All models are solved analytically and then log-linearised with 1st order Taylor approximation following (Cambpell)
-	- Based on the log-linearisation the predictions are performed
-	- Log-linear quadratic approximation Rebello (1987)
-	- Under a deterministic singular solution it solves correctly (Cambell)
-	This work follows Campbell and uses the capital stock as the state variable
-	As there is no multiple steady states, this work solves the models anlytically
-	
+
 	
 	
 	Criticism
@@ -122,7 +157,7 @@
 	"Robert E. Lucas (1981 p. 226) says that "observed real wages are not constant over the cycle, but neither do they exhibit consistent pro- or countercyclical tendencies. This suggests that any attempt to assign systematic real wage movements a central role in an explanation of business cycles is doomed to failure" \cite{christiano_current_1992}
 	
 	
-	\section{NK}
+	\subsection{NK}
 	
 	Additional NK assumptions (Gali)
 	- monopolistic competition, inputs are set by private agents according to their own optimisation problem
@@ -134,12 +169,12 @@
 	
 	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)
 	
-	Small scale new keynesian model solved with first order log-approximation \cite{herbst_bayesian_2014}
+	Small scale new keynesian model solved with first order log-approximation \cite{herbst_bayesian_2016}
 	
 	Define stability condition of the linear state-space, Blanchard-Kahn
 	
 	
-	\section{Petrol}
+	\subsection{Petrol}
 	High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
 	
 	
@@ -148,75 +183,116 @@
 	
 	
 	
-	\part{Bringing the model to data}
+	\section{Data}
 	
-	\section{The Data}
-	Data sources
-	References for data sources
+	All data is gathered from St. Louis Federal Reserve data base (ref), the specific data code can be found in the (appendix). As such all data has been seasonally adjusted already and as pointed out by \cite{pfeifer_guide_2021} is if revised in hindsight adjusted in its entirety so that all measurements depart from the same assumption.
 	
-	\section{Preprocessing}
-	per capita
-	log
-	HP filter
-	- what is natural GDP
-	- what is cyclicity
-	- why does it yield log-deviations
+	The majority of the data used in across this thesis is standard to the DSGE modelling literature. However, some adjustments have been made to account for the inclusion of a petrol sector.
+% potential GDP ??
+	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. However, as the aim of the NK energy model is to analyse inflation using the CPI would be counterproductive. The model itself should generate an inflation that corresponds to the CPI as it includes the petrol sector into its dynamics. In order to accurately relfect on the models ability to do so one therefore has to remove energy price inflation from the data. Only doing so allows to asses the models real ability to replicate inflation. The NK energy model will therefore rely on the "Sticky Price Consumer Price Index less Food and Energy". A similar logic applies to consumption expenditure which for the NK energy model does not include expenditure for energy and utilities.
 	
+	The other variables used for the evaluation of model suitability are rather standard. The nominal interest rate is proxied by the federal funds effective rate. Consumption and investment are measured by household expenditure data. Labour and wage referr to non-fram business total hours worked as well as averge hourly wage as recommended for the US economy (ref). As proxy of energy cost this thesis employs the WTI Crude Oil Index as suggested by (ref) as it is available for a longer time horizon as opposed to the more recent Brent Crude Oil Index.
 	
-	\section{Descriptives}
-	Descriptives
-	Plot data
+	\subsection{Preprocessing}
 	
-	\section{Analysis of models}
+	Economic data is usually considered in per capita terms, in order to account for different population dynamics (ref). The same procedure will be applied across this work. However, population dynamics are not constantly collected wherefore its records display significant irregularities and not the smooth dynamic of true population growth or decline \cite{pfeifer_guide_2021}. Using these error prone records thus will distort the data signal of other more carefully collected economic data. In order to circumvent this irregularity a smoothing with the Hodrick-Prescott (HP) filter's (at level 10,000) is suggested by (ref) Edge, Gürkaynak, and Kisacikoglu (2013). This work follows this approach and divides trending variables by population data to obtain per capita variables.
+	
+	However, population dynamics are only one source of trend in variables. Variables measured in monetary terms are also concerned by inflation. \cite{pfeifer_guide_2021} (Grohe, Uribe) recommend de-trending nominal variables by the GDP deflator in order to account for this. This work follows this approach and relies on inflation corrected data so that monetary variables are expressed in the same quantities.
+	
+% talk about one-sided filter
+	As the model studied across this thesis are describing log-deviations of economic variables from their respective steady states further transformation is required. This traditionally involves separating the underlying long-trend of GDP per capita from its cycle variations. A commonly employed method for doing so is the Hodrick-Prescott filter, which if fed with log-transformed variables will output the desired log-deviations from the trend as well as the trend itself (ref). As this work is concerned with quarterly variables the smoothing parameter has been set to 1600 as suggested by the work of \cite{ravn_adjusting_2002}. This procedure by construction yields stationary time series. In order to confirm the stationarity this work has again as commonly the case confirmed stationarity of all variables using the Augmented-Dickey Fuller test (ref).
+	
+	To this point all trending variables have been transformed into stationary time series of log deviation from their respective natural level. The percentage variables, namely inflation and interest rate require no such treatment. However, as they are stated in annual terms they require translation into quarterly variables. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1)$.
+	
+	An overview over the transformed variables can be found in the (appendix).
+	The descriptives statistics can be found in the (appendix).
+	
+	\subsection{Analysis of models}
 	Compare model covariance matrices, to actual covariance in data
-	
 	Show theoretical impulse response functions, differences between NK and RBC
-	
-	\section{Estimation methods}
+			
+	\section{Bayesian Estimation}
 		
-	As explained in the above the RBC and later NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1976 critique as their parameters do not  directly depend on the choices of agents (ref). Instead, they represent the deep-rooted dynamics of the dynamic system describing the economy, as such they should exhibit a certain stability over time (ref). \\
+	As explained in the above the RBC and later NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1976 critique as their parameters do not  directly depend on the choices of agents (ref). Instead, they represent the deep-rooted dynamics of the dynamic system describing the economy, as such they should exhibit a certain stability over time (ref). 
 	
 	This perspective makes an implicit but important assumption: DSGE model corresponds to the real dynamic system describing the economy. A far reaching assumption which has been considered at least partially validated based on the ability of early DSGE models to generate data matching 1st and 2nd order moments of real variables such as output, consumption and investment (ref). 
 	In an attempt to tweak this capability  early attempts to parameter to identifying the true parameters of the economy were made. In doing so academics first relied on what \cite{prescott_theory_1986} referred to as great ratios of the economy. Calculating for example the real interest rate allowed to derive the discount factor $\beta$. 
-	Other parameters had fewer empirical counterfactuals and where thus not estimated by manually calibrated to sensible values. These inaccuracy gave rise to approaches more deeply rooted in econometric analysis. They were undertaken in the aim of reliably estimating the economy's true structural parameters.\\
+	Other parameters had fewer empirical counterfactuals and where thus not estimated by manually calibrated to sensible values. These inaccuracy gave rise to approaches more deeply rooted in econometric analysis. They were undertaken in the aim of reliably estimating the economy's true structural parameters.
 	
-	Such early attempts of econometric identification relied on standard frequentists statistics such as the maximum-likelihood estimators (MLE) (ref). Another approach pioneered by Blanchard \& Kahn (ref) referred to as simulation method of moments, later progressed into the general method of moments (GMM) attempted to minimize the distance between simulated and real data moments. The GMM allowed to discriminate between several competing specification of the same structural model \cite{christiano_current_1992}. Comparing the estimated parameters of the model with real data values then served as inspection of model fit to data. However, as models grew in size a major short-coming of GMM became apparent. The method of moment conditions were no longer sufficient to estimate model fit across the variety of parameters \cite{guerron-quintana_bayesian_2013}. Likewise, the ML estimator turned out to be limited in its ability to estimated the entirety of parameters, requiring manual calibration of some parameters \cite{guerron-quintana_bayesian_2013}.\\
+	Such early attempts of econometric identification relied on standard frequentists statistics such as the maximum-likelihood estimators (MLE) (ref). Another approach pioneered by Blanchard \& Kahn (ref) referred to as simulation method of moments, later progressed into the general method of moments (GMM) attempted to minimize the distance between simulated and real data moments. The GMM allowed to discriminate between several competing specification of the same structural model \cite{christiano_current_1992}. Comparing the estimated parameters of the model with real data values then served as inspection of model fit to data. However, as models grew in size a major short-coming of GMM became apparent. The method of moment conditions were no longer sufficient to estimate model fit across the variety of parameters \cite{guerron-quintana_bayesian_2013}. Likewise, the ML estimator turned out to be limited in its ability to estimated the entirety of parameters, requiring manual calibration of some parameters \cite{guerron-quintana_bayesian_2013}.
 	
-	While frequentists statistics knew to overcome the identification problem in introducing theoretical moments Smith (1993) it was soon challenged by a different perspective. At the heart of all frequentist statistics lies the assumption that a given model corresponds to the true structural process, it is the 'true' model (ref). If this assumption cannot be met all estimation will be biased and thus need to be corrected for. Again remedies where found (ref) Smith (1993) or Dridi, Guay, and Renault (2007) in varying parameters most relevant to overall model moments and keeping less relevant ones constant throughout econometric estimation. Yet it is argued that this approach at least partly failed in overcoming the conditional bias introduced by non-relevant parameters \cite{guerron-quintana_bayesian_2013}.\\
+	While frequentists statistics knew to overcome the identification problem in introducing theoretical moments Smith (1993) it was soon challenged by a different perspective. At the heart of all frequentist statistics lies the assumption that a given model corresponds to the true structural process, it is the 'true' model (ref). If this assumption cannot be met all estimation will be biased and thus need to be corrected for. Again remedies where found (ref) Smith (1993) or Dridi, Guay, and Renault (2007) in varying parameters most relevant to overall model moments and keeping less relevant ones constant throughout econometric estimation. Yet it is argued that this approach at least partly failed in overcoming the conditional bias introduced by non-relevant parameters \cite{guerron-quintana_bayesian_2013}.
 	
 % explain Baye's law ?
 	Consequently, a new philosophy of linking models to data was identified. Bayesian statistics replaces the assumption of a single true model by the convenient formulation of conditional likelihood making it more appealing to the purposes of DSGE modelling \cite{guerron-quintana_bayesian_2013}. In doing so the Bayesian statistics relies on Bayes law linking the conditional likelihood of an event to the prior distribution.
-		
 	\[
 	P( \Theta | Y_{T}) = L(Y_{T} | \Theta) P(\Theta)
 	\]
-		
 	A given model specification can be linked to a likelihood evaluated against the backdrop of data the system is meant to generate (ref). This allows to assess a model's suitability. The frequentist's idea of a single true parameter is replaced by distributions assigning different probabilities to parameter values. These prior distribution reflect previous knowledge allowing to narrow down the possible space of parameters. Instead of identifying a true parameter Bayesian statistics, aims at evaluating these believes and at decreasing uncertainty around the parameter space i.e. the variance of the distribution. This process translates the prior distribution into a posterior distribution, not necessarily belonging to the same class. 
-	This process of evaluation is referred to as sampling and builds on numerical and stochastic calculus to approximate the true posterior distribution (ref). Furthermore, Bayesian statistics naturally provides great forecasting properties. Once uncertainty around the space of the real system has been reduced it allows for make informed forecasts, naturally providing confidence bans. \\
+	This process of evaluation is referred to as sampling and builds on numerical and stochastic calculus to approximate the true posterior distribution (ref). Furthermore, Bayesian statistics naturally provides great forecasting properties. Once uncertainty around the space of the real system has been reduced it allows for make informed forecasts, naturally providing confidence bans. 
 	
 	The following section will therefore be concerned with these four concepts, conditional likelihood, prior and posterior distribution, sampling and forecasting. DSGE literature has developed a rich body of literature covering the case of the canonical DSGE model rather well (ref). The state of research is currently concerned with the estimation of larger models and non-linear and not normally distributed posterior distributions (ref). However, given the simplicity of the above discussed models current techniques are more than sufficient for this thesis purposes.
 	
 	
-	\subsubsection{The log-likelihood}
+	\subsection{The log-likelihood}
 	
-	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous beliefs to the true posterior distribution (ref). This process relies on Bayes law as illustrated above, which requires the prior distribution and the marginal likelihood of data given the representation of the system $L(Y | \Theta)$ (ref). This section is concerned with obtaining the latter. \\
+	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous beliefs to the true posterior distribution (ref). This process relies on Bayes law as illustrated above, which requires the prior distribution and the marginal likelihood of data given the representation of the system $L(Y | \Theta)$ (ref). This section is concerned with obtaining the latter.
 	
-	The marginal likelihood for a linear state system requires a technique allowing to assess the fit of data to the system. In doing so one relies on the fact that DSGE models when expressed as linear dynamic systems are data generating processes. This allows to formulate the question of how likely a given set of data has been generated by the system. A method allowing to do so is the Kalman filter (ref). This filter originates from engineering and has originally been developed to track the position of an air plane off signals from different sensor. As sensor signals are inherently noisy the filter is designed to exploit one's knowledge about the measurement noise in order to reduce the variance on its believe about the actual position or state of the plane. In doing so the filter imposes the important assumption of Gaussian distributed noise, exploiting the fact that any multiple of two Gaussian distributions will again yield a Gaussian distribution. The resulting Gaussian then has a lower variance than its parents, which is equivalent to saying that the resulting distribution has narrowed down the believe on the current state of the system. This assumption is especially important for the purposes of DSGE modelling, as the likelihood function of the Kalman filter relies on the assumption of Gaussian noise. Applied to DSGE models this implies that the joint distribution of shocks must be Gaussian \cite{herbst_bayesian_2014}. 
+	The marginal likelihood for a linear state system requires a technique allowing to assess the fit of data to the system. In doing so one relies on the fact that DSGE models when expressed as linear dynamic systems are data generating processes. This allows to formulate the question of how likely a given set of data has been generated by the system. A method allowing to do so is the Kalman filter (ref). This filter originates from engineering and has originally been developed to track the position of an air plane off signals from different sensor. As sensor signals are inherently noisy the filter is designed to exploit one's knowledge about the measurement noise in order to reduce the variance on its believe about the actual position or state of the plane. In doing so the filter imposes the important assumption of Gaussian distributed noise, exploiting the fact that any multiple of two Gaussian distributions will again yield a Gaussian distribution. The resulting Gaussian then has a lower variance than its parents, which is equivalent to saying that the resulting distribution has narrowed down the believe on the current state of the system. This assumption is especially important for the purposes of DSGE modelling, as the likelihood function of the Kalman filter relies on the assumption of Gaussian noise. Applied to DSGE models this implies that the joint distribution of shocks must be Gaussian \cite{herbst_bayesian_2016}. 
 % check the following statement	
-	This is usually satisfied for small scale New Keynesian models if the individual shocks are Gaussian (ref). For larger DSGE models this assumption does not necessarily hold and shocks are highly correlated. As mentioned above the is state of research and demands other methods of evaluation such as the Kalman-Particle filter (ref). As this work is concerned with the canonical model the Kalman filter will be sufficient.\\
+	This is usually satisfied for small scale New Keynesian models if the individual shocks are Gaussian (ref). For larger DSGE models this assumption does not necessarily hold and shocks are highly correlated. As mentioned above the is state of research and demands other methods of evaluation such as the Kalman-Particle filter (ref). As this work is concerned with the canonical model the Kalman filter will be sufficient.
 	
-	Given such linear Gaussian system the Kalman filter becomes especially desirable as it provides optimal forecast (ref), making any other method of evaluation obsolete. The below will now briefly explain how the Kalman filter is constructed off the linear system and end with deriving its likelihood function.\\
+	Given such linear Gaussian system the Kalman filter becomes especially desirable as it provides optimal forecast (ref), making any other method of evaluation obsolete. The below will now briefly explain how the Kalman filter is constructed off the linear system and end with deriving its likelihood function.
 	
 	Given the generic linear system below wit $\matr{F}$ as the transition and $\matr R$ as the shock noise matrix the Kalman filter proceeds in two steps, a predict and an update step:\\
-	
 	\[
 		\matr{X}_t = \matr F \matr{X}_{t-1} + \matr R \matr{\epsilon}_t
 	\]
 	\[
-		\matr{\epsilon}_t \sim N(0, \sigma_{\epsilon})
+	\matr{\epsilon}_t \sim N(0, \sigma_{\epsilon})
 	\]	
-	
-	\textbf{Predict step}\\
+	\[
+			\begin{bmatrix}
+				y_t \\
+				z_t
+			\end{bmatrix}
+		=
+			\begin{bmatrix}
+				\rho_y & \rho_{yz} \\
+				\rho_{zy} & \rho_z
+			\end{bmatrix}
+		+
+			\begin{bmatrix}
+				y_{t-1} \\
+				z_{t-1}
+			\end{bmatrix}
+		+
+			\begin{bmatrix}
+				\epsilon_{yt} \\
+				\epsilon_{zt}
+			\end{bmatrix}				
+	\]
+	\[
+		\begin{bmatrix}
+			\epsilon_{y,t} \\
+			\epsilon_{z, t}
+		\end{bmatrix}
+		\sim
+		N
+		\left(
+			\begin{bmatrix}
+				0 \\
+				0
+			\end{bmatrix}
+		,
+			\begin{bmatrix}
+				\sigma_y^2 & 0 \\
+				0 & \sigma_z^2
+			\end{bmatrix}
+		\right)
+	\]
+		
+	\textbf{Predict step}
 	
 	In the predict step the Kalman filter propagates the system of state variables $\matr X_{t}$ according to the transition matrix $\matr F$. This matrix defines the system and as such is time independent. The propagation then yields an estimate for the $X_{t+1}$ system state. This could be supplemented by directions or external influences on the system that one is aware of. However, this is not the case for this work.
 	\[
@@ -227,8 +303,8 @@
 		\matr{P}_{k| k-1} = \matr F \matr{P}_{k-1| k-1} \matr{F}^T + \matr Q
 	\]
 	
-	\textbf{Filter step}\\
-	
+	\textbf{Filter step}
+		
 	Once the predicted state $\matr X$ and covariance matrix $\matr P$ have been determined the Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state variables measurement referred to as $\matr z_t$, which due to measurement noise is not considered to always reflect the actual actual state of the system. The actual state is instead thought of to ly in-between the predicted state $\matr{X}_{k| k-1}$ and the measurement $\matr{z}_k$. The objective of the filtering step is therefore to identify this true state in-between the two. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, which can be though of as a weighting function between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building this average the filter takes into account the process noise and the covariance matrix as well as the accuracy of past iterations.\\
 	
 	$\matr{y}_k$ is the difference between measurement and prediction. The matrix $\matr H$ is the measurement matrix, ensuring that predicted state $\matr{X}_{k| k-1}$ and $\matr{z}_k$ are in the same units.
@@ -251,9 +327,9 @@
 		\matr{P}_{k|k} = (\matr I - \matr{K}_k \matr{H}) \matr{P}_{k|k-1}
 	\]
 	
-	\textbf{Likelihood function}\\
+	\textbf{Likelihood function}
 	
-	Having introduced the Kalman filter algorithm the setting of the starting values remain. For the Kalman filter these are less decisive, has the filter is very capable in converging to the true state. However, as the models at hand are describing deviations from the steady state this work has set $\matr{X}_{0|0}$ to zero, assuming that the system is in its steady state to begin with, an approach generally followed by the literature. Secondly, this section has initially been dedicated to the Kalman filter's likelihood function. Having explored the propagation one can now derive the likelihood function. This function is heavily reliant on the assumption of Gaussian system noise, as it draws from the normal distribution in evaluating the likelihood for each iterations. In the below when referring to likelihood this thesis will however be referring not to the individual likelihood of each iteration but to the cumulated likelihood across all iterations. \\
+	Having introduced the Kalman filter algorithm the setting of the starting values remain. For the Kalman filter these are less decisive, has the filter is very capable in converging to the true state. However, as the models at hand are describing deviations from the steady state this work has set $\matr{X}_{0|0}$ to zero, assuming that the system is in its steady state to begin with, an approach generally followed by the literature. Secondly, this section has initially been dedicated to the Kalman filter's likelihood function. Having explored the propagation one can now derive the likelihood function. This function is heavily reliant on the assumption of Gaussian system noise, as it draws from the normal distribution in evaluating the likelihood for each iterations. In the below when referring to likelihood this thesis will however be referring not to the individual likelihood of each iteration but to the cumulated likelihood across all iterations.
 	
 	The probabiltiy desinty function for any normal distribution is given by: 
 	\[
@@ -263,28 +339,25 @@
 	\[
 		\Lagr_k = \frac{1}{\matr{S}_k \sqrt{2 \pi}} \exp [- \frac{1}{2} \matr{y}_k^{T} \matr{S}_{k}^{-1} \matr{y}_k]
 	\]
-
 % get filterpy reference and Kalman Literature ref
 	This work has drawn from filterpy in order to perform the above calculations (ref).
-		
 	
-	\subsubsection{Sampler}
+	\subsection{Sampler}
 	
 	There are local and global identification problems 
 	
-	The key aspect of Bayesian estimation across DSGE models is the identification of the true parameter distribution, the posterior. However, mapping a DSGE model's parameters to its posterior is non-linear in the parameter vector $\Theta$. Therefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2014}. Instead a numerical approximation mechanism is require, this is referred to as the sampler \cite{guerron-quintana_bayesian_2013}. The Metropolis-Hastings Monte Carlo Markov Chain (MH-MCMC) sampler is the predominant sampling method in linear Bayesian estimation literature \cite{guerron-quintana_bayesian_2013}. The MH-MCMC sampler is applicable to small scale New Keynesian models, for which it usually delivers good results as the joint parameter distribution is well-behaved and elliptical \cite{herbst_bayesian_2014}. This reduces the posterior identifiaction problem to a global problem. Larger NK models exhibit no-eliptic parameter distributions and thus requirer samplers which are able to distinguish local and global likelihood maxima in their identification of the posterior \cite{herbst_bayesian_2014}. As this thesis is concerned with the small scale canoncial model the Metropolis-Hastings sampler is sufficiently accurate and will be used. \\
+	The key aspect of Bayesian estimation across DSGE models is the identification of the true parameter distribution, the posterior. However, mapping a DSGE model's parameters to its posterior is non-linear in the parameter vector $\Theta$. Therefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2016}. Instead a numerical approximation mechanism is require, this is referred to as the sampler \cite{guerron-quintana_bayesian_2013}. The Metropolis-Hastings Monte Carlo Markov Chain (MH-MCMC) sampler is the predominant sampling method in linear Bayesian estimation literature \cite{guerron-quintana_bayesian_2013}. The MH-MCMC sampler is applicable to small scale New Keynesian models, for which it usually delivers good results as the joint parameter distribution is well-behaved and elliptical \cite{herbst_bayesian_2016}. This reduces the posterior identification problem to a global problem. Larger NK models exhibit no-elliptic parameter distributions and thus require samplers which are able to distinguish local and global likelihood maxima in their identification of the posterior \cite{herbst_bayesian_2016}. As this thesis is concerned with the small scale canonical model the Metropolis-Hastings sampler is sufficiently accurate and will be used.
 	
-	The MH-MCMC sampler suggests new posterior candidates according to a multivariate random walk. The posterior is extend by a suggestion if it provides an improvement in the likelihood as described in (section). The algorithm generates a stable Markov chain, which is meant to exhibit low autocorrelation and low variance of the MH estimator. If this is fullfilled the resulting chain is equivalent to the posterior distribution \cite{herbst_bayesian_2014}.\\
-	
+	The MH-MCMC sampler suggests new posterior candidates according to a multivariate random walk. The posterior is extend by a suggestion if it provides an improvement in the likelihood as described in (section). The algorithm generates a stable Markov chain, which is meant to exhibit low autocorrelation and low variance of the MH estimator. If this is fulfilled the resulting chain is equivalent to the posterior distribution \cite{herbst_bayesian_2016}.	
 		
 	Metropolis Hastings sampling algorithm
 	- it is important to note that a draw from the shocks prior, factors into the drawing process
 	- procedure also followed by, with 300,000 draws of which 20,000 are considered burn in \cite{chin_bayesian_2019}
-	
-	The below will be explaning this thesis implementation of the MH sampler and methods of evaluating its convergence to the true posterior distribution. The algorithm proceeds in three main steps.
-	First a candidate for the posterior $\matr{\hat{\Theta}}_{k|k-1}$ is suggested based on the random-walk law of motion. The random-walk departs from the last accepted posterior candidate and suggests a new candidate by departing from the $\matr{\Theta}_{k-1|k-1}$ according to the zero-mean Gaussian distribution $\epsilon$. The distribution's variance $\matr{\Sigma}$ can be set to either the identity matrix $\matr{I}$ or to contain the parameter prior variances on its diagonal. The latter is recommended if well-defined priors are at play \cite{herbst_bayesian_2014}.
+		
+	The below will be explaining this thesis implementation of the MH sampler and methods of evaluating its convergence to the true posterior distribution. The algorithm proceeds in three main steps.
+	First a candidate for the posterior $\matr{\hat{\Theta}}_{k|k-1}$ is suggested based on the random-walk law of motion. The random-walk departs from the last accepted posterior candidate and suggests a new candidate by departing from the $\matr{\Theta}_{k-1|k-1}$ according to the zero-mean Gaussian distribution $\epsilon$. The distribution's variance $\matr{\Sigma}$ can be set to either the identity matrix $\matr{I}$ or to contain the parameter prior variances on its diagonal. The latter is recommended if well-defined priors are at play \cite{herbst_bayesian_2016}.
 % However, for the special case of a target distribution which is multivariate normal, Roberts, Gelman, and W.R. (1997) has derived a limit (in the size of parameter vector) optimal acceptance rate of 0.234. Most practitioners target an acceptance rate between 0.20 and 0.40. The scaling c factor can be tuned during the burn-in period or via pre-estimation chains
-	 To complete the random-walk the MH sampler also employs a gain parameter $\eta$ that essentially scales the distance of the new posterior candidate away from the last accepted posterior $\matr{\Theta}_{k-1|k-1}$. This value has been calibrated by several studies, which recommend an $\eta = 0.234$ for the special case of a multivariate normal distribution (ref). Generally the value of $\eta$ should correspond to an acceptance rate between 20\% and 40\% of suggested draws \cite{herbst_bayesian_2014}.
+	 To complete the random-walk the MH sampler also employs a gain parameter $\eta$ that essentially scales the distance of the new posterior candidate away from the last accepted posterior $\matr{\Theta}_{k-1|k-1}$. This value has been calibrated by several studies, which recommend an $\eta = 0.234$ for the special case of a multivariate normal distribution (ref). Generally the value of $\eta$ should correspond to an acceptance rate between 20\% and 40\% of suggested draws \cite{herbst_bayesian_2016}.
 	\[
 		\matr{\hat{\Theta}}_{k|k-1} = \matr{\Theta}_{k-1|k-1} + \eta \epsilon
 	\]
@@ -307,28 +380,21 @@
 % math expression for the posterior
 	As illustrated in the above MH-MCMC is a recursive method and as such requires an initial value for the posterior $\Theta$. This values is usually obtained throughout a so-called burn in period corresponding to 10 \% of total iterations (ref). The total number of iterations depends on the speed of convergence of the chain but usually ranges between 20,000 and 50,000 iterations (ref).\\
 	\\
-	The following will now describe the evaluation steps to insure convergence of the chain. Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).\\
+	The following will now describe the evaluation steps to insure convergence of the chain. Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).
 	
-	
-	The MH random walk is highly suceptible to mis specification of the posterior of the prior distribution is far away from the true posterior \cite{herbst_bayesian_2014}
-	
-	
-	
-	
-	
-	
-	
+	The MH random walk is highly suceptible to mis specification of the posterior of the prior distribution is far away from the true posterior \cite{herbst_bayesian_2016}
+			
 	\subsection{Priors}
 	
-	The assumption for prior selection is that priors are obtained from some past knowledge. If this knowledge is independent of the data used to evluate the liklihood function than the prior holds. This is fullfiled if the data for prior building at least predates the data for likelihood evluation \cite{herbst_bayesian_2014}.
-	
-	
+	The assumption for prior selection is that priors are obtained from some past knowledge. If this knowledge is independent of the data used to evluate the liklihood function than the prior holds. This is fullfiled if the data for prior building at least predates the data for likelihood evluation \cite{herbst_bayesian_2016}.
+		
 	Priors are statistical distributions which either reflect believes about the strucutral mechanism or are derived from data, external to the estimation process \cite{del_negro_forming_2008}
 	- Priors thus refelect microeconomic evidence, for example regarding labour supply and elasticity
 	- However, they are a simplication of the real joint likelihood function of the strucutural model. Such function is difficult and sometimes impossible to evaluate
 	
 	Priors \cite{del_negro_forming_2008}
 	- Priors are usually assumed to be independent for simplicities sake
+	- this is true for shocks in small scale canonical model, as shocks are assumed to be independent, an important assumptio for the bayesian analysis to hold \cite{herbst_bayesian_2016}
 	- Priors are often calibrated for the model to match the covariance of real data
 		
 	\cite{del_negro_forming_2008} suggest two kinds of data sources. Pre-sample data, which is not included in the model evaluation process or in-sample data, that is explicitly excluded from the model evaluating likelihood function.
@@ -343,11 +409,8 @@
 	\]
 	When determining the steady-state priors $\theta_{ss}$ and assuming independence it is possible that the resulting joint prior distributions assigns high probability to unrealistic steady state values \cite{del_negro_forming_2008}. To circumvent this issue other method
 	
-	This priors are usually estimated from pre-sample data \cite{herbst_bayesian_2014}
-	this work follows this approach and thus 
-	
-	
-	
+	This priors are usually estimated from pre-sample data \cite{herbst_bayesian_2016}
+	this work follows this approach and thus 	
 	
 	\subsubsection{Exogenous priors}
 	The exogenenous propagation paraemeters 
@@ -355,12 +418,10 @@
 	\[
 		\theta_{exog} = \{\rho_a, \rho_s, \sigma_a, \sigma_s \}
 	\]
-	
 	Exogenous priors can be evaluated from the model specification in keeping the influence of other priors minimal. Del Negro suggests, to set all other parameters to zero where possible. The system of equations then reduces to variables that are depend on the exogenous shocks. This reduced system can then be used to evaluate the likelihood of prior values, using out-of sample data of the later calibration. 
 	An evaluation based on the likelihood of the reduced system is not necessary if the variation in observable variables can be directly retraced to individual shocks. In a simple model where shocks do not intersect in their influence on observable variables, e.g. in the case of a singular technology shock the variance of the shock can be directly inferred from the observable variable. In case of intersecting multiple shocks the likelihood of the reduced system needs to be consulted to choose appropriate priors, as their influence on observables cannot be directly inferred. 
 	
 	In case of exogenous observable shocks, such as energy prices, the above procedure is not required. Other than the level of technology energy price shocks are measurable, wherefore one can rely on the observable first and second order moments (ref).
-	
 	
 	\subsubsection{Endogenous priors}
 	The endogenous propagation parameters, including the shock autoregressive coefficients are parameters involved with the propagation of shocks through the system.
@@ -368,26 +429,26 @@
 	All remaining parameters are stacked into the the following
 	\[
 		\theta_{endog} = \{\sigma_C, \sigma_L, \}
-	\]\}
+	\]
 	Priors of the remaining variables are chosen in order to reflect believes or micro evidence. This work draws from the choice of \cite{del_negro_forming_2008} in their endogenous priors, given the similarity in models
 	
 	
 	
-	
-	
+
 	
 		
 	Priors are chosen in order to match first and second order moments individually as well as in a joint distribution across all parameters \cite{del_negro_forming_2008}
 	
-	\input{{./graphs/priors_table.tex}}
+
 
 	
 	
 %	"Also, rather than imposing priors on the great ratios, C∗/Y ∗, I∗/K∗, K∗/Y ∗, and G∗/Y ∗, we fix the capital share, α, the depreciation rate, δ, and the share of government expenditure, g∗. This follows well established practices that pre-date Bayesian estimation of NKDSGE models." \cite{guerron-quintana_bayesian_2013}
 	
 	
+	\section{Forecast evaluation}
 	
-	\subsubsection{Reference Model BVar}
+	\subsection{Reference Model BVar}
 	\cite{schorfheide_loss_2000}
 	
 	BVar with normally indpendently distributed lag parameters \cite{chin_bayesian_2019}
@@ -395,12 +456,7 @@
 	This work uses a frequentist VAR to determine the optimal number of lags, which are found to be 4. This corresponds to the choice of four lags in \cite{chin_bayesian_2019}
 	
 	
-	
-	
-	
-	
-	
-	\subsection{Forecasts}
+	\subsection{Model Forecasts}
 	Relevant to policy recommendations
 	How well can models capture the dynamics of the economy, e.g. as a spectrum of possible outcomes
 	
@@ -434,19 +490,27 @@
 	Amisano–Giacomini test for density forecast performance following  \cite{chin_bayesian_2019}
 
 	
+	\section{Conclusion}
 	
-	\pagebreak
+	
+	\section*{Bibliography}
+%	\addcontentsline{toc}{chapter}{Bibliography}
 	\bibliography{20230505_m1_dsge}
 	
 	
-	\part{Appendix}
+	\section*{Appendix}
 	
-	\section{Appendix A}
-	
-	\subsection{RBC}
-	
+	\subsection*{Appendix A}
+		
+% graphs
 	\includegraphics[scale=.3]{mod4_rbc_vanilla_epsilon_A_irfs_quantiles.png}\\
-	
-	\includegraphics[scale=.3]{mod4_rbc_vanilla_posterior_hist.png}
+	\includegraphics[scale=.3]{mod4_rbc_vanilla_posterior_hist.png}\\
+	\includegraphics[scale=.3]{data_variables_transforemd.png}
+
+	\subsection*{Appendix B}
+% tables
+	\input{{./graphs/priors_table.tex}}
+	\input{{./graphs/fred_variables.tex}}
+	\include{{./graphs/data_descriptives.tex}}
 
 \end{document}
