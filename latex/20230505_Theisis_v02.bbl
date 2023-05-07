@@ -1,0 +1,57 @@
+\begin{thebibliography}{GQN13}
+
+\bibitem[CE92]{christiano_current_1992}
+Lawrence~J. Christiano and Martin Eichenbaum.
+\newblock Current real-business-cycle theories and aggregate labor-market
+  fluctuations.
+\newblock {\em The American Economic Review}, pages 430--450, 1992.
+\newblock Publisher: JSTOR.
+
+\bibitem[CL19]{chin_bayesian_2019}
+Kuo-Hsuan Chin and Xue Li.
+\newblock Bayesian forecast combination in {VAR}-{DSGE} models.
+\newblock {\em Journal of Macroeconomics}, 59:278--298, March 2019.
+
+\bibitem[DNS08]{del_negro_forming_2008}
+Marco Del~Negro and Frank Schorfheide.
+\newblock Forming priors for {DSGE} models (and how it affects the assessment
+  of nominal rigidities).
+\newblock {\em Journal of Monetary Economics}, 55(7):1191--1208, October 2008.
+
+\bibitem[GQN13]{guerron-quintana_bayesian_2013}
+Pablo~A. Guerrón-Quintana and James~M. Nason.
+\newblock Bayesian estimation of {DSGE} models.
+\newblock In {\em Handbook of research methods and applications in empirical
+  macroeconomics}, pages 486--512. Edward Elgar Publishing, 2013.
+
+\bibitem[HS14]{herbst_bayesian_2014}
+Edward Herbst and Frank Schorfheide.
+\newblock Bayesian inference for {DSGE} models.
+\newblock {\em Manuscript. Board of Governors of the Federal Reserve System,
+  Washington, DC}, 2014.
+
+\bibitem[KL92]{kim_role_1992}
+In-Moo Kim and Prakash Loungani.
+\newblock The role of energy in real business cycle models.
+\newblock {\em Journal of Monetary Economics}, 29(2):173--189, April 1992.
+
+\bibitem[KP82]{kydland_time_1982}
+Finn~E. Kydland and Edward~C. Prescott.
+\newblock Time to build and aggregate fluctuations.
+\newblock {\em Econometrica: Journal of the Econometric Society}, pages
+  1345--1370, 1982.
+\newblock Publisher: JSTOR.
+
+\bibitem[Pre86]{prescott_theory_1986}
+Edward~C. Prescott.
+\newblock Theory ahead of business-cycle measurement.
+\newblock In {\em Carnegie-{Rochester} conference series on public policy},
+  volume~25, pages 11--44. Elsevier, 1986.
+
+\bibitem[Sch00]{schorfheide_loss_2000}
+Frank Schorfheide.
+\newblock Loss function-based evaluation of {DSGE} models.
+\newblock {\em Journal of Applied Econometrics}, 15(6):645--670, 2000.
+\newblock Publisher: Wiley Online Library.
+
+\end{thebibliography}

@@ -16,7 +16,8 @@
 \date{} 
 
 % user commands
-\newcommand{\matr}[1]{\mathbf{#1}}
+\newcommand{\matr}[1]{\mathbf{#1}} % matrix font
+\newcommand{\Lagr}{\mathcal{L}} % likelihood L
 
 
 \begin{document}
@@ -206,14 +207,17 @@
 	
 	Given such linear Gaussian system the Kalman filter becomes especially desirable as it provides optimal forecast (ref), making any other method of evaluation obsolete. The below will now briefly explain how the Kalman filter is constructed off the linear system and end with deriving its likelihood function.\\
 	
-	\begin{enumerate}
-		\item 
-	\end{enumerate}
 	Given the generic linear system below wit $\matr{F}$ as the transition and $\matr R$ as the shock noise matrix the Kalman filter proceeds in two steps, a predict and an update step:\\
 	
-	$\matr X_t = \matr F \matr X_{t-1} + \matr R \matr{\epsilon}_t$, $\matr \epsilon_t \sim N(0, \sigma_{\epsilon})$
+	\[
+		\matr{X}_t = \matr F \matr{X}_{t-1} + \matr R \matr{\epsilon}_t
+	\]
+	\[
+		\matr{\epsilon}_t \sim N(0, \sigma_{\epsilon})
+	\]	
 	
-	Predict\\
+	\textbf{Predict step}\\
+	
 	In the predict step the Kalman filter propagates the system of state variables $\matr X_{t}$ according to the transition matrix $\matr F$. This matrix defines the system and as such is time independent. The propagation then yields an estimate for the $X_{t+1}$ system state. This could be supplemented by directions or external influences on the system that one is aware of. However, this is not the case for this work.
 	\[
 		\matr{\hat{X}}_{k|k-1} = \matr F \matr X_{k-1|k-1}
@@ -222,10 +226,12 @@
 	\[
 		\matr{P}_{k| k-1} = \matr F \matr{P}_{k-1| k-1} \matr{F}^T + \matr Q
 	\]
-	The filter step\\
-	Once the predicted state $\matr X$ and covariance matrix $\matr P$ have been determined the Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state variables measurement referred to as $\matr z_t$, which due to measurement noise is not considered to always reflect the actual actual state of the system. The actual state is instead thought of to ly in-between the predicted state $\matr{X}_{k| k-1}$ and the measurement $\matr{z}_k$. The objective of the filtering step is therefore to identify this true state in-between the two. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, which can be though of as a unction between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building this average the filter takes into account the process noise and the covariance matrix as well as the accuracy of past iteratrions.\\
 	
-	$\matr{y}_k$ is the difference between measurement and prediction. The matrix $\matr H$ is the measurment matrix, ensuring that predicted state $\matr{X}_{k| k-1}$ and $\matr{z}_k$ are in the same units.
+	\textbf{Filter step}\\
+	
+	Once the predicted state $\matr X$ and covariance matrix $\matr P$ have been determined the Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state variables measurement referred to as $\matr z_t$, which due to measurement noise is not considered to always reflect the actual actual state of the system. The actual state is instead thought of to ly in-between the predicted state $\matr{X}_{k| k-1}$ and the measurement $\matr{z}_k$. The objective of the filtering step is therefore to identify this true state in-between the two. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, which can be though of as a weighting function between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building this average the filter takes into account the process noise and the covariance matrix as well as the accuracy of past iterations.\\
+	
+	$\matr{y}_k$ is the difference between measurement and prediction. The matrix $\matr H$ is the measurement matrix, ensuring that predicted state $\matr{X}_{k| k-1}$ and $\matr{z}_k$ are in the same units.
 	\[
 		\matr{y}_{k} = \matr{z}_k - \matr H \matr{X}_{k| k-1}
 	\]
@@ -233,85 +239,78 @@
 	\[
 		\matr{S}_k = \matr H \matr{P}_{k| k-1} \matr{H}^T + \matr{R}
 	\]
-	The uncertainty term $\matr{S}_{k|k-1}$ is then used to calculate the weighting function between measurement and predicted state the Kalman gain. 
-	
+	The uncertainty term $\matr{S}_{k}$ is then used to calculate the weighting function between measurement and predicted state the Kalman gain. 
 	\[
-	L = \frac{1}{\sqrt{2 \pi S}} \exp [- \frac{1}{2} y^T S^{-1} y]
+		\matr{K}_k = \matr{P}_{k| k-1} \matr{H}^T \matr{S}_{k}^{-1}
+	\]
+	The filtered state which will be next iterations start then is calculated off the Kalman gain and $\matr{y}_k$. The covariance matrix is updated in a similar fashion. This yields a new narrower distribution summarising the uncertainty around the true systems state.
+	\[
+		\matr{X}_{k|k} = \matr{X}_{k| k-1} + \matr{K}_k \matr{y}_k
+	\]
+	\[
+		\matr{P}_{k|k} = (\matr I - \matr{K}_k \matr{H}) \matr{P}_{k|k-1}
+	\]
+	
+	\textbf{Likelihood function}\\
+	
+	Having introduced the Kalman filter algorithm the setting of the starting values remain. For the Kalman filter these are less decisive, has the filter is very capable in converging to the true state. However, as the models at hand are describing deviations from the steady state this work has set $\matr{X}_{0|0}$ to zero, assuming that the system is in its steady state to begin with, an approach generally followed by the literature. Secondly, this section has initially been dedicated to the Kalman filter's likelihood function. Having explored the propagation one can now derive the likelihood function. This function is heavily reliant on the assumption of Gaussian system noise, as it draws from the normal distribution in evaluating the likelihood for each iterations. In the below when referring to likelihood this thesis will however be referring not to the individual likelihood of each iteration but to the cumulated likelihood across all iterations. \\
+	
+	The probabiltiy desinty function for any normal distribution is given by: 
+	\[
+	\Lagr = \frac{1}{\sigma \sqrt{2 \pi}} \exp [- \frac{1}{2} \frac{x - \mu}{\sigma}]^2
+	\]
+	The Kalman filter relies on the multivariate where the standard deviation is given by system uncertainty $\matr{S}_k$ and the difference between mean and measurement are expressed through $\matr{y}_k$.
+	\[
+		\Lagr_k = \frac{1}{\matr{S}_k \sqrt{2 \pi}} \exp [- \frac{1}{2} \matr{y}_k^{T} \matr{S}_{k}^{-1} \matr{y}_k]
 	\]
 
-	
+% get filterpy reference and Kalman Literature ref
+	This work has drawn from filterpy in order to perform the above calculations (ref).
+		
 	
 	\subsubsection{Sampler}
 	
-	There are local and global identification problems \cite{herbst_bayesian_2014}
+	There are local and global identification problems 
 	
-	Mapping a DSGE model to its posterior is non-linear in the parameter vector $\Theta$. Therefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2014}. Instead a numerical approximation mechanism is require, this is referred to as the sampler \cite{guerron-quintana_bayesian_2013}.
+	The key aspect of Bayesian estimation across DSGE models is the identification of the true parameter distribution, the posterior. However, mapping a DSGE model's parameters to its posterior is non-linear in the parameter vector $\Theta$. Therefore the posterior distribution cannot be evaluated analytically \cite{herbst_bayesian_2014}. Instead a numerical approximation mechanism is require, this is referred to as the sampler \cite{guerron-quintana_bayesian_2013}. The Metropolis-Hastings Monte Carlo Markov Chain (MH-MCMC) sampler is the predominant sampling method in linear Bayesian estimation literature \cite{guerron-quintana_bayesian_2013}. The MH-MCMC sampler is applicable to small scale New Keynesian models, for which it usually delivers good results as the joint parameter distribution is well-behaved and elliptical \cite{herbst_bayesian_2014}. This reduces the posterior identifiaction problem to a global problem. Larger NK models exhibit no-eliptic parameter distributions and thus requirer samplers which are able to distinguish local and global likelihood maxima in their identification of the posterior \cite{herbst_bayesian_2014}. As this thesis is concerned with the small scale canoncial model the Metropolis-Hastings sampler is sufficiently accurate and will be used. \\
 	
-	Metropolis Hastings belongs to the Markov Chain Monte Carlo (MCMC) group of alogrithms. 
-	It generates a stable Markov chain, which is equivalent to the posterior distribution \cite{herbst_bayesian_2014}
-	\\
+	The MH-MCMC sampler suggests new posterior candidates according to a multivariate random walk. The posterior is extend by a suggestion if it provides an improvement in the likelihood as described in (section). The algorithm generates a stable Markov chain, which is meant to exhibit low autocorrelation and low variance of the MH estimator. If this is fullfilled the resulting chain is equivalent to the posterior distribution \cite{herbst_bayesian_2014}.\\
 	
-	
+		
 	Metropolis Hastings sampling algorithm
-	- a multivariate random walk to update the posterior distribution
-	- the posterior then is updated based on improvements in the overall model likelihood
 	- it is important to note that a draw from the shocks prior, factors into the drawing process
 	- procedure also followed by, with 300,000 draws of which 20,000 are considered burn in \cite{chin_bayesian_2019}
 	
-	MH-MCMC sampler
-	- predominant estimation method in linear Bayesian estimation literature \cite{guerron-quintana_bayesian_2013}\\
-	- the MH sampler is applicable to small scale New Keynesian models and usually delivers good results on this scale. For larger models a different kind of sampling is required \cite{herbst_bayesian_2014}. As this thesis is concerned with such small scale model it will follow the Metropolis Hastings sampling procedure.
-	
-	
-	The algorithm proceeds as follows \cite{herbst_bayesian_2014}\\
-	
-	Posterior $\Theta$, prior $p$, suggestions $\theta$
-	
-	\begin{enumerate}
-		\item A new draw $\zeta$ is suggested based on a random draw from the prior distribution of parameters $\Theta$. In order to determine whether this draw is admissible to the posterior $\Gamma_{1:i}$ the following steps are followed.
-		\[
-			\zeta = \Theta_{i-1} + \eta
-		\]
-		\[
-			\eta \sim N(0, c \hat{\Sigma})
-		\]
-		
-		\cite{herbst_bayesian_2014} recommends to set $\Sigma$ either to the identity matrix or as a diagonal matrix with the posterior variances on its diagonal.
-		
-		The scaling factor $c$ is under the assumption of Gaussian normal joint posterior distribution usually put between .2 and .4
-		
-		\item The new draw $\zeta$ is evaluated in likelihood using the DSGE model's likelihood function given the data $Y$, yielding $p(Y | \zeta)$. 
-				
-		\item In a two stage procedure the algorithm then either accepts or rejects the new draw $\zeta$ as part of the Markov chain of posterior distributions. 
-		
-		\item First the posterior likelihood of $\zeta$ is calculated based on Bayes theorem. It is then compared to the the posterior likelihood of the last accepted draw, that is now part of the posterior $\Gamma_{i-1}$. 
-		\[
-			\omega_i = \min \{\frac{L(Y| \zeta, \Gamma) * P(\zeta)}{L(Y| \Gamma_{i-1}, \Gamma) P(\Gamma_{i-1})}, 1 \}
-		\]
-
-		\item The second step of the decision algorithm draws from a uniform random variable $\psi \sim U(0, 1)$. The new draw $\zeta$ is accepted if its likelihood ration $\omega_i$ is accepted if $\omega_i \geq \phi$. This step is equivalent to moving to a higher point on the likelihood surface \cite{herbst_bayesian_2014}
-		
-		\item If accepted $\zeta$ will become $\Gamma_i$
-		
-		\item The algorithm is then repeated
-		
-	\end{enumerate}
-
-	How many runs\\
-	
-
-	As illustrated in the above MH-MCMC is a recursive method and as such requires an initial value for the posterior $\Gamma_0$. This values is usually obtained throughout a so-called burn in period corresponding to 10 \% of total iterations (ref). The total number of iterations depends on the 
-	
-	Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).\\
+	The below will be explaning this thesis implementation of the MH sampler and methods of evaluating its convergence to the true posterior distribution. The algorithm proceeds in three main steps.
+	First a candidate for the posterior $\matr{\hat{\Theta}}_{k|k-1}$ is suggested based on the random-walk law of motion. The random-walk departs from the last accepted posterior candidate and suggests a new candidate by departing from the $\matr{\Theta}_{k-1|k-1}$ according to the zero-mean Gaussian distribution $\epsilon$. The distribution's variance $\matr{\Sigma}$ can be set to either the identity matrix $\matr{I}$ or to contain the parameter prior variances on its diagonal. The latter is recommended if well-defined priors are at play \cite{herbst_bayesian_2014}.
+% However, for the special case of a target distribution which is multivariate normal, Roberts, Gelman, and W.R. (1997) has derived a limit (in the size of parameter vector) optimal acceptance rate of 0.234. Most practitioners target an acceptance rate between 0.20 and 0.40. The scaling c factor can be tuned during the burn-in period or via pre-estimation chains
+	 To complete the random-walk the MH sampler also employs a gain parameter $\eta$ that essentially scales the distance of the new posterior candidate away from the last accepted posterior $\matr{\Theta}_{k-1|k-1}$. This value has been calibrated by several studies, which recommend an $\eta = 0.234$ for the special case of a multivariate normal distribution (ref). Generally the value of $\eta$ should correspond to an acceptance rate between 20\% and 40\% of suggested draws \cite{herbst_bayesian_2014}.
+	\[
+		\matr{\hat{\Theta}}_{k|k-1} = \matr{\Theta}_{k-1|k-1} + \eta \epsilon
+	\]
+	\[
+		\epsilon = N(0, \matr{\Sigma})
+	\]
+	The posterior candidate  $\matr{\hat{\Theta}}_{k|k-1}$  is th evaluated base on the Kalman Filter likelihood function introduced in (section). This yields the likelihood of posterior candidate given the data $\matr Y$.
+	\[
+		 \Lagr(Y| \matr{\hat{\Theta}}_{k|k-1})
+	\]
+	Once the likelihood is obtained the algorithm proceeds into the two step acceptance procedure. First the likelihood of the candidate is compared to last accepted posterior in order to determine whether this draw constitutes an improvement. This is done according to Bayes' law. 
+	\[
+	\omega_k = \min \{
+						\frac{ \Lagr(Y| \matr{\hat{\Theta}}_{k|k-1}) * P(\matr{\hat{\Theta}}_{k|k-1}) } 
+						{ \Lagr(Y| \matr{\Theta}_{k-1|k-1}) P(\matr{\Theta}_{k-1|k-1})},
+						 1
+					\}
+	\]
+	The likelihood ratio is then fed into the second step the random acceptance. The above obtained $\omega_k$ is compared the uniform variable $\phi \sim U(0, 1)$. If $\omega_k \leq \phi_k$ the draw is accepted and the candidate is assumed into the posterior. This process is repeated $N$ times and thus generates the posterior distribution.
+% math expression for the posterior
+	As illustrated in the above MH-MCMC is a recursive method and as such requires an initial value for the posterior $\Theta$. This values is usually obtained throughout a so-called burn in period corresponding to 10 \% of total iterations (ref). The total number of iterations depends on the speed of convergence of the chain but usually ranges between 20,000 and 50,000 iterations (ref).\\
+	\\
+	The following will now describe the evaluation steps to insure convergence of the chain. Moreover, once the algorithm has run one needs to evaluate this performance. A method beyond visual inspection is suggested by (ref).\\
 	
 	
 	The MH random walk is highly suceptible to mis specification of the posterior of the prior distribution is far away from the true posterior \cite{herbst_bayesian_2014}
-	
-	
-	
-	
-	
-	
 	
 	
 	
