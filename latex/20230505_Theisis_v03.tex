@@ -94,8 +94,9 @@
 	
 
 	\section{DSGE Models}
+	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)
 	
-	Before diving into the derivation of each individual model this section provides some general remarks applicable to all models across this work. All models discussed in the below have analytical solutions to their steady state, in which the economy is at its natural optimum. However, the system describing the economy is non-linear due to the multiplicative production relationship arising from the Cobb-Douglas production function \cite{campbell_inspecting_1994}. This gives rise to the need of some for of linear approximation around the steady state in order to be able to analyse the system's behaviour. The most common approach adopted across literature is a log-linear Taylor approximation, this work will follow suit \cite{campbell_inspecting_1994}. Such linearisation is applicable under the existence of a deterministic singular solution, which is the case for the small scale DSGE models discussed in the below \cite{campbell_inspecting_1994}.
+	Before diving into the derivation of each individual model this section provides some general remarks applicable to all models across this work. All models discussed in the below have analytical solutions to their steady state, in which the economy is at its natural optimum. However, the system describing the economy is non-linear due to the multiplicative production relationship arising from the Cobb-Douglas production function \cite{campbell_inspecting_1994}. This gives rise to the need of some for of linear approximation around the steady state in order to be able to analyse the system's behaviour. The most common approach adopted across literature is a log-linear Taylor approximation, this work will follow suit \cite{campbell_inspecting_1994}. Such linearisation is applicable under the existence of a deterministic singular solution, which is the case for the small scale DSGE models discussed in the below \cite{herbst_bayesian_2016}.
 	
 	
 	\subsection{RBC model}
@@ -118,7 +119,15 @@
 	
 	The assumptions of the RBC and their consequences, namely the non-existance of money and monetary rigidities in the economy are greatly contratsted by emperical evidence (Gali, 2008, p 15)
 	
-		
+	\subsection{The firm}
+	The firm solves the same static optimisation across production inputs as with the RBC. As there is no capital in the baseline NK model the problem collapsed down to the labour demand function. Moreover, the NK specifically provides the real wage, this was given by assumption in the RBC.
+	\begin{equation}
+		\begin{aligned}
+			\max_{N_t} \quad & A_t N_t^{1 - \alpha} \\
+			\textrm{s.t.} \quad & P_t Y_t = W_t N_t\\
+			\textrm{FOC:} \quad & \frac{W_t}{P_t} = (1 - \alpha) A_t N_t^{-\alpha}\\
+		\end{aligned}
+	\end{equation}
 	
 	Assumptions
 	- perfect compitions
@@ -157,22 +166,11 @@
 	
 	\subsection{NK}
 	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects. Firstly, he NK model in its simplest form analyses an economy without capital, wherefore its intertemporal  instrument is the output gap instead of capital (ref). Secondly, the NK model introduces nominal rigidity and monopolistic competition to the model in order to introduce inflation into the economy. This extension has several consequences. For one monetary policy is neutral in the short-run, thus changes in interest are note directly matched by changes in expected inflation (ref). This gap in expectations becomes the driver of short-run fluctuation, or business cycles in the economy. The main driver of business cycles is thus no-longer technological progress and a change in total factor productivity but a shock to interest rates, originating from the central bank. \\
-	This of course has important economic implications. Instead of efficient direct adjustments of the economy to new production technology business cycles no longer exhibit efficiency in the NK model. Instead, they are an inefficient divergence caused by central bank intervention. 
-	
-	
-	Additional NK assumptions (Gali)
-	- monopolistic competition, inputs are set by private agents according to their own optimisation problem
-	- nominal rigidity, price setting is limited in frequency
-	- this results in short-run neutrality of monetary policy where changes in interest are note directly matched by changes in expected inflation
-	- this is the source of short-run fluctuations
-	- However, in the long-run prices adjust 
-	- This causes the response of the economy to be inefficient, unlike RBC where cycles are result of efficient adjustments
-	
-	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)
-	
-	Small scale new keynesian model solved with first order log-approximation \cite{herbst_bayesian_2016}
-	
+	This of course has important economic implications. Instead of efficient direct adjustments of the economy to new production technology business cycles no longer exhibit efficiency in the NK model. Instead, they are an inefficient divergence caused by central bank interventions.
+		
 	\subsubsection{Consumption bundle}
+	The New-Keynesian framework introduces monopolistic competition in order to equip firms with price setting power (ref). The market power arises from the fact that goods are not perfect substitutes. In this setting, the simplified assumption of a unique good of the RBC holds no longer and the households allocation problem becomes a two stage process. First, the household needs to decide on the mix of products that optimises its utility. Only then the household is able to solve for the optimal allocation of income in the consumption leisure trade-off. The order of the two decision is important. Only once the household has obtained the optimal consumption bundle it is able to asses the utility of consumption. Hence the consumption basket composition needs to be solved prior to the consumption-leisure trade-off. Across the DSGE literature the aggregation of consumption is also sometimes referred to as the output of a good bundling firm. This intermediary party determines the optimal basket of goods according to the household preferences. The household then buys the optimal bundle from the intermediary. In this description it is important to note that the intermediary has not price setting power.\\
+	In determining the optimal basket the bundler relies on the Dixit-Stiglitz aggregator function describing individuals goods $C_{it}$ across the continuum of goods $C_t$. This function exhibits constant elasticity of substitution (CES) and is therefore the most common aggregator used across DSGE literature (ref). Each good $C_{it}$ is matched by its price $P_{it}$, which cumulated must not exceed a given budget $Z_t$.
 	\[
 		\max_{C_{it}} \left(
 							\int_{0}^{1} C_{it}^{ \frac{\epsilon - 1}{\epsilon} } di 
@@ -180,23 +178,19 @@
 	\]
 	s.t.
 	\[
-		\int_{0}^{1} P_{it} C_{it} di <= Z_t
+		\int_{0}^{1} P_{it} C_{it} di \leq Z_t
 	\]
-	solving this results in an expression for the price
+	Solving the above optimisation problem results in an expression for the aggregated price level $P_t$. The optimal consumption bundle's price can be thought of as the consumer price index (CPI), as this is the price each consumer is faced by.
 	\begin{equation} \label{eq:1}
 			P_t = \left(
 						\int_{0}^{1} P_{it}^{ 1 - \epsilon } di 
 					\right)^{ \frac{1}{1 - \epsilon} }
 	\end{equation}
-	with further manipulation it can be shown that
-	\[
-		C_{it} = \left( \frac{P_{it}}{P_t} \right)^{- \epsilon} C_t
-	\]
-	the share of a good in the consumption bundle is determined by its relative price and the elasticity of substitution
+	Further manipulation then yields two important results. The share of a given product $C_{it}$ in the consumption basket $C_t$ is defined by its price relative to the price level $P_t$ and the elasticity of substitution between goods $\epsilon$. As the elasticity of substitution is constant by choice of the aggregator function this relationship can be written as: $C_{it} = \left( \frac{P_{it}}{P_t} \right)^{- \epsilon} C_t$. The second important property results from the relationship between a goods price and its share in the consumption basket. As goods are weighted according to their relative price the overall expenditure on consumption can be expressed as $\int_{0}^{1} P_{it} C_{it} di = Z_t = P_t C_t$. This property might seem trivial but lays the ground for setting the households optimisation problem. 
 	
 	\subsubsection{Household}
-	Having found $C_t$ composition the household now needs to decide the share of income that it will allocate to consumption
-	
+	Having found $C_t$ and its price $P_t$ the household's consumption-leisure allocation can be formulated. Following the structure of the RBC model, the households expends on consumption and money holdings in bonds. In doing so she is drawing from wage income, last period bonds and government transfers $T_t$. The households solves this problem for all future periods.
+% define utility functional form
 	\[
 		\max_{B_t, C_t, L_t} \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t})
 	\]
@@ -204,9 +198,9 @@
 	\[
 		P_t C_t + Q_t B_t = B_{t-1} + W_t N_t + T_t
 	\]
-	FOC:
+	Solving the optimisation problems yields two main equations. The labour supply depends on the real wage and the marginal utility of labour and consumption. The Euler equation determines the households intertemporal allocation of consumption in relation to its discount rate and the time-value of money as given by $Q_t = \frac{1}{1+r_t}$, the interest rate.
 	\[
-		- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_t} = C_t^\sigma N_t^\phi 
+		- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_t}
 	\]
 	\[
 		Q_t = \beta \E_t \left[
@@ -215,32 +209,19 @@
 	\]
 
 	\subsubsection{The firm}
-	\[
-		\max_{N_t} = A_t N_t^{1 - \alpha} 
-	\]
-	s.t.
-	\[
-		P_t Y_t = W_t N_t
-	\]
-	FOC
-	\[
-		W_t = (1 - \alpha) A_t N_t^{-\alpha} P_t
-	\]
-	
-	\subsubsection{Price setting}
-	In price setting we return to the definition of the price as shown in (section)
-	Firms individually decide their prices
-	However, they are only able to reset them at rate $\theta$. As the number of firms is normed to unity $\theta$ serves as the share of firms that reset their price in a given period $t$. This allows to derive an expression for the price level $t$
+	The major innovation of the NK model lies in the inclusion of inflation. As explained above, inflation arises from price setting power of firms due to the imperfect substitutability of consumption goods. In modelling the price setting of firms the NK model therefore relies on the basket of goods. \\
+	Firms are able to adjust prices, yet the frequency at which they are able to do so is limited. Each period only a share $\theta$ of firms are able to set a new price. As the number of firms is normed to unity $\theta$ serves as the percentage of goods that set a new prices in a given period $t$. Consequently, in any period the current price level $P_t$ is a weighted average of last periods prices $P_{t-1}$ and newly set prices $\hat{P}_t$. This is reflected in the below equation.
 	\[
 		P_t = \left[ 
 					\theta P_{it-1}^{1 - \epsilon} + (1 - \theta) \hat{P}_t^{1 - \epsilon}
 			\right]^{\frac{1}{1 - \epsilon}}
 	\]
+	Manipulation of the above allows to define inflation $\Pi_t$ as a function of last periods price level and this periods optimal price $\hat{P}_t$.
 	\begin{equation} \label{eq: 2}
-		\Pi_t^{1-\epsilon} = \theta + (1 - \theta) * \left(\frac{\hat{P}_t}{P_{t-1}} \right)^{1-\epsilon}
+		\Pi_t^{1-\epsilon} = \theta + (1 - \theta) \left(\frac{\hat{P}_t}{P_{t-1}} \right)^{1-\epsilon}
 	\end{equation}
-
-	Having derived an expression for inflation this section will now turn to the heart of the NK model, the optimal price setting by firms.
+% check this explanation
+	Deriving inflation thus relies on $\hat{P_t}$, the optimal price set by share $\theta-1$. The firm's static optimisation problem leading to the labour demand equation does no longer take place in the NK model. Instead, firms optimise their price setting intertemporally taking into account two forces. The higher a firms price, the longer this price will be profitable if the firm cannot reset its price for a long time. However, high prices will decrease the quantity sold by the firm. Both are weighted by the price setting probability $\theta$. The price setting problem can be formalised as follows: 
 	\[
 		\max_{\hat{P}_t} 
 		 \sum_{k=0}^{\inf} \theta^k \E_t 
@@ -253,7 +234,7 @@
 	\]
 	s.t.
 	\[
-		Y_{t+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}
+		Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}
 	\]
 	where $Q_{t, t+k}$ is the stochastic discount factor
 	FOC:
@@ -265,19 +246,223 @@
 				(1 - \epsilon) + \epsilon \frac{MC_{t+k|t}^n}{\hat{P}_t}
 			\right)
 		\right]
+		= 0
 	\]
-	which yields the expression
+	Inserting $Y_{it+k|t}$ from the budget constraint and the Euler condition (ref) $Q_{t,t+k} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}$ yields:
+	\begin{equation}
+		\frac{\hat{P}_t}{P_t} = \frac{\epsilon}{\epsilon-1} 
+		\frac{
+		\E_t \sum_{k=0}^{\infty} \theta^k \beta^k C_{t+k}^{1-\sigma} (\frac{P_{t+k}}{P_t})^\epsilon MC_{t+k}^r
+		}{
+		\E_t \sum_{k=0}^{\infty} \theta^k \beta^k C_{t+k}^{1-\sigma} (\frac{P_{t+k}}{P_t})^{\epsilon-1}
+		}
+	\end{equation}
+	In the New-Keynesian model the deviations of aggregated real marginal cost from nominal marginal cost are introduced by the Calvo-pricing scheme. Every firm can reset its price with probability $\theta$ giving rise to the above optimisation. However, if $\theta=0$ the above problem collapses to $\hat{P}_t = \frac{\epsilon}{\epsilon-1} MC_t^n$. A $\theta=0$ is equivalent to a zero inflation steady state, in which no firm resets its price, wherefore there is no inflation. This and the fact that $MC_t^r = \frac{MC_t^n}{P_t}$ allows to obtain an analytical solution for the natural of real marginal cost. 
+	\begin{equation}
+		MC_t^r = \frac{\epsilon}{\epsilon-1}
+	\end{equation} 
 	
+	
+	\subsubsection{Equilibrium conditions}
+	To this point a number of optimal choices have been derived. The households decides on the consumption basket composition and consumption-leisure trade-off. The firm faces a static optimisation resulting in labour demand as well as optimal price setting yielding an expression for inflation. To close the model a market clearing condition is required, which as commonly the case is based on the accounting identity of GDP $Y_{it} = C_{it}$. In order to close the model one needs to demonstrate, that this property on individual goods level translates in the global property $Y_t = C_t$.
+	\begin{equation}
+			Y_t = 
+			\left( 
+				\int_{0}^{1} Y_{it}^{\frac{\epsilon - 1}{\epsilon}} di 
+			\right)^{\frac{\epsilon}{\epsilon - 1}}
+			=
+			\left( 
+			\int_{0}^{1} 
+			\left[
+			\left( \frac{P_{it}}{P_t} \right)^\epsilon C_t
+			\right]^{\frac{\epsilon - 1}{\epsilon}} di 
+			\right)^{\frac{\epsilon}{\epsilon - 1}}
+			=
+			P_t^{\epsilon} C_t P_t^{-\epsilon}
+			=
+			C_t
+	\end{equation}
+	Based on the GDP accounting identity, the share of a good $C_{it}$ in the consumption basket $C_t$ (ref) and the overall price index (ref) $Y_t = C_t$ can be proven.\\
+	The derivation of an expression of the overall production function based on the individual level production function $Y_{it} = A_t N_{it}$ requires a similar procedure yielding:
+	\begin{equation}
+		N_t = 	
+		\int_{0}^{1} \left( \frac{Y_t}{N_t} \right)^{\frac{1}{1 - \alpha}}
+		\int_{0}^{1} \left( \frac{P_{it}}{P_t} \right)^{-\frac{\epsilon}{1 - \alpha}} di
+	\end{equation}
+	
+	This completes the number of equations required for the derivation of the New Keynesian model. As the above equations are a non-linear system without a closed form solution some method of linearisation is required. The below will follow the procedure of \cite{gali_monetary_2008} and apply log-linearisation first order Taylor approximations. Throughout the log-linearisation several manipulations are required. The Euler equation relies on reasoning about the non-inflationary steady state so does the expression for $N_t$. Explanation and proofs can be found in (Appendix). Lower-case expressions are the log-equivalent to previous upper case variables. \\
+	
+	
+	\begin{tabular}{lr}
+		\textbf{Equation name} & \textbf{Log-linear expression}\\
+		\hline
+		Euler equation & 
+		$\begin{aligned}[t]
+				c_t = \E_t[c_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t [\pi_{t+1}] )
+		\end{aligned}$ \\
+		Labour supply & $ w_t - p_t = \sigma c_t + \phi n_t$ \\
+		Inflation & $ \pi_t = (1 - \theta) (\hat{p}_t - p_{t-1})$ \\
+		Optimal price & $\hat{p}_t = (1 - \theta \beta) \E_t
+		\left[
+		\sum_{k=0}^{\infty} \theta^k \beta^k \left( mc_{t+k|t}^r - mc^r +p_{t+k}\right)
+		\right]$ \\
+		Production function & $y_t = a_t + (1 - \alpha) n_t$ \\
+		Equilibrium condition & $y_t = c_t$ 
+	\end{tabular}\\
+
+	\subsubsection{New Keynesian Phillips and IS curve}
+	
+	The next step is the derivation of an expression for real marginal cost $mr_{t}^r$ contained in the optimal price setting. In the absence of other production factors the marginal product of labour $MPN_t = \frac{\partial Y}{\partial N} = A_t (1- \alpha) N_t^{-\alpha}$ corresponds to nominal marginal cost $mc_t^n$. Real marginal cost can thus be obtained from $MC_t^r = \frac{W_t}{P_t MCN_t}$. This allows to formulate the below property in logs by including the production function $n_t = \frac{y_t - a_t}{1 - \alpha}$.
+	\begin{equation}
+		\begin{aligned}
+			mc_t^r = w_t - p_t - a_t - mpn_t \\
+			mc_t^r = w_t - p_t - a_t - \ln(1 - \alpha) + \alpha n_t \\
+			mc_t^r = w_t - p_t - \frac{a_t - \alpha y_t}{1 - \alpha} - \ln(1 - \alpha) \\
+		\end{aligned}
+	\end{equation}
+	
+	This expression is at the basis of the following in two ways. Firstly, the above can be used to derive a relation between $mc_t^r$ and output $y_t$. Using labour supply (ref) and the production function (ref) one can rephrase (ref) as. 
+	
+	\begin{equation}
+		\begin{aligned}
+			mc_t^r = \sigma c_t + \phi n_t - [a_t + \alpha n_t + \ln(1-\alpha)] \\
+			mc_t^r = 
+			\frac{
+				\sigma (1 - \alpha) + \phi + \alpha
+			}{
+				(1 - \alpha)	
+			}	 y_t
+			- \frac{
+				(1 + \phi)	
+			}{
+				(1 - \alpha)	
+			} a_t
+			+ \ln(1-\alpha)
+		\end{aligned}
+	\end{equation}
+	In the steady state marginal cost should be equal to its natural level and $mc_t^r = mc^r$. In this case the above describes natural output $y_t^n$. This can be used to introduce the output gap $\tilde{y}_t = y_t^n - y_t$. Reformulating the above by replacing $mc_t^r$ by $mc^r$ yields an expression of the output gap in terms of the marginal cost gap. 
+	\begin{equation}
+		\begin{aligned}
+			mc_t^r - mc^r = \hat{mc_t}^r = \frac{\sigma (1 - \alpha) + \phi + \alpha}
+			{1 - \alpha)} \tilde{y}_t
+		\end{aligned}
+	\end{equation}
+	This will be relevant later.\\
+	
+
+% explain the _{t+k|t} notation 
+	The second insight arising from the real marginal cost  expression is its translation in period $t+k$ results in $mc_{t+k}^r = w_{t+k} - p_{t+k} - \frac{a_ {t+k} - \alpha y_{i,t+k|t}}{1 - \alpha} - \ln(1 - \alpha)$. Combining this with the share of consumption good $i$ in the overall basket as well as the market clearing condition in logs gives $y_{t+k|t} = -\epsilon(p_{t+k|t} - p_{t+k}) + y_{t+k}$. Combining the two yields an expression of marginal cost and the price level.
+	\begin{equation}
+		mc_{i, t+k|t}^r = mc_{t+k}^r - \frac{\epsilon \alpha}{1 - \alpha}(\hat{p}_t - p_{t+k})
+	\end{equation}
+	The above combined with the expression for the optimal price level
+	\begin{equation}
+		\begin{aligned}
+			\hat{p}_t - p_{t-1} =
+			(1 - \theta \beta) \E_t
+			\left[
+			\sum_{k=0}^{\infty} \theta^k \beta^k \left( mc_{t+k|t}^r - mc^r +p_{t+k} - p_{t-1}\right)
+			\right] \\			
+			=
+			(1 - \theta \beta) \Theta \E_t
+			\sum_{k=0}^{\infty} \theta^k \beta^k (mc_{t+k}^r - mc^r) + 
+			\sum_{k=0}^{\infty} \theta^k \pi_{t+k} \\
+			=
+			\theta \beta \E_t (\hat{p}_{t+1} - p_{t}) + (1 - \theta \beta) \Theta (mc_{t+k}^r - mc^r) + (1 - \theta) (\hat{p}_t - p_{t-1})
+		\end{aligned}		
+	\end{equation}
+	where $\Theta \equiv \frac{1 - \alpha}{1 - \alpha + \alpha \epsilon} \leq 1$. This can be rewritten as.
+	\begin{equation}
+		\pi_t = \beta E_t [\pi_{t+1}] + \lambda \hat{mc}_{t}
+	\end{equation}
+	where $\lambda \equiv \frac{(1-\theta)(1-\beta\theta)}{\theta} \Theta$.
+	
+	The expression (ref) combined with $\hat{mc}_t^r$ (ref) then builds the New-Keynesian Phillips curve, on of the two core equations of the NK model.
+	\begin{equation}
+		\begin{aligned}
+			\pi_t = \beta E_t [\pi_{t+1}] + \kappa \tilde{y}_t
+		\end{aligned}
+	\end{equation}
+	where $\kappa = \lambda * \frac{\sigma (1 - \alpha) + \phi + \alpha}
+	{1 - \alpha)}$.
+	
+	The second core equation of the New-Keynesian model is derived from the Euler equation, the equilibrium condition and the log linear Fisher identity $r_t \equiv i_t - \E_t[\pi_{t+1}]$.
+	\begin{equation}
+		\begin{aligned}
+			y_t = \E_t[y_{t+1}] - \frac{1}{\sigma} (r_t - \rho) \\
+			\tilde{y}_t \equiv y_t - y_t^n = 
+			\left[
+			\E_t[y_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t[\pi_{t+1}])
+			\right]
+			-
+			\left[
+			\E_t[y_{t+1}^n] - \frac{1}{\sigma} (r_t^n - \rho)
+			\right]\\
+			\tilde{y}_t = \E_t[\tilde{y}_{t+1}] - \frac{1}{\sigma} (i_t - r_t^n - \E_t[\pi_{t+1}])
+		\end{aligned}
+	\end{equation}
+	
+	\subsubsection{Monetary policy}
+	
+	Closing the model requires an interest rate rule, describing the behaviour of the central bank. This work will rely on a traditional Taylor rule, following \cite{gali_monetary_2008}.
+	\begin{equation}
+		\begin{aligned}
+			i_t = \rho + \phi_{\pi} \pi_t + \phi_{y} \tilde{y}_t + v_t \\
+			v_t = \rho_v v_{t-1} + \epsilon_t^v
+		\end{aligned}
+	\end{equation}
+
+	\subsubsection{State Space}
+	\begin{equation}
+		\begin{bmatrix}
+			\tilde{y}_t \\
+			\pi_t
+		\end{bmatrix}
+		=
+		\Omega
+		\begin{bmatrix}
+			\sigma & 1 - \beta \phi_{\pi} \\
+			\sigma \kappa & \kappa + \beta (\sigma + \phi_y)
+		\end{bmatrix}
+		*
+		\begin{bmatrix}
+			\tilde{y}_{t-1} \\
+			\pi_{t-1}
+		\end{bmatrix}
+		+
+		\Omega
+		\begin{bmatrix}
+			1 \\
+			\kappa
+		\end{bmatrix}	
+		(\hat{r}_t^n - v_t)
+	\end{equation}
+	where $\Omega \equiv \frac{1}{\sigma + \phi_y + \kappa \phi_{\pi}}$ and $\hat{r}_t^n \equiv r_t^n - \rho$.
 	
 	Define stability condition of the linear state-space, Blanchard-Kahn
-	
-	
+
 	\subsection{Petrol}
 	High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
 	
 	
 	One such 'new' shock is the the inclusion of petrol as an exogenous shock series \cite{kim_role_1992}
 	
+	
+	\subsubsection{Oil production}
+	\begin{equation}
+		q_t = a_t + \alpha_n n_t + \alpha_m m_t
+	\end{equation}
+	$m_t$ is the quantity of imported oil, $\alpha_m + \alpha_n \leq 1$.\\
+	\\
+	\subsection{Consumption aggregation}
+	\begin{equation}
+		c_t = (1 - \Xi) c_{q,t} + \Xi c_{m, t}
+	\end{equation}
+	where $\Xi$ is the share of petrol on overall consumption
+	where $p_{q,t}$ is the price of domestic goods, $p_{m,t}$ the price of oil and $p_{c,t}$ the price of overall consumption. Then the difference in domestic and foreign prices is defined as $s_t \equiv p_{q,t} - p_{m,t}$. The overall price level can thus be rewritten as. 
+	\begin{equation}
+		p_{c,t} = p_{q,t} - \Xi s_t
+	\end{equation}
 	
 	
 	
@@ -610,5 +795,16 @@
 	\input{{./graphs/priors_table.tex}}
 	\input{{./graphs/fred_variables.tex}}
 	\include{{./graphs/data_descriptives.tex}}
+	
+	\subsection*{Appendix C}
+	\subsubsection*{Log-linearisation}
+	
+	Euler equations
+	
+	Expression for $N_t$ from $N_{it}$
+	It can be shown that $ log \left( \int_{0}^{1} \left( \frac{P_{it}}{P_t} \right)^{-\frac{\epsilon}{1 - \alpha}} di \right) \approx 0$ which then allows to log linearise the production function to $y_t = a_t + (1 - \alpha) n_t$.
+	
+	
+	
 
 \end{document}

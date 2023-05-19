@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: 20230505_Theisis_v03.aux
+Reallocating 'name_of_file' (item size: 1) to 8 items.
+The style file: apalike.bst
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+Reallocating 'name_of_file' (item size: 1) to 31 items.
+A level-1 auxiliary file: ./graphs/data_descriptives.aux
+Database file #1: 20230505_m1_dsge.bib
+Warning--empty note in pfeifer_guide_2021
+You've used 13 entries,
+            1935 wiz_defined-function locations,
+            557 strings with 5795 characters,
+and the built_in function-call counts, 5277 in all, are:
+= -- 555
+> -- 139
+< -- 18
++ -- 46
+- -- 42
+* -- 405
+:= -- 869
+add.period$ -- 44
+call.type$ -- 13
+change.case$ -- 84
+chr.to.int$ -- 13
+cite$ -- 14
+duplicate$ -- 221
+empty$ -- 398
+format.name$ -- 71
+if$ -- 1080
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 14
+newline$ -- 71
+num.names$ -- 39
+pop$ -- 65
+preamble$ -- 1
+purify$ -- 86
+quote$ -- 0
+skip$ -- 187
+stack$ -- 0
+substring$ -- 444
+swap$ -- 49
+text.length$ -- 5
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 74
+warning$ -- 1
+while$ -- 50
+width$ -- 0
+write$ -- 178
+(There was 1 warning)
