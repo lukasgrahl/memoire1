@@ -66,6 +66,11 @@
 	
 	 \section{Introduction}
 	 
+	 High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
+	 
+	 One such 'new' shock is the the inclusion of petrol as an exogenous shock series \cite{kim_role_1992}
+	 
+	 
 	- The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
 	
 	This work is joining 3 strains of literature
@@ -254,7 +259,15 @@
 						\int_{0}^{1} P_{it}^{ 1 - \epsilon } di 
 					\right)^{ \frac{1}{1 - \epsilon} }
 	\end{equation}
-	Further manipulation then yields two important results. The share of a given product $C_{it}$ in the consumption basket $C_t$ is defined by its price relative to the price level $P_t$ and the elasticity of substitution between goods $\epsilon$. As the elasticity of substitution is constant by choice of the aggregator function this relationship can be written as: $C_{it} = \left( \frac{P_{it}}{P_t} \right)^{- \epsilon} C_t$. The second important property results from the relationship between a goods price and its share in the consumption basket. As goods are weighted according to their relative price the overall expenditure on consumption can be expressed as $\int_{0}^{1} P_{it} C_{it} di = Z_t = P_t C_t$. This property might seem trivial but lays the ground for setting the households optimisation problem. 
+	Further manipulation then yields two important results. The share of a given product $C_{it}$ in the consumption basket $C_t$ is defined by its price relative to the price level $P_t$ and the elasticity of substitution between goods $\epsilon$. As the elasticity of substitution is constant by choice of the aggregator function this relationship can be written as: 
+	\begin{equation}
+		C_{it} = \left( \frac{P_{it}}{P_t} \right)^{- \epsilon} C_t
+	\end{equation}
+	The second important property results from the relationship between a goods price and its share in the consumption basket. As goods are weighted according to their relative price the overall expenditure on consumption can be expressed as: 
+	\begin{equation}
+		\int_{0}^{1} P_{it} C_{it} di = Z_t = P_t C_t
+	\end{equation}
+	This property might seem trivial but lays the ground for setting the households optimisation problem. 
 	
 	\subsubsection{Household}
 	Having found $C_t$ and its price $P_t$ the household's consumption-leisure allocation can be formulated. Following the structure of the RBC model, the households expends on consumption and money holdings in bonds. In doing so she is drawing from wage income, last period bonds and government transfers $T_t$. The households solves this problem for all future periods.
@@ -265,7 +278,7 @@
 			\textrm{s.t.} \quad P_t C_t + Q_t B_t = B_{t-1} + W_t N_t + T_t \\
 			\textrm{FOC:} \\
 				- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_t}\\
-				Q_t = \beta \E_t \left[ \frac{C_{t+1}}{C_t}^\sigma \frac{P_t}{P_{t+1}} \right] 			
+				Q_t = \beta \E_t \left[ \frac{U_{c, t+1}}{U_{c,t}}^\sigma \frac{P_t}{P_{t+1}} \right] 			
 		\end{aligned}
 	\end{equation}
 	Solving the optimisation problems yields two main equations. The labour supply depends on the real wage and the marginal utility of labour and consumption. The Euler equation determines the households intertemporal allocation of consumption in relation to its discount rate and the time-value of money as given by $Q_t = \frac{1}{1+r_t}$, the interest rate.
@@ -306,7 +319,7 @@
 			\left[
 			Q_{t,t+k} Y_{t+k|t} 
 			\left(
-			(1 - \epsilon) + \epsilon \frac{MC_{t+k|t}^n}{\hat{P}_t}
+			\hat{P}_t - \frac{\epsilon}{1 - \epsilon} MC_{t+k|t}^n
 			\right)
 			\right]
 			= 0
@@ -448,7 +461,7 @@
 			\pi_t = \beta E_t [\pi_{t+1}] + \kappa \tilde{y}_t
 		\end{aligned}
 	\end{equation}
-	where $\kappa = \lambda * \frac{\sigma (1 - \alpha) + \phi + \alpha}
+	where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}
 	{1 - \alpha)}$.
 	
 	The second core equation of the New-Keynesian model is derived from the Euler equation, the equilibrium condition and the log linear Fisher identity $r_t \equiv i_t - \E_t[\pi_{t+1}]$.
@@ -507,10 +520,130 @@
 	Define stability condition of the linear state-space, Blanchard-Kahn
 
 	\subsection{Petrol}
-	High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
+	Based on 
 	
 	
-	One such 'new' shock is the the inclusion of petrol as an exogenous shock series \cite{kim_role_1992}
+	\subsubsection{Bundler}
+	Petrol being introduced as an important consumption good alters the bundling process of the overall consumption bundle $C_t$. 
+	The aggregation of domestic goods follows from the same procedure as in the standard NK model, employing the Dixit-Stiglits aggregator function. Variables $C_{q,t}$ and $P_{q,t}$ are aggregated consumption and price respectively. They result in the well-known expression for the share of good $C_{i,q,t}$ in the consumption basket $C_{q,t}$. \\
+		\begin{equation}
+		\begin{aligned}
+			C_{q,t} = \left( \int_{0}^{1} C_{i,q,t}^{1 - \frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon-1}} \\
+			P_{q,t} = \left( \int_{0}^{1} P_{i,q,t}^{1 - \epsilon} di \right)^{\frac{1}{1-\epsilon}} \\
+			C_{i,q,t} = \left( \frac{P_{i,q,t}}{P_{q,t}} \right)^{-\epsilon} C_{q,t}
+		\end{aligned}
+	\end{equation}
+	
+	The consumption problem is complemented by consumption of imported oil, which is assumed to be a constant share of overall consumption $C_t$. Parameter $\chi$ is the fixed share of petrol in consumption. For the consumer this assumption is tractable, as consumption demand for petrol can be thought of to be relatively inelastic in the short-run. Empirical evidence supports this, attributing the inelasticity to the fact that households are unable quickly exchange the durable goods normally consuming petrol (e.g. cars or radiators) (ref). 
+	\begin{equation}
+		C_t \equiv \Theta_\chi C_{m,t}^\chi C_{q,t}^{1-\chi}
+	\end{equation}
+	where $\Theta = \chi^{-\chi}(1-\chi)^{(\chi-1)}$. From this the overall price level of the consumption basket $P_{c,t}$ can be derived as.
+	\begin{equation}
+		P_{c,t} \equiv P_{m,t}^\chi P_{q,t}^{1-\chi} 
+			= P_{q,t} \frac{P_{m,t}}{P_{q,t}}^\chi
+			= P_{q,t} S_t^\chi
+	\end{equation}
+	Where $S_t$ is the real price of oil. This allows to write the $C_t P_{c,t} = C_{m,t}P_{m,t} + C_{q,t}P_{q,t}$.
+
+	\subsubsection{Household}
+	Having derived expressions for the consumption basket and its price the household's optimisation problem can be solved. As in the standard NK model this reads as follows. 
+% log-utility	
+	\begin{equation}
+		\begin{aligned}
+			\max_{B_t, C_t, L_t} \quad \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t}) \\
+			\textrm{s.t.} \quad P_{c,t} C_t + Q_t B_t = B_{t-1} + W_t N_t + T_t \\
+			\textrm{FOC:} \\
+			- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_{c,t}}\\
+			Q_t = \beta \E_t \left[ \left( \frac{U_{c, t+1}}{U_{c,t}} \right)^\sigma \frac{P_{c,t}}{P_{c,t+1}} \right] 			
+		\end{aligned}
+	\end{equation}
+
+	\subsubsection{The Firm}
+	Petrol serving as a second factor of production the firm's optimisation problem is extended from the standard NK model. As in the RBC the firm obtains its production factor demand by equalising their marginal cost. 
+	\begin{equation}
+		\begin{aligned}
+%			\max_{M_t, N_t} \quad & A_t M_{it}^\alpha_m N_{it}^\alpha_n \\
+%			\textrm{s.t.} \quad & Y_{i,q,t} = W_t N_{i,t} + M_{i,t} P_{m,t}\\
+			\textrm{FOC:} \\
+%			W_{i,t} = \alpha_n A_t M_{i,t}^\alpha_m N_{i,t}^{\alpha_n -1}\\
+%			K_{i,t} = \alpha_m A_t M_{i,t}^{\alpha_m -1} N_{i,t}^{\alpha_n}
+		\end{aligned}
+	\end{equation}
+	Equalising the marginal cost of labour and petrol leads to the an expression of the firms nominal marginal cost $MCN_{t}$. This was previously constant and obtained from through the price setting problem.
+	\begin{equation}
+		MCN_t = \frac{W_{i,t}}{\alpha_n Y_{i,q,t} N_{i,t}^{-1}} = \frac{P_{m,t}}{\alpha_m Y_{i,q,t} M_{i,t}^{-1}}
+	\end{equation}
+	
+	
+	This yields:
+	and expression for petrol inputs $M_t$
+	and expression for time dependent real mark-up $\log(\xi_t) \equiv \mu_t \equiv mc_t^r$
+	
+	
+	\subsubsection{Price setting}
+	The price setting problem of the firm is equivalent to the price setting in the standard NK model. It diverges in only one notion, the real marginal cost $MC_t^r$. \\
+	
+	The expression for inflation is obtained as in the standard model
+	\begin{equation}
+		P_{q,t} = 
+		\left[ 
+		\theta P_{q,t-1}^{1 - \epsilon} + (1 - \theta) \hat{P}_t^{1 - \epsilon}
+		\right]^{\frac{1}{1 - \epsilon}}
+	\end{equation}
+	The firm solves the same optimisation problem as in the above. 
+		\begin{equation}
+		\begin{aligned}
+			\max_{\hat{P}_t}
+			\sum_{k=0}^{\inf} \theta^k \E_t 
+			\left[
+			Q_{t, t+k} 
+			\left(
+			\hat{P}_t Y_{t+k|t} - TC_{t+k|t}^n(Y_{t+k|t})
+			\right)
+			\right] \\
+			\textrm{s.t.}\\
+			\quad
+			Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}
+		\end{aligned}
+	\end{equation}
+	with the first order condition 
+	\begin{equation}
+		\begin{aligned}
+			\sum_{k=0}^{\infty} \theta^k \E_t 
+			\left[
+			Q_{t,t+k} Y_{q,t+k|t} 
+			\left(
+			\hat{P}_{q,t} - \frac{\epsilon}{1 - \epsilon} MC_{t+k|t}^n
+			\right)
+			\right]
+			= 0
+		\end{aligned}
+	\end{equation}
+	
+	\begin{equation}
+		\pi_{q,t} = \beta E_t [\pi_{q,t+1}] + \lambda \hat{mc}_{t}
+	\end{equation}
+	
+	The difference in the New-Keynesian Phillips curve lies in $\hat{mc}_t \equiv mc_t^p - mc^p = $. Instead of the output gap the mark-up gap becomes the instrument at the heart of the model.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	\subsubsection{Oil production}
@@ -521,7 +654,7 @@
 	\\
 	\subsection{Consumption aggregation}
 	\begin{equation}
-		c_t = (1 - \Xi) c_{q,t} + \Xi c_{m, t}
+		c_t = (1 - \chi) c_{q,t} + \Xi c_{m, t}
 	\end{equation}
 	where $\Xi$ is the share of petrol on overall consumption
 	where $p_{q,t}$ is the price of domestic goods, $p_{m,t}$ the price of oil and $p_{c,t}$ the price of overall consumption. Then the difference in domestic and foreign prices is defined as $s_t \equiv p_{q,t} - p_{m,t}$. The overall price level can thus be rewritten as. 
