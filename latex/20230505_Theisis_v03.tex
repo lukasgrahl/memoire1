@@ -110,7 +110,7 @@
 	in a world of perfect competition and lack of nominal rigidities business cycles might be efficient
 	they are the response to changes in productivity, and are actually the result of a "correcting" force towards an efficient equilibrium
 	this raises questions on the desirability of policy interventions
-	This goes against (Keynes, 1936) who regarded recession as inefficient, due to under-utilisation of ressources
+	This goes against (Keynes, 1936) who regarded recession as inefficient, due to under-utilisation of resources
 	
 	Technology shocks
 	Technological shocks for a correctly calibrated model allowed to simulate cycles similar to actual business cycles in first and second order moment (ref). This shed new light on the assumption that technology was solely a driver of long-term growth with neglible impact on business cycles (Gali, 2008, p.3).
@@ -119,34 +119,61 @@
 	
 	The assumptions of the RBC and their consequences, namely the non-existance of money and monetary rigidities in the economy are greatly contratsted by emperical evidence (Gali, 2008, p 15)
 	
-	\subsection{The firm}
-	The firm solves the same static optimisation across production inputs as with the RBC. As there is no capital in the baseline NK model the problem collapsed down to the labour demand function. Moreover, the NK specifically provides the real wage, this was given by assumption in the RBC.
-	\begin{equation}
-		\begin{aligned}
-			\max_{N_t} \quad & A_t N_t^{1 - \alpha} \\
-			\textrm{s.t.} \quad & P_t Y_t = W_t N_t\\
-			\textrm{FOC:} \quad & \frac{W_t}{P_t} = (1 - \alpha) A_t N_t^{-\alpha}\\
-		\end{aligned}
-	\end{equation}
-	
 	Assumptions
 	- perfect compitions
 	- flexible prices
 	- technology shocks
-	- infinetly lived households and firms
 	- identical technology across firms
 	
-	Agents
-	- representative households, where the sum of all households is normed to one
-	- Firms, the representative firm normed to unity
 	
-	Allocation decisions
-	HH
-	- intertamperol consumption and leasure choice
-	- intertemperol consumption savings 
+	\subsubsection{The Household}
+	The households in the RBC model are infinitevly lived agents with homogeneous preferences. They simultaneously solve the same threefold optimisation problem. Faced with an income consisting of labour wage, returns on last periods capital and dividends from firms. The income is divided between consumption, capital investment and leisure. The leisure expenditure is implicitly made by adjusting the hours of work, factoring negatively into household utility $U(C, L)$. Dividends are drawing from the fact that in the RBC firms are owned by the consumer. However, the assumption of full price flexibility and perfect competition implies zero firm profits at equilibrium, dividend incomes are thus null in the steady state. 
 	
-	Firm
-	- static optimisation of profit
+	\begin{equation}
+		\begin{aligned}
+			\max_{B_t, C_t, L_t} \quad \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t}) \\
+			\textrm{s.t.} \quad C_t + I_t = R_t K_{t-1} + W_t N_t + \Pi_t \\
+						  K_t = (1 - delta) K_{t-1} + I_t \\
+			\textrm{FOC:} \\
+			- \frac{U_{n,t}}{U_{c, t}} = W_t\\
+			\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right] 			
+		\end{aligned}
+	\end{equation}
+	Solving the optimisation problem yields two main equations. The Euler equation of intertemporal consumption trade-off and the labour supply equation. 	
+	
+	\subsubsection{The firm}
+	Firms in the RBC are also assumed to be homogenous, producing with the same production technology. As such they solve the same static optimisation problem across its production inputs capital and labour. Due to the assumption of perfect competition and flexible prices firms pay the marginal product of labour and capital to its respective inputs. This implies a zero-profit condition, as mentioned in the above. The two first order conditions thus correspond to capital and labour demand.
+	\begin{equation}
+		\begin{aligned}
+			\max_{N_t} \quad & A_t K_t^\alpha N_t^{1 - \alpha} \\
+			\textrm{s.t.} \quad & Y_t = W_t N_t + K_t R_t\\
+			\textrm{FOC:} \\
+			W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}\\
+			K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}
+		\end{aligned}
+	\end{equation}
+
+	\subsubsection{Equilibrium}
+	In the equilibrium the accounting identity of output $Y_t = C_t + I_t$ is assumed to hold. 
+	Supplemented by a law of motion for technology the system of equations can be summarised as follows.\\
+	
+		
+	\begin{tabular}{lr}
+		\textbf{Equation name} & \textbf{Log-linear expression}\\
+		\hline
+		Euler equation & $\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right]$ \\
+		Capital supply & $K_t = (1 - delta) K_{t-1} + I_t$ \\
+		Capital demand & $K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}$ \\
+		Labour supply & $- \frac{U_{n,t}}{U_{c, t}} = W_t$ \\
+		Labour demand & $W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}$ \\
+		Production function & $Y_t = A_t K_t^\alpha N_t^{1 - \alpha}$ \\
+		Equilibrium condition & $Y_t = C_t + I_t$ \\
+		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
+	\end{tabular}\\
+
+	
+		
+	
 	
 	
 	the model
@@ -166,7 +193,7 @@
 	
 	\subsection{NK}
 	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects. Firstly, he NK model in its simplest form analyses an economy without capital, wherefore its intertemporal  instrument is the output gap instead of capital (ref). Secondly, the NK model introduces nominal rigidity and monopolistic competition to the model in order to introduce inflation into the economy. This extension has several consequences. For one monetary policy is neutral in the short-run, thus changes in interest are note directly matched by changes in expected inflation (ref). This gap in expectations becomes the driver of short-run fluctuation, or business cycles in the economy. The main driver of business cycles is thus no-longer technological progress and a change in total factor productivity but a shock to interest rates, originating from the central bank. \\
-	This of course has important economic implications. Instead of efficient direct adjustments of the economy to new production technology business cycles no longer exhibit efficiency in the NK model. Instead, they are an inefficient divergence caused by central bank interventions.
+	This of course has important economic implications. Instead of efficient direct adjustments of the economy to new production technology business cycles no longer exhibit efficiency in the NK model. Instead, they are an inefficient divergence caused by central bank interventions. This is also the reason why the model is called New-Keynesian, as it comes back to Keynes perspective, who regarded business cycles as inefficient. The the main divergence from RBC literature consists in this perspective.
 		
 	\subsubsection{Consumption bundle}
 	The New-Keynesian framework introduces monopolistic competition in order to equip firms with price setting power (ref). The market power arises from the fact that goods are not perfect substitutes. In this setting, the simplified assumption of a unique good of the RBC holds no longer and the households allocation problem becomes a two stage process. First, the household needs to decide on the mix of products that optimises its utility. Only then the household is able to solve for the optimal allocation of income in the consumption leisure trade-off. The order of the two decision is important. Only once the household has obtained the optimal consumption bundle it is able to asses the utility of consumption. Hence the consumption basket composition needs to be solved prior to the consumption-leisure trade-off. Across the DSGE literature the aggregation of consumption is also sometimes referred to as the output of a good bundling firm. This intermediary party determines the optimal basket of goods according to the household preferences. The household then buys the optimal bundle from the intermediary. In this description it is important to note that the intermediary has not price setting power.\\
@@ -191,22 +218,16 @@
 	\subsubsection{Household}
 	Having found $C_t$ and its price $P_t$ the household's consumption-leisure allocation can be formulated. Following the structure of the RBC model, the households expends on consumption and money holdings in bonds. In doing so she is drawing from wage income, last period bonds and government transfers $T_t$. The households solves this problem for all future periods.
 % define utility functional form
-	\[
-		\max_{B_t, C_t, L_t} \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t})
-	\]
-	s.t.
-	\[
-		P_t C_t + Q_t B_t = B_{t-1} + W_t N_t + T_t
-	\]
+	\begin{equation}
+		\begin{aligned}
+			\max_{B_t, C_t, L_t} \quad \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t}) \\
+			\textrm{s.t.} \quad P_t C_t + Q_t B_t = B_{t-1} + W_t N_t + T_t \\
+			\textrm{FOC:} \\
+				- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_t}\\
+				Q_t = \beta \E_t \left[ \frac{C_{t+1}}{C_t}^\sigma \frac{P_t}{P_{t+1}} \right] 			
+		\end{aligned}
+	\end{equation}
 	Solving the optimisation problems yields two main equations. The labour supply depends on the real wage and the marginal utility of labour and consumption. The Euler equation determines the households intertemporal allocation of consumption in relation to its discount rate and the time-value of money as given by $Q_t = \frac{1}{1+r_t}$, the interest rate.
-	\[
-		- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_t}
-	\]
-	\[
-		Q_t = \beta \E_t \left[
-						\frac{C_{t+1}}{C_t}^\sigma \frac{P_t}{P_{t+1}}
-					\right] 
-	\]
 
 	\subsubsection{The firm}
 	The major innovation of the NK model lies in the inclusion of inflation. As explained above, inflation arises from price setting power of firms due to the imperfect substitutability of consumption goods. In modelling the price setting of firms the NK model therefore relies on the basket of goods. \\
