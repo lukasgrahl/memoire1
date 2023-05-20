@@ -28,6 +28,10 @@
 \newcommand{\matr}[1]{\mathbf{#1}} % matrix font
 \newcommand{\Lagr}{\mathcal{L}} % likelihood L
 \newcommand{\E}{\mathbb{E}} % expectation
+% RBC expressions
+\newcommand{\Rss}{\frac{1}{\beta} + \delta - 1}
+\newcommand{\Ass}{\bar{A}}
+\newcommand{\KLss}{\left[ \frac{\alpha \Ass}{\Rss} \right]^{\frac{1}{1-\alpha}}}
 
 % set layout
 \let\oldsection\section
@@ -62,6 +66,7 @@
 	
 	 \section{Introduction}
 	 
+	- The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
 	
 	This work is joining 3 strains of literature
 	- Literature on the RBC, the origin of all new keynesian models
@@ -91,15 +96,18 @@
 	- in assessing this fit one needs to be wary of over fitting specific data
 	
 	\section{Literature Review}
+		RBC Criticism
+	the correlation of real wage and hours worked does not correspond to reality, this is the lacmus test of RBC models (Christiano Eichenbaum 1992)
+	"Robert E. Lucas (1981 p. 226) says that "observed real wages are not constant over the cycle, but neither do they exhibit consistent pro- or countercyclical tendencies. This suggests that any attempt to assign systematic real wage movements a central role in an explanation of business cycles is doomed to failure" \cite{christiano_current_1992}
 	
+	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)	
+
+
 
 	\section{DSGE Models}
-	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)
 	
 	Before diving into the derivation of each individual model this section provides some general remarks applicable to all models across this work. All models discussed in the below have analytical solutions to their steady state, in which the economy is at its natural optimum. However, the system describing the economy is non-linear due to the multiplicative production relationship arising from the Cobb-Douglas production function \cite{campbell_inspecting_1994}. This gives rise to the need of some for of linear approximation around the steady state in order to be able to analyse the system's behaviour. The most common approach adopted across literature is a log-linear Taylor approximation, this work will follow suit \cite{campbell_inspecting_1994}. Such linearisation is applicable under the existence of a deterministic singular solution, which is the case for the small scale DSGE models discussed in the below \cite{herbst_bayesian_2016}.
 	
-	
-	\subsection{RBC model}
 	The theoretical benchmark model a classic RBC 
 	The aim of analysing business cycles
 	
@@ -126,20 +134,41 @@
 	- identical technology across firms
 	
 	
-	\subsubsection{The Household}
-	The households in the RBC model are infinitevly lived agents with homogeneous preferences. They simultaneously solve the same threefold optimisation problem. Faced with an income consisting of labour wage, returns on last periods capital and dividends from firms. The income is divided between consumption, capital investment and leisure. The leisure expenditure is implicitly made by adjusting the hours of work, factoring negatively into household utility $U(C, L)$. Dividends are drawing from the fact that in the RBC firms are owned by the consumer. However, the assumption of full price flexibility and perfect competition implies zero firm profits at equilibrium, dividend incomes are thus null in the steady state. 
+	\subsection{Real Business Cycle model}
+	The Real Business Cycle model (RBC) was first introduced by \cite{prescott_theory_1986} in the aim of providing an explanation to business cycles. Departing from Schumpeterian growth driven by advances in technology the RBC model is at its heart a de-trended growth model. It emphasis the role of technology growth and resulting changes in total factor productivity in influencing business cycles. In doing so it makes the following assumptions:
+	\begin{itemize}
+		\item perfect competition
+		\item flexible prices
+		\item technology shocks
+		\item identical technology across firms
+	\end{itemize}
+	This leads to the interpretation of business cycles as efficient adjustments of economy towards a new equilibrium. While this idea is antithetical to the New-Keynesian literature considering business cycles as inefficient both models share a the mathematical foundation. The following will therefore derive the RBC model
 	
+	\subsubsection{The Household}
+	The households in the RBC model are infinitely lived agents with homogeneous preferences. They simultaneously solve the same threefold optimisation problem. Faced with an income consisting of labour wage, returns on last periods capital and dividends from firms. The income is divided between consumption, capital investment and leisure. The leisure expenditure is implicitly made by adjusting the hours of work, factoring negatively into household utility. Dividends are drawing from the fact that in the RBC firms are owned by the consumer. However, the assumption of full price flexibility and perfect competition implies zero firm profits at equilibrium, dividend incomes are thus null in the steady state. The following will assume a separable utility function of the form: 
+	\begin{equation}
+		U(C_t, L_t) = \frac{C_t^{1-\sigma}}{{1-\sigma}} - \frac{L_t^{1+\phi}}{1+\phi} 
+	\end{equation}
+% check \sigma claim
+	In this specification $\sigma$ is a coefficient of risk aversion and $\phi$ is the marginal disutility of labour. While other utility specification have been employed across the RBC literature this work will remain with a separable utility function in order to be consistent with the New-Keynesian literature. The function $U(C_t, L_t)$ exhibits the usual characteristics of well behaved utility function $\frac{\partial U}{\partial C_t} > 0$, $\frac{\partial U}{\partial L_t} \leq 0$ and $\frac{\partial^2 U}{\partial C_t^2} \leq 0$, $\frac{\partial^2 U}{\partial L_t^2} \leq 0$.
+	The household maximisation problem then reads as follows
 	\begin{equation}
 		\begin{aligned}
 			\max_{B_t, C_t, L_t} \quad \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t}) \\
 			\textrm{s.t.} \quad C_t + I_t = R_t K_{t-1} + W_t N_t + \Pi_t \\
 						  K_t = (1 - delta) K_{t-1} + I_t \\
 			\textrm{FOC:} \\
-			- \frac{U_{n,t}}{U_{c, t}} = W_t\\
-			\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right] 			
+			- \frac{U_{n,t}}{U_{c, t}} = W_t \\
+			\E_t \left[ \frac{U_{c,t}}{U_{c,t+1}} \right]^{\sigma} = \beta \left[ 1 - \delta + \E_t[R_{t+1}]\right]
 		\end{aligned}
 	\end{equation}
-	Solving the optimisation problem yields two main equations. The Euler equation of intertemporal consumption trade-off and the labour supply equation. 	
+	The problem yields two main equations. The Euler equation of intertemporal consumption trade-off and the labour supply equation. 
+	\begin{equation}
+		\begin{aligned}
+			C_t^\sigma L_t^\phi	= W_t \\
+			\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ 1 - \delta  + \E_t [R_{t+1}] \right] 			
+		\end{aligned}
+	\end{equation}
 	
 	\subsubsection{The firm}
 	Firms in the RBC are also assumed to be homogenous, producing with the same production technology. As such they solve the same static optimisation problem across its production inputs capital and labour. Due to the assumption of perfect competition and flexible prices firms pay the marginal product of labour and capital to its respective inputs. This implies a zero-profit condition, as mentioned in the above. The two first order conditions thus correspond to capital and labour demand.
@@ -154,41 +183,53 @@
 	\end{equation}
 
 	\subsubsection{Equilibrium}
-	In the equilibrium the accounting identity of output $Y_t = C_t + I_t$ is assumed to hold. 
-	Supplemented by a law of motion for technology the system of equations can be summarised as follows.\\
+	Having derived the above optimality condition an analysis of the equilibrium requires two further equations. These are the equilibrium resource constraint arising from the output accounting identity and the exogenous law of motion of technology.
+	\begin{equation}
+		\begin{aligned}
+			Y_t = C_t + I_t \\
+			\log(A_t) = (1- \rho_A) \log(A^*) + \rho_A \log(A_{t-1}) + \epsilon_t^A
+		\end{aligned}
+	\end{equation}
+	As the case with all DSGE models the system in its current state is non-linear. This is due to the from multiplicative Cobb-Douglas production and additive law of motion without full depreciation $\delta \leq 1$ \cite{campbell_inspecting_1994}. This raises the need for log-linear approximations which yields the following system of equations. \\
 	
-		
 	\begin{tabular}{lr}
 		\textbf{Equation name} & \textbf{Log-linear expression}\\
 		\hline
-		Euler equation & $\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right]$ \\
-		Capital supply & $K_t = (1 - delta) K_{t-1} + I_t$ \\
-		Capital demand & $K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}$ \\
-		Labour supply & $- \frac{U_{n,t}}{U_{c, t}} = W_t$ \\
-		Labour demand & $W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}$ \\
-		Production function & $Y_t = A_t K_t^\alpha N_t^{1 - \alpha}$ \\
-		Equilibrium condition & $Y_t = C_t + I_t$ \\
-		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
+		Euler equation & $\hat{c}_t = \hat{c}_{t+1} - \hat{r}_{t+1}$ \\ % since \beta = 1 and (\bar{r} + 1 - \delta) = 1 as well
+		Capital demand & $\hat{y}_t - \hat{k}_t = \hat{r}_t$ \\
+		Capital supply &  $\hat{i}_t = \delta \hat{k}_{t+1} - \frac{1-\delta}{\delta} \hat{k}_t$ \\
+		Labour supply & $\hat{c}_t = \hat{w}_t - \frac{\bar{l}}{1-\bar{l}} \hat{l}_t$ \\
+		Labour demand & $\hat{y}_t - \hat{l}_t = \hat{w}_t$ \\
+		Production function & $\hat{y}_t = \hat{a}_t + \alpha \hat{k}_t + (1-\alpha) \hat{l}_t$ \\
+		Equilibrium condition & $\hat{y}_t = \frac{\bar{y}}{\bar{c}} \hat{c}_t + \frac{\bar{i}}{\bar{y}} \hat{i}_t$ \\
+		Technology law of motion & $\hat{a}_t = \rho_a \hat{a}_{t-1} + \epsilon_{a,t}$ \\
+	\end{tabular}\\
+	
+	The above linearisation still contains values of the steady state indicated by the $\bar{x}$ notation. In order to express the model as a linear system these have to be replaced with their respective deterministic values. However, the RBC model under separable consumption labour utility, does not possess a deterministic steady state for labour (ref). This issues has often been circumvented by relying on a logarithmic specification of household utility \cite{campbell_inspecting_1994} \footnote{In the work of Campbell the analytical derivation relies on a log-utility function}. However, the purpose of this work is a comparison between an RBC and New-Keynesian models. The latter traditionally rely on separable utility and so will this work will in order to allow for a fair comparison of results.
+	The usual solution path for an RBC with separable utility is the computation of the steady state as ratios of labour. These 'great ratios' are deterministic and allow for some analysis \cite{prescott_theory_1986}.\\
+	
+	\begin{tabular}{lr}
+		\textbf{Variable} & \textbf{Deterministic steady state}\\
+		\hline 
+		Rate of return & $\bar{R} = \Rss$ \\
+		Capital labour ratio & $\frac{\bar{K}}{\bar{L}} = \KLss$ \\
+		Wage & $\bar{W} = (1 - \alpha) \Ass \left(\KLss\right)^\alpha$ \\
+		Investment labour ratio & $\frac{\bar{I}}{\bar{L}} = \delta \KLss$ \\
+		Output labour ratio & $\frac{\bar{Y}}{\bar{L}} = \Ass \left(\KLss\right)^\alpha$ \\
+		Consumption labour ratio & $\frac{\bar{C}}{\bar{L}} = \frac{\bar{Y}}{\bar{L}} - \frac{\bar{I}}{\bar{L}}$ \\
 	\end{tabular}\\
 
+	Obtaining a linear state-space representation of the RBC model requires the numerical approximation of the steady state value of labour $\bar{l}$. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, its steady-state values and the state-space transition matrix can be found in the (appendix). 
+
 	
-		
 	
 	
-	
-	the model
-	-	Non-linearity arises from multiplicative Cobb-Douglas production and additive law of motion of e.g. capital (Campbell)
-	- This raises the need for linear approximations, overview of possible methods:
-	- Models become more complex as researchers are trying to use more realistic functions of utility and incorporate heterogeneity (Taylor  Uhlig, 1990)
-	- The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
 	
 	
 
 	
 	
-	Criticism
-	the correlation of real wage and hours worked does not correspond to reality, this is the lacmus test of RBC models (Christiano Eichenbaum 1992)
-	"Robert E. Lucas (1981 p. 226) says that "observed real wages are not constant over the cycle, but neither do they exhibit consistent pro- or countercyclical tendencies. This suggests that any attempt to assign systematic real wage movements a central role in an explanation of business cycles is doomed to failure" \cite{christiano_current_1992}
+
 	
 	
 	\subsection{NK}
@@ -234,7 +275,7 @@
 	Firms are able to adjust prices, yet the frequency at which they are able to do so is limited. Each period only a share $\theta$ of firms are able to set a new price. As the number of firms is normed to unity $\theta$ serves as the percentage of goods that set a new prices in a given period $t$. Consequently, in any period the current price level $P_t$ is a weighted average of last periods prices $P_{t-1}$ and newly set prices $\hat{P}_t$. This is reflected in the below equation.
 	\[
 		P_t = \left[ 
-					\theta P_{it-1}^{1 - \epsilon} + (1 - \theta) \hat{P}_t^{1 - \epsilon}
+					\theta P_{t-1}^{1 - \epsilon} + (1 - \theta) \hat{P}_t^{1 - \epsilon}
 			\right]^{\frac{1}{1 - \epsilon}}
 	\]
 	Manipulation of the above allows to define inflation $\Pi_t$ as a function of last periods price level and this periods optimal price $\hat{P}_t$.
@@ -242,34 +283,37 @@
 		\Pi_t^{1-\epsilon} = \theta + (1 - \theta) \left(\frac{\hat{P}_t}{P_{t-1}} \right)^{1-\epsilon}
 	\end{equation}
 % check this explanation
-	Deriving inflation thus relies on $\hat{P_t}$, the optimal price set by share $\theta-1$. The firm's static optimisation problem leading to the labour demand equation does no longer take place in the NK model. Instead, firms optimise their price setting intertemporally taking into account two forces. The higher a firms price, the longer this price will be profitable if the firm cannot reset its price for a long time. However, high prices will decrease the quantity sold by the firm. Both are weighted by the price setting probability $\theta$. The price setting problem can be formalised as follows: 
-	\[
-		\max_{\hat{P}_t} 
-		 \sum_{k=0}^{\inf} \theta^k \E_t 
+	Deriving inflation thus relies on $\hat{P_t}$, the optimal price set by share $1-\theta$. The firm's static optimisation problem leading to the labour demand equation does no longer take place in the NK model. Instead, firms optimise their price setting intertemporally taking into account two forces. The higher a firms price, the longer this price will be profitable if the firm cannot reset its price for a long time. However, high prices will decrease the quantity sold by the firm. Both are weighted by the price setting probability $\theta$. The price setting problem can be formalised as follows: 
+	\begin{equation}
+		\begin{aligned}
+			\max_{\hat{P}_t}
+			\sum_{k=0}^{\inf} \theta^k \E_t 
 			\left[
-				Q_{t, t+k} 
-					\left(
-						\hat{P}_t Y_{t+k|t} - TC_{t+k|t}^n(Y_{t+k|t})
-					\right)
-			\right]
-	\]
-	s.t.
-	\[
-		Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}
-	\]
-	where $Q_{t, t+k}$ is the stochastic discount factor
-	FOC:
-	\[
-		\sum_{k=0}^{\infty} \theta^k \E_t 
-		\left[
+			Q_{t, t+k} 
+			\left(
+			\hat{P}_t Y_{t+k|t} - TC_{t+k|t}^n(Y_{t+k|t})
+			\right)
+			\right] \\
+			\textrm{s.t.}\\
+			\quad
+			Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}
+		\end{aligned}
+	\end{equation}
+	where $Q_{t, t+k}$ is the stochastic discount factor and the resulting first order conditions thus are:
+	\begin{equation}
+		\begin{aligned}
+			\sum_{k=0}^{\infty} \theta^k \E_t 
+			\left[
 			Q_{t,t+k} Y_{t+k|t} 
 			\left(
-				(1 - \epsilon) + \epsilon \frac{MC_{t+k|t}^n}{\hat{P}_t}
+			(1 - \epsilon) + \epsilon \frac{MC_{t+k|t}^n}{\hat{P}_t}
 			\right)
-		\right]
-		= 0
-	\]
-	Inserting $Y_{it+k|t}$ from the budget constraint and the Euler condition (ref) $Q_{t,t+k} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}$ yields:
+			\right]
+			= 0
+		\end{aligned}
+	\end{equation}
+	
+	Inserting $Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}$ from the budget constraint and the Euler condition (ref) $Q_{t,t+k} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}$ (ref) yields:
 	\begin{equation}
 		\frac{\hat{P}_t}{P_t} = \frac{\epsilon}{\epsilon-1} 
 		\frac{
@@ -813,8 +857,8 @@
 
 	\subsection*{Appendix B}
 % tables
-	\input{{./graphs/priors_table.tex}}
-	\input{{./graphs/fred_variables.tex}}
+	\include{{./graphs/priors_table.tex}}
+	\include{{./graphs/fred_variables.tex}}
 	\include{{./graphs/data_descriptives.tex}}
 	
 	\subsection*{Appendix C}
@@ -825,6 +869,23 @@
 	Expression for $N_t$ from $N_{it}$
 	It can be shown that $ log \left( \int_{0}^{1} \left( \frac{P_{it}}{P_t} \right)^{-\frac{\epsilon}{1 - \alpha}} di \right) \approx 0$ which then allows to log linearise the production function to $y_t = a_t + (1 - \alpha) n_t$.
 	
+	
+	RBC all equations\\
+	\begin{tabular}{lr}
+		\textbf{Equation name} & \textbf{Log-linear expression}\\
+		\hline
+		Euler equation & $\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right]$ \\
+		Capital supply & $K_t = (1 - delta) K_{t-1} + I_t$ \\
+		Capital demand & $K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}$ \\
+		Labour supply & $- \frac{U_{n,t}}{U_{c, t}} = W_t$ \\
+		Labour demand & $W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}$ \\
+		Production function & $Y_t = A_t K_t^\alpha N_t^{1 - \alpha}$ \\
+		Equilibrium condition & $Y_t = C_t + I_t$ \\
+		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
+	\end{tabular}\\
+
+	\include{{./graphs/rbc_steady_state.tex}}
+	\include{{./graphs/rbc_transition_matrix.tex}}
 	
 	
 
