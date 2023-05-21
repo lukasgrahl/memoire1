@@ -419,7 +419,7 @@
 	\begin{equation}
 		\begin{aligned}
 			mc_t^r = w_t - p_t - a_t - mpn_t \\
-			mc_t^r = w_t - p_t - a_t - \ln(1 - \alpha) + \alpha n_t \\
+%			mc_t^r = w_t - p_t - a_t - \ln(1 - \alpha) + \alpha n_t \\
 			mc_t^r = w_t - p_t - \frac{a_t - \alpha y_t}{1 - \alpha} - \ln(1 - \alpha) \\
 		\end{aligned}
 	\end{equation}
@@ -482,7 +482,6 @@
 	\end{equation} 
 
 	This can be rewritten in more compact form as \footnote{where $\Theta \equiv \frac{1 - \alpha}{1 - \alpha + \alpha \epsilon} \leq 1$} \footnote{	where $\lambda \equiv \frac{(1-\theta)(1-\beta\theta)}{\theta} \Theta$}
-
 	\begin{equation}
 		\pi_t = \beta E_t [\pi_{t+1}] + \lambda \hat{mc}_{t}
 	\end{equation}
@@ -547,36 +546,40 @@
 	\end{equation}
 	where $\Omega \equiv \frac{1}{\sigma + \phi_y + \kappa \phi_{\pi}}$ and $\hat{r}_t^n \equiv r_t^n - \rho$.
 	
-	Define stability condition of the linear state-space, Blanchard-Kahn
+%Define stability condition of the linear state-space, Blanchard-Kahn
 
 	\subsection{Petrol}
-	Based on 
-	
+	The below is an extension of the standard NK model by petrol as a consumption good as well as factor of production. There is no domestic production of petrol, instead it is imported and its price is assumed to be exogenous. Beyond the import of petrol there is no foreign trade, all closed economy assumptions thus hold. 
+	Given the exogenous nature of petrol the model is quite similar to the standard NK model. The below will therefore depart from (section) and only outline the changes to the model from petrol production. 	
 	
 	\subsubsection{Bundler}
-	Petrol being introduced as an important consumption good alters the bundling process of the overall consumption bundle $C_t$. 
-	The aggregation of domestic goods follows from the same procedure as in the standard NK model, employing the Dixit-Stiglits aggregator function. Variables $C_{q,t}$ and $P_{q,t}$ are aggregated consumption and price respectively. They result in the same properties as developed above, namely the share of good $C_{i,q,t}$ in the consumption basket $C_{q,t}$ and the aggregated price index $P_{q,t}$. \\
-	\begin{equation}
-		C_{q,t} = \left( \int_{0}^{1} C_{i,q,t}^{1 - \frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon-1}} 
-	\end{equation}
-	\begin{equation}
+	Petrol is considered a consumption good and as such enters into the good basket $C_t$. This inclusion is modelled across the bundling process, deriving the optimal basket across two classes of goods, domestic and foreign. 
+	The bundling of domestic goods follows from the same procedure as outlined in (section). Variables $C_{q,t}$ and $P_{q,t}$ are aggregated consumption and price respectively. The optimisation across the continuum of goods results in the same properties as above. These are share of good $C_{i,q,t}$ in the consumption basket $C_{q,t}$ and the aggregated price index $P_{q,t}$ as well as an expression of aggregate consumption. \\
+	\begin{equation} \label{eq:o_pindex}
 		P_{q,t} = \left( \int_{0}^{1} P_{i,q,t}^{1 - \epsilon} di \right)^{\frac{1}{1-\epsilon}} \\
 	\end{equation}
-	\begin{equation}
+	\begin{equation} \label{eq:o_cshare}
 		C_{i,q,t} = \left( \frac{P_{i,q,t}}{P_{q,t}} \right)^{-\epsilon} C_{q,t}
 	\end{equation}
-	
-	The consumption problem is complemented by consumption of imported oil $C_{m,t}$, which is assumed to be a constant share of overall consumption $C_t$. Parameter $\chi$ is the fixed share of petrol in consumption. For the consumer this assumption is tractable, as consumption demand for petrol can be thought of to be relatively inelastic in the short-run. Empirical evidence supports this, attributing the inelasticity to the fact that households are unable quickly exchange the durable goods normally consuming petrol (e.g. cars or radiators) (ref). 
+	\begin{equation} \label{eq:o_pcon}
+		\int_{0}^{1} P_{it} C_{it} di = Z_t = P_t C_t
+	\end{equation}
+	Foreign goods consumption $C_{m,t}$ exclusively consists of petrol and its share in overall consumption $C_t$ is assumed to be constant. Parameter $\chi$ represents this share. 
+	This assumption, though a multiplication, is viable as consumption demand for petrol is relatively inelastic in the short-run. Empirical evidence suggests that due to the inability replace durable goods (e.g. cars) that usually are at heart of consumption demand this demand is inelastic (ref). Overall consumption this is defined as \footnote{where $\Theta = \chi^{-\chi}(1-\chi)^{(\chi-1)}$}
 	\begin{equation}
 		C_t \equiv \Theta_\chi C_{m,t}^\chi C_{q,t}^{1-\chi}
 	\end{equation}
-	where $\Theta = \chi^{-\chi}(1-\chi)^{(\chi-1)}$. From this the overall price level of the consumption basket $P_{c,t}$ can be derived as.
+	From this the overall price level of the consumption basket $P_{c,t}$ is derived. Where $S_t \equiv \frac{P_{m,t}}{P_{q,t}}^\chi$ is the real price of oil.
 	\begin{equation}
 		P_{c,t} \equiv P_{m,t}^\chi P_{q,t}^{1-\chi} 
 			= P_{q,t} \frac{P_{m,t}}{P_{q,t}}^\chi
 			= P_{q,t} S_t^\chi
 	\end{equation}
-	Where $S_t$ is the real price of oil. This allows to write the $C_t P_{c,t} = C_{m,t}P_{m,t} + C_{q,t}P_{q,t}$.
+		
+	Following this reasoning and using \ref{eq:o_pcon} overall consumption can be written as 
+	\begin{equation}
+		C_t P_{c,t} = C_{m,t}P_{m,t} + C_{q,t}P_{q,t}
+	\end{equation}
 
 	\subsubsection{Household}
 	Having derived expressions for the consumption basket and its price the household's optimisation problem can be solved. As in the standard NK model this reads as follows. 
@@ -584,10 +587,18 @@
 	\begin{equation}
 		\begin{aligned}
 			\max_{B_t, C_t, L_t} \quad \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t}) \\
-			\textrm{s.t.} \quad P_{c,t} C_t + Q_t B_t = B_{t-1} + W_t N_t + T_t \\
+			\textrm{s.t.} \quad P_{c,t} C_t + Q_t B_t = B_{t-1} + W_t N_t \\
 			\textrm{FOC:} \\
 			- \frac{U_{n,t}}{U_{c, t}} = \frac{W_t}{P_{c,t}}\\
 			Q_t = \beta \E_t \left[ \left( \frac{U_{c, t+1}}{U_{c,t}} \right)^\sigma \frac{P_{c,t}}{P_{c,t+1}} \right] 			
+		\end{aligned}
+	\end{equation}
+	
+	The authors use a log-utilty function $U(C_t,L_t) \equiv \log(C_t) - \frac{N_t^(1+\phi)}{1+\phi}$ which results in the following first order conditions.
+	\begin{equation}
+		\begin{aligned}
+			Q_t = \beta \E_t \left[ \frac{C_t}{C_{t+1}} \frac{P_{c,t}}{P_{c,t+1}} \right] \\
+			\frac{W_t}{P_{c,t}} = C_t N_t^\phi
 		\end{aligned}
 	\end{equation}
 
@@ -728,6 +739,7 @@
 		
 		\hline
 	\end{tabular}
+% fix footnotes
 	\footnotetext{where $\rho \equiv - \ln(\beta)$ and $i_t = \ln(Q_t)$}
 	\footnotetext{where $\mu_t^n \equiv \ln(\xi_t^n)$}
 	\footnotetext{where $\eta \equiv \frac{\alpha_m}{\xi_t^n-\alpha_m}$}
