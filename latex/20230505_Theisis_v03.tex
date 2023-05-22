@@ -15,6 +15,7 @@
 \usepackage{csvsimple}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{verbatimbox}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -801,7 +802,21 @@
 	
 	An overview over the transformed variables as well as their descriptive statistics can be found in the (appendix).
 	
-	BVAR
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{data_variables_transformed.png}
+			\caption{Bayesian VAR 2 lags}
+		\end{center}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=.9\textwidth]{bvar_forecast1.png}
+			\caption{Bayesian VAR 2 lags}
+		\end{center}
+	\end{figure}
+	\input{{./graphs/data_descriptives.tex}}
+	
 	
 	\subsection{Analysis of models}
 	
@@ -1008,9 +1023,32 @@
 	
 	\subsubsection{Steady state priors}
 	The 'great ratios' or long-run relationships as \cite{kydland_time_1982} referred to them pin down the steady state
-	\[
-		\theta_{ss} = \{\alpha, \beta, \delta, \pi^*, \eta_p\} % eta is calvo
-	\]
+	\begin{equation}
+		\begin{aligned}
+			\Theta_{ss}^{RBC} = \{ \alpha, \beta, \delta \} \\
+			\Theta_{ss}^{NK} = \{\alpha, \beta, \theta_p , rn\} \\
+			\Theta_{ss}^{NKE} = \{\alpha_m, \alpha_n, \beta, \theta, \chi \} \\
+		\end{aligned}
+	\end{equation}
+
+
+	\begin{equation}
+	\begin{aligned}
+		\Theta_{exog}^{RBC} = \{\rho_A, \sigma_{\epsilon_A} \} \\
+		\Theta_{ss}^{NK} = \{\rho_v, \sigma_{\epsilon_v} \} \\
+		\Theta_{ss}^{NKE} = \{\rho_s, \sigma_{\epsilon_s} \}
+	\end{aligned}
+	\end{equation}
+
+	\begin{equation}
+		\begin{aligned}
+			\Theta_{exog}^{RBC} = \{\sigma_C, \sigma_L \} \\
+			\Theta_{ss}^{NK} = \{\sigma_C, \sigma_L, \epsilon, \phi_{y}, \phi_{\pi} \} \\
+			\Theta_{ss}^{NKE} = \{\sigma_L, \epsilon, \phi_{\pi} \}
+		\end{aligned}
+	\end{equation}
+
+
 	When determining the steady-state priors $\theta_{ss}$ and assuming independence it is possible that the resulting joint prior distributions assigns high probability to unrealistic steady state values \cite{del_negro_forming_2008}. To circumvent this issue other method
 	
 	This priors are usually estimated from pre-sample data \cite{herbst_bayesian_2016}
@@ -1152,10 +1190,21 @@
 		Equilibrium condition & $Y_t = C_t + I_t$ \\
 		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
 	\end{tabular}\\
+	
+	\pagebreak
+	\subsection{Appendix D} \label{appd}
+	\verbfilenobox[\tiny]{mod6_nk_energy_lin2.txt}
+	\
+	
 
 	\pagebreak
-	\subsection*{Appendix D} \label{appd}
+	\subsection*{Appendix E} \label{appe}
 	Metropolis Hastings MCMC sampler code\\
 	
+	Deriving the multivariate covariance matrix $G$ from prior the prior distributions standard deviation
+	\lstinputlisting[language=Python, firstline=33, lastline=44]{mh_mcmc_code.py}
+	Suggesting new priors based on the random walk law of motion
+	\lstinputlisting[language=Python, firstline=85, lastline=99]{mh_mcmc_code.py}
+	MH MCMC acceptance procedure
 	\lstinputlisting[language=Python, firstline=175, lastline=195]{mh_mcmc_code.py}
 \end{document}
