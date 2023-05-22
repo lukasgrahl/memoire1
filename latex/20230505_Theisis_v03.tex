@@ -12,12 +12,42 @@
 \usepackage{geometry}
 \usepackage[parfill]{parskip} % no indent
 \usepackage{amssymb}
+\usepackage{csvsimple}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+% Default fixed font does not support bold face
+%\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+%\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
 
 % graphics path
 \graphicspath{{./graphs/}}	% graphics
-
-
-% word count
 
 % title slide
 \author{Lukas Gahl}
@@ -283,10 +313,10 @@
 		\end{aligned}
 	\end{equation}
 	Solving the optimisation problems yields the labour supply, this time explicitly depending on the real wage and the Euler equation. Assuming the function form of $		U(C_t, L_t) = \frac{C_t^{1-\sigma}}{{1-\sigma}} - \frac{L_t^{1+\phi}}{1+\phi}$ and plugging its derivatives into the first order condition yields.
-		\begin{equation}
+		\begin{equation} \label{eq:nk_hh_foc}
 		\begin{aligned}
 			C_t^\sigma L_t^\phi	= \frac{W_t}{P_t} \\
-			\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta ( 1 - \delta  + \E_t [R_{t+1}] )
+			Q_{t,t+k} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}
 		\end{aligned}
 	\end{equation}
 		
@@ -337,7 +367,7 @@
 		\end{aligned}
 	\end{equation}
 	
-	Inserting the budget constraint and the discount factor as defined by the Euler condition (ref) $Q_{t,t+k} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}$ results in:
+	Inserting the budget constraint and the discount factor as defined by the Euler condition \ref{eq:nk_hh_foc} results in:
 	\begin{equation}
 		\frac{\hat{P}_t}{P_t} = \frac{\epsilon}{\epsilon-1} 
 		\frac{
@@ -486,7 +516,7 @@
 		\pi_t = \beta E_t [\pi_{t+1}] + \lambda \hat{mc}_{t}
 	\end{equation}
 
-	The above combined with $\hat{mc}_t^r$ \ref{eq:llmcrhat} allows to construct the New-Keynesian Phillips curve, on of the two core equations of the NK model.\footnote{where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}{1 - \alpha)}$}
+	The above combined with \ref{eq:llmcrhat} allows to construct the New-Keynesian Phillips curve, on of the two core equations of the NK model.\footnote{where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}{1 - \alpha)}$}
 	\begin{equation} \label{eq:llnkp}
 		\begin{aligned}
 			\pi_t = \beta E_t [\pi_{t+1}] + \kappa \tilde{y}_t
@@ -569,7 +599,7 @@
 	\begin{equation}
 		C_t \equiv \Theta_\chi C_{m,t}^\chi C_{q,t}^{1-\chi}
 	\end{equation}
-	From this the overall price level of the consumption basket $P_{c,t}$ is derived. Where $S_t \equiv \frac{P_{m,t}}{P_{q,t}}^\chi$ is the real price of oil.
+	From this the overall price level of the consumption basket $P_{c,t}$ is derived, introducing $S_t \equiv \frac{P_{m,t}}{P_{q,t}}^\chi$ the real price of oil.
 	\begin{equation}
 		P_{c,t} \equiv P_{m,t}^\chi P_{q,t}^{1-\chi} 
 			= P_{q,t} \frac{P_{m,t}}{P_{q,t}}^\chi
@@ -603,7 +633,7 @@
 	\end{equation}
 
 	\subsubsection{The Firm}
-	Petrol serving as a second factor of production the firm's optimisation problem is extended from the standard NK model. As in the RBC the firm obtains its production factor demand by equalising their marginal cost. 
+	Petrol serving as a second factor of production the firm's optimisation problem is extended from the standard NK model. As in the RBC the firm obtains its production factor demand by equalising their marginal cost.  
 	\begin{equation}
 		\begin{aligned}
 %			\max_{M_{i,t}} \quad A_t M_{i,t}^{\alpha_m}
@@ -614,7 +644,7 @@
 			\quad & K_{i,t} = \alpha_m A_t M_{i,t}^{\alpha_m -1} N_{i,t}^{\alpha_n}
 		\end{aligned}
 	\end{equation}
-	Equalising the marginal cost of labour and petrol leads to the an expression of the firms nominal marginal cost $MC_{t}^n$.
+	The real marginal cost can thus be expressed at the equality of marginal input cost of labour and petrol. This constitutes a deviation from the standard NK model,  The the firms nominal marginal cost $MC_{t}^n$ is therefore.
 	\begin{equation}
 		MC_t^n = \frac{W_{i,t}}{\alpha_n Y_{i,q,t} N_{i,t}^{-1}} = \frac{P_{m,t}}{\alpha_m Y_{i,q,t} M_{i,t}^{-1}}
 	\end{equation}
@@ -758,29 +788,30 @@
 	
 	\section{Data}
 	
-	All data is gathered from St. Louis Federal Reserve data base (ref), the specific data code can be found in the (appendix). As such all data has been seasonally adjusted already and as pointed out by \cite{pfeifer_guide_2021} is if revised in hindsight adjusted in its entirety so that all measurements depart from the same assumption.
-	
-	The majority of the data used in across this thesis is standard to the DSGE modelling literature. However, some adjustments have been made to account for the inclusion of a petrol sector.
+	All data is gathered from St. Louis Federal Reserve data base of seasonally adjusted deflated macroeconomic time series (ref). The specific data codes can be found in the (appendix). Most data used across the following is standard to the DSGE literature. Some adjustments haven made to allow for the inclusion of a petrol sector. The below will therefore briefly outline the use of standard data, while providing more detail on the data specific to this work.
+	The common variables for DSGE model evaluation are nominal interest rates, consumption, wage and labour hours. The nominal interest rate is proxied by the federal funds effective rate (ref). Consumption is measured by household expenditure data. Labour hours and wage refer to non-farm business total hours worked and average hourly wage. The exclusion of the agricultural sector is generally recommended for the US economy (ref). Moreover, this work employs the WTI Crude Oil Index as proxy for the price of petrol. The WTI dates back longer than the more recent Brent Crude Oil Index, wherefore it is generally used across works in energy economics (ref).
 % potential GDP ??
-	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. However, as the aim of the NK energy model is to analyse inflation using the CPI would be counterproductive. The model itself should generate an inflation that corresponds to the CPI as it includes the petrol sector into its dynamics. In order to accurately relfect on the models ability to do so one therefore has to remove energy price inflation from the data. Only doing so allows to asses the models real ability to replicate inflation. The NK energy model will therefore rely on the "Sticky Price Consumer Price Index less Food and Energy". A similar logic applies to consumption expenditure which for the NK energy model does not include expenditure for energy and utilities.
-	
-	The other variables used for the evaluation of model suitability are rather standard. The nominal interest rate is proxied by the federal funds effective rate. Consumption and investment are measured by household expenditure data. Labour and wage referr to non-fram business total hours worked as well as averge hourly wage as recommended for the US economy (ref). As proxy of energy cost this thesis employs the WTI Crude Oil Index as suggested by (ref) as it is available for a longer time horizon as opposed to the more recent Brent Crude Oil Index.
+	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. The NK energy model's aim is to analyse inflation under the inclusion of petrol in the economy. Relying on the CPI, which includes petrol prices, would thus be counterproductive as the model should generate inflation resulting from petrol endogenously. In order to accurately reflect the models ability energy price need to be removed from inflation data. In the NK energy model therefore relies on the "Sticky Price Consumer Price Index less Food and Energy". Similar reasoning applies to consumption expenditure which for the NK energy model specifically excludes expenditure for energy and utilities.
 	
 	\subsection{Preprocessing}
-	
-	Economic data is usually considered in per capita terms, in order to account for different population dynamics (ref). The same procedure will be applied across this work. However, population dynamics are not constantly collected wherefore its records display significant irregularities and not the smooth dynamic of true population growth or decline \cite{pfeifer_guide_2021}. Using these error prone records thus will distort the data signal of other more carefully collected economic data. In order to circumvent this irregularity a smoothing with the Hodrick-Prescott (HP) filter's (at level 10,000) is suggested by (ref) Edge, Gürkaynak, and Kisacikoglu (2013). This work follows this approach and divides trending variables by population data to obtain per capita variables.
-	
-	However, population dynamics are only one source of trend in variables. Variables measured in monetary terms are also concerned by inflation. \cite{pfeifer_guide_2021} (Grohe, Uribe) recommend de-trending nominal variables by the GDP deflator in order to account for this. This work follows this approach and relies on inflation corrected data so that monetary variables are expressed in the same quantities.
+	Economic data is usually considered in per capita terms in order to account for different population dynamics (ref). Population dynamics are not continuously collected and usually a mix of actual measurement and imputation. As a result population data exhibits significant irregularities \cite{pfeifer_guide_2021}. Using such noisy records would distort the data of more carefully collected economic variables. Population data thus requires some preprocessing on its own. Smoothing the data with the Hodrick-Prescott (HP) filter's at a smoothing factor of 10,000 is recommended in order to de-noise the data \cite{edge_judging_2013}. The smoothed time series captures the real population dynamics and can then be used to obtain per capita variables. At this point it is important to mention that the St. Louis FED data is in chained dollars, thus not concerned by inflation of monetary measurements (ref). 
 	
 % talk about one-sided filter
-	As the model studied across this thesis are describing log-deviations of economic variables from their respective steady states further transformation is required. This traditionally involves separating the underlying long-trend of GDP per capita from its cycle variations. A commonly employed method for doing so is the Hodrick-Prescott filter, which if fed with log-transformed variables will output the desired log-deviations from the trend as well as the trend itself (ref). As this work is concerned with quarterly variables the smoothing parameter has been set to 1600 as suggested by the work of \cite{ravn_adjusting_2002}. This procedure by construction yields stationary time series. In order to confirm the stationarity this work has again as commonly the case confirmed stationarity of all variables using the Augmented-Dickey Fuller test (ref).
+	Having removed population dynamic and inflation the next step is the separation in two key components, trend and cyclicality. DSGE literature generally studies variables in their deviation from their steady state. This requires an identification of the steady state and its evolution over time. Separating the long-term trend of GDP from its cyclical deviations commonly relies on the HP filter. The filter separates trend and deviation. In the case of quarterly variables a smoothing parameter of 1600 is recommended \cite{ravn_adjusting_2002}. As DSGE models are log-linearised they describe deviation in terms of logarithm, which for small values approximates percentage deviations. In order to transform data into log-deviations from their underlying trend the HP filter is fed with log-trasnformed time series. This procedure by construction yields stationary time series of cyclicality. However, to comply with common standards stationarity is formally confirmed by the Augmented-Dickey Fuller test (ref). Having transformed all trending variables have into stationary log-deviation from their natural level only the percentage variables remain, namely inflation and interest rate. They require no such treatment, however need translation from annual to quarterly rates. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1$.
 	
-	To this point all trending variables have been transformed into stationary time series of log deviation from their respective natural level. The percentage variables, namely inflation and interest rate require no such treatment. However, as they are stated in annual terms they require translation into quarterly variables. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1)$.
+	An overview over the transformed variables as well as their descriptive statistics can be found in the (appendix).
 	
-	An overview over the transformed variables can be found in the (appendix).
-	The descriptives statistics can be found in the (appendix).
+	BVAR
 	
 	\subsection{Analysis of models}
+	
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=\textwidth]{cov_matrix.png}
+			\caption{Covariance matrices}
+		\end{center}
+	\end{figure}
+	
 	Compare model covariance matrices, to actual covariance in data
 	Show theoretical impulse response functions, differences between NK and RBC
 			
@@ -1066,26 +1097,39 @@
 	\section{Conclusion}
 	
 	
-	\section*{Bibliography}
-%	\addcontentsline{toc}{chapter}{Bibliography}
 	\bibliography{20230505_m1_dsge}
-	
+	\addcontentsline{toc}{section}{References}
 	
 	\section*{Appendix}
 	
 	\subsection*{Appendix A}
 		
 % graphs
-	\includegraphics[scale=.3]{mod4_rbc_vanilla_epsilon_A_irfs_quantiles.png}\\
-	\includegraphics[scale=.3]{mod4_rbc_vanilla_posterior_hist.png}\\
-	\includegraphics[scale=.3]{data_variables_transforemd.png}
-
-	\subsection*{Appendix B}
-% tables
-	\include{{./graphs/priors_table.tex}}
-	\include{{./graphs/fred_variables.tex}}
-	\include{{./graphs/data_descriptives.tex}}
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=\textwidth]{mod4_rbc_vanilla_epsilon_A_irfs_quantiles.png}
+			\caption{Here are some names.}\label{fig:test}
+		\end{center}
+	\end{figure}
+	\ref{fig:test}
 	
+%	\includegraphics[scale=.3]{mod4_rbc_vanilla_posterior_hist.png}\\
+%	\includegraphics[scale=.3]{data_variables_transforemd.png}
+	
+	\pagebreak
+	\subsection*{Appendix B} \label{appb}
+	
+	\begin{center}
+		\csvautotabular{{./graphs/priors_table.csv}}
+	\end{center}
+
+	
+%% tables
+%	\small \input{{./graphs/priors_table.tex}}
+%	\input{{./graphs/fred_variables.tex}}
+%	\input{{./graphs/data_descriptives.tex}}
+	
+	\pagebreak
 	\subsection*{Appendix C} \label{appc}
 	\subsubsection*{Log-linearisation}
 	
@@ -1109,9 +1153,9 @@
 		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
 	\end{tabular}\\
 
-	\include{{./graphs/rbc_steady_state.tex}}
-	\include{{./graphs/rbc_transition_matrix.tex}}
+	\pagebreak
+	\subsection*{Appendix D} \label{appd}
+	Metropolis Hastings MCMC sampler code\\
 	
-	
-
+	\lstinputlisting[language=Python, firstline=175, lastline=195]{mh_mcmc_code.py}
 \end{document}

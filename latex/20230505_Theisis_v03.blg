@@ -16,45 +16,45 @@ Reallocating 'name_of_file' (item size: 1) to 35 items.
 A level-1 auxiliary file: ./graphs/rbc_transition_matrix.aux
 Database file #1: 20230505_m1_dsge.bib
 Warning--empty note in pfeifer_guide_2021
-You've used 14 entries,
+You've used 15 entries,
             1935 wiz_defined-function locations,
-            568 strings with 6132 characters,
-and the built_in function-call counts, 5594 in all, are:
-= -- 587
-> -- 152
+            572 strings with 6261 characters,
+and the built_in function-call counts, 5922 in all, are:
+= -- 619
+> -- 170
 < -- 20
-+ -- 52
-- -- 46
-* -- 430
-:= -- 929
-add.period$ -- 47
-call.type$ -- 14
-change.case$ -- 91
-chr.to.int$ -- 14
-cite$ -- 15
-duplicate$ -- 233
-empty$ -- 416
-format.name$ -- 78
-if$ -- 1139
++ -- 58
+- -- 52
+* -- 456
+:= -- 994
+add.period$ -- 50
+call.type$ -- 15
+change.case$ -- 100
+chr.to.int$ -- 15
+cite$ -- 16
+duplicate$ -- 244
+empty$ -- 434
+format.name$ -- 85
+if$ -- 1199
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 14
-newline$ -- 76
-num.names$ -- 42
-pop$ -- 69
+newline$ -- 81
+num.names$ -- 45
+pop$ -- 76
 preamble$ -- 1
-purify$ -- 93
+purify$ -- 101
 quote$ -- 0
-skip$ -- 196
+skip$ -- 204
 stack$ -- 0
-substring$ -- 458
+substring$ -- 470
 swap$ -- 50
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 80
+type$ -- 86
 warning$ -- 1
-while$ -- 52
+while$ -- 54
 width$ -- 0
-write$ -- 192
+write$ -- 205
 (There was 1 warning)
