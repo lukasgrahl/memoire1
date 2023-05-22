@@ -1,0 +1,68 @@
+
+block LINEAR_MODEL
+{
+	identities
+	{
+		# labour supply 
+#		w[] = sigma_C * C[] + simga_L * L[] ;
+		psi * c[] = w[] * (1 - l[]) ;
+
+		# Euler
+		1 / c[] = beta * E[][ 1 / c[1] * (r[1] + 1 - delta) ];
+#		sigma_C / beta * (E[][ C[1] - C[] ]) = R[ss] / P[ss] * E[][ R[1] - P[1] ] ;
+
+		# kapital LoM
+		K[1] = (1 - delta) * K[] + delta * I[] ;
+
+		# production
+		Y[] = A[] + K[] * alpha + L[] * (1 - alpha) ;
+
+		# demand for capital
+#		K[] = Y[] - r[] ;
+		alpha * y[] / k[] = r[] ;
+
+		# demand for labour
+#		L[] = Y[] - w[] ;
+		(1 - alpha) y[] / l[] = w[] ;
+
+		# equilibirum
+		Y[ss] * Y[] = C[ss] * C[] + I[ss] * I[] ;
+		P[ss] = 1 ;
+
+
+		# real quantities
+		w[] = W[] - P[] ;
+		r[] = R[] - P[] ;
+
+
+	};
+
+	calibration
+	{
+		beta  = 0.99;
+        delta = 0.02;
+
+        sigma_C = 1.5;
+        sigma_L = 2.0;
+
+        alpha = 0.35;
+	};
+
+};
+
+block TECHNOLOGY_SHOCK
+{
+    identities
+    {	
+    	# real price of oil law of motion 
+        A[] = rho_A * A[-1] + epsilon_A[];
+    };
+    shocks
+    {
+        epsilon_A[];
+    };
+    calibration
+    {
+    rho_A = .9 ; # AR(1) parameter technology
+    };
+};

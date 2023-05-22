@@ -27,7 +27,7 @@ block LINEAR_MODEL
 
 
 		# consumer price index
-		CPI[] = pi[] + X * (S[] - S[-1]) ;
+		CPI[] = pi[] + omega * (S[] - S[-1]) ;
 
 		# consumption
 		C[] = Y[] ;
@@ -52,20 +52,20 @@ block LINEAR_MODEL
 
 		epsilon = 1 ; # elasticity of substiution between domestic goods and consumption
 
-		X = 0.03 ; # natural share of oil in consumpition
+		omega = 0.03 ; # natural share of oil in consumpition
 
-		M = 3 ; # average mark-up
+		mu = 3 ; # average mark-up
 
 				
 		# Aggregated parameters
 
-		eta = alpha_m / (M - alpha_m) ;
+		eta = alpha_m / (mu - alpha_m) ;
 
 		Gamma_n = ((1 - alpha_n - alpha_m) * gamma + (1 - alpha_m) * (1 - gamma) * (1 + phi_pi)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m) * eta)) ;
 
 		Gamma_a = gamma / ( 1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta) ;
 
-		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * X)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
+		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * omega)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
 
 
 		lambda_p = ((1 - theta) * (1 - beta * theta) / theta) / (1 + (1 - alpha_m + alpha_n) * (epsilon - 1)) ;
