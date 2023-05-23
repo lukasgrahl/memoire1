@@ -17,6 +17,7 @@
 \usepackage{xcolor}
 \usepackage{verbatimbox}
 \usepackage{filecontents,catchfile}
+\usepackage{float}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -656,12 +657,16 @@
 	\end{equation}
 % show xi_t mathematecally 
 	where $\xi_t^n$ is the individual firm mark-up weighted by its share in output $Y_{q,t}$ which is given by the ratio of $\frac{P_{i,q,t}}{P_{q,t}}$. \\
-	
 	As bond holdings are zero in equilibrium all  allows to derive an expression for the overall price level, factoring out petrol.
-% check the reasoning behind P_ct C_t = Pqt Cqt - P_mt M_t	
+	% check the reasoning behind P_ct C_t = Pqt Cqt - P_mt M_t	
 	\begin{equation}
 		P_{c,t}C_t = P_{q,t} C_{q,t} - P_{m,t}M_t = \left(1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
 	\end{equation}
+	
+	\subsection{Real GDP}
+	
+	
+	
 
 	\cite{blanchard_macroeconomic_2007} then go ahead and define the GDP deflator $P_{y,t}$ as
 	\begin{equation}
@@ -780,37 +785,43 @@
 	\section{Data}
 % analysis time
 	
-	All data is gathered from St. Louis Federal Reserve data base of seasonally adjusted deflated macroeconomic time series (ref). The specific data codes can be found in the (appendix). Most data used across the following is standard to the DSGE literature. Some adjustments haven made to allow for the inclusion of a petrol sector. The below will therefore briefly outline the use of standard data, while providing more detail on the data specific to this work.
+	All data is gathered from St. Louis Federal Reserve data base of seasonally adjusted deflated macroeconomic time series (ref). The specific data codes can be found in the (appendix). Most data used across the following is standard to the DSGE literature. However, some extensions are necessary to allow for the inclusion of a petrol sector. The below will therefore briefly outline the use of standard data, while providing more detail on the data specific to this work.
 	The common variables for DSGE model evaluation are nominal interest rates, consumption, wage and labour hours. The nominal interest rate is proxied by the federal funds effective rate (ref). Consumption is measured by household expenditure data. Labour hours and wage refer to non-farm business total hours worked and average hourly wage. The exclusion of the agricultural sector is generally recommended for the US economy (ref). Moreover, this work employs the WTI Crude Oil Index as proxy for the price of petrol. The WTI dates back longer than the more recent Brent Crude Oil Index, wherefore it is generally used across works in energy economics (ref).
 % potential GDP ??
 	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. The NK energy model's aim is to analyse inflation under the inclusion of petrol in the economy. Relying on the CPI, which includes petrol prices, would thus be counterproductive as the model should generate inflation resulting from petrol endogenously. In order to accurately reflect the models ability energy price need to be removed from inflation data. In the NK energy model therefore relies on the "Sticky Price Consumer Price Index less Food and Energy". Similar reasoning applies to consumption expenditure which for the NK energy model specifically excludes expenditure for energy and utilities.
 	
 	\subsection{Preprocessing}
-	Economic data is usually considered in per capita terms in order to account for different population dynamics (ref). Population dynamics are not continuously collected and usually a mix of actual measurement and imputation. As a result population data exhibits significant irregularities \cite{pfeifer_guide_2021}. Using such noisy records would distort the data of more carefully collected economic variables. Population data thus requires some preprocessing on its own. Smoothing the data with the Hodrick-Prescott (HP) filter's at a smoothing factor of 10,000 is recommended in order to de-noise the data \cite{edge_judging_2013}. The smoothed time series captures the real population dynamics and can then be used to obtain per capita variables. At this point it is important to mention that the St. Louis FED data is in chained dollars, thus not concerned by inflation of monetary measurements (ref). 
-	
+	Economic data is usually considered in per capita terms in order to account for different population dynamics (ref). Population dynamics are not continuously collected and usually a mix of actual measurement and imputation. As a result population data exhibits significant irregularities \cite{pfeifer_guide_2021}. Using such noisy records would distort the data of more carefully collected economic variables. Population data thus requires some preprocessing on its own. Smoothing the data with the Hodrick-Prescott (HP) filter's at a smoothing factor of 10,000 is recommended in order to de-noise the data \cite{edge_judging_2013}. The smoothed time series captures the real population dynamics and can then be used to obtain per capita variables. At this point it is important to mention that the St. Louis FED data is in chained dollars, thus not concerned by inflation of monetary measurements (ref). 	
 % talk about one-sided filter
 	Having removed population dynamic and inflation the next step is the separation in two key components, trend and cyclicality. DSGE literature generally studies variables in their deviation from their steady state. This requires an identification of the steady state and its evolution over time. Separating the long-term trend of GDP from its cyclical deviations commonly relies on the HP filter. The filter separates trend and deviation. In the case of quarterly variables a smoothing parameter of 1600 is recommended \cite{ravn_adjusting_2002}. As DSGE models are log-linearised they describe deviation in terms of logarithm, which for small values approximates percentage deviations. In order to transform data into log-deviations from their underlying trend the HP filter is fed with log-trasnformed time series. This procedure by construction yields stationary time series of cyclicality. However, to comply with common standards stationarity is formally confirmed by the Augmented-Dickey Fuller test (ref). Having transformed all trending variables have into stationary log-deviation from their natural level only the percentage variables remain, namely inflation and interest rate. They require no such treatment, however need translation from annual to quarterly rates. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1$.
 	
 	An overview over the transformed variables as well as their descriptive statistics can be found in the (appendix).
 	
-	\begin{figure}[h]
+		\input{{./graphs/data_descriptives.tex}}[H]		
+	
+	\subsection{Analysis of models}
+	The data used for the analysis spans from 1985 to 2020. Moreover, data from 1975 to 1985 have been used to derive parameter prior distribution from historical averages. 
+	As can be seen across the transformed GDP series \ref{fig:data} this period clearly spans three major economic crisis, the 2000 dot.com bubble, the 2008 financial crisis and most recently the Covid-19 pandemic. These carry forward to consumption, labour hours and investment where these extreme times can similarly be observed. 
+	When turning to the interest rate great differences across the sample period become apparent. The mid-80s still influenced by the Volker-shock have a comparability high interest rate when compared to the more recent low-interest environment starting as of 2009.
+	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.9\textwidth]{data_variables_transformed.png}
 			\caption{Bayesian VAR 2 lags}
+			\label{fig:data}
 		\end{center}
 	\end{figure}
-	
-	\begin{figure}[h]
+
+	Running a first two-lag Vector Autoregression (VAR) on output, consumption and labour reveals the difficulty of forecasting. Depicted in blue \ref{fig:var_2lag} shows systematic bias across output and consumption forecasts. Similarly labour hours are forecasted to be much more volatile than actually the case. A more comprehensive VAR model will be presented later in (section):
+	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.9\textwidth]{bvar_forecast1.png}
 			\caption{Bayesian VAR 2 lags}
+			\label{fig:var_2lag}
 		\end{center}
 	\end{figure}
-	\input{{./graphs/data_descriptives.tex}}
 	
 	
-	\subsection{Analysis of models}
-	
+	The initial success of RBC literature was based on the fact that a model was able to replicate data with the same first and second order moments as real data. For this purpose covariance matrices were compared, this work will follow this tradition. Looking into the model covariances large differences between the New-Keynesian models and the RBC become apparent. While 
 	\begin{figure}[h]
 		\begin{center}
 			\includegraphics[width=\textwidth]{cov_matrix.png}
@@ -1080,21 +1091,26 @@
 	A first section will assess the individual forecast of each model. It will primarily consider output as the central variable of the economy, while briefly commenting other variables as well. A full overview on the Kalman filter forecasts can be found in \ref{appa}. 	
 	A latter section will then introduce a Bayesian Vector Autoregression (BVAR) model and compare its performance to the DSGE model forecasts.
 	
-	\subsection{DSGE forecasts}
-	While the Kalman filter for the posterior evaluation has been run on the entire data set starting in 1985 the following has been run on post 2010 data. This allows to assess the data's fit to recent events. 
-	\subsubsection{RBC}
+	\subsection{Forecast evaluation}
+	While the Kalman filter for the posterior evaluation has been run on the entire data set starting in 1985 the following has been run on post 2003 data. This accommodates the burn-in period of the Kalman filter. In the following each model is compared the same data, while the Kalman filter has been fed different observable variables to reflect the differences in model specification such as investment expenditure, inflation and petrol prices. 
 	
-	The Kalman filter fed data on output and investment provided the best fit to data \ref{fig:rbc_kfil}. Looking at the filter output output and investment are closely traced and the real data lies within the 95\% confidence interval after 2010. This is also true for the recession in early 2020. This indicates a good fit of the model to data.
+	\subsubsection{RBC}	
+	The Kalman filter closely traces output and investment, the real data lies within the 95\% confidence interval for all post 2010 observations. This is also true for the recession in early 2020, indicating a good fit of the model to real data.
+	Consumption, while not contained as an observable in the filter, also is relatively closely traced with similar accuracy of the confidence intervals. This points to even better model accuracy, as the dynamic system is able to replicate a non-included variable to a good extend. 	
+	The interest rate is less closely traced and predicted to be much more volatile the case in reality. While this indicates problems in the model specification it is important to note that the US Federal Reserve (FED) pursued a notorious low interest rate policy for much of the sample period. As such interest rates were not dictated by changes in capital demand as assumed in the RBC model. It is thus not surprising that the data is not well fit.
+	Labour is the only variable continuously outside of the 95\% confidence interval. Moreover, the model even suggests a rise in labour hours during crisis. While in the case of Covid-19 one could argue that peculiar dynamics where at play the 2008 crisis points out that recessionary unemployment is not captured at all. Generally, pre 2010 dynamics are captured less well by the model. Output and consumption data escapes the filter's 95\% confidence interval before and after the 2008 financial crisis. The good fit to more recent data might be circumstantial and related to the expanded period of growth and relative economic stability. \\
+		
+	The RBC forecasts seem reasonable in direction and as well as confidence. The 95\% confidence intervals naturally increase with distance to the point of prediction. However, especially at the one period ahead forecast they exhibit reasonable bounds. Moreover, the point forecasts, with exception of labour, closely trace real variables with no systematic bias. Labour as explained in the above appears to be incorrectly specified in the models functional form, yet not impeding the model in its forecasting of other variables. 
 	
-	Consumption, while not contained as an observable in the filter, also is relatively closely traced with similar accuracy of the confidence intervals. This points to even better model accuracy, as the dynamic system is able to replicate a non-included variable to decent extend. 
-	
-	The interest rate is less closely traced and predicted to be much more volatile by the Kalman filter than the case in reality. While this indicates that problems in the model specification it is important to note that the FED has pursued a notorious low interest rate policy for the sample duration. As such interest rate was not set by the dynamics contained in the model, and a good fit is unlikely.
-	
-	Labour is the only variable with bad fit. The 90\% confidence interval far-off reality and the filter even suggests a rise labour hours during the 2020 crisis. While in the case of Covid-19 one could argue that particular dynamics where at play \ref{fig:rbc_kfil_00} illustrates that even in earlier period recessionary unemployment is not well captured. The historic overview sheds a better light on the overall model fit. While post 2010 dynamics are well captured by the model, fit prior to this date is less accurate. Output and consumption data escapes the filter's 95\% confidence interval before and after the 2008 financial crisis.
-	
-	Forecasts
-	
-	The RBC forecasts seem reasonable in direction and as well as confidence. The 95\% confidence intervals naturally increase with distance to the point of prediction. However, especially at the one period ahead forecast they exihibt resonable bounds. Moreover, the point forecast with exeception of labour is closely tracing the real variable evolution with no systematic bias. Labour as explained in the above appears to incorrectly specified in the models functional form, yet not impeding the model in functioning. 
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.5\textheight]{mod4_rbc_vanilla_y_I_kalman_filter_00.png}
+			\caption{NK model Kalman Filter with variables c, n}\label{fig:rbc_kfil}
+			
+			\includegraphics[width=.5\textheight]{mod4_rbc_vanilla_y_I_kalman_forecast.png}
+			\caption{NK model Kalman Filter with variables y}\label{fig:rbc_kfor}
+		\end{center}
+	\end{figure}
 	
 	\subsubsection{NK}
 	At first glance it is evident that the New-Keynesian filter traces data less accurately. As with the RBC output is closely traced after 2010 while confidence intervals exclude actual data around the 2008 crisis. However, other than with the RBC filter the NK filter does not manage to track the 2020 crisis as closely, even deems outside its 95\% confidence interval.
@@ -1105,49 +1121,60 @@
 	
 	While the filtered data provided some good results the forecasts of the NK model are far from informative. Output and consumption are not contained in the forecasts' 95\% interval. Moreover, the broad confidence intervals on inflation and interest rate conceal the fact that the inflation forecasts actually moves opposite to real data. Only labour is proxied traced to reasonable extend by the confidence interval, while the point forecast is systematically off.
 	
+	%NK
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.5\textheight]{mod5_nk_vanilla_lin2_y_kalman_filter.png}
+			\caption{NK model Kalman Filter with variables c, n}\label{fig:nk_kfil}
+			\includegraphics[width=.5\textheight]{mod5_nk_vanilla_lin2_y_kalman_forecast.png}
+			\caption{NK model Kalman Filter with variables y}\label{fig:nk_kfor}
+		\end{center}
+	\end{figure}
+	
+	
 	\subsubsection{NKE}
 	The filtered data for the New-Keynesian Energy model are the furthest off real data. The dynamics of output and labour are poorly tracked while spanned by erroneously narrow confidence intervals. Including inflation in the filter does not improve this inability to track output or consumption. Neither is the real interest rate, even-though closely tied to inflation, traced by the confidence interval or point forecast.
 	The reason for including petrol in the model specification has been to supplement the analysis of inflation by an important factor. Including the petrol price in the filter does not provide the theorised improvement. Instead confidence intervals narrow across all variables with no improvement in point forecasts. 
 	
 	The poor filter fit is obviously reflected across the forecasts as well. While confidence bands are narrow the forecast often points into opposite direction, excluding the real data for consumption, inflation and the real interest rate. Output and labour are in no way traced reasonably.
 	
+	%NKE
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_c_kalman_filter.png}
+			\caption{NK model Kalman Filter with variables c, n}\label{fig:nke_fil}
+			
+			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_kalman_forecast.png}
+			\caption{NK model Kalman Filter with variables y}\label{fig:nke_for}
+			
+			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_s_kalman_filter.png}
+			\caption{NK model Kalman Filter with variables y}\label{fig:nke_fil_s}
+		\end{center}
+	\end{figure}
+
 	\subsubsection{BVAR}
 	Using a Vector Autoregression as reference model for comparing DSGE model forecasts has been commonly done across literature \cite{schorfheide_loss_2000, chin_bayesian_2019}. 
 	
-	Naturally the BVAR does not provide confidence intervals like frequentist methods of forecasting. Instead model parameters are defined through a sampler, which in this case ran in four iterations. Sampling from these iterations that represent the posterior coefficient distribution allows to derive information about the range of possible outcomes. This range can then be interpreted as a confidence interval (ref). 
-	A sample from the posterior draws is illustrated in blue \ref{fig:bvar}. The range of outcomes for output suggest bias in the forecast. They are note evenly distributed around the actual data series. Instead the range of outcomes underestimates output and also introduces additional volatility not matched by the actual observations. 
-	This is also the case for all other variables, additional volatility or classicality is introduced systematically across all forecasts. The forecast for the real interest rate after over correcting even moves in the opposite direction. 
+	Naturally the BVAR does not provide confidence intervals like frequentist methods of forecasting. Instead model parameters are defined through a sampler, which in this case ran in four iterations. Sampling from these iterations yields the posterior coefficient distribution. Using several draws from the posterior then allows to derive information about the range of possible outcomes. This range can then be interpreted as a confidence interval (ref).  
+	A sample from the posterior is illustrated in blue \ref{fig:bvar}, while the mean of all samples is marked in red. The range of outcomes for output suggest bias in the forecast. They are note evenly distributed around the actual data series. Instead the range of outcomes underestimates output and also introduces additional volatility not matched by the actual observations. This is also the case for all other variables, additional volatility or classicality is introduced systematically across all forecasts. The forecast for the real interest rate after over correcting even moves in the opposite direction. 
 	The BVAR thus represents on first account not better forecasts than for example the RBC model.
-	
-	
-	
 	
 	This work uses a frequentist VAR to determine the optimal number of lags, which are found to be 4. This corresponds to the choice of four lags in \cite{chin_bayesian_2019}
 	Including priors into bayesian VAR makes the model better at forecasting \cite{chin_bayesian_2019}
 	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=.4\textheight]{bvar_forecast.png}
+			\caption{NK model Kalman Filter with variables y}\label{fig:bvar}
+		\end{center}
+	\end{figure}
+	
 	\subsubsection{Forecast comparison}
 	
-	Comparing several models across their forecasting performance can be done in two ways, a frequentist and bayesian approach. The bayesian averaging approach compares models in their log-likelihood based on an information criterion. For the purposes of this work the information criterion will be de widely applicable information criterion (WAIC) as suggested in \cite{chin_bayesian_2019}. In Bayesian model averaging the weights of each model is calculated from its posterior model probability \cite{chin_bayesian_2019}. This is traditionally done for structurally similar models in order to discriminate between different priors. However this procedure has also been employed in comparing different model classes, then usually relying on the WAIC \cite{chin_bayesian_2019}.
-	
-	- (Stock Watson 2003) argue that a simple average of models provides the best forecast
-	- ()Jacobson and Karlsson (2004) and Wright (2009)) argue in favour of BMA
-	
-	\[
-		p(M_k | y) = \frac{p(y | M_k) p(M_k)}{\sum_{K}^{k=1} py(y | M_k) p(M_k)}
-	\]
-	\[
-		p(y | M_k) = \int p( y| \theta_k, M_k) p(\theta_k | M_k) d \theta_k
-	\]
-	where $p(M_k)$ is the prior density, and $p(y | M_k)$ is the model's marginal likelihood
-	
-	Anderson (2008) suggest to use the predictive likelihood instead of the marginal model likelihood
-	
-	"Simply speaking, our Bayesian combination forecast (point forecast) is a weighted average of the K individual point forecasts, wherein the weights are determined by their predictive likelihoods" \cite{chin_bayesian_2019}
-	
-	Comparing forecasting performance
-	Diebold-Mariano test for point forecast comparison following \cite{chin_bayesian_2019}
-	- MSE based point forecast comparison 
-	Amisano–Giacomini test for density forecast performance following  \cite{chin_bayesian_2019}
+	Comparing several models across their forecasting performance can be done in two ways, a frequentist and Bayesian approach.
+	The Bayesian averaging approach compares models in their log-likelihood based on an information criterion. For the purposes of this work the information criterion will be de widely applicable information criterion (WAIC) as suggested in \cite{chin_bayesian_2019}. In Bayesian model averaging the weights of each model is calculated from its posterior model probability \cite{chin_bayesian_2019}. This is traditionally done for structurally similar models in order to discriminate between different priors. However this procedure has also been employed in comparing different model classes, then usually relying on the WAIC \cite{chin_bayesian_2019}.
+	The frequentist approach compares models based on a mean squared error (MSE) metric and then tests for systematic differences. Formal testing is provided by the Diebold-Mariano test, testing for the null hypothesis of structural differences in MSE. 
+	Both methods have been employed across comparing DSGE models amongst each other as well as to VAR forecasts  \cite{chin_bayesian_2019}. This work employs both. When comparing model forecasts based on the WAIC the RBC model performs best. However, the Diebold-Mariano test does not find significant performance differences across model forecasts.
 
 	
 	\section{Conclusion}
@@ -1165,70 +1192,17 @@
 	\pagebreak
 	\subsection*{Appendix A} \label{appa}
 	
-	%RBC
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod4_rbc_vanilla_y_I_kalman_filter_00.png}
-			\caption{NK model Kalman Filter with variables c, n}\label{fig:rbc_kfil}
-		\end{center}
-	\end{figure}
-	
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod4_rbc_vanilla_y_I_kalman_forecast.png}
-			\caption{NK model Kalman Filter with variables y}\label{fig:rbc_kfor}
-		\end{center}
-	\end{figure}
 
-	%NK
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod5_nk_vanilla_lin2_y_kalman_filter.png}
-			\caption{NK model Kalman Filter with variables c, n}\label{fig:nk_kfil}
-		\end{center}
-	\end{figure}
-
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod5_nk_vanilla_lin2_y_kalman_forecast.png}
-			\caption{NK model Kalman Filter with variables y}\label{fig:nk_kfor}
-		\end{center}
-	\end{figure}
 	
-	%NKE
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_c_kalman_filter.png}
-			\caption{NK model Kalman Filter with variables c, n}\label{fig:nke_fil}
-		\end{center}
-	\end{figure}
 	
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_kalman_forecast.png}
-			\caption{NK model Kalman Filter with variables y}\label{fig:nke_for}
-		\end{center}
-	\end{figure}
-	
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_s_kalman_filter.png}
-			\caption{NK model Kalman Filter with variables y}\label{fig:nke_fil_s}
-		\end{center}
-	\end{figure}
 	
 	
 	%BVAR	
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=.4\textheight]{BVAR_coeff.png}
-			\caption{NK model Kalman Filter with variables y}\label{fig:bvar}
-		\end{center}
-	\end{figure}
+
 
 	\begin{figure}
 		\begin{center}
-			\includegraphics[width=.5\textheight]{bvar_forecast.png}
+			\includegraphics[width=.5\textheight]{BVAR_coeff.png}
 			\caption{NK model Kalman Filter with variables y}\label{fig:bvar_coef}
 		\end{center}
 	\end{figure}
