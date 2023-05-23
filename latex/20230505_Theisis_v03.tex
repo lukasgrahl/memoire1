@@ -16,6 +16,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{verbatimbox}
+\usepackage{filecontents,catchfile}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -255,19 +256,8 @@
 		Consumption labour ratio & $\frac{\bar{C}}{\bar{L}} = \frac{\bar{Y}}{\bar{L}} - \frac{\bar{I}}{\bar{L}}$ \\
 	\end{tabular}\\
 
-	Obtaining a linear state-space representation of the RBC model requires the numerical approximation of the steady state value of labour $\bar{l}$. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, its steady-state values and the state-space transition matrix can be found in the (appendix). 
+	Obtaining a linear state-space representation of the RBC model requires the numerical approximation of the steady state value of labour $\bar{l}$. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in \ref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \ref{appc}. 
 
-	
-	
-	
-	
-	
-
-	
-	
-
-	
-	
 	\subsection{NK}
 	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects. Firstly, he NK model in its simplest form analyses an economy without capital, wherefore its intertemporal  instrument is the output gap instead of the capital stock (ref). Secondly, the NK model introduces nominal rigidities through monopolistic competition. Since firms are endowed with some market power, they can reset prices above marginal cost, introducing a gap between real and nominal marginal cost. This dynamic results in inflation. This extension has several consequences. For one monetary policy is neutral in the short-run, thus changes in interest are note directly matched by changes in expected inflation (ref). This gap in expectations becomes the driver of short-run fluctuation, or business cycles in the economy. The main driver of business cycles is thus no-longer technological progress through a change in total factor productivity. Instead an adjustment or shock to the interest rates drives business cycles. \\
 	This of course has important economic implications. Instead of efficient direct adjustments of the economy to new production technology business cycles no longer exhibit efficiency in the NK model. Instead, they are an inefficient divergence caused by central bank interventions. This is also the reason why the model is called New-Keynesian. The model returns Keyne's perspective, regarding regarded business cycles as inefficient. The the main divergence from RBC literature consists in this change of perspective.
@@ -1005,82 +995,78 @@
 			
 	\subsection{Priors}
 	
-	The assumption for prior selection is that priors are obtained from some past knowledge. If this knowledge is independent of the data used to evluate the liklihood function than the prior holds. This is fullfiled if the data for prior building at least predates the data for likelihood evluation \cite{herbst_bayesian_2016}.
-		
-	Priors are statistical distributions which either reflect believes about the strucutral mechanism or are derived from data, external to the estimation process \cite{del_negro_forming_2008}
-	- Priors thus refelect microeconomic evidence, for example regarding labour supply and elasticity
-	- However, they are a simplication of the real joint likelihood function of the strucutural model. Such function is difficult and sometimes impossible to evaluate
-	
-	Priors \cite{del_negro_forming_2008}
-	- Priors are usually assumed to be independent for simplicities sake
-	- this is true for shocks in small scale canonical model, as shocks are assumed to be independent, an important assumptio for the bayesian analysis to hold \cite{herbst_bayesian_2016}
-	- Priors are often calibrated for the model to match the covariance of real data
-		
-	\cite{del_negro_forming_2008} suggest two kinds of data sources. Pre-sample data, which is not included in the model evaluation process or in-sample data, that is explicitly excluded from the model evaluating likelihood function.
-	As the model parameters are thought of as structural, hence relatively time-invariant, more dated data can be used to estimate them. 
-	
-	Priors are divided into three groups, following \cite{del_negro_forming_2008}
+	In response to the Lucas critique (ref) DSGE models were build around structural time invariant parameters. They summarise agent preferences impacting behaviour and do not describe time dependent dynamics in the short-run. 
+	Parameters thus are a statistical distributions of preferences, forming the joint distribution of preferences. This joint distribution is usually impossible to evaluate. Instead parameters are individually analysed and distributions reflecting independent and prior knowledge are assigned \cite{del_negro_forming_2008}.	
+	The notion of independence is important in tow ways. Firstly, only if the data used to construct the priors is independent of the likelihood mechanism the resulting posterior is unbiased. This condition is fulfilled if the data for prior formation at least pre-dates the of the likelihood evaluation \cite{herbst_bayesian_2016}. Secondly, assuming independence between parameters is reasonable within limits. Especially, shocks do not necessarily occur independently \cite{herbst_bayesian_2016}. However, this is usually only a problem for larger models with several shocks. As this work analyses the canonical model shock independence is of no concern. The later will therefore focus on identifying priors based on independent information. 	
+%	In respecting this there are two main strategies in choosing priors. Priors are either computed from historical data. This is the case for tangible priors matched by real data, such as discount factor or production factor shares. Parameters describing more intricate behavioural preferences usually rely on micro-evidence instead. This is the case for the labour supply elasticity. 
+	The below will follow the approach of \cite{del_negro_forming_2008}, dividing priors into three groups in order to obtain eligible distributions. An overview on all prior distributions can be found in der appendix \ref{appb}.
 	
 	\subsubsection{Steady state priors}
-	The 'great ratios' or long-run relationships as \cite{kydland_time_1982} referred to them pin down the steady state
+	The steady state priors can be easily identified from the steady state or long-run relationship of model variables. They are also referred to as great  ratios' \cite{kydland_time_1982}.
 	\begin{equation}
 		\begin{aligned}
 			\Theta_{ss}^{RBC} = \{ \alpha, \beta, \delta \} \\
-			\Theta_{ss}^{NK} = \{\alpha, \beta, \theta_p , rn\} \\
+			\Theta_{ss}^{NK} = \{\alpha, \beta, \theta \} \\
 			\Theta_{ss}^{NKE} = \{\alpha_m, \alpha_n, \beta, \theta, \chi \} \\
 		\end{aligned}
 	\end{equation}
+	The time discount factor $\beta$ is usually not calibrated, as it results directly from the inverse of the interest rate. The pre-1985 data used to estimate prior distributions puts $\beta$ to 0.995. \\
+	The capital share can be derived from the long-run share in industrialised nations. For smaller models using a uniform distribution covering the possible parameter interval $\alpha \in [0,1[$ is suggested \cite{del_negro_forming_2008}. In the RBC $\alpha$'s posterior converges from a uniform to a centred distribution \ref{fig:rbcpp}. While this is still rather broad and far off the empirical value of 33\% it is indication of convergence towards the true posterior \ref{fig:rbcpp}.
+	For both New-Keynesian models a more targeted distribution has been used to ensure steady state existence \cite{guerron-quintana_bayesian_2013}. Consequently the values for $\alpha$ are more left skewed \ref{fig:nk5pp}. Interestingly enough the calibration of the NKE greatly overestimates the share of oil in production which by \cite{blanchard_macroeconomic_2007} is reckoned at below 5\% \ref{fig:nk6pp}. The labour share in production is more reasonable but also off the empirical estimate of 0.7 \cite{blanchard_macroeconomic_2007}.
+	
+	The depreciation rate $\delta$ while rather high in the posterior has yet assumed reasonable values in limiting its posterior to below 0.8 \ref{fig:rbcpp}. This indicates some convergence to the real prior, while still being far from empirically estimated values of 2.5\% per quarter \cite{campbell_inspecting_1994}.
+	
+	The price setting probability $\theta \in [0,1]$ has reasonable estimates in the NK model \ref{fig:nk5pp}. Its mean is around 0.8 which corresponds to an average price duration of roughly four month, close to the empirical estimate \cite{blanchard_macroeconomic_2007}. This is not the case for the NKE model where $\theta$ exceeds one, which as a probability is impossible. The NKE estimates are much more accurate for the share of petrol in consumption, whose posterior remains close to the empirical mean of 1.7\% \cite{blanchard_macroeconomic_2007}.
 
-
-	\begin{equation}
-	\begin{aligned}
-		\Theta_{exog}^{RBC} = \{\rho_A, \sigma_{\epsilon_A} \} \\
-		\Theta_{ss}^{NK} = \{\rho_v, \sigma_{\epsilon_v} \} \\
-		\Theta_{ss}^{NKE} = \{\rho_s, \sigma_{\epsilon_s} \}
-	\end{aligned}
-	\end{equation}
-
+	\subsubsection{Exogenous prior}
+	Exogenous priors contain the exogenous law of motion and standard deviation of shocks. In a simple model with singular shocks the shock first and second order moments can be directly from the economic variables that are affected by it \cite{del_negro_forming_2008}. This work thus calibrated the shock standard deviation based on the variance of output. Moreover, in setting the autoregressive parameter this work draws from the distributions suggested by \cite{vasconez_what_nodate}. Looking across the posterior all estimates for $\rho$ are bounded at one. While this might appear to be a successful identification this is merely due to the stability requirement of the dynamic system. If $\rho \in ]-1,1[$ is violated the dynamic system does not exhibit stability and the Blanchard-Kahn conditions of stability are violated. The high variance of the posterior thus indicates problems in the identification of the posterior. However, its skewness towards higher values seems to confirm the prior assumption of relatively time persistent shocks. 
+	
 	\begin{equation}
 		\begin{aligned}
-			\Theta_{exog}^{RBC} = \{\sigma_C, \sigma_L \} \\
-			\Theta_{ss}^{NK} = \{\sigma_C, \sigma_L, \epsilon, \phi_{y}, \phi_{\pi} \} \\
-			\Theta_{ss}^{NKE} = \{\sigma_L, \epsilon, \phi_{\pi} \}
+			\Theta_{exog}^{RBC} = \{\rho_A \} \\
+			\Theta_{exog}^{NK} = \{\rho_v \} \\
+			\Theta_{exog}^{NKE} = \{\rho_s \}
 		\end{aligned}
 	\end{equation}
 
-
-	When determining the steady-state priors $\theta_{ss}$ and assuming independence it is possible that the resulting joint prior distributions assigns high probability to unrealistic steady state values \cite{del_negro_forming_2008}. To circumvent this issue other method
-	
-	This priors are usually estimated from pre-sample data \cite{herbst_bayesian_2016}
-	this work follows this approach and thus 	
-	
-	\subsubsection{Exogenous priors}
-	The exogenenous propagation paraemeters 
-	these are the exogenenous shock parameters, their autoregressive coefficient and their standard deviation
-	\[
-		\theta_{exog} = \{\rho_a, \rho_s, \sigma_a, \sigma_s \}
-	\]
-	Exogenous priors can be evaluated from the model specification in keeping the influence of other priors minimal. Del Negro suggests, to set all other parameters to zero where possible. The system of equations then reduces to variables that are depend on the exogenous shocks. This reduced system can then be used to evaluate the likelihood of prior values, using out-of sample data of the later calibration. 
-	An evaluation based on the likelihood of the reduced system is not necessary if the variation in observable variables can be directly retraced to individual shocks. In a simple model where shocks do not intersect in their influence on observable variables, e.g. in the case of a singular technology shock the variance of the shock can be directly inferred from the observable variable. In case of intersecting multiple shocks the likelihood of the reduced system needs to be consulted to choose appropriate priors, as their influence on observables cannot be directly inferred. 
-	
-	In case of exogenous observable shocks, such as energy prices, the above procedure is not required. Other than the level of technology energy price shocks are measurable, wherefore one can rely on the observable first and second order moments (ref).
-	
 	\subsubsection{Endogenous priors}
-	The endogenous propagation parameters, including the shock autoregressive coefficients are parameters involved with the propagation of shocks through the system.
-	These parameters heavily rely on micro-evidence from external data sets \cite{del_negro_forming_2008}
-	All remaining parameters are stacked into the the following
-	\[
-		\theta_{endog} = \{\sigma_C, \sigma_L, \}
-	\]
-	Priors of the remaining variables are chosen in order to reflect believes or micro evidence. This work draws from the choice of \cite{del_negro_forming_2008} in their endogenous priors, given the similarity in models
+	All remaining parameters make up the group of endogenous priors. These parameters cannot be measured directly through economic variables' long-term relationships. Instead they rely on micro-evidence from external data sets \cite{del_negro_forming_2008}. 
+		\begin{equation}
+		\begin{aligned}
+			\Theta_{endog}^{RBC} = \{\sigma_C, \sigma_L, \} \\
+			\Theta_{endog}^{NK} = \{\sigma_C, \sigma_L, \epsilon, \phi_{y}, \phi_{\pi} \} \\
+			\Theta_{endog}^{NKE} = \{\epsilon, \phi_{y}\}
+		\end{aligned}
+	\end{equation}
 	
 	
+	The elasticity of substitution $\sigma_C$ and $\sigma_L$ belong in this category. In setting their prior distribution this work relied on the recommendation from \cite{del_negro_forming_2008}. For the RBC the posterior values demonstrate large spreads indicating that the MH sampler did not identify the posterior correctly \ref{fig:rbcpp}. Even larger dispersion can be observed for the NK model \ref{fig:nk5pp} \footnote{ In the NKE model the labour and consumption elasticities do not enter into the log-linear model specification due to the log-utilty function}. This occurs frequently as the consumption and labour elasticity are parameters with low influence on the transition dynamics \cite{guerron-quintana_bayesian_2013}. Consequently they are dominated by stronger parameters in the likelihood function and the posterior identification fails for these variables.
+	
+	The elasticity of substitution $\epsilon$ originates from the Dixit-Stiglitz aggregator and factors into the steady-state mark-up of firms. As such it is one of the driving parameters behind inflation and strong in its influence on the transition dynamics. In setting the prior distribution one can rely on information on the steady-state mark-up $mc^r = \frac{\epsilon}{1-\epsilon}$. Following this a value of $\epsilon$ slightly above 0.5 appears realistic. Consulting the posterior both put the mean around 0.5 \ref{fig:nk5pp} \ref{fig:nk6pp}. While the standard deviation is still large the posterior specification does appear to be within reasonable bounds. 
+	
+	The central bank's preference parameters $\phi_y$ and $\phi_{\pi}$ also appear within reasonable bounds. As suggested by \cite{gali_monetary_2008} the central bank has a stronger response to inflation that to to the output gap. This has been incorporated into priors and the resulting posterior seems to confirm this assumption in the NK model \ref{fig:nk5pp}. The NKE model relies on output and not the output gap as intertemporal instrument, wherefore $\phi_{\pi}$ appears. However, the posterior estimate appear to confirm the same reasoning \ref{fig:nk6pp}.
 	
 
-	
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=.4\textheight]{mod4_rbc_vanilla_posterior_hist.png}
+			\caption{RBC model prior posterior comparison.}\label{fig:rbcpp}
+		\end{center}
+	\end{figure}
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=.4\textheight]{mod5_nk_vanilla_lin2_posterior_hist.png}
+			\caption{New Keynesian model prior posterior comparison.}\label{fig:nk5pp}
+		\end{center}
+	\end{figure}
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=.4\textheight]{mod6_nk_energy_lin2_posterior_hist.png}
+			\caption{New Keynesian Energy model prior posterior comparison.}\label{fig:nk6pp}
+		\end{center}
+	\end{figure}
+	\pagebreak
 		
-	Priors are chosen in order to match first and second order moments individually as well as in a joint distribution across all parameters \cite{del_negro_forming_2008}
-	
 
 
 	
@@ -1133,6 +1119,9 @@
 
 	
 	\section{Conclusion}
+	\subsubsection{Conclusion on MH MCMC}
+	The MH MCMC sampler used across this work is one of the simpler likelihood sampling algorithms. In more comprehensive DSGE models it fails to converge, but for the small scale models analysed in this work it is still deemed appropriate (ref). However, as the above illustrates some identification problems especially regarding 'weaker' parameters have become apparent. Despite providing reasonable estimates for most parameters these should also be handled with care. 
+	
 	
 	
 	\bibliography{20230505_m1_dsge}
@@ -1190,21 +1179,28 @@
 		Equilibrium condition & $Y_t = C_t + I_t$ \\
 		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
 	\end{tabular}\\
-	
-	\pagebreak
-	\subsection{Appendix D} \label{appd}
-	\verbfilenobox[\tiny]{mod6_nk_energy_lin2.txt}
-	\
-	
 
-	\pagebreak
-	\subsection*{Appendix E} \label{appe}
-	Metropolis Hastings MCMC sampler code\\
+	\include{{./graphs/rbc_steady_state.tex}}
+	\include{{./graphs/rbc_transition_matrix.tex}}
 	
+	\pagebreak
+	\subsection*{Appendix D} \label{appd}
+	Metropolis Hastings MCMC sampler code\\
 	Deriving the multivariate covariance matrix $G$ from prior the prior distributions standard deviation
 	\lstinputlisting[language=Python, firstline=33, lastline=44]{mh_mcmc_code.py}
 	Suggesting new priors based on the random walk law of motion
 	\lstinputlisting[language=Python, firstline=85, lastline=99]{mh_mcmc_code.py}
 	MH MCMC acceptance procedure
 	\lstinputlisting[language=Python, firstline=175, lastline=195]{mh_mcmc_code.py}
+	
+	\pagebreak
+	\subsection{Appendix E} \label{appe}
+	\verbfilenobox[\tiny]{{./graphs/mod4_rbc_vanilla.txt}}
+	\verbfilenobox[\tiny]{{./graphs/mod5_nk_vanilla_lin2.txt}}
+	\verbfilenobox[\tiny]{{./graphs/mod6_nk_energy_lin2.txt}}
+	Test
+
+	
+
+	
 \end{document}

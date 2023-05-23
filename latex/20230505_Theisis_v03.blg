@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: 20230505_Theisis_v03.aux
+Reallocating 'name_of_file' (item size: 1) to 8 items.
+The style file: apalike.bst
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+Reallocating 'name_of_file' (item size: 1) to 30 items.
+A level-1 auxiliary file: ./graphs/rbc_steady_state.aux
+Reallocating 'name_of_file' (item size: 1) to 35 items.
+A level-1 auxiliary file: ./graphs/rbc_transition_matrix.aux
+Database file #1: 20230505_m1_dsge.bib
+Warning--empty note in pfeifer_guide_2021
+Warning--empty year in vasconez_what_nodate
+Warning--empty journal in vasconez_what_nodate
+You've used 16 entries,
+            1935 wiz_defined-function locations,
+            572 strings with 6369 characters,
+and the built_in function-call counts, 6184 in all, are:
+= -- 643
+> -- 177
+< -- 21
++ -- 60
+- -- 54
+* -- 472
+:= -- 1043
+add.period$ -- 52
+call.type$ -- 16
+change.case$ -- 106
+chr.to.int$ -- 16
+cite$ -- 19
+duplicate$ -- 257
+empty$ -- 454
+format.name$ -- 88
+if$ -- 1248
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 15
+newline$ -- 85
+num.names$ -- 48
+pop$ -- 85
+preamble$ -- 1
+purify$ -- 107
+quote$ -- 0
+skip$ -- 213
+stack$ -- 0
+substring$ -- 482
+swap$ -- 50
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 92
+warning$ -- 3
+while$ -- 56
+width$ -- 0
+write$ -- 214
+(There were 3 warnings)
