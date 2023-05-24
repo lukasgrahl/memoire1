@@ -801,132 +801,87 @@
 	Show theoretical impulse response functions, differences between NK and RBC
 			
 	\section{Bayesian Estimation}
+	As explained in the above the RBC and later NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1981 critique, as their parameters do not depend on behaviour of of agents but describe their preferences \cite{lucas_jr_tobin_1981}. Parameters thus describe the time invariant dynamic system underling the economy. Evaluating the accuracy of a structural model thus is tied to evaluating how well its parameters capture the true dynamics (ref). In this aim two main approaches of evaluation have been drawn up by research over time. They are based on frequentist and Bayesian methods. 
+	The frequentist approach first relied on the simulation method of moments (ref), which latter developed into the general method of moments (GMM). This approach attempts to minimize the distance between simulated and real data moments, allowing to discriminate between several specification of the same structural model \cite{christiano_current_1992}. However, as the number of parameters grew GMM conditions were no longer sufficient to estimate model fit \cite{guerron-quintana_bayesian_2013}. Instead, maximum-likelihood (ML) estimation was suggested but likewise was unable to estimate the growing number of parameters \cite{guerron-quintana_bayesian_2013}. Bayesian statistics offered remedy in the convenient formulation of conditional likelihood \cite{guerron-quintana_bayesian_2013}. Based on Bayes the parameters' posterior distribution can be found through the definition of a prior distribution and the conditional likelihood.
+	
+	The posterior of $\Theta$ given data $Y_t$ can be obtained by multiplying the prior $P(\Theta)$ with the conditional likelihood of the data $Y_t$ given the parameter $\Theta$. 
+	\begin{equation} \label{eq:blaw}
+		P( \Theta | Y_{T}) = P(\Theta) L(Y_{T} | \Theta)
+	\end{equation}
+	Based on Bayes law parameters and its dynamic system can be evaluated using the data the system is meant to generate (ref). For that three two ingredients are required, a distribution reflecting prior believes about the parameters, a likelihood function and an iterative procedure allowing to sample from the posterior distribution (ref).The following section will therefore be concerned with these four concepts, conditional likelihood, prior and posterior distribution and sampling. Moreover, it will introduce the forecasting properties that naturally arise from joining the four. 
+
+%	 DSGE literature has developed a rich body of literature covering the case of the canonical DSGE model rather well (ref). The state of research is currently concerned with the estimation of larger models and non-linear and not normally distributed posterior distributions (ref). However, given the simplicity of the above discussed models current techniques are more than sufficient for this thesis purposes.
 		
-	As explained in the above the RBC and later NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1976 critique as their parameters do not  directly depend on the choices of agents (ref). Instead, they represent the deep-rooted dynamics of the dynamic system describing the economy, as such they should exhibit a certain stability over time (ref). 
-	
-	This perspective makes an implicit but important assumption: DSGE model corresponds to the real dynamic system describing the economy. A far reaching assumption which has been considered at least partially validated based on the ability of early DSGE models to generate data matching 1st and 2nd order moments of real variables such as output, consumption and investment (ref). 
-	In an attempt to tweak this capability  early attempts to parameter to identifying the true parameters of the economy were made. In doing so academics first relied on what \cite{prescott_theory_1986} referred to as great ratios of the economy. Calculating for example the real interest rate allowed to derive the discount factor $\beta$. 
-	Other parameters had fewer empirical counterfactuals and where thus not estimated by manually calibrated to sensible values. These inaccuracy gave rise to approaches more deeply rooted in econometric analysis. They were undertaken in the aim of reliably estimating the economy's true structural parameters.
-	
-	Such early attempts of econometric identification relied on standard frequentists statistics such as the maximum-likelihood estimators (MLE) (ref). Another approach pioneered by Blanchard \& Kahn (ref) referred to as simulation method of moments, later progressed into the general method of moments (GMM) attempted to minimize the distance between simulated and real data moments. The GMM allowed to discriminate between several competing specification of the same structural model \cite{christiano_current_1992}. Comparing the estimated parameters of the model with real data values then served as inspection of model fit to data. However, as models grew in size a major short-coming of GMM became apparent. The method of moment conditions were no longer sufficient to estimate model fit across the variety of parameters \cite{guerron-quintana_bayesian_2013}. Likewise, the ML estimator turned out to be limited in its ability to estimated the entirety of parameters, requiring manual calibration of some parameters \cite{guerron-quintana_bayesian_2013}.
-	
-	While frequentists statistics knew to overcome the identification problem in introducing theoretical moments Smith (1993) it was soon challenged by a different perspective. At the heart of all frequentist statistics lies the assumption that a given model corresponds to the true structural process, it is the 'true' model (ref). If this assumption cannot be met all estimation will be biased and thus need to be corrected for. Again remedies where found (ref) Smith (1993) or Dridi, Guay, and Renault (2007) in varying parameters most relevant to overall model moments and keeping less relevant ones constant throughout econometric estimation. Yet it is argued that this approach at least partly failed in overcoming the conditional bias introduced by non-relevant parameters \cite{guerron-quintana_bayesian_2013}.
-	
-% explain Baye's law ?
-	Consequently, a new philosophy of linking models to data was identified. Bayesian statistics replaces the assumption of a single true model by the convenient formulation of conditional likelihood making it more appealing to the purposes of DSGE modelling \cite{guerron-quintana_bayesian_2013}. In doing so the Bayesian statistics relies on Bayes law linking the conditional likelihood of an event to the prior distribution.
-	\[
-	P( \Theta | Y_{T}) = L(Y_{T} | \Theta) P(\Theta)
-	\]
-	A given model specification can be linked to a likelihood evaluated against the backdrop of data the system is meant to generate (ref). This allows to assess a model's suitability. The frequentist's idea of a single true parameter is replaced by distributions assigning different probabilities to parameter values. These prior distribution reflect previous knowledge allowing to narrow down the possible space of parameters. Instead of identifying a true parameter Bayesian statistics, aims at evaluating these believes and at decreasing uncertainty around the parameter space i.e. the variance of the distribution. This process translates the prior distribution into a posterior distribution, not necessarily belonging to the same class. 
-	This process of evaluation is referred to as sampling and builds on numerical and stochastic calculus to approximate the true posterior distribution (ref). Furthermore, Bayesian statistics naturally provides great forecasting properties. Once uncertainty around the space of the real system has been reduced it allows for make informed forecasts, naturally providing confidence bans. 
-	
-	The following section will therefore be concerned with these four concepts, conditional likelihood, prior and posterior distribution, sampling and forecasting. DSGE literature has developed a rich body of literature covering the case of the canonical DSGE model rather well (ref). The state of research is currently concerned with the estimation of larger models and non-linear and not normally distributed posterior distributions (ref). However, given the simplicity of the above discussed models current techniques are more than sufficient for this thesis purposes.
-	
-	
 	\subsection{The log-likelihood}
+	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous beliefs to the posterior distribution (ref). In this according to Bayes law \ref{eq:blaw} an expression of conditional likelihood is needed. 
+	In obtaining the conditional likelihood of a linear system one can make use of the fact that the system is itself a data generating process (ref). The likelihood function is obtained through evaluating the probability of a given data series being generated by the system. 
+	A method allowing to do so is the Kalman filter, a method originally developed for tracking moving objects across several sensors (ref). In order to track any object the filter requires the object's position and velocity to be described in a linear system. The filter then uses this system and sensor data to form a believe about the object's position, also referred to as the system's state (ref). Applied to DSGE modelling the system is the above derived model and its state are the magnitude to which the variables deviate from their respective steady state.	
+	In forming a believe about the system states the filter takes into account that sensor signals are inherently noisy. The Kalman filter exploits its knowledge about the nature of this measurement noise in using it to reduce the variance of its believe about the current system state (ref). In doing so the Kalman filter imposes the assumption of Gaussian distributed noise (ref). This assumption makes use of the fact that multiplying Gaussian distributions results in another Gaussian distribution with lower or equal variance (ref). Decreasing a distribution's variance is equivalent to narrowing down the believe about the current state of the tracked object. Applied to DSGE modelling the assumption of Gaussian noise implies that the joint distribution of model shocks must be Gaussian \cite{herbst_bayesian_2016}. This is satisfied for small scale New Keynesian models if the individual shocks are Gaussian \cite{herbst_bayesian_2016}. 	
+	Moreover, the Kalman filter is especially desirable as it translates its believe about a system's state into a likelihood (ref). The below will briefly explain how such likelihood is constructed off the linear system and the measurement data.\\
 	
-	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous beliefs to the true posterior distribution (ref). This process relies on Bayes law as illustrated above, which requires the prior distribution and the marginal likelihood of data given the representation of the system $L(Y | \Theta)$ (ref). This section is concerned with obtaining the latter.
+	In a generic linear system $\matr{F}$ is the transition matrix, transforming state variables $\matr{X}_{k-1}$ to $\matr{X}_k$. The shock noise matrix $\matr N$ describes how shocks affect the transition to state $\matr{X}_k$. In forming a believe about the current state $\matr{X}_k$ the Kalman filter proceeds in two steps, a predict and an update step.
+	\begin{equation}
+		\begin{aligned}
+			\matr{X}_k = \matr F \matr{X}_{k-1} + \matr N \matr{\epsilon}_t \\
+			\matr{\epsilon}_k \sim N(0, \sigma_{\epsilon})
+		\end{aligned}
+	\end{equation}
 	
-	The marginal likelihood for a linear state system requires a technique allowing to assess the fit of data to the system. In doing so one relies on the fact that DSGE models when expressed as linear dynamic systems are data generating processes. This allows to formulate the question of how likely a given set of data has been generated by the system. A method allowing to do so is the Kalman filter (ref). This filter originates from engineering and has originally been developed to track the position of an air plane off signals from different sensor. As sensor signals are inherently noisy the filter is designed to exploit one's knowledge about the measurement noise in order to reduce the variance on its believe about the actual position or state of the plane. In doing so the filter imposes the important assumption of Gaussian distributed noise, exploiting the fact that any multiple of two Gaussian distributions will again yield a Gaussian distribution. The resulting Gaussian then has a lower variance than its parents, which is equivalent to saying that the resulting distribution has narrowed down the believe on the current state of the system. This assumption is especially important for the purposes of DSGE modelling, as the likelihood function of the Kalman filter relies on the assumption of Gaussian noise. Applied to DSGE models this implies that the joint distribution of shocks must be Gaussian \cite{herbst_bayesian_2016}. 
-% check the following statement	
-	This is usually satisfied for small scale New Keynesian models if the individual shocks are Gaussian (ref). For larger DSGE models this assumption does not necessarily hold and shocks are highly correlated. As mentioned above the is state of research and demands other methods of evaluation such as the Kalman-Particle filter (ref). As this work is concerned with the canonical model the Kalman filter will be sufficient.
-	
-	Given such linear Gaussian system the Kalman filter becomes especially desirable as it provides optimal forecast (ref), making any other method of evaluation obsolete. The below will now briefly explain how the Kalman filter is constructed off the linear system and end with deriving its likelihood function.
-	
-	Given the generic linear system below wit $\matr{F}$ as the transition and $\matr R$ as the shock noise matrix the Kalman filter proceeds in two steps, a predict and an update step:\\
-	\[
-		\matr{X}_t = \matr F \matr{X}_{t-1} + \matr R \matr{\epsilon}_t
-	\]
-	\[
-	\matr{\epsilon}_t \sim N(0, \sigma_{\epsilon})
-	\]	
-	\[
-			\begin{bmatrix}
-				y_t \\
-				z_t
-			\end{bmatrix}
-		=
-			\begin{bmatrix}
-				\rho_y & \rho_{yz} \\
-				\rho_{zy} & \rho_z
-			\end{bmatrix}
-		+
-			\begin{bmatrix}
-				y_{t-1} \\
-				z_{t-1}
-			\end{bmatrix}
-		+
-			\begin{bmatrix}
-				\epsilon_{yt} \\
-				\epsilon_{zt}
-			\end{bmatrix}				
-	\]
-	\[
-		\begin{bmatrix}
-			\epsilon_{y,t} \\
-			\epsilon_{z, t}
-		\end{bmatrix}
-		\sim
-		N
-		\left(
-			\begin{bmatrix}
-				0 \\
-				0
-			\end{bmatrix}
-		,
-			\begin{bmatrix}
-				\sigma_y^2 & 0 \\
-				0 & \sigma_z^2
-			\end{bmatrix}
-		\right)
-	\]
-		
-	\textbf{Predict step}
-	
-	In the predict step the Kalman filter propagates the system of state variables $\matr X_{t}$ according to the transition matrix $\matr F$. This matrix defines the system and as such is time independent. The propagation then yields an estimate for the $X_{t+1}$ system state. This could be supplemented by directions or external influences on the system that one is aware of. However, this is not the case for this work.
+	\subsubsection{Kalman predict step}
+	In the predict step the Kalman filter propagates system $\matr X_{k}$ according to the transition matrix $\matr F$. The propagation then yields a believe about the state given $\matr{\hat{X}}_{k|k-1}$ state given information from period $k-1$.
 	\[
 		\matr{\hat{X}}_{k|k-1} = \matr F \matr X_{k-1|k-1}
 	\]
-	The second key aspect to the Kalman Filter is the system state variable's covariance matrix $\matr P_{t}$, which is also time dependent. As pointed out in the above, this matrix is assumed to be Guassian, thus semi-definit positive (ref). The covariance matrix and the state $\matr X$ essentially build a Guassian distribution summarising the uncertainty around the actual state.
+	The second key aspect to the Kalman Filter is the system state variable's covariance matrix $\matr P_{k}$, which is also time dependent. As pointed out in the above, this matrix is assumed to be Gaussian, thus semi-definite positive (ref). The covariance matrix $\matr P_{k}$ is propagated in similar fashion. In doing so measurement noise $\matr Q$ is added to reflect the uncertainty around measurements. This results in $\matr{P}_{k| k-1}$ another Gaussian distribution, reflecting the uncertainty the predicted state $matr{\hat{X}}_{k|k-1}$. The multivariate distribution $\matr{P}_{k| k-1}$'s diagonal contains the standard deviation's around each state variable and thus can be used to construct a confidence interval around the predicted state. This fact has been used in forecasting as illustrated in (section).
 	\[
 		\matr{P}_{k| k-1} = \matr F \matr{P}_{k-1| k-1} \matr{F}^T + \matr Q
 	\]
 	
-	\textbf{Filter step}
-		
-	Once the predicted state $\matr X$ and covariance matrix $\matr P$ have been determined the Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state variables measurement referred to as $\matr z_t$, which due to measurement noise is not considered to always reflect the actual actual state of the system. The actual state is instead thought of to ly in-between the predicted state $\matr{X}_{k| k-1}$ and the measurement $\matr{z}_k$. The objective of the filtering step is therefore to identify this true state in-between the two. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, which can be though of as a weighting function between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building this average the filter takes into account the process noise and the covariance matrix as well as the accuracy of past iterations.\\
+	\subsubsection{Kalman filter step}
+	Once the predicted state $\matr{\hat{X}}$ and covariance matrix $\matr{P}_{k| k-1}$ have been determined the Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state measurement $\matr{z}_t$ accounting for the measurement noise around $\matr{z}_t$. 
+	Due to this noise the actual state lies in-between the predicted state $\matr{X}_{k| k-1}$ and the measurement $\matr{z}_k$. The objective of filtering is to identify at what point in-between the two. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, a weighting function between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building $\matr{K}_{k| k-1}$ the filter takes into account the process noise, the covariance matrix and the accuracy of past iterations.
 	
-	$\matr{y}_k$ is the difference between measurement and prediction. The matrix $\matr H$ is the measurement matrix, ensuring that predicted state $\matr{X}_{k| k-1}$ and $\matr{z}_k$ are in the same units.
+	For this $\matr{y}_k$ the difference between measurement and prediction is derived. Where $\matr H$ is the measurement matrix, translating measurement $\matr{z}_t$ into the same units as the predicted state $\matr{X}_{k| k-1}$. For the purposes of this work all unit transformation has been done prior to filtering, wherefore the measurement matrix corresponds to the identity matrix $\matr{I}$.
 	\[
 		\matr{y}_{k} = \matr{z}_k - \matr H \matr{X}_{k| k-1}
 	\]
-	The	$\matr{S}_k$ captures the filters uncertainty by combining the covariance around the predicted state $\matr{X}_{k| k-1}$ with the process noise $\matr{R}$. In DSGE terminology the process noise is derived from the shock covariance matrix (ref).
+	Filter uncertainty $\matr{S}_k$ is then obtained by combining the covariance $\matr{P}_{k| k-1}$ of the predicted state $\matr{X}_{k| k-1}$ with the process noise $\matr{R}$. In the context of DSGE filtering the process noise is derived from the covariance matrix $\matr{N}$ as defined above (ref).
 	\[
 		\matr{S}_k = \matr H \matr{P}_{k| k-1} \matr{H}^T + \matr{R}
 	\]
-	The uncertainty term $\matr{S}_{k}$ is then used to calculate the weighting function between measurement and predicted state the Kalman gain. 
+	The uncertainty term $\matr{S}_{k}$ is then used to calculate the weighting function between measurement and predicted state, the Kalman gain. 
 	\[
 		\matr{K}_k = \matr{P}_{k| k-1} \matr{H}^T \matr{S}_{k}^{-1}
 	\]
-	The filtered state which will be next iterations start then is calculated off the Kalman gain and $\matr{y}_k$. The covariance matrix is updated in a similar fashion. This yields a new narrower distribution summarising the uncertainty around the true systems state.
+	The filtered state, which will be at the beginning of the next iterations, is then obtained from the Kalman gain and distance between measurement and predicted state $\matr{y}_k$. The covariance matrix $\matr{P}_{k|k-1}$ is similarly updated. This yields a new narrower Gaussian distribution $\matr{P}_{k|k}$, summarising the uncertainty around the system's true state.
 	\[
 		\matr{X}_{k|k} = \matr{X}_{k| k-1} + \matr{K}_k \matr{y}_k
 	\]
 	\[
 		\matr{P}_{k|k} = (\matr I - \matr{K}_k \matr{H}) \matr{P}_{k|k-1}
 	\]
+	Having introduced the Kalman filter algorithm the question of its initial condition remains. As DSGE models describe deviations from the steady state $\matr{X}_{0|0}$ is set to zero, assuming the system to be in steady state. This approach is approach generally followed by filtering literature \cite{schorfheide_loss_2000}. 
 	
-	\textbf{Likelihood function}
+	\subsubsection{\textbf}{Likelihood function}
+	The likelihood function for each iteration is obtained from the assumption of Gaussian system noise (ref). The likelihood is defined as a multivariate normal distribution, which s generically given the below where $\mu$ is the distribution's mean, $\sigma$ its standard deviation and $x$ the measurement.
+	\begin{equation}
+		\Lagr = \frac{1}{\sigma \sqrt{2 \pi}} \exp [- \frac{1}{2} \frac{x - \mu}{\sigma}]^2
+	\end{equation}
+	In the context of the Kalman filter the likelihood function 
+	\begin{equation}
+		\Lagr_k = \frac{1}{\matr{S}_k \sqrt{2 \pi}} \exp [- \frac{1}{2} \matr{y}_k^{T} \matr{S}_{k}^{-1} \matr{y}_k]
+	\end{equation}
 	
-	Having introduced the Kalman filter algorithm the setting of the starting values remain. For the Kalman filter these are less decisive, has the filter is very capable in converging to the true state. However, as the models at hand are describing deviations from the steady state this work has set $\matr{X}_{0|0}$ to zero, assuming that the system is in its steady state to begin with, an approach generally followed by the literature. Secondly, this section has initially been dedicated to the Kalman filter's likelihood function. Having explored the propagation one can now derive the likelihood function. This function is heavily reliant on the assumption of Gaussian system noise, as it draws from the normal distribution in evaluating the likelihood for each iterations. In the below when referring to likelihood this thesis will however be referring not to the individual likelihood of each iteration but to the cumulated likelihood across all iterations.
+	
+	
 	
 	The probabiltiy desinty function for any normal distribution is given by: 
 	\[
-	\Lagr = \frac{1}{\sigma \sqrt{2 \pi}} \exp [- \frac{1}{2} \frac{x - \mu}{\sigma}]^2
+	
 	\]
 	The Kalman filter relies on the multivariate where the standard deviation is given by system uncertainty $\matr{S}_k$ and the difference between mean and measurement are expressed through $\matr{y}_k$.
 	\[
-		\Lagr_k = \frac{1}{\matr{S}_k \sqrt{2 \pi}} \exp [- \frac{1}{2} \matr{y}_k^{T} \matr{S}_{k}^{-1} \matr{y}_k]
+		
 	\]
 % get filterpy reference and Kalman Literature ref
 	This work has drawn from filterpy in order to perform the above calculations (ref).

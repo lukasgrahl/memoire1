@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: 20230505_Theisis_v04.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: abbrv.bst
+Reallocating 'name_of_file' (item size: 1) to 17 items.
+Reallocating 'name_of_file' (item size: 1) to 30 items.
+A level-1 auxiliary file: ./graphs/rbc_steady_state.aux
+Reallocating 'name_of_file' (item size: 1) to 35 items.
+A level-1 auxiliary file: ./graphs/rbc_transition_matrix.aux
+Database file #1: 20230505_m1_dsge.bib
+Warning--I didn't find a database entry for "macroeconomic_2007"
+Warning--I didn't find a database entry for "vasconez_what_nodate"
+Warning--I didn't find a database entry for "noauthor_federal_nodate"
+Warning--empty note in pfeifer_guide_2021
+You've used 25 entries,
+            2118 wiz_defined-function locations,
+            663 strings with 8238 characters,
+and the built_in function-call counts, 7978 in all, are:
+= -- 835
+> -- 307
+< -- 6
++ -- 125
+- -- 96
+* -- 530
+:= -- 1333
+add.period$ -- 88
+call.type$ -- 25
+change.case$ -- 122
+chr.to.int$ -- 0
+cite$ -- 26
+duplicate$ -- 304
+empty$ -- 629
+format.name$ -- 96
+if$ -- 1667
+int.to.chr$ -- 0
+int.to.str$ -- 25
+missing$ -- 23
+newline$ -- 139
+num.names$ -- 50
+pop$ -- 96
+preamble$ -- 1
+purify$ -- 98
+quote$ -- 0
+skip$ -- 228
+stack$ -- 0
+substring$ -- 554
+swap$ -- 61
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 96
+warning$ -- 1
+while$ -- 87
+width$ -- 27
+write$ -- 297
+(There were 4 warnings)
