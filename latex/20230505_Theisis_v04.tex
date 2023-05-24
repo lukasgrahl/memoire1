@@ -83,7 +83,6 @@
 
 % bibliography
 \bibliographystyle{abbrv}
-
 \begin{document}
 	
 	
@@ -891,10 +890,9 @@
 		 \Lagr(Y| \matr{\hat{\Theta}}_{k|k-1})
 	\]
 	Once the likelihood is obtained the algorithm proceeds into the two step acceptance procedure. First the likelihood of candidate $\hat{\Theta}_{k|k-1}$ is compared to the most recently accepted posterior. According to Bayes' law this allows to determine whether this draw constitutes an improvement in likelihood.	
-	\begin{equation}
-		\omega_k = \Lagr(Y|\matr{\hat{\Theta}}_{k|k-1})
-%		\omega_k = \min \left{\frac{\Lagr(Y|\matr{\hat{\Theta}}_{k|k-1}) P(\matr{\hat{\Theta}}_{k|k-1})}{\Lagr(Y| \matr{\Theta}_{k-1|k-1}) P(\matr{\Theta}_{k-1|k-1}),1 \right}
-	\end{equation}
+%	\begin{equation}
+%		\omega_k = \min \frac{ \Lagr(Y|\matr{\hat{\Theta}}_{k|k-1}) P(\matr{\hat{\Theta}}_{k|k-1}) }{ \Lagr(Y| \matr{\Theta}_{k-1|k-1} ) P(\matr{\Theta}_{k-1|k-1}) ,1 
+%	\end{equation}
 	In a second step the likelihood ratio $\omega_k$ is randomly accepted if above uniform random variable $\phi \sim U(0, 1)$. If $\omega_k \leq \phi_k$ the draw is accepted and the candidate is assumed into the posterior. This process is repeated $N$ times generating the a posterior sample. 
 % check number of sampler runs
 	As an recursive method the MH-MCMC sampler requires an initial condition. This initial condition is usually obtained throughout a so-called burn-in period corresponding to 50\% of total iterations. Moreover, a number of at least 20,000 is recommended for the sampler \cite{herbst_bayesian_2016}.
