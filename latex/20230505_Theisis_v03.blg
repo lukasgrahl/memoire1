@@ -9,51 +9,47 @@ A level-1 auxiliary file: ./graphs/rbc_steady_state.aux
 Reallocating 'name_of_file' (item size: 1) to 35 items.
 A level-1 auxiliary file: ./graphs/rbc_transition_matrix.aux
 Database file #1: 20230505_m1_dsge.bib
-Repeated entry---line 887 of file 20230505_m1_dsge.bib
- : @misc{harrison_impact_2011
- :                           ,
-I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "vasconez_what_nodate"
 Warning--empty note in pfeifer_guide_2021
-You've used 24 entries,
+You've used 25 entries,
             1935 wiz_defined-function locations,
-            628 strings with 8012 characters,
-and the built_in function-call counts, 9480 in all, are:
-= -- 984
-> -- 306
-< -- 26
-+ -- 106
+            635 strings with 8160 characters,
+and the built_in function-call counts, 9631 in all, are:
+= -- 998
+> -- 307
+< -- 27
++ -- 104
 - -- 96
-* -- 766
-:= -- 1618
-add.period$ -- 84
-call.type$ -- 24
-change.case$ -- 167
-chr.to.int$ -- 24
-cite$ -- 25
-duplicate$ -- 368
-empty$ -- 677
-format.name$ -- 148
-if$ -- 1882
+* -- 770
+:= -- 1656
+add.period$ -- 87
+call.type$ -- 25
+change.case$ -- 172
+chr.to.int$ -- 25
+cite$ -- 26
+duplicate$ -- 378
+empty$ -- 688
+format.name$ -- 147
+if$ -- 1909
 int.to.chr$ -- 1
 int.to.str$ -- 0
 missing$ -- 23
-newline$ -- 133
-num.names$ -- 72
-pop$ -- 116
+newline$ -- 138
+num.names$ -- 75
+pop$ -- 118
 preamble$ -- 1
-purify$ -- 168
+purify$ -- 173
 quote$ -- 0
-skip$ -- 300
+skip$ -- 309
 stack$ -- 0
-substring$ -- 739
+substring$ -- 733
 swap$ -- 59
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 140
+type$ -- 146
 warning$ -- 1
-while$ -- 86
+while$ -- 87
 width$ -- 0
-write$ -- 334
-(There was 1 error message)
+write$ -- 346
+(There were 2 warnings)

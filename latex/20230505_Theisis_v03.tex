@@ -81,7 +81,7 @@
 \linespread{1.5}
 
 % bibliography
-\bibliographystyle{apalike}
+\bibliographystyle{abbrv}
 
 \begin{document}
 	
@@ -99,96 +99,24 @@
 	
 	 \section{Introduction}
 	 
-	 High correlation of hours worked and real wage in the RBC model, an fact that is not matched by reality. The aim of RBC research thus must be finding new kinds of shocks, that allow for a more realistic representation of labour supply ()Christiano Eichenbaum 1991).
+	 The recent surge of energy prices and inflation has reintroduced questions about a connection between the two. The late 1970s oil shock caused a recession across most western economies. Later oil price shocks in the 90s and 2000s, despite being of similar magnitude, have not provoked the same economic response as its predecessor \cite{blanchard_macroeconomic_2007}. Recent events however, seem to exhibit similar consequences when compared to the 1970s oil shock with inflation appearing again linked to energy prices. This calls for a reevaluation of the literature on inflation dynamics. Research in this area has for much of the recent past relied on structural rational expectation models. These allow for an analysis of the transition mechanism of inflation, while allowing to take into account confounding factors. Oil prices can be seen as such confounding factor. Relying on structural models in analysing its effect on the inflation mechanism has thus a broad base in literature. This work draws from this past literature in applying it to recent events. In doing so three strains of literature are merged.
 	 
-	 One such 'new' shock is the the inclusion of petrol as an exogenous shock series \cite{kim_role_1992}
+	 The first is literature on Real Business Cycle Theory (RBC) and New-Keynesian (NK) Dynamics Stochastic General Equilibrium (DSGE) models. In response to the Lucas critique (1981) the RBC literature arose in providing a micro-based model in which parameters are not subject to changes in households behaviour \cite{lucas_jr_tobin_1981}. The structural parameters of the model are rooted in the optimising behaviour of representative agents and consequently time independent. This allows for an analysis of economic response to policy, taking into account optimising behaviour. The RBC literature further contributed in providing an argument on business cycle efficiency. Previously seen as inefficient divergence from the steady state, the RBC model suggests that in absence of nominal rigidities business cycles are driven by technology innovation and consequently are efficient adjustments towards the economy's steady state \cite{christiano_current_1992}. 
+	 This notion of efficiency was then questioned by the New-Keynesian literature demonstrating that under nominal rigidities changes in the interest rate are not matched by immediate changes in expected inflation \cite{gali_monetary_2008}. Business cycles are thus driven by interventionist monetary policy, which causes the expectation gap, rendering cyclicity inefficient \cite{gali_monetary_2008}.	 
+	 Bayesian estimation of structural economic models is the second strain of literature contained in this work. It encompasses two aspects, the estimation of structural model parameters as well as an evaluation of structural model's data generating process. Comparing the data generating process against real data gives rise to some forecasting power \cite{del_negro_forming_2008}. This power is seen as an important criteria of evaluation for structural models \cite{kocherlakota_model_2007}. 	 
+	 Lastly, a body of literature on the link between oil prices and inflation in structural models has emerged. This work will review this literature and draw from one model in particular. Combing this with an RBC and New-Keynesian model as well as Bayesian estimation then is used to analyse the mechanism of inflation and its potential interaction with oil prices. 
 	 
+	 The following will first review literature on structural models and the incorporation of the oil price inflation link. Three subsequent sections will then be dedicated to developing the mathematical reasoning behind an RBC, the standard New-Keynesian model and lastly the New-Keynesian model extended by petrol prices. Having demonstrated the assumptions in drawing up the structural models and transforming them it into linear systems this work will proceed in discussing the data used for the evaluation of these models. 
+	 A fifth section will then be dedicated to explaining the Bayesian estimation procedure for parameter identification as well as the forecasting ability arising from it. The estimation and its implementation will then be discussed leading to a seventh and final section discussing this works results and its implications.
 	 
-	- The method of solving and approximating the model has significant impact on simulated data, hence is relevant when relating models to real data (Taylor  Uhlig, 1990)
-	
-	This work is joining 3 strains of literature
-	- Literature on the RBC, the origin of all new keynesian models
-	- Literature on bayesian estimation of structural macroeconomics models
-	- Literature on energy price shocks and their role in the 
-		- This refers to the nature of the shock
-		- Shocks as theoretical origin on business cycles are at the origine of this research, 
-		identifying suitable shocks that explain more thus adds to the literature on business cycles
-	
-	The Lucas 1976 critique: 
-	
-	Intertamperol evoluation of macreoconomic variables
-	
-	Kydland and Prescott (1982) introduced the RBC \\
-	- became main model of macroeconomy
-	- rational expectation model
-	
-	The New Keynesian model extends the RBC by inflation
-	- 
-	
-	Rational expectation models build on two corner stones Chair et al
-	- Structural parameters which are unaffected by policy changes
-	- shocks that have a relevant economic interpretation
-	
-	Kocherlakota (2007) adjustment principle
-	- the better a model fits to data the better it is for policy advise
-	- in assessing this fit one needs to be wary of over fitting specific data
-
-		RBC Criticism
-	the correlation of real wage and hours worked does not correspond to reality, this is the lacmus test of RBC models (Christiano Eichenbaum 1992)
-	"Robert E. Lucas (1981 p. 226) says that "observed real wages are not constant over the cycle, but neither do they exhibit consistent pro- or countercyclical tendencies. This suggests that any attempt to assign systematic real wage movements a central role in an explanation of business cycles is doomed to failure" \cite{christiano_current_1992}
-	
-	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)	
-
-
-	The theoretical benchmark model a classic RBC 
-	The aim of analysing business cycles
-	
-	The micro foundation, instead of clear behavioural rules agents optimise their behaviour according to utility optimisation
-	
-	Conceptual ideas:
-	The efficiency of business cycles (Gali, 2008)
-	in a world of perfect competition and lack of nominal rigidities business cycles might be efficient
-	they are the response to changes in productivity, and are actually the result of a "correcting" force towards an efficient equilibrium
-	this raises questions on the desirability of policy interventions
-	This goes against (Keynes, 1936) who regarded recession as inefficient, due to under-utilisation of resources
-	
-	Technology shocks
-	Technological shocks for a correctly calibrated model allowed to simulate cycles similar to actual business cycles in first and second order moment (ref). This shed new light on the assumption that technology was solely a driver of long-term growth with neglible impact on business cycles (Gali, 2008, p.3).
-	
-	RBCs succesfully abstraced from monetary rigidities in their explanation of business cycles
-	
-	The assumptions of the RBC and their consequences, namely the non-existance of money and monetary rigidities in the economy are greatly contratsted by emperical evidence (Gali, 2008, p 15)
-	
-	Assumptions
-	- perfect compitions
-	- flexible prices
-	- technology shocks
-	
-	
-	- identical technology across firms
-	
-	
-	- Oil crisis 1970s has demonstrated the impact of oil on economy
-	
-	- Oil shocks in 90s and early 2000s have not had the same impact as in the 70s \cite{blanchard_macroeconomic_2007}
-	
-	- Recent energy crisis relunches this question
-	
-	
 	\section{Literature}
 	
-	Following the oil price induced stagflation crisis of the 1970s a rich body of economic literature has been dedicated to the effects of oil price on inflation and the economy at large \cite{barsky_oil_2002, bernanke_systematic_1997}. The majority of these approaches were empiric. The DSGE literature was the first to translate these findings into a theoretical model. 
+	Following the oil price induced stagflation crisis of the 1970s a rich body of economic literature has been dedicated to the effects of oil price on inflation and the economy at large \cite{barsky_oil_2002, bernanke_systematic_1997}. The majority of these approaches were empiric. The DSGE literature was the first to translate these findings into a theoretical model. In doing so two main approaches were pursued.
 	
-	In doing so two main approaches were pursued. Early analysis of oil prices and their interaction with the economy introduced petrol as an exogenous supply to the economy. As such models did not distinguish between crude oil and refined petrol imports. Instead, a unified petrol good enters the consumption basket consumption and is used as production input. 
+	Early analysis of oil prices and their interaction with the economy introduced petrol as an exogenous supply to the economy. As such models did not distinguish between crude oil and refined petrol imports. Instead, a unified petrol good enters the consumption basket consumption and is used as production input. The first such model was inspired by the differences in response to oil price shocks of similar in recent history \cite{macroeconomic_2007}. In order to reconcile this difference in one modelling framework a simple New-Keynesian model was extended by petrol. Across this model imperfectly competitive firms optimise with regards the amount of petrol used in their production. Households consume petrol as a fixed share of their consumption expenditure. The inflationary impact of exogenous petrol price is consequently driven through the elasticity of substitution between the production factors oil and labour \cite{blanchard_macroeconomic_2007}. As oil gets more expensive production costs rise and firms substitute petrol for labour. This place the firms elasticity of substitution at the heart of oil driven inflation dynamics. This first model has later been extended by in increasing the model in complexity. It was shown that the introduction of capital accumulation amplifies the stagflationary effects of petrol on the economy \cite{vasconez_what_nodate}. Advances in mainstream DSGE literature provided better ways of including wage rigidities into DSGE models by endowing households with wage setting power \cite{smets_shocks_2007}. This mechanism was then used to extend the model by including wage rigidities which factored into the firms elasticity of substitution \cite{leduc_quantitative_2004}. With petrol entering into the consumption basket, households are able to negotiate higher wages to make up for inflation. This broadened the channel of oil driven inflation \cite{leduc_quantitative_2004}.	
+	However, this first approach to including petrol was much focussed on the analysis of short-run shocks. Assumptions such as a fixed petrol share in consumption is reasonable under such short-run perspective, as households struggle to quickly replace petrol consuming investment goods \cite{blanchard_macroeconomic_2007}. An exogenous oil price similarly is reasonable for the analysis of short-term shocks as prices surge exogenously. However, in order to analyse the effects of petrol in the long-run and under non-crisis regimes extensions of the model were required.\\
 	
-	The first model introducing petrol to the DSGE literature is Blanchard \& Galì (2008) \cite{blanchard_macroeconomic_2007}. This work was inspired by the fact that later oil price shocks of similar extend to the 1970s one, did not provoke the same economic response. In order to reconcile the difference in responses under one modelling framework a simple New-Keynesian model was extended by petrol. Across this model imperfectly competitive firms optimise with regards the amount of petrol used in their production. The share of petrol in consumption is assumed to be fixed. The inflationary impact of exogenous petrol price i driven through the elasticity of substitution of oil in production. As oil gets more expensive production costs rise. Firms then substitute petrol inputs for labour across the production, this puts the elasticity of substitution at the heart of the petrol inflation channel.
-	In analysing this link further wage rigidities are introduced, limiting the substitution of petrol for labour and thus reinforcing inflationary pressure. 
-	This first strain of literature has been extended by later literature in growing the model in complexity. It was shown that the introduction of capital accumulation amplifies the stagflationary effects of petrol on the economy \cite{vasconez_what_nodate}. Advances in mainstream DSGE literature provided better ways of including wage rigidities into DSGE models in introducing wage setting power of households \cite{smets_shocks_2007}. This was used to extend the analysis of wage rigidities in the substitution of production inputs for petrol and \cite{leduc_quantitative_2004}. With petrol entering into the consumption basket, households are able to negotiate higher wages to make up for inflation. This further increases overall inflationary pressure \cite{leduc_quantitative_2004}.
-	
-	However, this approach to including petrol has several characteristics which to the analysis of short-run shocks are reasonable. A fixed share of petrol in consumption is reasonable in the short run as households struggle to replace the petrol consuming investment goods \cite{blanchard_macroeconomic_2007}. Moreover, a an exogenous petrol price is reasonable for the analysis of shocks as prices surge exogenously. However, as on wishes to analyse the effects of domestic oil production as well as the effects of petrol in the long-run under a non-crisis regime these models leave wholes to be filled.
-	
-	The second main stream of literature arises from the adoption of DSGE modelling across the many central banks of this world. As these institutions developed complex models tailored to the conditions of the economy petrol was soon introduced as an important factor. Pioneered by the Bank of England (BoE) the small open economy model of the BoE was extend by oil \cite{harrison_evaluating_2010, harrison_impact_2011}. 
-	Endogenous oil production is introduced to a small open economy trough a periodic endowment of oil. The model further distinguishes between crude oil and refined petrol in including a petrol sector of production. This is complemented by a utility sector, modelling the effect of gas prices on marginal electricity production. Both refined petrol and utilities then factor into the consumption basket as well as into the domestic production sector. Consequently, the petrol inflation channel assumes a more complex dynamic compared to earlier models. Especially the possibility to trade has important implications since with rising petrol prices the substitution away from oil allows to trade the remaining periodical endowment of oil at the new higher prices. Substitution is thus not only the avoidance of higher cost but itself source of revenue. 
+	This leads to the second stream of literature. With the adoption of DSGE modelling across many central banks complex models tailored to the conditions of national economies came about. Soon petrol was introduced as an important aspect to these models. Pioneered by the Bank of England (BoE) the small open economy model of the BoE was extend by oil \cite{harrison_evaluating_2010, harrison_impact_2011}. This introduced endogenous oil production in a small open economy \cite{harrison_impact_2011}. The model further introduced a distinction between crude oil and refined petrol, whereas the latter results from a separate sector of production. This is complemented by a utility sector, modelling the effect of gas prices on marginal electricity production \cite{harrison_impact_2011}. Both refined petrol and utilities then factor into the consumption basket as well as into the domestic production sector. Consequently, the petrol inflation channel assumes a more complex dynamic compared to earlier models. Especially the possibility to trade has important implications since with rising petrol prices the substitution away from oil allows to trade the remaining periodical endowment of oil at the new higher prices. Substitution is thus not only the avoidance of higher cost but itself source of revenue. 
 	Ever since, much research has been conducted in tailoring models containing petrol amongst many other factor to the specific dynamics of national economies \cite{lees_introducing_2009, malakhovskaya_are_2014, hou_oil_2016}. 
 	
 	

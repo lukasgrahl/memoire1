@@ -85,10 +85,11 @@ Hou, K., Mountain, D.~C., and Wu, T. (2016).
   economy: {A} {VAR} analysis informed by a {DSGE} model.
 \newblock {\em Journal of International Money and Finance}, 68:21--49.
 
-\bibitem[Kim and Loungani, 1992]{kim_role_1992}
-Kim, I.-M. and Loungani, P. (1992).
-\newblock The role of energy in real business cycle models.
-\newblock {\em Journal of Monetary Economics}, 29(2):173--189.
+\bibitem[Kocherlakota, 2007]{kocherlakota_model_2007}
+Kocherlakota, N.~R. (2007).
+\newblock Model fit and model selection.
+\newblock {\em Review-Federal Reserve Bank of Saint Louis}, 89(4):349.
+\newblock Publisher: FEDERAL RESERVE BANK OF ST LOUIS.
 
 \bibitem[Kydland and Prescott, 1982]{kydland_time_1982}
 Kydland, F.~E. and Prescott, E.~C. (1982).
@@ -110,6 +111,10 @@ Lees, K. (2009).
   {DSGE} model for forecasting and policy design.
 \newblock {\em Reserve Bank of New Zealand Bulletin}, 72(2):5--20.
 \newblock Publisher: Reserve Bank of New Zealand.
+
+\bibitem[Lucas~Jr, 1981]{lucas_jr_tobin_1981}
+Lucas~Jr, R.~E. (1981).
+\newblock Tobin and monetarism: a review article.
 
 \bibitem[Malakhovskaya and Minabutdinov, 2014]{malakhovskaya_are_2014}
 Malakhovskaya, O. and Minabutdinov, A. (2014).
