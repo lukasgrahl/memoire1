@@ -1,5 +1,18 @@
 \begin{thebibliography}{}
 
+\bibitem[Barsky and Kilian, 2002]{barsky_oil_2002}
+Barsky, R.~B. and Kilian, L. (2002).
+\newblock Oil and the macroeconomy since the 1970s.
+\newblock {\em Journal of Economic Perspectives}, 18(4):115--134.
+\newblock Publisher: American Economic Association.
+
+\bibitem[Bernanke et~al., 1997]{bernanke_systematic_1997}
+Bernanke, B.~S., Gertler, M., Watson, M., Sims, C.~A., and Friedman, B.~M.
+  (1997).
+\newblock Systematic monetary policy and the effects of oil price shocks.
+\newblock {\em Brookings papers on economic activity}, 1997(1):91--157.
+\newblock Publisher: JSTOR.
+
 \bibitem[Blanchard and Gali, 2007]{blanchard_macroeconomic_2007}
 Blanchard, O. and Gali, J. (2007).
 \newblock The {Macroeconomic} {Effects} of {Oil} {Shocks}: {Why} are the 2000s
@@ -49,10 +62,28 @@ Guerrón-Quintana, P.~A. and Nason, J.~M. (2013).
 \newblock In {\em Handbook of research methods and applications in empirical
   macroeconomics}, pages 486--512. Edward Elgar Publishing.
 
+\bibitem[Harrison and Oomen, 2010]{harrison_evaluating_2010}
+Harrison, R. and Oomen, O. (2010).
+\newblock Evaluating and {Estimating} a {DSGE} {Model} for the {United}
+  {Kingdom}.
+\newblock {\em SSRN Electronic Journal}.
+
+\bibitem[Harrison et~al., 2011]{harrison_impact_2011}
+Harrison, R., Thomas, R., and de~Weymarn, I. (2011).
+\newblock The {Impact} of {Permanent} {Energy} {Price} {Shocks} on the {UK}
+  {Economy}.
+\newblock {\em SSRN Electronic Journal}.
+
 \bibitem[Herbst and Schorfheide, 2016]{herbst_bayesian_2016}
 Herbst, E.~P. and Schorfheide, F. (2016).
 \newblock {\em Bayesian estimation of {DSGE} models}.
 \newblock Princeton University Press.
+
+\bibitem[Hou et~al., 2016]{hou_oil_2016}
+Hou, K., Mountain, D.~C., and Wu, T. (2016).
+\newblock Oil price shocks and their transmission mechanism in an oil-exporting
+  economy: {A} {VAR} analysis informed by a {DSGE} model.
+\newblock {\em Journal of International Money and Finance}, 68:21--49.
 
 \bibitem[Kim and Loungani, 1992]{kim_role_1992}
 Kim, I.-M. and Loungani, P. (1992).
@@ -65,6 +96,28 @@ Kydland, F.~E. and Prescott, E.~C. (1982).
 \newblock {\em Econometrica: Journal of the Econometric Society}, pages
   1345--1370.
 \newblock Publisher: JSTOR.
+
+\bibitem[Leduc and Sill, 2004]{leduc_quantitative_2004}
+Leduc, S. and Sill, K. (2004).
+\newblock A quantitative analysis of oil-price shocks, systematic monetary
+  policy, and economic downturns.
+\newblock {\em Journal of Monetary Economics}, 51(4):781--808.
+\newblock Publisher: Elsevier.
+
+\bibitem[Lees, 2009]{lees_introducing_2009}
+Lees, K. (2009).
+\newblock Introducing {KITT}: {The} {Reserve} {Bank} of {New} {Zealand} new
+  {DSGE} model for forecasting and policy design.
+\newblock {\em Reserve Bank of New Zealand Bulletin}, 72(2):5--20.
+\newblock Publisher: Reserve Bank of New Zealand.
+
+\bibitem[Malakhovskaya and Minabutdinov, 2014]{malakhovskaya_are_2014}
+Malakhovskaya, O. and Minabutdinov, A. (2014).
+\newblock Are commodity price shocks important? {A} {Bayesian} estimation of a
+  {DSGE} model for {Russia}.
+\newblock {\em International Journal of Computational Economics and
+  Econometrics}, 4(1-2):148--180.
+\newblock Publisher: Inderscience Publishers.
 
 \bibitem[Pfeifer, 2021]{pfeifer_guide_2021}
 Pfeifer, J. (2021).
@@ -82,6 +135,7 @@ Ravn, M.~O. and Uhlig, H. (2002).
 \newblock On {Adjusting} the {Hodrick}-{Prescott} {Filter} for the {Frequency}
   of {Observations}.
 \newblock {\em Review of Economics and Statistics}, 84(2):371--376.
+\newblock Puhlisher: JSTOR.
 
 \bibitem[Schorfheide, 2000]{schorfheide_loss_2000}
 Schorfheide, F. (2000).
@@ -89,9 +143,11 @@ Schorfheide, F. (2000).
 \newblock {\em Journal of Applied Econometrics}, 15(6):645--670.
 \newblock Publisher: Wiley Online Library.
 
-\bibitem[Vásconez, ]{vasconez_what_nodate}
-Vásconez, V.~A.
-\newblock What if oil is less substitutable? {A} {New}-{Keynesian} {Model} with
-  {Oil}, {Price} and {Wage} {Stickiness} including {Capital} {Accumulation}.
+\bibitem[Smets and Wouters, 2007]{smets_shocks_2007}
+Smets, F. and Wouters, R. (2007).
+\newblock Shocks and frictions in {US} business cycles: {A} {Bayesian} {DSGE}
+  approach.
+\newblock {\em American economic review}, 97(3):586--606.
+\newblock Publisher: American Economic Association.
 
 \end{thebibliography}

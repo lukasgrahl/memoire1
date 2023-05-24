@@ -132,8 +132,7 @@
 	Kocherlakota (2007) adjustment principle
 	- the better a model fits to data the better it is for policy advise
 	- in assessing this fit one needs to be wary of over fitting specific data
-	
-	\section{Literature Review}
+
 		RBC Criticism
 	the correlation of real wage and hours worked does not correspond to reality, this is the lacmus test of RBC models (Christiano Eichenbaum 1992)
 	"Robert E. Lucas (1981 p. 226) says that "observed real wages are not constant over the cycle, but neither do they exhibit consistent pro- or countercyclical tendencies. This suggests that any attempt to assign systematic real wage movements a central role in an explanation of business cycles is doomed to failure" \cite{christiano_current_1992}
@@ -141,11 +140,6 @@
 	NK models are suitable to comparing alternative policy regimes without being subject to the Lucas (1976) critique (Gali)	
 
 
-
-	\section{DSGE Models}
-	
-	Before diving into the derivation of each individual model this section provides some general remarks applicable to all models across this work. All models discussed in the below have analytical solutions to their steady state, in which the economy is at its natural optimum. However, the system describing the economy is non-linear due to the multiplicative production relationship arising from the Cobb-Douglas production function \cite{campbell_inspecting_1994}. This gives rise to the need of some for of linear approximation around the steady state in order to be able to analyse the system's behaviour. The most common approach adopted across literature is a log-linear Taylor approximation, this work will follow suit \cite{campbell_inspecting_1994}. Such linearisation is applicable under the existence of a deterministic singular solution, which is the case for the small scale DSGE models discussed in the below \cite{herbst_bayesian_2016}.
-	
 	The theoretical benchmark model a classic RBC 
 	The aim of analysing business cycles
 	
@@ -169,10 +163,38 @@
 	- perfect compitions
 	- flexible prices
 	- technology shocks
+	
+	
 	- identical technology across firms
 	
 	
-	\subsection{Real Business Cycle model}
+	- Oil crisis 1970s has demonstrated the impact of oil on economy
+	
+	- Oil shocks in 90s and early 2000s have not had the same impact as in the 70s \cite{blanchard_macroeconomic_2007}
+	
+	- Recent energy crisis relunches this question
+	
+	
+	\section{Literature}
+	
+	Following the oil price induced stagflation crisis of the 1970s a rich body of economic literature has been dedicated to the effects of oil price on inflation and the economy at large \cite{barsky_oil_2002, bernanke_systematic_1997}. The majority of these approaches were empiric. The DSGE literature was the first to translate these findings into a theoretical model. 
+	
+	In doing so two main approaches were pursued. Early analysis of oil prices and their interaction with the economy introduced petrol as an exogenous supply to the economy. As such models did not distinguish between crude oil and refined petrol imports. Instead, a unified petrol good enters the consumption basket consumption and is used as production input. 
+	
+	The first model introducing petrol to the DSGE literature is Blanchard \& Galì (2008) \cite{blanchard_macroeconomic_2007}. This work was inspired by the fact that later oil price shocks of similar extend to the 1970s one, did not provoke the same economic response. In order to reconcile the difference in responses under one modelling framework a simple New-Keynesian model was extended by petrol. Across this model imperfectly competitive firms optimise with regards the amount of petrol used in their production. The share of petrol in consumption is assumed to be fixed. The inflationary impact of exogenous petrol price i driven through the elasticity of substitution of oil in production. As oil gets more expensive production costs rise. Firms then substitute petrol inputs for labour across the production, this puts the elasticity of substitution at the heart of the petrol inflation channel.
+	In analysing this link further wage rigidities are introduced, limiting the substitution of petrol for labour and thus reinforcing inflationary pressure. 
+	This first strain of literature has been extended by later literature in growing the model in complexity. It was shown that the introduction of capital accumulation amplifies the stagflationary effects of petrol on the economy \cite{vasconez_what_nodate}. Advances in mainstream DSGE literature provided better ways of including wage rigidities into DSGE models in introducing wage setting power of households \cite{smets_shocks_2007}. This was used to extend the analysis of wage rigidities in the substitution of production inputs for petrol and \cite{leduc_quantitative_2004}. With petrol entering into the consumption basket, households are able to negotiate higher wages to make up for inflation. This further increases overall inflationary pressure \cite{leduc_quantitative_2004}.
+	
+	However, this approach to including petrol has several characteristics which to the analysis of short-run shocks are reasonable. A fixed share of petrol in consumption is reasonable in the short run as households struggle to replace the petrol consuming investment goods \cite{blanchard_macroeconomic_2007}. Moreover, a an exogenous petrol price is reasonable for the analysis of shocks as prices surge exogenously. However, as on wishes to analyse the effects of domestic oil production as well as the effects of petrol in the long-run under a non-crisis regime these models leave wholes to be filled.
+	
+	The second main stream of literature arises from the adoption of DSGE modelling across the many central banks of this world. As these institutions developed complex models tailored to the conditions of the economy petrol was soon introduced as an important factor. Pioneered by the Bank of England (BoE) the small open economy model of the BoE was extend by oil \cite{harrison_evaluating_2010, harrison_impact_2011}. 
+	Endogenous oil production is introduced to a small open economy trough a periodic endowment of oil. The model further distinguishes between crude oil and refined petrol in including a petrol sector of production. This is complemented by a utility sector, modelling the effect of gas prices on marginal electricity production. Both refined petrol and utilities then factor into the consumption basket as well as into the domestic production sector. Consequently, the petrol inflation channel assumes a more complex dynamic compared to earlier models. Especially the possibility to trade has important implications since with rising petrol prices the substitution away from oil allows to trade the remaining periodical endowment of oil at the new higher prices. Substitution is thus not only the avoidance of higher cost but itself source of revenue. 
+	Ever since, much research has been conducted in tailoring models containing petrol amongst many other factor to the specific dynamics of national economies \cite{lees_introducing_2009, malakhovskaya_are_2014, hou_oil_2016}. 
+	
+	
+	The purpose of this work is the analysis of petrol prices and in their interaction with inflation in light of the recent surge in energy prices. This work will therefore follow the first approach as it is focussing on the interaction of petrol and inflation instead. Later approaches as outlined aim at a comprehensive analysis of the economy as a whole. In doing so many influences are easily confounded, thus allowing for a less clear analysis of the mechanism. 	
+	
+	\section{Real Business Cycle model}
 	The Real Business Cycle model (RBC) was first introduced by \cite{prescott_theory_1986} in the aim of providing an explanation to business cycles. Departing from Schumpeterian growth driven by advances in technology the RBC model is at its heart a de-trended growth model. It emphasis the role of technology growth and resulting changes in total factor productivity in influencing business cycles. In doing so it makes the following assumptions:
 	\begin{itemize}
 		\item perfect competition
@@ -230,6 +252,11 @@
 	\end{equation}
 	As the case with all DSGE models the system in its current state is non-linear. This is due to the from multiplicative Cobb-Douglas production and additive law of motion without full depreciation $\delta \leq 1$ \cite{campbell_inspecting_1994}. This raises the need for log-linear approximations which yields the following system of equations. \\
 	
+	
+	In the spirit of analysing the mechanism the following section will derive the three models. However, before doing so some general remarks are in order. applicable to all models across this work. All models discussed in the below have analytical solutions to their steady state, in which the economy is at its natural optimum. However, the system describing the economy is non-linear due to the multiplicative production relationship arising from the Cobb-Douglas production function \cite{campbell_inspecting_1994}. This gives rise to the need of some for of linear approximation around the steady state in order to be able to analyse the system's behaviour. The most common approach adopted across literature is a log-linear Taylor approximation, this work will follow suit \cite{campbell_inspecting_1994}. Such linearisation is applicable under the existence of a deterministic singular solution, which is the case for the small scale DSGE models discussed in the below \cite{herbst_bayesian_2016}.
+	
+	
+	
 	\begin{tabular}{lr}
 		\textbf{Equation name} & \textbf{Log-linear expression}\\
 		\hline
@@ -259,7 +286,7 @@
 
 	Obtaining a linear state-space representation of the RBC model requires the numerical approximation of the steady state value of labour $\bar{l}$. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in \ref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \ref{appc}. 
 
-	\subsection{NK}
+	\section{NK}
 	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects. Firstly, he NK model in its simplest form analyses an economy without capital, wherefore its intertemporal  instrument is the output gap instead of the capital stock (ref). Secondly, the NK model introduces nominal rigidities through monopolistic competition. Since firms are endowed with some market power, they can reset prices above marginal cost, introducing a gap between real and nominal marginal cost. This dynamic results in inflation. This extension has several consequences. For one monetary policy is neutral in the short-run, thus changes in interest are note directly matched by changes in expected inflation (ref). This gap in expectations becomes the driver of short-run fluctuation, or business cycles in the economy. The main driver of business cycles is thus no-longer technological progress through a change in total factor productivity. Instead an adjustment or shock to the interest rates drives business cycles. \\
 	This of course has important economic implications. Instead of efficient direct adjustments of the economy to new production technology business cycles no longer exhibit efficiency in the NK model. Instead, they are an inefficient divergence caused by central bank interventions. This is also the reason why the model is called New-Keynesian. The model returns Keyne's perspective, regarding regarded business cycles as inefficient. The the main divergence from RBC literature consists in this change of perspective.
 		
@@ -570,7 +597,7 @@
 	
 %Define stability condition of the linear state-space, Blanchard-Kahn
 
-	\subsection{Petrol}
+	\section{NKE}
 	The below is an extension of the standard NK model by petrol as a consumption good as well as factor of production. There is no domestic production of petrol, instead it is imported and its price is assumed to be exogenous. Beyond the import of petrol there is no foreign trade, all closed economy assumptions thus hold. 
 	Given the exogenous nature of petrol the model is quite similar to the standard NK model. The below will therefore depart from (section) and only outline the changes to the model from petrol production. 	
 	
@@ -1172,10 +1199,9 @@
 	\subsubsection{Forecast comparison}
 	
 	Comparing several models across their forecasting performance can be done in two ways, a frequentist and Bayesian approach.
-	The Bayesian averaging approach compares models in their log-likelihood based on an information criterion. For the purposes of this work the information criterion will be de widely applicable information criterion (WAIC) as suggested in \cite{chin_bayesian_2019}. In Bayesian model averaging the weights of each model is calculated from its posterior model probability \cite{chin_bayesian_2019}. This is traditionally done for structurally similar models in order to discriminate between different priors. However this procedure has also been employed in comparing different model classes, then usually relying on the WAIC \cite{chin_bayesian_2019}.
-	The frequentist approach compares models based on a mean squared error (MSE) metric and then tests for systematic differences. Formal testing is provided by the Diebold-Mariano test, testing for the null hypothesis of structural differences in MSE. 
-	Both methods have been employed across comparing DSGE models amongst each other as well as to VAR forecasts  \cite{chin_bayesian_2019}. This work employs both. When comparing model forecasts based on the WAIC the RBC model performs best. However, the Diebold-Mariano test does not find significant performance differences across model forecasts.
-
+	The frequentist approach compares models based on a mean squared error (MSE) metric and then tests for systematic differences. Formal testing is provided by the Diebold-Mariano test, testing for the null hypothesis of structural differences in MSE. The methodology is recommended for on step ahead forecasts and needs a large number of observations to construct the test statistics. It is thus not recommended for quarterly data \cite{chin_bayesian_2019}.
+	Instead Bayesian model averaging approach compares models in their log-likelihood based on an information criterion. For the purposes of this work the information criterion will be de widely applicable information criterion (WAIC) as suggested in \cite{chin_bayesian_2019}. In Bayesian model averaging the weights of each model is calculated from its posterior model probability \cite{chin_bayesian_2019}. This is traditionally done for structurally similar models in order to discriminate between different priors. However this procedure has also been employed in comparing different model classes, then usually relying on the WAIC \cite{chin_bayesian_2019}.
+	If comparing models according to the WAIC the RBC forecasts appears to work best. This is not surprising with regards to the visual inspection of the forecasting performance. However, given the extension of NK models by inflation the opposite could be expected.
 	
 	\section{Conclusion}
 	\subsubsection{Conclusion on MH MCMC}
