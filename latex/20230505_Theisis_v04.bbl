@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}
 
+\bibitem{noauthor_federal_nodate}
+Federal {Reserve} {Economic} {Data} {\textbar} {FRED} {\textbar} {St}. {Louis}
+  {Fed}.
+
 \bibitem{barsky_oil_2002}
 R.~B. Barsky and L.~Kilian.
 \newblock Oil and the macroeconomy since the 1970s.
@@ -54,6 +58,13 @@ J.~Galí.
   introduction to the new {Keynesian} framework}.
 \newblock Princeton University Press, Princeton, N.J, 2008.
 \newblock OCLC: ocn177826088.
+
+\bibitem{gelman_weak_1997}
+A.~Gelman, W.~R. Gilks, and G.~O. Roberts.
+\newblock Weak convergence and optimal scaling of random walk {Metropolis}
+  algorithms.
+\newblock {\em The annals of applied probability}, 7(1):110--120, 1997.
+\newblock Publisher: Institute of Mathematical Statistics.
 
 \bibitem{guerron-quintana_bayesian_2013}
 P.~A. Guerrón-Quintana and J.~M. Nason.

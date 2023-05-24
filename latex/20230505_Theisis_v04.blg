@@ -11,47 +11,47 @@ A level-1 auxiliary file: ./graphs/rbc_transition_matrix.aux
 Database file #1: 20230505_m1_dsge.bib
 Warning--I didn't find a database entry for "macroeconomic_2007"
 Warning--I didn't find a database entry for "vasconez_what_nodate"
-Warning--I didn't find a database entry for "noauthor_federal_nodate"
+Warning--to sort, need author or key in noauthor_federal_nodate
 Warning--empty note in pfeifer_guide_2021
-You've used 25 entries,
+You've used 27 entries,
             2118 wiz_defined-function locations,
-            663 strings with 8238 characters,
-and the built_in function-call counts, 7978 in all, are:
-= -- 835
-> -- 307
+            670 strings with 8559 characters,
+and the built_in function-call counts, 8499 in all, are:
+= -- 886
+> -- 326
 < -- 6
-+ -- 125
-- -- 96
-* -- 530
-:= -- 1333
-add.period$ -- 88
-call.type$ -- 25
-change.case$ -- 122
++ -- 133
+- -- 102
+* -- 566
+:= -- 1410
+add.period$ -- 93
+call.type$ -- 27
+change.case$ -- 131
 chr.to.int$ -- 0
-cite$ -- 26
-duplicate$ -- 304
-empty$ -- 629
-format.name$ -- 96
-if$ -- 1667
+cite$ -- 29
+duplicate$ -- 322
+empty$ -- 679
+format.name$ -- 102
+if$ -- 1779
 int.to.chr$ -- 0
-int.to.str$ -- 25
-missing$ -- 23
-newline$ -- 139
-num.names$ -- 50
-pop$ -- 96
+int.to.str$ -- 27
+missing$ -- 24
+newline$ -- 148
+num.names$ -- 52
+pop$ -- 107
 preamble$ -- 1
-purify$ -- 98
+purify$ -- 105
 quote$ -- 0
-skip$ -- 228
+skip$ -- 245
 stack$ -- 0
-substring$ -- 554
-swap$ -- 61
+substring$ -- 589
+swap$ -- 63
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 96
-warning$ -- 1
-while$ -- 87
-width$ -- 27
-write$ -- 297
+type$ -- 104
+warning$ -- 2
+while$ -- 91
+width$ -- 29
+write$ -- 315
 (There were 4 warnings)
