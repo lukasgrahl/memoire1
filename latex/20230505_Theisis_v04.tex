@@ -103,14 +103,15 @@
 	
 	\section*{List of Acronyms}
 	\begin{acronym}
-		\acro{USA}{United States of America}
+		\acro{BVAR}{Bayesian Vector Autogreression}
+		\acro{CPI}{Consumer Price Index}
 		\acro{DSGE}{Dynamic Stochastic General Equilibrium Model}
-		\acro{RBC}{Real Business Cycle Model}
+		\acro{GDP}{Gross Domestic Product}
+		\acro{HP Filter}{Hodrick-Prescott Filter}
+		\acro{MH-MCMC}{Metropolis-Hastings Monte Carlo Markov Chain}
 		\acro{NK}{New-Keynesian Model}
 		\acro{NKE}{New-Keynesian Energy Model}
-		\acro{GDP}{Gross Domestic Product}
-		\acro{MH-MCMC}{Metropolis-Hastings Monte Carlo Markov Chain}
-		\acro{BVAR}{Bayesian Vector Autogreression}
+		\acro{RBC}{Real Business Cycle Model}
 		\acro{VAR}{Vector Autoregression}
 	\end{acronym}
 	\listoffigures
@@ -755,56 +756,37 @@
 		\end{aligned}
 	\end{equation}
 
-	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability, based on the eigenvalues of the transition matrix \cite{blanchard_solution_1980}. These have been checked for each parameter specification.
-	
+	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability, based on the eigenvalues of the transition matrix \cite{blanchard_solution_1980}. These have been checked for each parameter specification.	
 	
 	\section{Data}
-	This work relies on standard economic quarterly time series from 1975 to 2020. All data is obtained from the St. Louis Federal Reserve data base of seasonally adjusted deflated macroeconomic time series \cite{noauthor_federal_nodate}. The specific data codes can be found in the \nameref{appb}. Most data used across the following is standard to the DSGE literature. However, some extensions are necessary to allow for the inclusion of a petrol sector. The below will therefore briefly outline the use of standard data, while providing more detail on the data specific to this work.
-	The common variables for DSGE model evaluation are nominal interest rates, consumption, wage and labour hours. The nominal interest rate is proxied by the federal funds effective rate (ref). Consumption is measured by household expenditure data. Labour hours and wage refer to non-farm business total hours worked and average hourly wage. The exclusion of the agricultural sector is generally recommended for the US economy (ref). Moreover, this work employs the WTI Crude Oil Index as proxy for the price of petrol. The WTI dates back longer than the more recent Brent Crude Oil Index, wherefore it is generally used across works in energy economics (ref).
-% potential GDP ??
+	This work relies quarterly macroeconomic variables from 1975 to 2020. All data is obtained from the St. Louis Federal Reserve data base, where it has been seasonally adjusted and deflated \cite{noauthor_federal_nodate}. The specific data codes can be found in the  Table~\ref{tab:fred_variables} in the \nameref{appb}. Most data used across this work is standard to the DSGE literature. However, some extensions are necessary to allow for the inclusion of a petrol sector. The below will briefly outline the use of standard data, while providing more detail on the data specific to this work.
+	The common variables for DSGE model evaluation are nominal interest rates, consumption, wage and labour hours. The nominal interest rate is proxied by the federal funds effective rate as suggested Herbst \& Schorfheide 2016 \cite{herbst_bayesian_2016}. Consumption is measured by household expenditure data. Labour hours and wage refer to non-farm business total hours worked and average hourly wage. The exclusion of the agricultural sector is generally recommended for the US economy \cite{guerron-quintana_bayesian_2013}. Moreover, this work employs the WTI Crude Oil Index as proxy for the price of petrol. The WTI dates back longer than the more recent Brent Crude Oil Index, wherefore this work will rely on it.
 	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. The NK energy model's aim is to analyse inflation under the inclusion of petrol in the economy. Relying on the CPI, which includes petrol prices, would thus be counterproductive as the model should generate inflation resulting from petrol endogenously. In order to accurately reflect the models ability energy price need to be removed from inflation data. In the NK energy model therefore relies on the "Sticky Price Consumer Price Index less Food and Energy". Similar reasoning applies to consumption expenditure which for the NK energy model specifically excludes expenditure for energy and utilities.
 	
 	\subsection{Preprocessing}
-	Economic data is usually considered in per capita terms in order to account for different population dynamics (ref). Population dynamics are not continuously collected and usually a mix of actual measurement and imputation. As a result population data exhibits significant irregularities \cite{pfeifer_guide_2021}. Using such noisy records would distort the data of more carefully collected economic variables. Population data thus requires some preprocessing on its own. Smoothing the data with the Hodrick-Prescott (HP) filter's at a smoothing factor of 10,000 is recommended in order to de-noise the data \cite{edge_judging_2013}. The smoothed time series captures the real population dynamics and can then be used to obtain per capita variables. At this point it is important to mention that the St. Louis FED data is in chained dollars, thus not concerned by inflation of monetary measurements (ref). 	
-% talk about one-sided filter
-	Having removed population dynamic and inflation the next step is the separation in two key components, trend and cyclicality. DSGE literature generally studies variables in their deviation from their steady state. This requires an identification of the steady state and its evolution over time. Separating the long-term trend of GDP from its cyclical deviations commonly relies on the HP filter. The filter separates trend and deviation. In the case of quarterly variables a smoothing parameter of 1600 is recommended \cite{ravn_adjusting_2002}. As DSGE models are log-linearised they describe deviation in terms of logarithm, which for small values approximates percentage deviations. In order to transform data into log-deviations from their underlying trend the HP filter is fed with log-trasnformed time series. This procedure by construction yields stationary time series of cyclicality. However, to comply with common standards stationarity is formally confirmed by the Augmented-Dickey Fuller test (ref). Having transformed all trending variables have into stationary log-deviation from their natural level only the percentage variables remain, namely inflation and interest rate. They require no such treatment, however need translation from annual to quarterly rates. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1$.
+	Economic data is usually considered in per capita terms in order to account for different population dynamics (ref). Population dynamics are not continuously collected and usually a mix of actual measurement and imputation. As a result population data exhibits significant irregularities \cite{pfeifer_guide_2021}. Using such noisy records would distort the data of more carefully collected economic variables. Population data thus requires some preprocessing on its own. Smoothing the data with the Hodrick-Prescott (HP) filter's at a smoothing factor of 10,000 is recommended in order to de-noise the data \cite{edge_judging_2013}. The smoothed time series captures the real population dynamics and can then be used to obtain per capita variables. 
+	Having removed population dynamic and inflation the next step is to separate the cyclicality off trending variables. As DSGE models are defined in terms of log-deviations from the steady state, as such the data need to be transformed accordingly. This requires an identification of the steady state and its evolution over time. Separating the long-term trend of GDP from its cyclical deviations commonly relies on the HP filter. The filter separates trend and deviation. In the case of quarterly variables a smoothing parameter of 1600 is recommended \cite{ravn_adjusting_2002}. As DSGE models are log-linearised they describe deviation in terms of logarithm, which for small values approximates percentage deviations. In order to transform data into log-deviations from their underlying trend the HP filter is fed with log-transformed time series. This procedure by construction yields stationary time series of cyclicality. However, to comply with common standards stationarity is formally confirmed by the Augmented-Dickey Fuller test (ref). Having transformed all trending variables have into stationary log-deviation from their natural level only the percentage variables remain, namely inflation and interest rate. They require no such treatment, however need translation from annual to quarterly rates. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1$.
 	
-	An overview over the transformed variables as well as their descriptive statistics can be found in the (appendix).
-	
-		\input{{./graphs/data_descriptives.tex}}[H]		
-	
-	\subsection{Analysis of models}
-	The data used for the analysis spans from 1985 to 2020. Moreover, data from 1975 to 1985 have been used to derive parameter prior distribution from historical averages. 
-	As can be seen across the transformed GDP series \ref{fig:data} this period clearly spans three major economic crisis, the 2000 dot.com bubble, the 2008 financial crisis and most recently the Covid-19 pandemic. These carry forward to consumption, labour hours and investment where these extreme times can similarly be observed. 
-	When turning to the interest rate great differences across the sample period become apparent. The mid-80s still influenced by the Volker-shock have a comparability high interest rate when compared to the more recent low-interest environment starting as of 2009.
+	\input{{./graphs/data_descriptives.tex}}
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.9\textwidth]{data_variables_transformed.png}
-			\caption{Bayesian VAR 2 lags}
+			\caption{Log transformed HP filtered stationary data series}
 			\label{fig:data}
 		\end{center}
 	\end{figure}
-
-	Running a first two-lag Vector Autoregression (VAR) on output, consumption and labour reveals the difficulty of forecasting. Depicted in blue \ref{fig:var_2lag} shows systematic bias across output and consumption forecasts. Similarly labour hours are forecasted to be much more volatile than actually the case. A more comprehensive VAR model will be presented later in (section):
+	
+	\subsection{Analysis of models}
+	The data used for the analysis spans from 1985 to 2020. Moreover, data from 1975 to 1985 have been used to derive parameter prior distribution from historical averages. 
+	As can be seen across the transformed GDP series \ref{fig:data} this period spans across three major economic crisis, the 2000 dot.com bubble, the 2008 financial crisis and most recently the Covid-19 pandemic. These are similarly present across consumption, labour hours and investment. When turning to the interest rate great differences across the sample period become apparent. The mid-80s still influenced by the Volker-shock have a comparability high interest rates when compared to the more recent low-interest environment starting as of 2009.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.9\textwidth]{bvar_forecast1.png}
 			\caption{Bayesian VAR 2 lags}
-			\label{fig:var_2lag}
+			\label{fig:bvar_2lags}
 		\end{center}
 	\end{figure}
-	
-	
-	The initial success of RBC literature was based on the fact that a model was able to replicate data with the same first and second order moments as real data. For this purpose covariance matrices were compared, this work will follow this tradition. Looking into the model covariances large differences between the New-Keynesian models and the RBC become apparent. While 
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=\textwidth]{cov_matrix.png}
-			\caption{Covariance matrices}
-		\end{center}
-	\end{figure}
-	
-	Compare model covariance matrices, to actual covariance in data
-	Show theoretical impulse response functions, differences between NK and RBC
+	Running a first two-lag \ac{BVAR} on output $y$, consumption $c$ and labour $l$ reveals the difficulty of forecasting. Depicted in blue in Figure~\ref{fig:bvar_2lags} systematic bias across output and consumption forecasts becomes apparent. Similarly labour hours are forecasted to be much more volatile than actually the case. A more comprehensive \ac{VAR} model will be presented later in \nameref{forecast_bvar}. The initial success of RBC literature was based on the fact that a model was able to replicate data with the same first and second order moments as real data. For this purpose covariance matrices this work includes the covariance matrix for each of the above models as well as the data covariance matrix in \nameref{appa}.
 			
 	\section{Bayesian Estimation}
 	As explained in the above the RBC and NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1981 critique, as their parameters do not depend on behaviour of agents but describe their preferences \cite{lucas_jr_tobin_1981}. Parameters thus describe the time invariant dynamic system underling the economy. Evaluating the accuracy of such system is thus tied to evaluating its parameters in capturing the true dynamics \cite{herbst_bayesian_2016}. In this aim two main approaches of evaluation have been drawn up by research over time, frequentist or Bayesian methods. 
@@ -1013,7 +995,7 @@
 		\end{center}
 	\end{figure}
 
-	\subsubsection{BVAR}
+	\subsubsection{BVAR} \label{forecast_bvar}
 	Using a Vector Autoregression as reference model for comparing DSGE model forecasts has been commonly done across literature \cite{schorfheide_loss_2000, chin_bayesian_2019}. 
 	Naturally the BVAR does not provide confidence intervals like frequentist methods of forecasting. Instead model parameters are defined through a sampler, which in this case ran in four iterations. Sampling from these iterations yields the posterior coefficient distribution. Using several draws from the posterior then allows to derive information about the range of possible outcomes. This range can then be interpreted as a confidence interval (ref).  
 	A sample from the posterior is illustrated in blue \ref{fig:bvar}, while the mean of all samples is marked in red. The range of outcomes for output suggest bias in the forecast. They are note evenly distributed around the actual data series. Instead the range of outcomes underestimates output and also introduces additional volatility not matched by the actual observations. This is also the case for all other variables, additional volatility or classicality is introduced systematically across all forecasts. The forecast for the real interest rate after over correcting even moves in the opposite direction. 
@@ -1048,6 +1030,17 @@
 	
 	\pagebreak
 	\subsection*{Appendix A} \label{appa}
+	\input{{./graphs/fred_variables.tex}}
+	\input{{./graphs/priors_table.tex}}
+	
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[width=\textwidth]{cov_matrix.png}
+			\caption{Covariance matrices}
+			\label{fig:cov_matrix}
+		\end{center}
+	\end{figure}
+	
 
 %BVAR
 	\begin{figure}[H]
@@ -1062,9 +1055,8 @@
 %		\csvautotabular{{./graphs/priors_table.csv}}
 %	\end{center}
 %% tables
-%	\small \input{{./graphs/priors_table.tex}}
+%	\small 
 %	\input{{./graphs/fred_variables.tex}}
-%	\input{{./graphs/data_descriptives.tex}}
 	
 	\pagebreak
 	\subsection*{Appendix B} \label{appb}
