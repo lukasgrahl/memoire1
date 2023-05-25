@@ -19,7 +19,13 @@
 \usepackage{filecontents,catchfile}
 \usepackage{float}
 \usepackage{nameref}
-\usepackage[printonlyused,withpage]{acronym} % acronyms
+
+% acronyms
+\usepackage[printonlyused,withpage]{acronym}
+\renewenvironment{description}
+{\list{}{\labelwidth0pt\itemindent-\leftmargin
+		\parsep0pt\itemsep0pt\let\makelabel\descriptionlabel}}
+{\endlist}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -45,6 +51,7 @@
 	showtabs=false,                  
 	tabsize=2
 }
+
 
 \lstset{style=mystyle}
 % Default fixed font does not support bold face
@@ -94,7 +101,7 @@
 	\pagebreak
 
 	
-	\section{List of Acronyms}
+	\section*{List of Acronyms}
 	\begin{acronym}
 		\acro{USA}{United States of America}
 		\acro{DSGE}{Dynamic Stochastic General Equilibrium Model}
@@ -103,8 +110,11 @@
 		\acro{NKE}{New-Keynesian Energy Model}
 		\acro{GDP}{Gross Domestic Product}
 		\acro{MH-MCMC}{Metropolis-Hastings Monte Carlo Markov Chain}
-		
+		\acro{BVAR}{Bayesian Vector Autogreression}
+		\acro{VAR}{Vector Autoregression}
 	\end{acronym}
+	\listoffigures
+	\listoftables
 	\pagebreak
 	
 		
@@ -113,29 +123,21 @@
 	
 	
 	 \section{Introduction}
-	 The recent surge of energy prices and inflation has reintroduced questions about a connection between the two. The late 1970s oil shock caused a recession across most western economies. Later oil price shocks in the 90s and 2000s, despite being of similar magnitude, have not provoked the same economic response as its predecessor \cite{blanchard_macroeconomic_2007}. Recent events however, seem to exhibit similar consequences when compared to the 1970s oil shock with inflation appearing again linked to energy prices. This calls for a reevaluation of the literature on inflation dynamics. Research in this area has for much of the recent past relied on structural rational expectation models. These allow for an analysis of the transition mechanism of inflation, while allowing to take into account confounding factors. Oil prices can be seen as such confounding factor. Relying on structural models in analysing its effect on the inflation mechanism has thus a broad base in literature. This work draws from this past literature in applying it to recent events. In doing so three strains of literature are merged.
+	 The recent simultaneous surge in energy prices and inflation has reintroduced questions about a connection between the two. The late 1970s oil shock caused a recession across most western economies. Later oil price shocks in the 90s and 2000s, despite being of similar magnitude, did not match their predecessor's economic impact \cite{blanchard_macroeconomic_2007}. Recent events seem again to suggests similar strong implications of energy price shocks. Inflation appears again heavily influenced by energy prices. This calls for a reevaluation of the literature on inflation dynamics. Research in this area has for much of the recent past relied on structural rational expectation models. These analyse the transition mechanism of inflation, while allowing to take into account confounding factors such as oil prices. Relying on structural models in analysing its effect on the inflation mechanism has thus a broad base in literature. This work draws from this past literature in applying it to recent events. In doing so three strains of literature are merged, these are \ac{RBC} and \ac{NK} literature, Bayesian estimation of structural models and literature on structural models encompassing petrol. Literature on \ac{RBC} and \ac{NK} models, often also labelled \ac{DSGE} models,  where a response to the Lucas critique (1981) \cite{lucas_jr_tobin_1981}. They provided micro-based models in which parameters were not longer subject households behaviour but rather described their static preferences \cite{gali_monetary_2008}. This made them attractive for policy analysis, making them the predominant modelling approach in macroeconomics. In their success Bayesian estimation of structural models provided an important stepping stone. It linked \ac{DSGE} models to data by providing means of estimating the time independent model parameters. Moreover, it introduced methods of comparing the models' data generating process against real data allowing for further evaluation and forecasting \cite{del_negro_forming_2008}. This provided an new criteria to the evaluation of structural models \cite{kocherlakota_model_2007}. Lastly, a body of literature on the link between oil prices and inflation in structural models has emerged. This work will review this literature and draw from one model in particular \cite{blanchard_macroeconomic_2007}. 
 	 
-	 The first is literature on Real Business Cycle Theory (RBC) and New-Keynesian (NK) Dynamics Stochastic General Equilibrium (DSGE) models. In response to the Lucas critique (1981) the RBC literature arose in providing a micro-based model in which parameters are not subject to changes in households behaviour \cite{lucas_jr_tobin_1981}. The structural parameters of the model are rooted in the optimising behaviour of representative agents and consequently time independent. This allows for an analysis of economic response to policy, taking into account optimising behaviour. The RBC literature further contributed in providing an argument on business cycle efficiency. Previously seen as inefficient divergence from the steady state, the RBC model suggests that in absence of nominal rigidities business cycles are driven by technology innovation and consequently are efficient adjustments towards the economy's steady state \cite{christiano_current_1992}. 
-	 This notion of efficiency was then questioned by the New-Keynesian literature demonstrating that under nominal rigidities changes in the interest rate are not matched by immediate changes in expected inflation \cite{gali_monetary_2008}. Business cycles are thus driven by interventionist monetary policy, which causes the expectation gap, rendering cyclicity inefficient \cite{gali_monetary_2008}.	 
-	 Bayesian estimation of structural economic models is the second strain of literature contained in this work. It encompasses two aspects, the estimation of structural model parameters as well as an evaluation of structural model's data generating process. Comparing the data generating process against real data gives rise to some forecasting power \cite{del_negro_forming_2008}. This power is seen as an important criteria of evaluation for structural models \cite{kocherlakota_model_2007}. 	 
-	 Lastly, a body of literature on the link between oil prices and inflation in structural models has emerged. This work will review this literature and draw from one model in particular. Combing this with an RBC and New-Keynesian model as well as Bayesian estimation then is used to analyse the mechanism of inflation and its potential interaction with oil prices. 
+	 This work draws from the above in the purpose of analysing the inclusion of petrol prices into a DSGE framework and evaluating the pertinence of such exercise. In its evaluation this work will employ two standard models of macroeconomic literature, the RBC and NK model. Both will be compared to the petrol model in their fit to real data and forecasting performance. Lastly, a \ac{VAR} will be used as a forecasting benchmark. This work is organised as follows. First a literature review on structural models and their incorporation of oil price inflation will be provided. Three subsequent sections will be dedicated to developing the mathematical reasoning behind an RBC, the standard NK model and lastly the \ac{NKE} model. Having demonstrated the assumptions of drawing up structural models and linearising them this work will proceed in discussing the data used for the evaluation of these models. A fifth section will then be dedicated to introducing Bayesian estimation and forecasting procedures. The obtained estimation will the be discussed, while a final section will outline this work's results and its implications.
 	 
-	 The following will first review literature on structural models and the incorporation of the oil price inflation link. Three subsequent sections will then be dedicated to developing the mathematical reasoning behind an RBC, the standard New-Keynesian model and lastly the New-Keynesian model extended by petrol prices. Having demonstrated the assumptions in drawing up the structural models and transforming them it into linear systems this work will proceed in discussing the data used for the evaluation of these models. 
-	 A fifth section will then be dedicated to explaining the Bayesian estimation procedure for parameter identification as well as the forecasting ability arising from it. The estimation and its implementation will then be discussed leading to a seventh and final section discussing this works results and its implications.
-	 
-	\section{Literature}
+	\section{Literature Review}
+	The RBC literature was the first to arise, introducing structural models of time-invariant parameters. Its parameters are rooted in the optimising behaviour of representative agents and consequently convey their preferences. Preferences are thought off as time-invariant \ref{prescott_theory_1986}. The RBC literature further contributed in providing an argument on business cycle efficiency. Previously seen as inefficient divergence from the steady state, the RBC model suggests that in absence of nominal rigidities business cycles are driven by technology innovation and consequently are efficient adjustments towards the economy's steady state \cite{christiano_current_1992}. This notion of efficiency was subsequently questioned by New-Keynesian literature demonstrating that under nominal rigidities changes in the interest rate are not matched by immediate changes in expected inflation \cite{gali_monetary_2008}. Business cycles are thus driven by interventionist monetary policy, which causes the expectation gap, rendering cyclicity inefficient \cite{gali_monetary_2008}. Following the oil price induced stagflation crisis of the 1970s a rich body of economic literature has been dedicated to the effects of oil price on inflation and the economy at large \cite{barsky_oil_2002, bernanke_systematic_1997}. The majority of these approaches were empiric. The newly arisen DSGE literature was soon applied to questions of energy prices and inflation as well. In doing so two main approaches were pursued.
 	
-	Following the oil price induced stagflation crisis of the 1970s a rich body of economic literature has been dedicated to the effects of oil price on inflation and the economy at large \cite{barsky_oil_2002, bernanke_systematic_1997}. The majority of these approaches were empiric. The DSGE literature was the first to translate these findings into a theoretical model. In doing so two main approaches were pursued.
-	
-	Early analysis of oil prices and their interaction with the economy introduced petrol as an exogenous supply to the economy. As such models did not distinguish between crude oil and refined petrol imports. Instead, a unified petrol good enters the consumption basket consumption and is used as production input. The first such model was inspired by the differences in response to oil price shocks of similar in recent history \cite{macroeconomic_2007}. In order to reconcile this difference in one modelling framework a simple New-Keynesian model was extended by petrol. Across this model imperfectly competitive firms optimise with regards the amount of petrol used in their production. Households consume petrol as a fixed share of their consumption expenditure. The inflationary impact of exogenous petrol price is consequently driven through the elasticity of substitution between the production factors oil and labour \cite{blanchard_macroeconomic_2007}. As oil gets more expensive production costs rise and firms substitute petrol for labour. This place the firms elasticity of substitution at the heart of oil driven inflation dynamics. This first model has later been extended by in increasing the model in complexity. It was shown that the introduction of capital accumulation amplifies the stagflationary effects of petrol on the economy \cite{vasconez_what_nodate}. Advances in mainstream DSGE literature provided better ways of including wage rigidities into DSGE models by endowing households with wage setting power \cite{smets_shocks_2007}. This mechanism was then used to extend the model by including wage rigidities which factored into the firms elasticity of substitution \cite{leduc_quantitative_2004}. With petrol entering into the consumption basket, households are able to negotiate higher wages to make up for inflation. This broadened the channel of oil driven inflation \cite{leduc_quantitative_2004}.	However, this first approach to including petrol was much focussed on the analysis of short-run shocks. Assumptions such as a fixed petrol share in consumption is reasonable under such short-run perspective, as households struggle to quickly replace petrol consuming investment goods \cite{blanchard_macroeconomic_2007}. An exogenous oil price similarly is reasonable for the analysis of short-term shocks as prices surge exogenously. However, in order to analyse the effects of petrol in the long-run and under non-crisis regimes extensions of the model were required.\\
+	Early analysis of oil prices and their interaction with the economy introduced petrol as an exogenous supply to the economy. As such models did not distinguish between crude oil and refined petrol imports. Instead, a unified petrol good enters the consumption basket consumption and is used as production input. The first such model was inspired by the differences in response to oil price shocks of similar in recent history \cite{macroeconomic_2007}. In order to reconcile this difference in one modelling framework a simple New-Keynesian model was extended by petrol. Across this model imperfectly competitive firms optimise with regards the amount of petrol used in their production. Households consume petrol as a fixed share of their consumption expenditure. The inflationary impact of exogenous petrol price is consequently driven through the elasticity of substitution between the production factors oil and labour \cite{blanchard_macroeconomic_2007}. As oil gets more expensive production costs rise and firms substitute petrol for labour. This place the firms elasticity of substitution at the heart of oil driven inflation dynamics. This first model has later been extended by in increasing the model in complexity. It was shown that the introduction of capital accumulation amplifies the stagflationary effects of petrol on the economy \cite{vasconez_what_nodate}. Advances in mainstream DSGE literature provided better ways of including wage rigidities into DSGE models by endowing households with wage setting power \cite{smets_shocks_2007}. This mechanism was then used to extend the model by including wage rigidities which factored into the firms elasticity of substitution \cite{leduc_quantitative_2004}. With petrol entering into the consumption basket, households are able to negotiate higher wages to make up for inflation. This broadened the channel of oil driven inflation \cite{leduc_quantitative_2004}.	However, this first approach to including petrol was much focussed on the analysis of short-run shocks. Assumptions such as a fixed petrol share in consumption is reasonable under such short-run perspective, as households struggle to quickly replace petrol consuming investment goods \cite{blanchard_macroeconomic_2007}. An exogenous oil price similarly is reasonable for the analysis of short-term shocks as prices surge exogenously. However, in order to analyse the effects of petrol in the long-run and under non-crisis regimes extensions of the model were required.
 	
 	This leads to the second stream of literature. With the adoption of DSGE modelling across many central banks complex models tailored to the conditions of national economies came about. Soon petrol was introduced as an important aspect to these models. Pioneered by the Bank of England (BoE) the small open economy model of the BoE was extend by oil \cite{harrison_evaluating_2010, harrison_impact_2011}. This introduced endogenous oil production in a small open economy \cite{harrison_impact_2011}. The model further introduced a distinction between crude oil and refined petrol, whereas the latter results from a separate sector of production. This is complemented by a utility sector, modelling the effect of gas prices on marginal electricity production \cite{harrison_impact_2011}. Both refined petrol and utilities factor into the consumption basket as well as into the domestic production sector. Consequently, the petrol inflation channel assumes a more complex dynamic, operating through production and household wage negotiation \cite{harrison_impact_2011}. Moreover, the possibility to trade has important implications since with rising petrol prices a substitution away from oil also allows for trading non-utilised domestic oil production. Substitution not only avoids higher cost but turns into a source of revenue, an important aspect for long-run dynamics of petrol utilisation \cite{harrison_impact_2011}. Following the BoE much research has been conducted in tailoring models, containing amongst many other factor petrol, to the specific dynamics of national economies \cite{lees_introducing_2009, malakhovskaya_are_2014, hou_oil_2016}. 
 	
-	
-	The purpose of this work is the analysis of petrol prices and in their interaction with inflation in light of the recent surge in energy prices. This work will therefore employing the model of Blanchard \& Galì (2008) as it is focussing on the foundation of the petrol inflation interaction \cite{blanchard_macroeconomic_2007}. Later approaches as outlined in the above aim at a comprehensive analysis of the economy. In doing so they confound many factors, not allowing for the clear cut analysis of the basic mechanism behind oil price inflation.
+	As this work's purpose is an analysis of petrol prices and their interaction with inflation it will rely on the model of Blanchard \& Galì (2008) \cite{blanchard_macroeconomic_2007}. This model focusses on the foundation of petrol inflation interaction while later approaches aim at a comprehensive analysis of the economy. In doing so more complex models confound many factors, not allowing for the clear cut analysis of the basic mechanism behind oil price inflation.
 	
 	\section{Real Business Cycle model}
-	The Real Business Cycle model (RBC) was first introduced by \cite{prescott_theory_1986} providing an explanation to the origin of business cycles. Departing from Schumpeterian technology induced growth the RBC model is at its heart a de-trended growth model emphasising the link between technology growth and total factor productivity. It argues that technological innovation increases productivity and raises real wages and return to capital. The resulting increase in income leads to the efficient adjustment of the economy to its new optimum \cite{prescott_theory_1986}. 
+	The Real Business Cycle model (RBC) was first introduced by Prescott (1986) \cite{prescott_theory_1986} providing an explanation to the origin of business cycles. Departing from Schumpeterian technology induced growth the RBC model is at its heart a de-trended growth model emphasising the link between technology growth and total factor productivity. It argues that technological innovation increases productivity and raises real wages and return to capital. The resulting increase in income leads to the efficient adjustment of the economy to its new optimum \cite{prescott_theory_1986}. 
 	In making this argument several assumption are required. These are namely perfect competition, flexible prices and the use of an identical production technology across firms. 
 	While the argument of efficient business cycles is antithetical to the New-Keynesian literature, who regards business cycles as inefficient, both models share a the mathematical foundation. The following will therefore derive an RBC model laying the foundation for the standard New-Keynesian model.
 	
@@ -188,42 +190,50 @@
 		\end{aligned}
 	\end{equation}
 
-	The derived system of equations [\ref{eq:rbc_eqil}, \ref{eq:rbc_firm_foc}, \ref{eq:rbc_hh_foc}] in its current state is non-linear. This is due to the multiplicative Cobb-Douglas production function and the evolution of capital as a state variable without full depreciation \cite{campbell_inspecting_1994}. In order to be able to analyse the system in its behaviour around the equilibrium as well as to link the system to data some form of linearisation is needed. This method of linearisation has significant impact the when relating models to real data (ref) (Taylor  Uhlig, 1990). The most common approach adopted across literature is a log-linear first order Taylor approximation \cite{campbell_inspecting_1994}. This work will follow suit.
+	The derived system of equations \eqref{eq:rbc_eqil} \eqref{eq:rbc_firm_foc}, \eqref{eq:rbc_hh_foc} in its current state is non-linear. This is due to the multiplicative Cobb-Douglas production function and the evolution of capital as a state variable without full depreciation \cite{campbell_inspecting_1994}. In order to be able to analyse the system in its behaviour around the equilibrium as well as to link the system to data some form of linearisation is needed. This method of linearisation has significant impact the when relating models to real data (ref) (Taylor  Uhlig, 1990). The most common approach adopted across literature is a log-linear first order Taylor approximation \cite{campbell_inspecting_1994}. This work will follow suit.
 % put into appendix
 	Deriving the log-linearisation requires some additional reasoning which is provided in the \nameref{appc}.
 	
-	\begin{tabular}{llr}
-		\textbf{Equation name} & Equation & \textbf{Log-linear expression}\\
-		\hline
-		Euler equation &
-		$\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right]$ &
-		$\hat{c}_t = \hat{c}_{t+1} - \hat{r}_{t+1}$ \\
-		Capital supply & 
-		$K_t = (1 - delta) K_{t-1} + I_t$ &
-		$\hat{i}_t = \delta \hat{k}_{t+1} - \frac{1-\delta}{\delta} \hat{k}_t$ \\
-		Capital demand &
-		$\hat{y}_t - \hat{k}_t = \hat{r}_t$ &
-		$K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}$ \\
-		Labour supply & 
-		$- \frac{U_{n,t}}{U_{c, t}} = W_t$ &
-		$\hat{c}_t = \hat{w}_t - \frac{\bar{l}}{1-\bar{l}} \hat{l}_t$ \\
-		Labour demand &
-		 $W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}$ & 
-		 $\hat{y}_t - \hat{l}_t = \hat{w}_t$ \\
-		Production function &
-		$Y_t = A_t K_t^\alpha N_t^{1 - \alpha}$  &
-		$\hat{y}_t = \hat{a}_t + \alpha \hat{k}_t + (1-\alpha) \hat{l}_t$ \\
-		Equilibrium condition &
-		$Y_t = C_t + I_t$ &
-		 $\hat{y}_t = \frac{\bar{y}}{\bar{c}} \hat{c}_t + \frac{\bar{i}}{\bar{y}} \hat{i}_t$ \\
-		Technology &
-		 $\log(A_t) = (1- \rho_A) \log(\bar{A}) + \rho_A \log(A_{t-1}) + \epsilon_t^A$ &
-		 $\hat{a}_t = \rho_a \hat{a}_{t-1} + \epsilon_{a,t}$ \\
-	\end{tabular}
+	\begin{table}
+		\caption{RBC Equations}
+		\fontsize{9pt}{9pt}\selectfont
+		\centering
+		\begin{tabular}{llr}
+			\textbf{Equation name} & Equation & \textbf{Log-linear expression}\\
+			\hline
+			Euler equation &
+			$\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right]$ &
+			$\hat{c}_t = \hat{c}_{t+1} - \hat{r}_{t+1}$ \\
+			Capital supply & 
+			$K_t = (1 - delta) K_{t-1} + I_t$ &
+			$\hat{i}_t = \delta \hat{k}_{t+1} - \frac{1-\delta}{\delta} \hat{k}_t$ \\
+			Capital demand &
+			$\hat{y}_t - \hat{k}_t = \hat{r}_t$ &
+			$K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}$ \\
+			Labour supply & 
+			$- \frac{U_{n,t}}{U_{c, t}} = W_t$ &
+			$\hat{c}_t = \hat{w}_t - \frac{\bar{l}}{1-\bar{l}} \hat{l}_t$ \\
+			Labour demand &
+			 $W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}$ & 
+			 $\hat{y}_t - \hat{l}_t = \hat{w}_t$ \\
+			Production function &
+			$Y_t = A_t K_t^\alpha N_t^{1 - \alpha}$  &
+			$\hat{y}_t = \hat{a}_t + \alpha \hat{k}_t + (1-\alpha) \hat{l}_t$ \\
+			Equilibrium condition &
+			$Y_t = C_t + I_t$ &
+			 $\hat{y}_t = \frac{\bar{y}}{\bar{c}} \hat{c}_t + \frac{\bar{i}}{\bar{y}} \hat{i}_t$ \\
+			Technology &
+			 $\log(A_t) = (1- \rho_A) \log(\bar{A}) + \rho_A \log(A_{t-1}) + \epsilon_t^A$ &
+			 $\hat{a}_t = \rho_a \hat{a}_{t-1} + \epsilon_{a,t}$ \\
+		\end{tabular}
+	\end{table}
 	
 	The above linearisation still contains steady state values indicated as $\bar{x}$. In order to express the model as a linear system these have to be replaced with their respective deterministic values. However, the RBC model under separable consumption labour utility, does not possess a deterministic steady state for labour (ref). This issues has often been circumvented by relying on a logarithmic specification of household utility \cite{campbell_inspecting_1994} \footnote{In the work of Campbell the analytical derivation relies on a log-utility function}. However, the purpose of this work is a comparison between an RBC and New-Keynesian models. The latter traditionally rely on separable utility, wherefore this work will use separable utility for the RBC as well, in order allow for comparison on similar basis. In order to provide further analysis the below will express the steady state values as ratios of labour \cite{prescott_theory_1986}. The deterministic labour ratios for the RBC model are as below.
 	
-	\begin{center}
+	\begin{table}[H]
+		\fontsize{9pt}{9pt}\selectfont
+		\centering
+		\caption{RBC steady state}
 		\begin{tabular}{lr}
 			\textbf{Variable} & \textbf{Deterministic steady state}\\
 			\hline 
@@ -233,8 +243,8 @@
 			Investment labour ratio & $\frac{\bar{I}}{\bar{L}} = \delta \KLss$ \\
 			Output labour ratio & $\frac{\bar{Y}}{\bar{L}} = \Ass \left(\KLss\right)^\alpha$ \\
 			Consumption labour ratio & $\frac{\bar{C}}{\bar{L}} = \frac{\bar{Y}}{\bar{L}} - \frac{\bar{I}}{\bar{L}}$ \\
-		\end{tabular}\\
-	\end{center}
+		\end{tabular}
+	\end{table}
 
 	In order to obtain a linear state-space representation of the RBC model a numerical approximation of the steady state for the value of labour $\bar{l}$ is required. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in the \nameref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \nameref{appc}. 
 
@@ -342,7 +352,7 @@
 		\end{aligned}
 	\end{equation}
 	
-	Inserting the budget constraint and the discount factor as defined by the Euler condition \ref{eq:nk_hh_foc} results in:
+	Inserting the budget constraint and the discount factor as defined by the Euler condition \eqref{eq:nk_hh_foc} results in:
 	\begin{equation}
 		\frac{\hat{P}_t}{P_t} = \frac{\epsilon}{\epsilon-1} 
 		\frac{
@@ -351,7 +361,7 @@
 		\E_t \sum_{k=0}^{\infty} \theta^k \beta^k C_{t+k}^{1-\sigma} (\frac{P_{t+k}}{P_t})^{\epsilon-1}
 		}
 	\end{equation}
-	The above describes the mark-up of the optimal price $\hat{P}_t$ beyond the price level CPI. The difference between the two directly drives inflation as it implies a higher price level as can be seen in \ref{eq: inflation}. 
+	The above describes the mark-up of the optimal price $\hat{P}_t$ beyond the price level CPI. The difference between the two directly drives inflation as it implies a higher price level as can be seen in \eqref{eq: inflation}. 
 	In the steady state inflation is zero by definition, implying that no firm resets prices. This is equivalent to saying that $\theta=0$. Multiplying the above by $P_t$ and setting $\theta=0$ results in $\hat{P}_t = \frac{\epsilon}{\epsilon-1} MC_t^n$. This allows to derive an important aspect to the NK model, the price-mark up over nominal marginal cost in the steady state. Firms are endowed with market power, allowing them to set a mark up above marginal cost. The real marginal defined as $MC_t^r \equiv \frac{MC_t^n}{P_t}$ cost can thus be derived. It is important to note that $MC^r$ are the real marginal cost in the steady state, wherefore they are time independent. They are complemented by $MC_t^r$, the time depended marginal cost, which can deviate from their steady state value leading to the gap of $\hat{MC}_t^r \equiv MC_t^r - MC^r$.
 	\begin{equation}
 		MC^r = \frac{\epsilon}{\epsilon-1}
@@ -361,7 +371,7 @@
 	\subsubsection{Equilibrium conditions}
 	To this point a number of optimal choices have been derived. The households decides on the consumption basket and consumption-leisure trade-off. The firm sets the optimal price and consequently mark-up over nominal marginal costs, yielding an expression for inflation. Having derived the optimality conditions for all agents the model now requires market clearing condition to describe their interaction. This is based on accounting identity on individual good and production level $Y_{it} = C_{it}$. In order to close the model one needs to demonstrate, that this property on individual goods level translates in the global property $Y_t = C_t$.
 	
-	Output $Y_t$ is defined as an aggregator function. The accounting identity combined with \ref{eq: cshare} allows to link $Y_t$ to the the price level, allowing to demonstrate that $Y_t = C_t$ holds.
+	Output $Y_t$ is defined as an aggregator function. The accounting identity combined with \eqref{eq: cshare} allows to link $Y_t$ to the the price level, allowing to demonstrate that $Y_t = C_t$ holds.
 	\begin{equation}
 			Y_t = 
 			\left( 
@@ -420,7 +430,7 @@
 
 	\subsubsection{New Keynesian Phillips and IS curve}
 	
-	The next step is the derivation of an expression for real marginal cost $mr_{t}^r$ contained in the optimal price setting. In the absence of other production factors the marginal product of labour $MPN_t = \frac{\partial Y}{\partial N} = A_t (1- \alpha) N_t^{-\alpha}$ corresponds to nominal marginal cost $mc_t^n$. Real marginal cost can thus be obtained from $MC_t^r = \frac{W_t}{P_t MCN_t}$. This allows to formulate the below property in logs by including the production function \ref{eq:llprod}.
+	The next step is the derivation of an expression for real marginal cost $mr_{t}^r$ contained in the optimal price setting. In the absence of other production factors the marginal product of labour $MPN_t = \frac{\partial Y}{\partial N} = A_t (1- \alpha) N_t^{-\alpha}$ corresponds to nominal marginal cost $mc_t^n$. Real marginal cost can thus be obtained from $MC_t^r = \frac{W_t}{P_t MCN_t}$. This allows to formulate the below property in logs by including the production function \eqref{eq:llprod}.
 	\begin{equation}
 		\begin{aligned}
 			mc_t^r = w_t - p_t - a_t - mpn_t \\
@@ -429,7 +439,7 @@
 		\end{aligned}
 	\end{equation}
 	This expression is at the provides the basis for two essential conclusions. 
-	Firstly, it allows to derive a relation between $mc_t^r$ and output $y_t$. Using labour supply \ref{eq:llslabour} and the production function \ref{eq:llprod} one can rephrase the above as. 
+	Firstly, it allows to derive a relation between $mc_t^r$ and output $y_t$. Using labour supply \eqref{eq:llslabour} and the production function \eqref{eq:llprod} one can rephrase the above as. 
 	\begin{equation}
 		\begin{aligned}
 			mc_t^r = \sigma c_t + \phi n_t - [a_t + \alpha n_t + \ln(1-\alpha)] \\
@@ -455,7 +465,7 @@
 			{1 - \alpha)} (y_t - y_t^n)
 		\end{aligned}
 	\end{equation}
-	The second insight arising from the real marginal cost is its translation in period $t+k$. Combining this with the share of consumption good $i$ in the overall basket as well as the market clearing condition \ref{eq:lleq} logs gives 
+	The second insight arising from the real marginal cost is its translation in period $t+k$. Combining this with the share of consumption good $i$ in the overall basket as well as the market clearing condition \eqref{eq:lleq} logs gives 
 % mc_{t+l}^r = w_{t+k} - p_{t+k} - \frac{a_ {t+k} - \alpha y_{i,t+k|t}}{1 - \alpha} - \ln(1 - \alpha)
 % check this
 	\begin{equation}
@@ -491,14 +501,14 @@
 		\pi_t = \beta E_t [\pi_{t+1}] + \lambda \hat{mc}_{t}
 	\end{equation}
 
-	The above combined with \ref{eq:llmcrhat} allows to construct the New-Keynesian Phillips curve, on of the two core equations of the NK model.\footnote{where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}{1 - \alpha)}$}
+	The above combined with \eqref{eq:llmcrhat} allows to construct the New-Keynesian Phillips curve, on of the two core equations of the NK model.\footnote{where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}{1 - \alpha)}$}
 	\begin{equation} \label{eq:llnkp}
 		\begin{aligned}
 			\pi_t = \beta E_t [\pi_{t+1}] + \kappa \tilde{y}_t
 		\end{aligned}
 	\end{equation}
 	
-	The second core equation of the New-Keynesian model is derived from the Euler equation \ref{eq:lleuler}, the equilibrium condition \ref{eq:lleq} and the log linear Fisher identity $r_t \equiv i_t - \E_t[\pi_{t+1}]$. Inserting $y_t$ for $c_t$ and introducing the difference between output and its natural level as $\tilde{y}_t \equiv y_t - y_t^n$ allows to write
+	The second core equation of the New-Keynesian model is derived from the Euler equation \eqref{eq:lleuler}, the equilibrium condition \eqref{eq:lleq} and the log linear Fisher identity $r_t \equiv i_t - \E_t[\pi_{t+1}]$. Inserting $y_t$ for $c_t$ and introducing the difference between output and its natural level as $\tilde{y}_t \equiv y_t - y_t^n$ allows to write
 	\begin{equation}
 		\tilde{y}_t = 
 		\left[
@@ -581,7 +591,7 @@
 			= P_{q,t} S_t^\chi
 	\end{equation}
 		
-	Following this reasoning and using \ref{eq:o_pcon} overall consumption can be written as 
+	Following this reasoning and using \eqref{eq:o_pcon} overall consumption can be written as 
 	\begin{equation}
 		C_t P_{c,t} = C_{m,t}P_{m,t} + C_{q,t}P_{q,t}
 	\end{equation}
@@ -825,10 +835,10 @@
 %	 DSGE literature has developed a rich body of literature covering the case of the canonical DSGE model rather well (ref). The state of research is currently concerned with the estimation of larger models and non-linear and not normally distributed posterior distributions (ref). However, given the simplicity of the above discussed models current techniques are more than sufficient for this thesis purposes.
 		
 	\subsection{Kalman Filter}
-	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous held knowledge to the posterior \cite{herbst_bayesian_2016}. In this an expression of conditional likelihood is needed \ref{eq:blaw}. In obtaining the likelihood of a linear system one can make use of the fact that the system is itself a data generating process \cite{andrews_kalman_2008}. The likelihood function is obtained through evaluating the probability of a given data series being generated by the system. 
+	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous held knowledge to the posterior \cite{herbst_bayesian_2016}. In this an expression of conditional likelihood is needed \eqref{eq:blaw}. In obtaining the likelihood of a linear system one can make use of the fact that the system is itself a data generating process \cite{andrews_kalman_2008}. The likelihood function is obtained through evaluating the probability of a given data series being generated by the system. 
 	A method allowing to do so is the Kalman filter, a method originally developed for tracking moving objects across several sensors \cite{kalman_new_1960}. In order to track any object the filter requires the object's position and velocity to be described in a linear system. The filter then uses this system and sensor data to form a believe about the object's position, also referred to as the system's state \cite{andrews_kalman_2008}. Applied to DSGE modelling the system is the above derived model and its state are the magnitude to which the variables deviate from their respective steady state.	
 	In forming a believe about the system states the filter takes into account that sensor signals are inherently noisy. The Kalman filter exploits its knowledge about the nature of this measurement noise in using it to reduce the variance of its believe about the current system state \cite{andrews_kalman_2008}. In doing so the Kalman filter imposes the assumption of Gaussian distributed noise \cite{kalman_new_1960}. This assumption makes use of the fact that multiplying Gaussian distributions results in another Gaussian distribution with lower or equal variance. Decreasing a distribution's variance is equivalent to narrowing down the believe about the current state of the tracked object. Applied to DSGE modelling the assumption of Gaussian noise implies that the joint distribution of model shocks must be Gaussian \cite{herbst_bayesian_2016}. This is satisfied for small scale New Keynesian models if the individual shocks are Gaussian \cite{herbst_bayesian_2016}. 	
-	Moreover, the Kalman filter is especially desirable as it translates its believe about a system's state into a likelihood. The below will briefly explain how the filter operates as well as its construction of the likelihood function. In implementing the below in code this has drawn from filterpy, a library for Bayesian filtering (ref).
+	The Kalman filter is especially desirable for two properties. For one it translates its believe about a system's state into a likelihood function \cite{kalman_new_1960}. Moreover, it is the optimal forecast for a linear system \cite{kalman_new_1960}. The below will briefly explain how the filter operates as well as its construction of the likelihood function. In implementing the below in code this has drawn from filterpy, a library for Bayesian filtering (ref).
 	
 	In a generic linear system with transition matrix $\matr{F}$, the state variables $\matr{X}_{k-1}$ is propagated to $\matr{X}_k$. The shock noise matrix $\matr N$ describes the effect of shocks on the transition process. In forming a believe about the current state $\matr{X}_k$ the Kalman filter proceeds in two steps, a forecast and an update step.
 	\begin{equation}
@@ -838,7 +848,7 @@
 		\end{aligned}
 	\end{equation}
 	
-	\subsubsection{Kalman forecast step}
+	\subsubsection{Kalman forecast step} \label{kalman_forecast_step}
 	In the forecast step the Kalman filter propagates system $\matr X_{k}$ according to the transition matrix $\matr F$. The propagation then yields a believe about the state given $\matr{\hat{X}}_{k|k-1}$ state given information from period $k-1$.
 	\[
 		\matr{\hat{X}}_{k|k-1} = \matr F \matr X_{k-1|k-1}
@@ -895,14 +905,13 @@
 		\end{aligned}
 	\end{equation}
 	Across the law of motion the \ac{MH-MCMC} sampler employs the gain parameter $\eta$ which essentially scales the distance of the new posterior candidate away from the last accepted candidate $\matr{\Theta}_{k-1|k-1}$. This value has been calibrated to be $\eta \in [0.2, 04.]$ \cite{gelman_weak_1997}. Generally the value of $\eta$ should correspond to an acceptance rate between 20\% and 40\% of suggested draws \cite{herbst_bayesian_2016}. This work puts $\eta$ at 0.25 which yields an acceptance rate of around 30\% for each model.
-	A new posterior candidate $\matr{\hat{\Theta}}_{k|k-1}$ is once obtained evaluated through the Kalman likelihood. This yields the likelihood of the candidate given the data $\matr Y$.
+	A new posterior candidate $\matr{\hat{\Theta}}_{k|k-1}$ is once obtained evaluated through the Kalman likelihood. This yields the likelihood of the candidate given the data $\matr{Y}_T$.
 	\[
 		 \Lagr(Y| \matr{\hat{\Theta}}_{k|k-1})
 	\]
 	Once the likelihood is obtained the algorithm proceeds into the two step acceptance procedure \cite{guerron-quintana_bayesian_2013}. First the likelihood of candidate $\hat{\Theta}_{k|k-1}$ is compared to the most recently accepted posterior. According to Bayes' law this allows to determine whether this draw constitutes an improvement in likelihood.	
 	\begin{equation}
-		\omega_k = \min \frac{ \Lagr(Y|\matr{\hat{\Theta}}_{k|k-1}) }{1}
-%		P(\matr{\hat{\Theta}}_{k|k-1}) }{ \Lagr(Y| \matr{\Theta}_{k-1|k-1} ) P(\matr{\Theta}_{k-1|k-1}) ,1 
+		\omega_k = \min \quad \left\{ \frac{ \Lagr(Y|\matr{\hat{\Theta}}_{k|k-1}) P(\matr{\hat{\Theta}}_{k|k-1})}{\Lagr(Y| \matr{\Theta}_{k-1|k-1})  P(\matr{\Theta}_{k-1|k-1})}, 1 \right\}
 	\end{equation}
 	In a second step the likelihood ratio $\omega_k$ is randomly accepted if above uniform random variable $\phi \sim U(0, 1)$. If $\omega_k \leq \phi_k$ the draw is accepted and the candidate is assumed into the posterior. This process is repeated $N$ times generating the a posterior sample. 
 % check number of sampler runs
@@ -911,14 +920,10 @@
 	The MH random walk is highly susceptible to miss-specification of the posterior of the prior distribution is far away from the true posterior \cite{herbst_bayesian_2016}.
 			
 	\subsection{Priors}
-	In response to the Lucas critique (ref) DSGE models were build around structural time invariant parameters. They summarise agent preferences impacting behaviour and do not describe time dependent dynamics in the short-run. 
-	Parameters thus are a statistical distributions of preferences, forming the joint distribution of preferences. This joint distribution is usually impossible to evaluate. Instead parameters are individually analysed and distributions reflecting independent and prior knowledge are assigned \cite{del_negro_forming_2008}.	
-	The notion of independence is important in tow ways. Firstly, only if the data used to construct the priors is independent of the likelihood mechanism the resulting posterior is unbiased. This condition is fulfilled if the data for prior formation at least pre-dates the of the likelihood evaluation \cite{herbst_bayesian_2016}. Secondly, assuming independence between parameters is reasonable within limits. Especially, shocks do not necessarily occur independently \cite{herbst_bayesian_2016}. However, this is usually only a problem for larger models with several shocks. As this work analyses the canonical model shock independence is of no concern. The later will therefore focus on identifying priors based on independent information. 	
-%	In respecting this there are two main strategies in choosing priors. Priors are either computed from historical data. This is the case for tangible priors matched by real data, such as discount factor or production factor shares. Parameters describing more intricate behavioural preferences usually rely on micro-evidence instead. This is the case for the labour supply elasticity. 
-	The below will follow the approach of \cite{del_negro_forming_2008}, dividing priors into three groups in order to obtain eligible distributions. An overview on all prior distributions can be found in der appendix \ref{appb}.
+	In response to the Lucas critique \ac{DSGE} models were build around structural time invariant parameters \cite{lucas_jr_tobin_1981}. Consequently, parameters can be expressed as a joint distribution of preferences, which in its entirety is usually impossible to evaluate \cite{del_negro_forming_2008}. Instead parameters are analysed in building individual prior distributions reflecting independent and prior knowledge about them \cite{del_negro_forming_2008}. Here the notion of independence is important in tow ways. Firstly, only if the data used to construct the priors is independent of the likelihood mechanism the resulting posterior is unbiased \cite{del_negro_forming_2008}. This condition is fulfilled if the data for prior formation at least pre-dates the of the likelihood evaluation \cite{herbst_bayesian_2016}. Secondly, assuming independence between parameters is only reasonable within limits, as shocks do not necessarily occur independently \cite{herbst_bayesian_2016}. However, the latter only poses a problem for large multi-shock models. This work analyses the canonical singular shock model and is thus unconcerned by this second issues. The below will therefore focus on identifying priors based on independent information. In doing so the approach of Del Negro \& Schorfheide (2008), dividing priors into three groups for analysis, will be followed \cite{del_negro_forming_2008}. Graph summarising the prior to posterior transition can be found here [\ref{fig:rbcpp}, \ref{fig:nk5pp}, \ref{fig:nk6pp}]. Across the following sections each prior group will be briefly outlined and its posterior transition will be analysed. An overview of all priors distributions can be found in the appendix \ref{appb}. 
 	
 	\subsubsection{Steady state priors}
-	The steady state priors can be easily identified from the steady state or long-run relationship of model variables. They are also referred to as great  ratios' \cite{kydland_time_1982}.
+	The group of steady state priors can be easily identified from long-run relationship of model variables. These relationships, such as the labour or capital share are also sometimes referred to as the 'great ratios' \cite{kydland_time_1982}. For the models in question the steady state parameters are: 
 	\begin{equation}
 		\begin{aligned}
 			\Theta_{ss}^{RBC} = \{ \alpha, \beta, \delta \} \\
@@ -926,17 +931,14 @@
 			\Theta_{ss}^{NKE} = \{\alpha_m, \alpha_n, \beta, \theta, \chi \} \\
 		\end{aligned}
 	\end{equation}
-	The time discount factor $\beta$ is usually not calibrated, as it results directly from the inverse of the interest rate. The pre-1985 data used to estimate prior distributions puts $\beta$ to 0.995. \\
+	The time discount factor $\beta$ is usually not calibrated, as it results directly from the inverse of the interest rate \cite{guerron-quintana_bayesian_2013}. The pre-1985 data used to estimate prior distributions puts $\beta$ to 0.995.	
 	The capital share can be derived from the long-run share in industrialised nations. For smaller models using a uniform distribution covering the possible parameter interval $\alpha \in [0,1[$ is suggested \cite{del_negro_forming_2008}. In the RBC $\alpha$'s posterior converges from a uniform to a centred distribution \ref{fig:rbcpp}. While this is still rather broad and far off the empirical value of 33\% it is indication of convergence towards the true posterior \ref{fig:rbcpp}.
 	For both New-Keynesian models a more targeted distribution has been used to ensure steady state existence \cite{guerron-quintana_bayesian_2013}. Consequently the values for $\alpha$ are more left skewed \ref{fig:nk5pp}. Interestingly enough the calibration of the NKE greatly overestimates the share of oil in production which by \cite{blanchard_macroeconomic_2007} is reckoned at below 5\% \ref{fig:nk6pp}. The labour share in production is more reasonable but also off the empirical estimate of 0.7 \cite{blanchard_macroeconomic_2007}.
-	
 	The depreciation rate $\delta$ while rather high in the posterior has yet assumed reasonable values in limiting its posterior to below 0.8 \ref{fig:rbcpp}. This indicates some convergence to the real prior, while still being far from empirically estimated values of 2.5\% per quarter \cite{campbell_inspecting_1994}.
-	
 	The price setting probability $\theta \in [0,1]$ has reasonable estimates in the NK model \ref{fig:nk5pp}. Its mean is around 0.8 which corresponds to an average price duration of roughly four month, close to the empirical estimate \cite{blanchard_macroeconomic_2007}. This is not the case for the NKE model where $\theta$ exceeds one, which as a probability is impossible. The NKE estimates are much more accurate for the share of petrol in consumption, whose posterior remains close to the empirical mean of 1.7\% \cite{blanchard_macroeconomic_2007}.
 
 	\subsubsection{Exogenous prior}
-	Exogenous priors contain the exogenous law of motion and standard deviation of shocks. In a simple model with singular shocks the shock first and second order moments can be directly from the economic variables that are affected by it \cite{del_negro_forming_2008}. This work thus calibrated the shock standard deviation based on the variance of output. Moreover, in setting the autoregressive parameter this work draws from the distributions suggested by \cite{vasconez_what_nodate}. Looking across the posterior all estimates for $\rho$ are bounded at one. While this might appear to be a successful identification this is merely due to the stability requirement of the dynamic system. If $\rho \in ]-1,1[$ is violated the dynamic system does not exhibit stability and the Blanchard-Kahn conditions of stability are violated. The high variance of the posterior thus indicates problems in the identification of the posterior. However, its skewness towards higher values seems to confirm the prior assumption of relatively time persistent shocks. 
-	
+	Exogenous priors contain the exogenous law of motion and standard deviation of shocks. In a simple model with singular shocks they can be identified from the first and second order moments of the economic variables affected by the shocks \cite{del_negro_forming_2008}. This work thus calibrated the shock standard deviation based on the variance of pre-1985 output cyclicality amounting to 0.0243. Moreover, in setting the autoregressive parameter this work draws from the distributions suggested by \cite{vasconez_what_nodate}. Looking across the posterior all estimates for $\rho$ are bounded at one. While this might appear to be a successful identification this is merely due to the stability requirement of the dynamic system. If $\rho \in \quad ]-1,1[ $ is violated the dynamic system is not stable and thus cannot be solved, leading the sampler to discard any value $|\rho| > 1$. The high variance of the posterior thus indicates problems of identification. However, its skewness towards higher values seems to confirm the prior assumption of relatively time persistent shocks across all models \ref{fig:nk5pp}
 	\begin{equation}
 		\begin{aligned}
 			\Theta_{exog}^{RBC} = \{\rho_A \} \\
@@ -954,58 +956,35 @@
 			\Theta_{endog}^{NKE} = \{\epsilon, \phi_{y}\}
 		\end{aligned}
 	\end{equation}
-	
-	
-	The elasticity of substitution $\sigma_C$ and $\sigma_L$ belong in this category. In setting their prior distribution this work relied on the recommendation from \cite{del_negro_forming_2008}. For the RBC the posterior values demonstrate large spreads indicating that the MH sampler did not identify the posterior correctly \ref{fig:rbcpp}. Even larger dispersion can be observed for the NK model \ref{fig:nk5pp} \footnote{ In the NKE model the labour and consumption elasticities do not enter into the log-linear model specification due to the log-utilty function}. This occurs frequently as the consumption and labour elasticity are parameters with low influence on the transition dynamics \cite{guerron-quintana_bayesian_2013}. Consequently they are dominated by stronger parameters in the likelihood function and the posterior identification fails for these variables.
-	
+		
+	The elasticity of substitution $\sigma_C$ and $\sigma_L$ belong in this category. In setting their prior distribution this work relied on the recommendation from \cite{del_negro_forming_2008}. For the RBC the posterior values demonstrate large spreads indicating that the MH sampler did not identify the posterior correctly \ref{fig:rbcpp}. Even larger dispersion can be observed for the NK model \ref{fig:nk5pp} \footnote{ In the \ac{NKE} model the labour and consumption elasticities do not enter into the log-linear model specification due to the log-utility function}. This occurs frequently as the consumption and labour elasticity are parameters with low influence on the transition dynamics \cite{guerron-quintana_bayesian_2013}. Consequently they are dominated by stronger parameters in the likelihood function and the posterior identification fails for these variables.
 	The elasticity of substitution $\epsilon$ originates from the Dixit-Stiglitz aggregator and factors into the steady-state mark-up of firms. As such it is one of the driving parameters behind inflation and strong in its influence on the transition dynamics. In setting the prior distribution one can rely on information on the steady-state mark-up $mc^r = \frac{\epsilon}{1-\epsilon}$. Following this a value of $\epsilon$ slightly above 0.5 appears realistic. Consulting the posterior both put the mean around 0.5 \ref{fig:nk5pp} \ref{fig:nk6pp}. While the standard deviation is still large the posterior specification does appear to be within reasonable bounds. 
 	
 	The central bank's preference parameters $\phi_y$ and $\phi_{\pi}$ also appear within reasonable bounds. As suggested by \cite{gali_monetary_2008} the central bank has a stronger response to inflation that to to the output gap. This has been incorporated into priors and the resulting posterior seems to confirm this assumption in the NK model \ref{fig:nk5pp}. The NKE model relies on output and not the output gap as intertemporal instrument, wherefore $\phi_{\pi}$ appears. However, the posterior estimate appear to confirm the same reasoning \ref{fig:nk6pp}.
-	
-
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\begin{center}
-			\includegraphics[width=.4\textheight]{mod4_rbc_vanilla_posterior_hist.png}
+			\includegraphics[width=.5\textheight]{mod4_rbc_vanilla_posterior_hist.png}
 			\caption{RBC model prior posterior comparison.}\label{fig:rbcpp}
-		\end{center}
-	\end{figure}
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=.4\textheight]{mod5_nk_vanilla_lin2_posterior_hist.png}
+			\includegraphics[width=.5\textheight]{mod5_nk_vanilla_lin2_posterior_hist.png}
 			\caption{New Keynesian model prior posterior comparison.}\label{fig:nk5pp}
-		\end{center}
-	\end{figure}
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=.4\textheight]{mod6_nk_energy_lin2_posterior_hist.png}
+			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_posterior_hist.png}
 			\caption{New Keynesian Energy model prior posterior comparison.}\label{fig:nk6pp}
 		\end{center}
 	\end{figure}
 	\pagebreak
 		
-
-
-	
-	
-%	"Also, rather than imposing priors on the great ratios, C∗/Y ∗, I∗/K∗, K∗/Y ∗, and G∗/Y ∗, we fix the capital share, α, the depreciation rate, δ, and the share of government expenditure, g∗. This follows well established practices that pre-date Bayesian estimation of NKDSGE models." \cite{guerron-quintana_bayesian_2013}
-	
-	
 	\section{Forecast evaluation} \label{forecast_eval}
-	Having identified the parameter posterior distribution this section will now again rely on the Kalman filter to make a three quarter ahead forecast for each model. In doing so the mean posterior will be used across the model specification as this is the most likely model given the underlying data.
-	A first section will assess the individual forecast of each model. It will primarily consider output as the central variable of the economy, while briefly commenting other variables as well. A full overview on the Kalman filter forecasts can be found in \ref{appa}. 	
-	A latter section will then introduce a Bayesian Vector Autoregression (BVAR) model and compare its performance to the DSGE model forecasts.
+	Having identified the parameter posterior distribution this section use the Kalman forecasting step as outlined in \nameref{kalman_forecast_step} to obtain three quarter ahead forecast for each model. In doing so the mean posterior will be used across parameter specification, as it corresponds to the most likely model.
+	The individual model forecast will be analysed in the first three section. A fourth will introduce a \ac{BVAR} model. A last section will establish a comparison between DSGE models and the BVAR.
+	In order to accommodate a first period of convergence for the Kalman filter the following will be analysing data after 2003. Moreover, the variables revealed as observables to the filter vary across models in order to reflect the differences in model specification such as investment expenditure, inflation and petrol prices. 
 	
-	\subsection{Forecast evaluation}
-	While the Kalman filter for the posterior evaluation has been run on the entire data set starting in 1985 the following has been run on post 2003 data. This accommodates the burn-in period of the Kalman filter. In the following each model is compared the same data, while the Kalman filter has been fed different observable variables to reflect the differences in model specification such as investment expenditure, inflation and petrol prices. 
-	
-	\subsubsection{RBC}	
+	\subsection{Real Business Cycle model}	
 	The Kalman filter closely traces output and investment, the real data lies within the 95\% confidence interval for all post 2010 observations. This is also true for the recession in early 2020, indicating a good fit of the model to real data.
 	Consumption, while not contained as an observable in the filter, also is relatively closely traced with similar accuracy of the confidence intervals. This points to even better model accuracy, as the dynamic system is able to replicate a non-included variable to a good extend. 	
 	The interest rate is less closely traced and predicted to be much more volatile the case in reality. While this indicates problems in the model specification it is important to note that the US Federal Reserve (FED) pursued a notorious low interest rate policy for much of the sample period. As such interest rates were not dictated by changes in capital demand as assumed in the RBC model. It is thus not surprising that the data is not well fit.
-	Labour is the only variable continuously outside of the 95\% confidence interval. Moreover, the model even suggests a rise in labour hours during crisis. While in the case of Covid-19 one could argue that peculiar dynamics where at play the 2008 crisis points out that recessionary unemployment is not captured at all. Generally, pre 2010 dynamics are captured less well by the model. Output and consumption data escapes the filter's 95\% confidence interval before and after the 2008 financial crisis. The good fit to more recent data might be circumstantial and related to the expanded period of growth and relative economic stability. \\
-		
+	Labour is the only variable continuously outside of the 95\% confidence interval. Moreover, the model even suggests a rise in labour hours during crisis. While in the case of Covid-19 one could argue that peculiar dynamics where at play the 2008 crisis points out that recessionary unemployment is not captured at all. Generally, pre 2010 dynamics are captured less well by the model. Output and consumption data escapes the filter's 95\% confidence interval before and after the 2008 financial crisis. The good fit to more recent data might be circumstantial and related to the expanded period of growth and relative economic stability.
+			
 	The RBC forecasts seem reasonable in direction and as well as confidence. The 95\% confidence intervals naturally increase with distance to the point of prediction. However, especially at the one period ahead forecast they exhibit reasonable bounds. Moreover, the point forecasts, with exception of labour, closely trace real variables with no systematic bias. Labour as explained in the above appears to be incorrectly specified in the models functional form, yet not impeding the model in its forecasting of other variables. 
-	
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.5\textheight]{mod4_rbc_vanilla_y_I_kalman_filter_00.png}
@@ -1016,16 +995,13 @@
 		\end{center}
 	\end{figure}
 	
-	\subsubsection{NK}
+	\subsubsection{New-Keynesian model}
 	At first glance it is evident that the New-Keynesian filter traces data less accurately. As with the RBC output is closely traced after 2010 while confidence intervals exclude actual data around the 2008 crisis. However, other than with the RBC filter the NK filter does not manage to track the 2020 crisis as closely, even deems outside its 95\% confidence interval.
 	A similar dynamic can be observed with consumption. Again filter fit is much better after 2010 and does not capture the 2020 crisis. Consumption essentially remodels output data, due to the absence of investment the NK model assumes consumption and output to be equal in equilibrium. Thus the consumption time series is less of a performance indicator as in the RBC model.
 	Labour on the other hand is more closely traced and differently from the RBC no longer exhibits counter intuitive movements during crisis, modelling recessionary unemployment correctly. 
-	
 	The main contribution of the New-Keynesian literature is the inclusion of inflation. Looking at the actual inflationary dynamics and the filtered inflation series the large divergence is obvious. The model puts inflation at much higher rates than actually the case in the economy. The same goes for the real interest rate, which is not surprising due to the close tie between the two $r_t = i_t + \E[][\pi_{t+1}]$. Moreover, the confidence intervals are rather broad on both inflation and interest rate. This while no sign of good fit at leasts shows that the model is uncertain about the actual behaviour of inflation and does not deem it erroneously close to its filter result.
 	
 	While the filtered data provided some good results the forecasts of the NK model are far from informative. Output and consumption are not contained in the forecasts' 95\% interval. Moreover, the broad confidence intervals on inflation and interest rate conceal the fact that the inflation forecasts actually moves opposite to real data. Only labour is proxied traced to reasonable extend by the confidence interval, while the point forecast is systematically off.
-	
-	%NK
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.5\textheight]{mod5_nk_vanilla_lin2_y_kalman_filter.png}
@@ -1036,13 +1012,11 @@
 	\end{figure}
 	
 	
-	\subsubsection{NKE}
+	\subsubsection{New-Keynesian energy model}
 	The filtered data for the New-Keynesian Energy model are the furthest off real data. The dynamics of output and labour are poorly tracked while spanned by erroneously narrow confidence intervals. Including inflation in the filter does not improve this inability to track output or consumption. Neither is the real interest rate, even-though closely tied to inflation, traced by the confidence interval or point forecast.
 	The reason for including petrol in the model specification has been to supplement the analysis of inflation by an important factor. Including the petrol price in the filter does not provide the theorised improvement. Instead confidence intervals narrow across all variables with no improvement in point forecasts. 
 	
 	The poor filter fit is obviously reflected across the forecasts as well. While confidence bands are narrow the forecast often points into opposite direction, excluding the real data for consumption, inflation and the real interest rate. Output and labour are in no way traced reasonably.
-	
-	%NKE
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.5\textheight]{mod6_nk_energy_lin2_y_pi_s_c_kalman_filter.png}
@@ -1058,14 +1032,11 @@
 
 	\subsubsection{BVAR}
 	Using a Vector Autoregression as reference model for comparing DSGE model forecasts has been commonly done across literature \cite{schorfheide_loss_2000, chin_bayesian_2019}. 
-	
 	Naturally the BVAR does not provide confidence intervals like frequentist methods of forecasting. Instead model parameters are defined through a sampler, which in this case ran in four iterations. Sampling from these iterations yields the posterior coefficient distribution. Using several draws from the posterior then allows to derive information about the range of possible outcomes. This range can then be interpreted as a confidence interval (ref).  
 	A sample from the posterior is illustrated in blue \ref{fig:bvar}, while the mean of all samples is marked in red. The range of outcomes for output suggest bias in the forecast. They are note evenly distributed around the actual data series. Instead the range of outcomes underestimates output and also introduces additional volatility not matched by the actual observations. This is also the case for all other variables, additional volatility or classicality is introduced systematically across all forecasts. The forecast for the real interest rate after over correcting even moves in the opposite direction. 
 	The BVAR thus represents on first account not better forecasts than for example the RBC model.
-	
-	This work uses a frequentist VAR to determine the optimal number of lags, which are found to be 4. This corresponds to the choice of four lags in \cite{chin_bayesian_2019}
-	Including priors into bayesian VAR makes the model better at forecasting \cite{chin_bayesian_2019}
-	
+%	This work uses a frequentist VAR to determine the optimal number of lags, which are found to be 4. This corresponds to the choice of four lags in \cite{chin_bayesian_2019}
+%	Including priors into bayesian VAR makes the model better at forecasting \cite{chin_bayesian_2019}
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.4\textheight]{bvar_forecast.png}
@@ -1074,7 +1045,6 @@
 	\end{figure}
 	
 	\subsubsection{Forecast comparison}
-	
 	Comparing several models across their forecasting performance can be done in two ways, a frequentist and Bayesian approach.
 	The frequentist approach compares models based on a mean squared error (MSE) metric and then tests for systematic differences. Formal testing is provided by the Diebold-Mariano test, testing for the null hypothesis of structural differences in MSE. The methodology is recommended for on step ahead forecasts and needs a large number of observations to construct the test statistics. It is thus not recommended for quarterly data \cite{chin_bayesian_2019}.
 	Instead Bayesian model averaging approach compares models in their log-likelihood based on an information criterion. For the purposes of this work the information criterion will be de widely applicable information criterion (WAIC) as suggested in \cite{chin_bayesian_2019}. In Bayesian model averaging the weights of each model is calculated from its posterior model probability \cite{chin_bayesian_2019}. This is traditionally done for structurally similar models in order to discriminate between different priors. However this procedure has also been employed in comparing different model classes, then usually relying on the WAIC \cite{chin_bayesian_2019}.
@@ -1086,34 +1056,24 @@
 	
 	Possible explanations for the deterioration of model fit across the NKE could lie in its specification. The model was originally build around domestic output which combined with petrol consumption generates overall consumption. Overall output was then derived off nominal output by including a GDP deflator. This extension was not necessary for closing the model but a way of including the correct output specification to make the model comparable to data. The NKE at its core does thus not describe output as it is specified in the data, wherefore it is no surprise that it does badly in tracing the real data. In that the model does deliver further insight in possible links between petrol and inflation. However, it does so in a way that cannot be verified with observable data.
 	
-	
+% Bibliography
 	\bibliography{20230505_m1_dsge}
 	\addcontentsline{toc}{section}{References}
-	
+
+% Appendix
 	\section*{Appendix}
 	
 	\pagebreak
 	\subsection*{Appendix A} \label{appa}
-	
 
-	
-	
-	
-	
-	%BVAR	
-
-
-	\begin{figure}
+%BVAR
+	\begin{figure}[H]
 		\begin{center}
-			\includegraphics[width=.5\textheight]{BVAR_coeff.png}
+			\includegraphics[width=.4\textheight]{BVAR_coeff.png}
 			\caption{NK model Kalman Filter with variables y}\label{fig:bvar_coef}
 		\end{center}
 	\end{figure}
 
-
-%	\includegraphics[scale=.3]{mod4_rbc_vanilla_posterior_hist.png}\\
-%	\includegraphics[scale=.3]{data_variables_transforemd.png}
-	
 	\pagebreak
 	\subsection*{Appendix B} \label{appb}
 	% fed data
