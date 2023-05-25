@@ -4,6 +4,11 @@
 Federal {Reserve} {Economic} {Data} {\textbar} {FRED} {\textbar} {St}. {Louis}
   {Fed}.
 
+\bibitem{andrews_kalman_2008}
+A.~P. Andrews.
+\newblock {\em Kalman {Filtering}: {Theory} and {Practice} {Using} {MATLAB}}.
+\newblock John Wiley \& Sons, Hoboken, NJ USA, 3rd edition, 2008.
+
 \bibitem{barsky_oil_2002}
 R.~B. Barsky and L.~Kilian.
 \newblock Oil and the macroeconomy since the 1970s.
@@ -22,6 +27,13 @@ O.~Blanchard and J.~Gali.
   {So} {Different} from the 1970s?
 \newblock Technical Report w13368, National Bureau of Economic Research,
   Cambridge, MA, Sept. 2007.
+
+\bibitem{blanchard_solution_1980}
+O.~J. Blanchard and C.~M. Kahn.
+\newblock The solution of linear difference models under rational expectations.
+\newblock {\em Econometrica: Journal of the Econometric Society}, pages
+  1305--1311, 1980.
+\newblock Publisher: JSTOR.
 
 \bibitem{campbell_inspecting_1994}
 J.~Y. Campbell.
@@ -95,6 +107,11 @@ K.~Hou, D.~C. Mountain, and T.~Wu.
   economy: {A} {VAR} analysis informed by a {DSGE} model.
 \newblock {\em Journal of International Money and Finance}, 68:21--49, Nov.
   2016.
+
+\bibitem{kalman_new_1960}
+R.~E. Kalman.
+\newblock A new approach to linear filtering and prediction problems.
+\newblock 1960.
 
 \bibitem{kocherlakota_model_2007}
 N.~R. Kocherlakota.
