@@ -137,9 +137,8 @@
 	As this work's purpose is an analysis of petrol prices and their interaction with inflation it will rely on the model of Blanchard \& Galì (2008) \cite{blanchard_macroeconomic_2007}. This model focusses on the foundation of petrol inflation interaction while later approaches aim at a comprehensive analysis of the economy. In doing so more complex models confound many factors, not allowing for the clear cut analysis of the basic mechanism behind oil price inflation.
 	
 	\section{Real Business Cycle model}
-	The Real Business Cycle model (RBC) was first introduced by Prescott (1986) \cite{prescott_theory_1986} providing an explanation to the origin of business cycles. Departing from Schumpeterian technology induced growth the RBC model is at its heart a de-trended growth model emphasising the link between technology growth and total factor productivity. It argues that technological innovation increases productivity and raises real wages and return to capital. The resulting increase in income leads to the efficient adjustment of the economy to its new optimum \cite{prescott_theory_1986}. 
-	In making this argument several assumption are required. These are namely perfect competition, flexible prices and the use of an identical production technology across firms. 
-	While the argument of efficient business cycles is antithetical to the New-Keynesian literature, who regards business cycles as inefficient, both models share a the mathematical foundation. The following will therefore derive an RBC model laying the foundation for the standard New-Keynesian model.
+	The Real Business Cycle model (RBC) was first introduced by Prescott (1986) \cite{prescott_theory_1986} attempting to explain the origin of business cycles. Departing from Schumpeterian technology induced growth the RBC model is at its heart a de-trended growth model. It emphasises the link between technology growth to real wages and return to capital through increases in total factor productivity. Technology growth thus increases income, leading the economy to a new optimum \cite{prescott_theory_1986}. 
+	In making this argument several assumption are required, namely these are: Perfect competition, flexible prices and the use of an identical production technology across firms. While the argument of efficient business cycles is antithetical to the New-Keynesian literature, regarding business cycles as inefficient, both models share their mathematical foundation. The following will therefore lay the foundation for the standard New-Keynesian model in deriving the RBC model.
 	
 	\subsection{The Household}
 	Households are assumed to have homogeneous preferences and to solve their optimisation problem simultaneously. Given these properties the RBC introduces one representative agent solving the problem in place of a continuum of households.
@@ -194,9 +193,9 @@
 % put into appendix
 	Deriving the log-linearisation requires some additional reasoning which is provided in the \nameref{appc}.
 	
-	\begin{table}
+	\begin{table}[H]
 		\caption{RBC Equations}
-		\fontsize{9pt}{9pt}\selectfont
+		\fontsize{10pt}{10pt}\selectfont
 		\centering
 		\begin{tabular}{llr}
 			\textbf{Equation name} & Equation & \textbf{Log-linear expression}\\
@@ -246,7 +245,7 @@
 		\end{tabular}
 	\end{table}
 
-	In order to obtain a linear state-space representation of the RBC model a numerical approximation of the steady state for the value of labour $\bar{l}$ is required. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in the \nameref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \nameref{appc}. 
+	In order to obtain a linear state-space representation of the RBC model a numerical approximation of the steady state for the value of labour $\bar{l}$ is required. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in the \nameref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \nameref{appb}. 
 
 	\section{NK} \label{sec:NK}
 	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects.
@@ -301,7 +300,7 @@
 		\begin{equation} \label{eq:nk_hh_foc}
 		\begin{aligned}
 			C_t^\sigma L_t^\phi	= \frac{W_t}{P_t} \\
-			Q_{t,t+k} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}
+			Q_{t} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}}
 		\end{aligned}
 	\end{equation}
 	
@@ -317,8 +316,7 @@
 	\begin{equation} \label{eq: inlfation}
 		\Pi_t^{1-\epsilon} = \theta + (1 - \theta) \left(\frac{\hat{P}_t}{P_{t-1}} \right)^{1-\epsilon}
 	\end{equation}
-
-	The key aspect to price evolution thus lies in the optimal price $\hat{P_t}$. The further it is away from last periods price, the higher is inflation. \\
+	The key aspect to price evolution thus lies in the optimal price $\hat{P_t}$. The further it is away from last periods price, the higher is inflation.
 	
 	\subsubsection{The firm}
 	In the RBC the firm solved a static optimisation problem providing labour and capital demand. In the NK model they are instead faced with setting the optimal price $\hat{P}_t$. For this the NK model assumes that a continuum of firms each producing one good provide factoring into the continuum of goods as outlined in (section). Setting the optimal price becomes an intertemporal problem as firms trade-off between two opposing forces. 	
@@ -367,7 +365,6 @@
 		MC^r = \frac{\epsilon}{\epsilon-1}
 	\end{equation} 
 	
-	
 	\subsubsection{Equilibrium conditions}
 	To this point a number of optimal choices have been derived. The households decides on the consumption basket and consumption-leisure trade-off. The firm sets the optimal price and consequently mark-up over nominal marginal costs, yielding an expression for inflation. Having derived the optimality conditions for all agents the model now requires market clearing condition to describe their interaction. This is based on accounting identity on individual good and production level $Y_{it} = C_{it}$. In order to close the model one needs to demonstrate, that this property on individual goods level translates in the global property $Y_t = C_t$.
 	
@@ -389,17 +386,20 @@
 			=
 			C_t
 	\end{equation}
-	A similar reasoning is required in order to derive an economy wide production function an expression from the firm's individual production functions $Y_{it} = A_t N_{it}$. This yields the below expression, which will be kept unchanged for now.
-	\begin{equation} \label{eq: Nt}
+	A similar reasoning is required in order to derive an economy wide production function an expression from the firm's individual production functions $Y_{it} = A_t N_{it}$. This yields the below expression:
+	\begin{equation}
 		N_t = 	
-		\int_{0}^{1} \left( \frac{Y_t}{N_t} \right)^{\frac{1}{1 - \alpha}}
+		\int_{0}^{1} \left( \frac{Y_t}{N_{it}} \right)^{\frac{1}{1 - \alpha}}
 		\int_{0}^{1} \left( \frac{P_{it}}{P_t} \right)^{-\frac{\epsilon}{1 - \alpha}} di
 	\end{equation}
-
-	\subsubsection{Log linearisation}
+	For this expression it can be shown that up to a second order approximation $\int_{0}^{1} \left( \frac{P_{it}}{P_t} \right)^{-\frac{\epsilon}{1 - \alpha}} \approx 1$, wherefore labour can be expressed as \cite{gali_monetary_2008}:
+	\begin{equation}\label{eq: Nt}
+		N_t = \int_{0}^{1} \left( \frac{Y_t}{N_{it}} \right)^{\frac{1}{1 - \alpha}}
+	\end{equation}
 	
-	This completes the number of equations required for the derivation of the New Keynesian model. As the above equations are a non-linear system without a closed form solution some method of linearisation is required. The below will follow the procedure of \cite{gali_monetary_2008} and apply log-linearisation first order Taylor approximations. Throughout the log-linearisation several manipulations are required. The Euler equation relies on reasoning about the non-inflationary steady state so does the expression for $N_t$. Explanation and proofs can be found in \ref{appc}. Lower-case expressions are the log-equivalent to previous upper case variables. \\
-
+	\subsubsection{Log linearisation}
+	This completes the number of equations required for the derivation of the New Keynesian model. As the above equations are a non-linear system without a closed form solution some method of linearisation is required. The below will follow the procedure of \cite{gali_monetary_2008} and apply log-linearisation first order Taylor approximations. Throughout the log-linearisation some further reasoning about is needed fro the Euler equation, which can be found in \nameref{appc}. Lower-case expressions are the log-equivalent to previous upper case variables. \\
+	
 	Euler equation
 	\begin{equation} \label{eq:lleuler}
 		c_t = \E_t[c_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t [\pi_{t+1}])
@@ -567,7 +567,7 @@
 	The below is an extension of the standard NK model by petrol as a consumption good as well as factor of production. There is no domestic production of petrol, instead it is imported and its price is assumed to be exogenous. Beyond the import of petrol there is no foreign trade, all closed economy assumptions thus hold. 
 	Given the exogenous nature of petrol the model is quite similar to the standard NK model. The below will therefore depart from (section) and only outline the changes to the model from petrol production. 	
 	
-	\subsubsection{Bundler}
+	\subsection{Bundler}
 	Petrol is considered a consumption good and as such enters into the good basket $C_t$. This inclusion is modelled across the bundling process, deriving the optimal basket across two classes of goods, domestic and foreign. 
 	The bundling of domestic goods follows from the same procedure as outlined in (section). Variables $C_{q,t}$ and $P_{q,t}$ are aggregated consumption and price respectively. The optimisation across the continuum of goods results in the same properties as above. These are share of good $C_{i,q,t}$ in the consumption basket $C_{q,t}$ and the aggregated price index $P_{q,t}$ as well as an expression of aggregate consumption. \\
 	\begin{equation} \label{eq:o_pindex}
@@ -596,7 +596,7 @@
 		C_t P_{c,t} = C_{m,t}P_{m,t} + C_{q,t}P_{q,t}
 	\end{equation}
 
-	\subsubsection{Household}
+	\subsection{Household}
 	Having derived expressions for the consumption basket and its price the household's optimisation problem can be solved. As in the standard NK model this reads as follows. 
 % log-utility	
 	\begin{equation}
@@ -617,7 +617,7 @@
 		\end{aligned}
 	\end{equation}
 
-	\subsubsection{The Firm}
+	\subsection{The Firm}
 	Petrol serving as a second factor of production the firm's optimisation problem is extended from the standard NK model. As in the RBC the firm obtains its production factor demand by equalising their marginal cost.  
 	\begin{equation}
 		\begin{aligned}
@@ -641,41 +641,7 @@
 	\end{aligned}
 	\end{equation}
 
-	\subsubsection{Equilibrium}
-	The equilibrium conditions follow the standard NK model in assuming the ressource constraint $Y_{i,q,t} = C_{i,q,t}$ on individual firm level. As showed in (section) of the standard NK model overall domestic this property also holds on the overall output level $Y_{q,t} = \left( \int_{0}^{1} Y_{it}^{1-\frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon - 1}} = C_{q,t}$. \\
-	
-	Using this fact the 
-	\begin{equation}
-		M_t = \frac{\alpha_m Y_{q,t}}{\xi_{t}^n S_t}
-	\end{equation}
-% show xi_t mathematecally 
-	where $\xi_t^n$ is the individual firm mark-up weighted by its share in output $Y_{q,t}$ which is given by the ratio of $\frac{P_{i,q,t}}{P_{q,t}}$. \\
-	As bond holdings are zero in equilibrium all  allows to derive an expression for the overall price level, factoring out petrol.
-	% check the reasoning behind P_ct C_t = Pqt Cqt - P_mt M_t	
-	\begin{equation}
-		P_{c,t}C_t = P_{q,t} C_{q,t} - P_{m,t}M_t = \left(1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
-	\end{equation}
-	
-	\subsection{Real GDP}
-	
-	
-	
-
-	\cite{blanchard_macroeconomic_2007} then go ahead and define the GDP deflator $P_{y,t}$ as
-	\begin{equation}
-		P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}
-	\end{equation}
-	Moreover, they define the gross domestic product as 
-	\begin{equation}
-		P_{y,t} Y_t \equiv P_{q,t} Y_{q,t} - P_{m,t} M_t = \left( 1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
-	\end{equation}
-	
-	This yields:
-	and expression for petrol inputs $M_t$
-	and expression for time dependent real mark-up $\log(\xi_t) \equiv \mu_t \equiv mc_t^r$
-	
-	
-	\subsubsection{Price setting}
+	\subsection{Price setting}
 	The price setting problem of the firm is equivalent to the price setting in the standard NK model. It diverges in only one notion, the real marginal cost $MC_t^r$. \\
 	
 	The expression for inflation is obtained as in the standard model
@@ -686,7 +652,7 @@
 		\right]^{\frac{1}{1 - \epsilon}}
 	\end{equation}
 	The firm solves the same optimisation problem as in the above. 
-		\begin{equation}
+	\begin{equation}
 		\begin{aligned}
 			\max_{\hat{P}_t}
 			\sum_{k=0}^{\inf} \theta^k \E_t 
@@ -714,14 +680,43 @@
 			= 0
 		\end{aligned}
 	\end{equation}
+
+	\subsection{Equilibrium}
+	The equilibrium conditions follow the standard NK model in assuming the resource constraint $Y_{i,q,t} = C_{i,q,t}$ on individual firm level. As showed in (section) of the standard NK model overall domestic this property also holds on the overall output level $Y_{q,t} = \left( \int_{0}^{1} Y_{it}^{1-\frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon - 1}} = C_{q,t}$.	
+	Using this fact the 
+	\begin{equation}
+		M_t = \frac{\alpha_m Y_{q,t}}{\xi_{t}^n S_t}
+	\end{equation}
+% show xi_t mathematecally 
+	where $\xi_t^n$ is the individual firm mark-up weighted by its share in output $Y_{q,t}$ which is given by the ratio of $\frac{P_{i,q,t}}{P_{q,t}}$. \\
+	As bond holdings are zero in equilibrium all  allows to derive an expression for the overall price level, factoring out petrol.
+	% check the reasoning behind P_ct C_t = Pqt Cqt - P_mt M_t	
+	\begin{equation}
+		P_{c,t}C_t = P_{q,t} C_{q,t} - P_{m,t}M_t = \left(1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
+	\end{equation}
 	
+	\subsection{Real GDP}
+	
+	\cite{blanchard_macroeconomic_2007} then go ahead and define the GDP deflator $P_{y,t}$ as
+	\begin{equation}
+		P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}
+	\end{equation}
+	Moreover, they define the gross domestic product as 
+	\begin{equation}
+		P_{y,t} Y_t \equiv P_{q,t} Y_{q,t} - P_{m,t} M_t = \left( 1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
+	\end{equation}
+	
+	This yields:
+	and expression for petrol inputs $M_t$
+	and expression for time dependent real mark-up $\log(\xi_t) \equiv \mu_t \equiv mc_t^r$
+		
+	\subsubsection{Log linearisation}
 	\begin{equation}
 		\pi_{q,t} = \beta E_t [\pi_{q,t+1}] + \lambda \hat{mc}_{t}
 	\end{equation}
 	
 	The difference in the New-Keynesian Phillips curve lies in $\hat{mc}_t \equiv mc_t^p - mc^p = $. Instead of the output gap the mark-up gap becomes the instrument at the heart of the model.
 	
-	\subsubsection{Log linearisation}
 	The above is then log-linearised to the following form
 	
 	\begin{tabular}{llr}
@@ -1075,47 +1070,56 @@
 	\end{figure}
 
 	\pagebreak
-	\subsection*{Appendix B} \label{appb}
-	% fed data
-	
 %	\begin{center}
 %		\csvautotabular{{./graphs/priors_table.csv}}
 %	\end{center}
-
-	
 %% tables
 %	\small \input{{./graphs/priors_table.tex}}
 %	\input{{./graphs/fred_variables.tex}}
 %	\input{{./graphs/data_descriptives.tex}}
 	
 	\pagebreak
-	\subsection*{Appendix C} \label{appc}
-	\subsubsection*{Log-linearisation}
+	\subsection*{Appendix B} \label{appb}
+	Euler Equation log-linearisation\\
 	
-	Euler equations
-	
-	Expression for $N_t$ from $N_{it}$
-	It can be shown that $ log \left( \int_{0}^{1} \left( \frac{P_{it}}{P_t} \right)^{-\frac{\epsilon}{1 - \alpha}} di \right) \approx 0$ which then allows to log linearise the production function to $y_t = a_t + (1 - \alpha) n_t$.
-	
-	
-	RBC all equations\\
-	\begin{tabular}{lr}
-		\textbf{Equation name} & \textbf{Log-linear expression}\\
-		\hline
-		Euler equation & $\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left[ (1 - \delta)  + \E_t [R_{t+1}] \right]$ \\
-		Capital supply & $K_t = (1 - delta) K_{t-1} + I_t$ \\
-		Capital demand & $K_t = \alpha A_t K_t^{\alpha -1} N_t^{1-\alpha}$ \\
-		Labour supply & $- \frac{U_{n,t}}{U_{c, t}} = W_t$ \\
-		Labour demand & $W_t = (1 - \alpha) A_t K_t^\alpha N_t^{-\alpha}$ \\
-		Production function & $Y_t = A_t K_t^\alpha N_t^{1 - \alpha}$ \\
-		Equilibrium condition & $Y_t = C_t + I_t$ \\
-		Technology law of motion & $\log(A_t) = (1- \rho_A) \log(A^*) \rho_A \log(A_{t-1}) + \epsilon_t^A$ \\
-	\end{tabular}\\
+	The NK Euler condition is given by the below, which can be transformed into an exponential expression as:
+	\begin{equation}\label{eq:log_euler}
+		\begin{aligned}
+			Q_{t} = \E_t \left[ \frac{C_{t+k}}{C_t} \right]^\sigma \frac{P_t}{P_{t+1}} \\
+			1 = \E_t \{\exp(i_t + \sigma \Delta c_{t+1} - \pi_{t+1} - \rho) \}
+		\end{aligned}
+	\end{equation}
+	where log-deviations are given according to: 
+	\begin{equation}
+		\begin{aligned}
+			\rho \equiv - \ln(\beta) \\
+			\Delta c_{t+1} \equiv c_{t+1} - c_t \equiv \ln\left( \frac{C_{t+1}}{C_t} \right) \\
+			i_t \equiv - \ln(Q_t) \equiv - \ln(1+i_t) \\
+			\pi_{t+1} \equiv p_{t+1} - p_t \equiv \ln \left( \frac{P_{t+1}}{P_t} \right)
+		\end{aligned}
+	\end{equation}
+	For the linearisation one aspect is important: GDP will grow at the constant rate $\gamma$ in the steady state. This corresponds to the output growth per capita, the output trend. As output per capita grows so will consumption, wherefore in the steady state $\sigma \Delta c_{t+1} = \sigma \gamma$ must hold. Replacing for consumption in the above exponential \eqref{eq:log_euler} a condition for the natural rate of interest arises. For the exponential to hold this equivalence must hold $i_{ss} = \sigma \gamma + \pi_{ss} + \rho$. 
+	Using the property $\hat{x}_t = \ln(x_t) - ln(\bar{x}) = \ln\left(\frac{x_t}{\bar{x}}\right)$ the Euler equation can be rewritten as:
+	\begin{equation}
+		\begin{aligned}
+			1 \approx i_t + \E_t \{\sigma \Delta c_{t+1} + \pi_{t+1} \} + \rho \\
+			c_t = \E_t[c_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t[\pi_{t+1}])	
+		\end{aligned}
+	\end{equation}
 
-	\include{{./graphs/rbc_steady_state.tex}}
-	\include{{./graphs/rbc_transition_matrix.tex}}
-	
+	The Euler equation in the RBC is given below and can be linearised in a similar fashion. The important realisation with the RBC is that in the steady state $\beta = (1 - delta + \bar{r})$, where $\bar{r} = \ln(\bar{R})$ the capital rate of return steady state.
+	\begin{equation}
+		\E_t \left[ \frac{C_{t+1}}{C_t} \right]^\sigma = \beta \left(1 - \delta  + \E_t [R_{t+1}] \right)
+	\end{equation}
+	This yields: $\hat{c}_t = \hat{c}_{t+1} - \hat{r}_{t+1}$
+
 	\pagebreak
+	\subsection*{Appendix C} \label{appc}
+	RBC numerical solutions
+	\input{{./graphs/rbc_steady_state.tex}}
+	\input{{./graphs/rbc_transition_matrix.tex}}
+	\pagebreak
+	
 	\subsection*{Appendix D} \label{appd}
 	Metropolis Hastings MCMC sampler code\\
 	Deriving the multivariate covariance matrix $G$ from prior the prior distributions standard deviation
@@ -1126,13 +1130,11 @@
 	\lstinputlisting[language=Python, firstline=175, lastline=195]{mh_mcmc_code.py}
 	
 	\pagebreak
-	\subsection{Appendix E} \label{appe}
+	\subsection*{Appendix E} \label{appe}
 	\verbfilenobox[\tiny]{{./graphs/mod4_rbc_vanilla.txt}}
 	\verbfilenobox[\tiny]{{./graphs/mod5_nk_vanilla_lin2.txt}}
 	\verbfilenobox[\tiny]{{./graphs/mod6_nk_energy_lin2.txt}}
-	Test
 
-	
 
 	
 \end{document}
