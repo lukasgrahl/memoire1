@@ -245,7 +245,7 @@
 		\end{tabular}
 	\end{table}
 
-	In order to obtain a linear state-space representation of the RBC model a numerical approximation of the steady state for the value of labour $\bar{l}$ is required. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in the \nameref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \nameref{appb}. 
+	In order to obtain a linear state-space representation of the RBC model a numerical approximation of the steady state for the value of labour $\bar{l}$ is required. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in the \nameref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \nameref{appb}. For each parameter specification the Blanchard-Kahn conditions have been checked using the software \cite{blanchard_solution_1980}.
 
 	\section{NK} \label{sec:NK}
 	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects.
@@ -533,35 +533,7 @@
 		\end{aligned}
 	\end{equation}
 
-	\subsubsection{State Space}
-	Having derived the New-Keynesian Phillips curve, New-Keynesian IS equation as well as a monetary policy rule allows to formulate the model as a linear state space. For this purpose 
-	\begin{equation}
-		\begin{bmatrix}
-			\tilde{y}_t \\
-			\pi_t
-		\end{bmatrix}
-		=
-		\Omega
-		\begin{bmatrix}
-			\sigma & 1 - \beta \phi_{\pi} \\
-			\sigma \kappa & \kappa + \beta (\sigma + \phi_y)
-		\end{bmatrix}
-		*
-		\begin{bmatrix}
-			\tilde{y}_{t-1} \\
-			\pi_{t-1}
-		\end{bmatrix}
-		+
-		\Omega
-		\begin{bmatrix}
-			1 \\
-			\kappa
-		\end{bmatrix}	
-		(\hat{r}_t^n - v_t)
-	\end{equation}
-	where $\Omega \equiv \frac{1}{\sigma + \phi_y + \kappa \phi_{\pi}}$ and $\hat{r}_t^n \equiv r_t^n - \rho$.
-	
-%Define stability condition of the linear state-space, Blanchard-Kahn
+	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability, based on the eigenvalues of the transition matrix \cite{blanchard_solution_1980}. These have been checked for each parameter specification.
 
 	\section{NKE}
 	The below is an extension of the standard NK model by petrol as a consumption good as well as factor of production. There is no domestic production of petrol, instead it is imported and its price is assumed to be exogenous. Beyond the import of petrol there is no foreign trade, all closed economy assumptions thus hold. 
@@ -633,18 +605,18 @@
 	\begin{equation}
 		MC_t^n = \frac{W_{i,t}}{\alpha_n Y_{i,q,t} N_{i,t}^{-1}} = \frac{P_{m,t}}{\alpha_m Y_{i,q,t} M_{i,t}^{-1}}
 	\end{equation}
-	Having obtained nominal marginal cost an expression for the firm's mark-up can be defined as $\xi_{i,t} \equiv \frac{P_{q,t}}{MC_{i,t}^n}$. With some further manipulation \cite{blanchard_macroeconomic_2007} uses this to obtain the demand for petrol.
+	Having obtained nominal marginal cost an expression for the firm's mark-up can be defined as $MC_{i,t}^r \equiv \frac{P_{q,t}}{MC_{i,t}^n}$. With some further manipulation \cite{blanchard_macroeconomic_2007} uses this to obtain the demand for petrol.
 	\begin{equation}
 		\begin{aligned}
-		\xi_{i,t} \frac{P_{m,t}}{P_{q,t}} M_{i,t} = \alpha_m Q_{i,t} \frac{P_{i,q,t}}{P_{q,t}} \\
-		M_{i,t} = \alpha_m \frac{Q_{i,t}}{S_t \xi_{i,t}} \frac{P_{i,q,t}}{P_{q,t}}
+		MC_{i,t}^r \frac{P_{m,t}}{P_{q,t}} M_{i,t} = \alpha_m Q_{i,t} \frac{P_{i,q,t}}{P_{q,t}} \\
+		M_{i,t} = \alpha_m \frac{Q_{i,t}}{S_t MC_{i,t}^r} \frac{P_{i,q,t}}{P_{q,t}}
 	\end{aligned}
 	\end{equation}
 
 	\subsection{Price setting}
 	The price setting problem of the firm is equivalent to the price setting in the standard NK model. It diverges in only one notion, the real marginal cost $MC_t^r$. \\
 	
-	The expression for inflation is obtained as in the standard model
+	The expression for inflation is obtained as in the standard model where the ratio $\Pi_{q,t} = \frac{P_{q,t}}{P_{q,t-1}}$ provides \ac{CPI} inflation.
 	\begin{equation}
 		P_{q,t} = 
 		\left[ 
@@ -682,93 +654,109 @@
 	\end{equation}
 
 	\subsection{Equilibrium}
-	The equilibrium conditions follow the standard NK model in assuming the resource constraint $Y_{i,q,t} = C_{i,q,t}$ on individual firm level. As showed in (section) of the standard NK model overall domestic this property also holds on the overall output level $Y_{q,t} = \left( \int_{0}^{1} Y_{it}^{1-\frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon - 1}} = C_{q,t}$.	
-	Using this fact the 
+	The equilibrium conditions follow the standard NK model in assuming the resource constraint $Y_{i,q,t} = C_{i,q,t}$ on individual firm level. As showed in (section) of the standard NK model overall domestic output can be linked to consumption of domestic goods: 
 	\begin{equation}
-		M_t = \frac{\alpha_m Y_{q,t}}{\xi_{t}^n S_t}
+		Y_{q,t} = \left( \int_{0}^{1} Y_{it}^{1-\frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon - 1}} = C_{q,t}
 	\end{equation}
-% show xi_t mathematecally 
-	where $\xi_t^n$ is the individual firm mark-up weighted by its share in output $Y_{q,t}$ which is given by the ratio of $\frac{P_{i,q,t}}{P_{q,t}}$. \\
-	As bond holdings are zero in equilibrium all  allows to derive an expression for the overall price level, factoring out petrol.
-	% check the reasoning behind P_ct C_t = Pqt Cqt - P_mt M_t	
+	Using this fact and the resource constraint casted into the \eqref{eq:o_cshare}, resulting in $Y_{q,t} = \frac{P_{i,q,t}}{P_{q,t}}$ allows to derive an expression for oil as a production factor solely depending on domestic output.
+	\begin{equation} \label{eq:oil_prod}
+		M_t = \frac{\alpha_m Y_{q,t}}{MC_{t}^r S_t}
+	\end{equation}
+	Using \eqref{eq:oil_prod} and the fact that bond holdings are zero in equilibrium allows to derive an expression for the overall price level, factoring out petrol:
 	\begin{equation}
 		P_{c,t}C_t = P_{q,t} C_{q,t} - P_{m,t}M_t = \left(1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
 	\end{equation}
-	
-	\subsection{Real GDP}
-	
-	\cite{blanchard_macroeconomic_2007} then go ahead and define the GDP deflator $P_{y,t}$ as
+	To this point the model is closed and one could proceed to log-linearisation. However, domestic output $Y_{q,t}$ does not correspond to overall output as it does not account for the petrol consumption by the economy. The model in its current form can thus not be linked to data as the case with the NK model. The solution proposed by Blanchard \& Galì (2007)  is to define a GDP deflator $P_{y,t}$ \cite{blanchard_macroeconomic_2007}, allowing them to obtain overall GDP $Y_t$ from domestic output.
 	\begin{equation}
+		\begin{aligned}
 		P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}
-	\end{equation}
-	Moreover, they define the gross domestic product as 
-	\begin{equation}
 		P_{y,t} Y_t \equiv P_{q,t} Y_{q,t} - P_{m,t} M_t = \left( 1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
+		\end{aligned}
 	\end{equation}
-	
-	This yields:
-	and expression for petrol inputs $M_t$
-	and expression for time dependent real mark-up $\log(\xi_t) \equiv \mu_t \equiv mc_t^r$
 		
 	\subsubsection{Log linearisation}
-	\begin{equation}
-		\pi_{q,t} = \beta E_t [\pi_{q,t+1}] + \lambda \hat{mc}_{t}
-	\end{equation}
-	
-	The difference in the New-Keynesian Phillips curve lies in $\hat{mc}_t \equiv mc_t^p - mc^p = $. Instead of the output gap the mark-up gap becomes the instrument at the heart of the model.
-	
-	The above is then log-linearised to the following form
-	
-	\begin{tabular}{llr}
-		Equation name & Equation & Log-linear Equation \\
-		\hline
-		 Euler equation & 
-		 $Q_t = \beta \E_t\left[ \frac{C_t}{C_{t+1}} \frac{P_t}{P_{t+1}} \right]$ &
-		 $c_t = \E_t [c_{t+1}] - (i_t - \E_t[\pi_{t+1}] - \rho)$ \footnotemark \\
-		 
-		 Labour supply &
-		 $\frac{W_t}{P_{c,t}} = C_t N_t^\phi$ &
-		 $w_t - p_t = c_t + n_t \phi$ \\
-		 
-		 Oil factor demand &
-		 $M_t = \frac{\alpha_m Y_{q,t}}{\xi_t^n S_t}$ &
-		 $m_t = -\mu_t^n - st + y_{q,t}$ \footnotemark \\
-		 
-		 Production function &
-	%A_t M_t^{\alpha_m} N_t^{\alpha_n} = 
-		 $Y_{q,t} = A_t N_t^{\alpha_n} \left( \frac{\alpha_m Y_{q,t}}{\xi_t^n S_t} \right)^{\alpha_m}$ &
-		 $y_{q,t} = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t - \alpha_m s_t - \alpha_m \mu_t^n)$ \\
-		 
-		 Gross output & 
-		 $P_{c,t}C_t = (1-\frac{\alpha_m}{\xi_t^n})P_{q,t}Y_{q,t}$ &
-		 $c_t = y_{q,t} - \chi s_t + \eta \mu_t^n$ \footnotemark \\
-		 
-		 GDP deflator &
-		 $P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}$ &
-		 $p_{y,t} = p_{q,t} - \frac{\alpha_m}{1-\alpha_m}s_t$ \\
-		
-		GDP &
-		$P_{y,t}Y_t = \left(1-\frac{\alpha_m}{\xi_t^n}\right) P_{q,t}Y_{q,t}$ &
-		$y_t = y_{q,t} + \frac{\alpha_m}{1-\alpha_m}s_t + \eta \mu_t^n$ \\
-		
-		\hline
-	\end{tabular}
+	The equations derived in the above can be log-linearise into the following form. The procedure largely follows that of the standards NK model. 	
+	\begin{table}
+		\centering
+		\fontsize{8pt}{8pt}
+		\caption{New-Keynesian Energy model log-linear equations}
+		\begin{tabular}{llr}
+			Equation name & Equation & Log-linear Equation \\
+			\hline
+			 Euler equation & 
+			 $Q_t = \beta \E_t\left[ \frac{C_{q,t}}{C_{q,t+1}} \frac{P_{q,t}}{P_{q,t+1}} \right]$ &
+			 $c_t = \E_t [c_{t+1}] - (i_t - \E_t[\pi_{q,t+1}] - \rho)$ \footnotemark \\
+			 
+			 Labour supply &
+			 $\frac{W_t}{P_{c,t}} = C_t N_t^\phi$ &
+			 $w_t - p_t = c_t + n_t \phi$ \\
+			 
+			 Oil demand &
+			 $M_t = \frac{\alpha_m Y_{q,t}}{\xi_t^n S_t}$ &
+			 $m_t = -\mu_t^n - st + y_{q,t}$ \footnotemark \\
+			 
+			 Production &
+		%A_t M_t^{\alpha_m} N_t^{\alpha_n} = 
+			 $Y_{q,t} = A_t N_t^{\alpha_n} \left( \frac{\alpha_m Y_{q,t}}{\xi_t^n S_t} \right)^{\alpha_m}$ &
+			 $y_{q,t} = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t - \alpha_m s_t - \alpha_m \mu_t^n)$ \\
+			 
+			 Gross output & 
+			 $P_{c,t}C_t = (1-\frac{\alpha_m}{\xi_t^n})P_{q,t}Y_{q,t}$ &
+			 $c_t = y_{q,t} - \chi s_t + \eta \mu_t^n$ \footnotemark \\
+			 
+			 GDP deflator &
+			 $P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}$ &
+			 $p_{y,t} = p_{q,t} - \frac{\alpha_m}{1-\alpha_m}s_t$ \\
+			
+			GDP &
+			$P_{y,t}Y_t = \left(1-\frac{\alpha_m}{\xi_t^n}\right) P_{q,t}Y_{q,t}$ &
+			$y_t = y_{q,t} + \frac{\alpha_m}{1-\alpha_m}s_t + \eta \mu_t^n$ \\
+			
+			Inflation & 
+			$\left[\frac{P_{q,t}}{P_{q,t-1}}\right]^{-\epsilon}= \theta + (1 - \theta) \pi_t$ &
+			$\pi_t = (1-\theta)(\hat{p}_t - p_{t-1})$ \\
+			
+			Price setting &
+			$\sum_{k=0}^{\infty} \theta^k \E_t 
+			\left[
+			Q_{t,t+k} Y_{q,t+k|t} 
+			\left(
+			\hat{P}_{q,t} - \frac{\epsilon}{1 - \epsilon} MC_{t+k|t}^n
+			\right)
+			\right]
+			= 0$ &			
+			$\pi_{q,t} = \beta E_t [\pi_{q,t+1}] + \lambda \hat{mc}_{t}$ \\
+			\hline
+		\end{tabular}
+	\end{table}
 % fix footnotes
 	\footnotetext{where $\rho \equiv - \ln(\beta)$ and $i_t = \ln(Q_t)$}
 	\footnotetext{where $\mu_t^n \equiv \ln(\xi_t^n)$}
 	\footnotetext{where $\eta \equiv \frac{\alpha_m}{\xi_t^n-\alpha_m}$}
 
-	The expressions for gross output and output can be combined into
+	Combining the expressions for $y_t$, $c_t$ and $m_t$ through the mark-up $\mu_t^n$ a simplified expression for output and consumption can be derived, In doing so Blanchard \& Galì (2008) make the assumption that steady-state mark-up $mc^r$ is small enough so that $\frac{alpha_m}{mc^r - \alpha_m}-\frac{alpha_m}{a - \alpha_m} mc_t^r \approx 0$. This yields the below expressions for output and consumption.
 	\begin{equation}
-		y_t = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t)
+		\begin{aligned}
+			y_t = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t) \\
+			c_t = y_t - (\frac{\alpha_m}{1-\alpha_m} + \chi) s_t \\
+		\end{aligned}
 	\end{equation}
-	which combined with the expression for consumption
+	In order to close the model an exogenous law of motion for the oil price is required, and defined as follows: 
 	\begin{equation}
-		c_t = y_t - (\frac{\alpha_m}{1-\alpha_m} + \chi) s_t
+		\begin{aligned}
+			s_t = s_{t-1} + \epsilon_{s,t} \\
+			\epsilon_{s,t} \sim N(0, \sigma_{\epsilon_{s}})
+		\end{aligned}
 	\end{equation}
-	
-	
+	Moreover, the monetary authority's behaviour is characterised by the following interest rate rule, assuming $\phi_{\pi}>1$. 
+	\begin{equation}
+		\begin{aligned}
+			i_t = \phi_{\pi} \pi_{q,t} \\
+		\end{aligned}
+	\end{equation}
 
+	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability, based on the eigenvalues of the transition matrix \cite{blanchard_solution_1980}. These have been checked for each parameter specification.
+	
 	
 	\section{Data}
 	This work relies on standard economic quarterly time series from 1975 to 2020. All data is obtained from the St. Louis Federal Reserve data base of seasonally adjusted deflated macroeconomic time series \cite{noauthor_federal_nodate}. The specific data codes can be found in the \nameref{appb}. Most data used across the following is standard to the DSGE literature. However, some extensions are necessary to allow for the inclusion of a petrol sector. The below will therefore briefly outline the use of standard data, while providing more detail on the data specific to this work.
