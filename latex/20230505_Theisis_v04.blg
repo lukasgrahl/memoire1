@@ -4,55 +4,50 @@ The top-level auxiliary file: 20230505_Theisis_v04.aux
 Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: abbrv.bst
 Reallocating 'name_of_file' (item size: 1) to 17 items.
-Reallocating 'name_of_file' (item size: 1) to 30 items.
-A level-1 auxiliary file: ./graphs/rbc_steady_state.aux
-Reallocating 'name_of_file' (item size: 1) to 35 items.
-A level-1 auxiliary file: ./graphs/rbc_transition_matrix.aux
 Database file #1: 20230505_m1_dsge.bib
-Warning--I didn't find a database entry for "macroeconomic_2007"
 Warning--I didn't find a database entry for "vasconez_what_nodate"
 Warning--to sort, need author or key in noauthor_federal_nodate
 Warning--empty journal in kalman_new_1960
 Warning--empty note in pfeifer_guide_2021
-You've used 30 entries,
+You've used 31 entries,
             2118 wiz_defined-function locations,
-            685 strings with 8937 characters,
-and the built_in function-call counts, 9404 in all, are:
-= -- 981
-> -- 353
+            687 strings with 9056 characters,
+and the built_in function-call counts, 9600 in all, are:
+= -- 1002
+> -- 360
 < -- 7
-+ -- 146
-- -- 110
-* -- 610
-:= -- 1554
-add.period$ -- 103
-call.type$ -- 30
-change.case$ -- 144
++ -- 149
+- -- 112
+* -- 617
+:= -- 1594
+add.period$ -- 106
+call.type$ -- 31
+change.case$ -- 149
 chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 366
-empty$ -- 753
-format.name$ -- 110
-if$ -- 1977
+cite$ -- 34
+duplicate$ -- 374
+empty$ -- 768
+format.name$ -- 112
+if$ -- 2016
 int.to.chr$ -- 0
-int.to.str$ -- 30
+int.to.str$ -- 31
 missing$ -- 28
-newline$ -- 164
-num.names$ -- 58
-pop$ -- 123
+newline$ -- 169
+num.names$ -- 60
+pop$ -- 126
 preamble$ -- 1
-purify$ -- 115
+purify$ -- 118
 quote$ -- 0
-skip$ -- 281
+skip$ -- 286
 stack$ -- 0
-substring$ -- 646
+substring$ -- 651
 swap$ -- 76
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 114
+type$ -- 118
 warning$ -- 3
-while$ -- 100
-width$ -- 32
-write$ -- 349
-(There were 5 warnings)
+while$ -- 102
+width$ -- 33
+write$ -- 360
+(There were 4 warnings)
