@@ -9,45 +9,46 @@ Warning--I didn't find a database entry for "vasconez_what_nodate"
 Warning--to sort, need author or key in noauthor_federal_nodate
 Warning--empty journal in kalman_new_1960
 Warning--empty note in pfeifer_guide_2021
-You've used 31 entries,
+Warning--empty publisher in romer_advanced_2018
+You've used 32 entries,
             2118 wiz_defined-function locations,
-            687 strings with 9056 characters,
-and the built_in function-call counts, 9600 in all, are:
-= -- 1002
-> -- 360
+            691 strings with 9116 characters,
+and the built_in function-call counts, 9824 in all, are:
+= -- 1022
+> -- 367
 < -- 7
-+ -- 149
-- -- 112
-* -- 617
-:= -- 1594
-add.period$ -- 106
-call.type$ -- 31
-change.case$ -- 149
++ -- 152
+- -- 114
+* -- 629
+:= -- 1632
+add.period$ -- 109
+call.type$ -- 32
+change.case$ -- 153
 chr.to.int$ -- 0
-cite$ -- 34
-duplicate$ -- 374
-empty$ -- 768
-format.name$ -- 112
-if$ -- 2016
+cite$ -- 36
+duplicate$ -- 386
+empty$ -- 790
+format.name$ -- 114
+if$ -- 2063
 int.to.chr$ -- 0
-int.to.str$ -- 31
-missing$ -- 28
-newline$ -- 169
-num.names$ -- 60
-pop$ -- 126
+int.to.str$ -- 32
+missing$ -- 30
+newline$ -- 174
+num.names$ -- 62
+pop$ -- 134
 preamble$ -- 1
-purify$ -- 118
+purify$ -- 121
 quote$ -- 0
-skip$ -- 286
+skip$ -- 292
 stack$ -- 0
-substring$ -- 651
-swap$ -- 76
+substring$ -- 656
+swap$ -- 77
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 118
-warning$ -- 3
-while$ -- 102
-width$ -- 33
-write$ -- 360
-(There were 4 warnings)
+type$ -- 120
+warning$ -- 4
+while$ -- 104
+width$ -- 34
+write$ -- 370
+(There were 5 warnings)
