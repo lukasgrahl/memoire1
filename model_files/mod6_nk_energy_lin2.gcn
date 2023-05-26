@@ -1,12 +1,7 @@
-#block STEADY_STATE
-#{
-#	identities
-#	{
-#		Y[ss] = - lambda_pi / kappa ;
-#		pi[ss] = 0 ;
-#		i[ss] = 0 ;
-#	};
-#}; 
+###########################################################################
+# New Keynesian model with petrol sector (Blanchard & Galì, 2007)
+###########################################################################
+
 
 block LINEAR_MODEL
 {
@@ -14,23 +9,25 @@ block LINEAR_MODEL
 	{
 
 		# NKP
-		pi[] = beta * E[][ pi[1] ] + kappa * Y[] + lambda_p * Gamma_s * S[] ;
+		pi_q[] = beta * E[][ pi_q[1] ] + kappa * y[] + lambda_p * Gamma_s * s[] ;
 
-		# Euler with Y[]
-		Y[] = E[][ Y[1] ] - (i[] - E[][ pi[1] ]) + alpha_m * (1 - rho_s) / (1 - alpha_m) * S[] ;
+		# NKIS
+		y[] = E[][ y[1] ] - (i[] - E[][ pi_q[1] ]) + alpha_m * (1 - rho_s) / (1 - alpha_m) * s[] ;
 
 		# monetary policy
-		i[] = phi_pi * pi[] ;
+		i[] = phi_pi * pi_q[] ;
 
 		# real interest rate
-		r[] = i[] + pi[] ;
-
+		r[] = i[] + pi_q[] ;
 
 		# consumer price index
-		CPI[] = pi[] + omega * (S[] - S[-1]) ;
+		pi_s[] = pi_q[] + chi * (s[] - s[-1]) ;
+
+		# labour
+		n[] = (y[] * (1-alpha_m) - 1) / alpha_n ;
 
 		# consumption
-		C[] = Y[] ;
+		c[] = y[] - s[] * (alpha_m / (1 - alpha_m) + chi) ;
 
 
 	};
@@ -44,17 +41,16 @@ block LINEAR_MODEL
 		
 		beta = .995 ; # time discount factor
 
-		gamma = .1 ; # real wage rigidity, at gamma = 0 -> w[] = mrs
+		gamma = 0 ; # real wage rigidity, at gamma = 0 -> w[] = mrs
 
 		phi_pi = 1.1 ; # CB monetary policy
 
 		theta = .75 ; # Calvo pricing
 
-		epsilon = 1 ; # elasticity of substiution between domestic goods and consumption
+		chi = 0.03 ; # natural share of oil in consumpition
 
-		omega = 0.03 ; # natural share of oil in consumpition
-
-		mu = 3 ; # average mark-up
+		epsilon = 1.5 ;  # elasticity of substiution between domestic goods and consumption
+		mu = epsilon / (1 - epsilon) ; # average mark-up
 
 				
 		# Aggregated parameters
@@ -65,7 +61,7 @@ block LINEAR_MODEL
 
 		Gamma_a = gamma / ( 1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta) ;
 
-		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * omega)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
+		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * chi)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
 
 
 		lambda_p = ((1 - theta) * (1 - beta * theta) / theta) / (1 + (1 - alpha_m + alpha_n) * (epsilon - 1)) ;
@@ -81,7 +77,7 @@ block OIL_PRICE_SHOCK
     identities
     {	
     	# real price of oil law of motion 
-        S[] = rho_s * S[-1] + epsilon_s[];
+        s[] = rho_s * s[-1] + epsilon_s[];
     };
     shocks
     {

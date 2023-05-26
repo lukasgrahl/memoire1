@@ -1,12 +1,10 @@
 ###########################################################################
-# Basic HH Firm RBC model
-# PSME Macro RBC complete
+# Real Business Cycle model
 ###########################################################################
-
 
 tryreduce
 {
-    U[], TC[];
+    U[], Tc[];
 };
 
 
@@ -15,12 +13,12 @@ block HOUSEHOLD
 {
     definitions
     {
-        u[] = (C[] ^ (1 - sigma_C) / (1 - sigma_C) - L[] ^ (1 + sigma_L) / (1 + sigma_L));
+        u[] = (c[] ^ (1 - sigma_C) / (1 - sigma_C) - n[] ^ (1 + sigma_L) / (1 + sigma_L));
     };
 
     controls
     {
-        C[], L[], I[], K[];
+        c[], n[], I[], k[];
     };
 
     objective
@@ -30,8 +28,8 @@ block HOUSEHOLD
 
     constraints
     {
-        C[] + I[] = r[] * K[-1] + w[] * L[] : lambda[];
-        K[] = (1 - delta) * K[-1] + I[];
+        c[] + I[] = r[] * k[-1] + w[] * n[] : lambda[];
+        k[] = (1 - delta) * k[-1] + I[];
     };
 
     calibration
@@ -48,17 +46,17 @@ block FIRM
 {
     controls
     {
-        K[-1], L[];
+        k[-1], n[];
     };
 
     objective
     {
-        TC[] = -(r[] * K[-1] + w[] * L[]);
+        Tc[] = -(r[] * k[-1] + w[] * n[]);
     };
 
     constraints
     {
-        Y[] = A[] * K[-1] ^ alpha * L[] ^ (1 - alpha) : mc[];
+        y[] = a[] * k[-1] ^ alpha * n[] ^ (1 - alpha) : mc[];
     };
 
     identities
@@ -77,12 +75,12 @@ block TECHNOLOGY_SHOCKS
 {
     identities
     {
-        log(A[]) = rho_A * log(A[-1]) + epsilon_A[];
+        log(a[]) = rho_A * log(a[-1]) + epsilon_a[];
     };
 
     shocks
     {
-        epsilon_A[] ;
+        epsilon_a[] ;
     };
 
     calibration

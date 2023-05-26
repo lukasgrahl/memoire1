@@ -10,17 +10,32 @@ block LINEAR_MODEL
 		# NKP
 		pi[] = beta * E[][ pi[1] ] + kappa * y[] ;
 
-		# NKIS
-		y[] = E[][ y[1] ] - 1 / sigma * (i[] - rn - E[][ pi[1] ]) ;
+		# NKIS gap and real 
+		y[] = E[][ y[1] ] - 1 / sigma_C * (i[] - rn - E[][ pi[1] ]) ;
+
+		# labour
+		y[] = a + (1 - alpha) * n[] ;
+
+		# wage 
+#		w[] - p[] = sigma_C * y[] + sigma_L * n[] ;
 
 		# CB
 		i[] = rho + phi_pi * pi[] + phi_y * y[] + v[] ;
+
+		# real interest rate
+		r[] = i[] + pi[] ;
+
+		# equilibrium
+		c[] = y[] ;
 	};
 
 	calibration
 	{
 		# natural rate of interest could be exogenenous law of motion
 		rn = .01 ;
+
+		# technology
+		a = 1; 
 
 		# discount factor
 		beta = .99 ;
@@ -34,16 +49,16 @@ block LINEAR_MODEL
 		phi_y = .4 ;
 
 		# Dixit-Stiglitz aggregator CES
-		epsilon = 1 ;
+		epsilon = .8 ;
 
 		# Calvo pricing 
 		theta = .75 ;
 
 		# labour mrs
-		phi = 1.5 ;
+		sigma_L = 1.5 ;
 
 		# consumption mrs
-		sigma = 1.5 ;
+		sigma_C = 1.5 ;
 
 
 		# aggregated parameters
@@ -52,7 +67,7 @@ block LINEAR_MODEL
 		param1 = (1 - theta) * (1 - beta * theta) / theta ;
 
 
-		kappa = param1 * (sigma + (phi + alpha) / (1 - alpha)) ;
+		kappa = param1 * (sigma_C + (sigma_L + alpha) / (1 - alpha)) ;
 
 	};
 };

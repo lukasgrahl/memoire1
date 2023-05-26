@@ -1,12 +1,7 @@
-#block STEADY_STATE
-#{
-#	identities
-#	{
-#		y[ss] = - lambda_pi / kappa ;
-#		pi_q[ss] = 0 ;
-#		i[ss] = 0 ;
-#	};
-#}; 
+###########################################################################
+# New Keynesian model with petrol sector (Blanchard & Galì, 2007)
+###########################################################################
+
 
 block LINEAR_MODEL
 {
@@ -14,13 +9,22 @@ block LINEAR_MODEL
 	{
 
 		# NKP
-		pi_q[] = beta * E[][ pi_q[1] ] + kappa * y[] + lambda_p * Gamma_s * s[] ;
+		pi[] = beta * E[][ pi[1] ] + kappa * Y[] + lambda_p * Gamma_s * S[] ;
 
-		# Euler with y[]
-		y[] = E[][ y[1] ] - (i[] - E[][ pi_q[1] ]) + alpha_m * (1 - rho_s) / (1 - alpha_m) * s[] ;
+		# NKIS
+		Y[] = E[][ Y[1] ] - (i[] - E[][ pi[1] ]) + alpha_m * (1 - rho_s) / (1 - alpha_m) * S[] ;
 
 		# monetary policy
-		i[] = phi_pi * pi_q[] ;
+		i[] = phi_pi * pi[] ;
+
+		# real interest rate
+		r[] = i[] + pi[] ;
+
+		# consumer price index
+		CPI[] = pi[] + omega * (S[] - S[-1]) ;
+
+		# consumption
+		C[] = Y[] ;
 
 
 	};
@@ -42,20 +46,20 @@ block LINEAR_MODEL
 
 		epsilon = 1 ; # elasticity of substiution between domestic goods and consumption
 
-		X = 0.023 ; # natural share of oil in consumpition
+		omega = 0.03 ; # natural share of oil in consumpition
 
-		M = 3 ; # average mark-up
+		mu = 3 ; # average mark-up
 
 				
 		# Aggregated parameters
 
-		eta = alpha_m / (M - alpha_m) ;
+		eta = alpha_m / (mu - alpha_m) ;
 
 		Gamma_n = ((1 - alpha_n - alpha_m) * gamma + (1 - alpha_m) * (1 - gamma) * (1 + phi_pi)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m) * eta)) ;
 
 		Gamma_a = gamma / ( 1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta) ;
 
-		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * X)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
+		Gamma_s = (gamma * (alpha_m + (1 - alpha_m) * omega)) / (1 - (1 - gamma) * (alpha_m - (1 - alpha_m)) * eta ) ;
 
 
 		lambda_p = ((1 - theta) * (1 - beta * theta) / theta) / (1 + (1 - alpha_m + alpha_n) * (epsilon - 1)) ;
@@ -66,12 +70,12 @@ block LINEAR_MODEL
 
 };
 
-block TECHNOLOGY_SHOCKS
+block OIL_PRICE_SHOCK
 {
     identities
     {	
     	# real price of oil law of motion 
-        s[] = rho_s * s[-1] + epsilon_s[];
+        S[] = rho_s * S[-1] + epsilon_s[];
     };
     shocks
     {
@@ -82,3 +86,5 @@ block TECHNOLOGY_SHOCKS
     rho_s = .9 ; # AR(1) parameter real oil price
     };
 };
+
+
