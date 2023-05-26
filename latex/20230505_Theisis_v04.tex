@@ -92,6 +92,7 @@
 
 % bibliography
 \bibliographystyle{alpha}
+
 \begin{document}
 	
 	
@@ -144,7 +145,8 @@
 		\acro{CPI}{Consumer Price Index}
 		\acro{DSGE}{Dynamic Stochastic General Equilibrium}
 		\acro{GDP}{Gross Domestic Product}
-		\acro{HP Filter}{Hodrick-Prescott Filter}
+		\acro{GMM}{General Method of Moments}
+		\acro{HP}{Hodrick-Prescott Filter}
 		\acro{IS}{Investment-Savings Curve}
 		\acro{MH-MCMC}{Metropolis-Hastings Monte-Carlo Markov-Chain}
 		\acro{NK}{New-Keynesian}
@@ -290,14 +292,14 @@
 	In order to obtain a linear state-space representation of the RBC model a numerical approximation of the steady state for the value of labour $\bar{l}$ is required. This work relies on the software package gEconpy (ref) for this numerical approximation. The specification of the input file, can be found in the \nameref{appe}. The resulting steady-state values and the state-space transition matrix can be found in the \nameref{appb}. 
 	Having specified the steady state values and log-linear equations, the system's stability has to be checked. This work relies on the Eigenvalue condition of Blanchard-Kahn (1980), which for each value of the parameter vector will be checked using gEconpy \cite{blanchard_solution_1980}.
 
-	\section{NK} \label{sec:NK}
+	\section{Standard New-Keynesian model} \label{sec:NK}
 	The New-Keynesian model developed in this section is based on the work of Galì (2008) \cite{gali_monetary_2008}. It diverges from the RBC model in two key aspects.
 	
 	First of all, the NK model introduces nominal rigidities through monopolistic competition. Firms being endowed with some market power allows them to reset prices above marginal cost. This introduces a gap between real and nominal marginal cost, resulting in inflation. This extension has several consequences. This is, changes in the interest are note directly matched by changes in expected inflation, hence monetary policy is neutral in the short-run \cite{gali_monetary_2008}. The expectation gap then becomes the driver of short-run fluctuation in the economy. Business cycles are thus no-longer driven by technological progress but result from interest rate adjustments. The standard New-Keynesian model therefore presents a perspective in which a monetary policy interventions cause inefficient short-term adjustments of the economy \cite{gali_monetary_2008}. The NK returns to Keyne's (1936) perspective, who regarded business cycles as inefficient (ref). 
 	
 	Second of all the NK model in its standard form analyses an economy without capital. Capital stock is thus no longer the intertemporal instrument, instead the model relies on the gap between actual and nominal output \cite{gali_monetary_2008}.
 		
-	\subsection{Consumption bundle}
+	\subsection{Consumption bundle} \label{nk_bundle}
 	The \ac{NK} framework introduces imperfectly substitutable goods as source of market power, resulting in monopolistic competition \cite{gali_monetary_2008}. Consequently, firms are able to set a price beyond marginal cost. Moreover, imperfect substitution requires goods to be considered as a continuum, hence the RBC's assumption of a singular good and firm no longer hods. As a result the households allocation problem no is twofold, encompassing the composition of the optimal consumption basket and the consumption-leisure trade-off \cite{gali_monetary_2008}.
 	
 	Households need to determine the basket of products that optimises their utility. Only once the optimal basket and its price is determined the household is able decide on the optimal allocation of income across consumption and leisure. The consumption basket problem thus needs to be solved prior to the consumption-leisure trade-off. Across the DSGE literature the aggregation of consumption is also sometimes referred to as the output of a good bundling firm. This intermediary party determines the optimal basket of goods according to the household preferences. In a perfectly competitive environment the household buys the optimal bundle at no mark up beyond the producer's mark-up \cite{gali_monetary_2008}.
@@ -329,7 +331,7 @@
 		\int_{0}^{1} P_{it} C_{it} di = Z_t = P_t C_t
 	\end{equation}
 
-	\subsection{Household}
+	\subsection{Household} \label{nk_household}
 	Having found $C_t$ and its price $P_t$ the household's consumption-leisure allocation can be formulated. The derivation follows from the RBC with the exception of omitted investment expenditure and an extension by bond holdings $B_t$. While $B_t$ is zero in equilibrium it introduces the nominal interest rate into the households problem, contained in the discount factor $Q_t = \frac{1}{1+i_t}$. This is the first step to introducing a monetary authority. Similar to the RBC a representative infinitely lived agent solves the optimisation problem for all future periods. 
 	\begin{equation}
 		\begin{aligned}
@@ -348,7 +350,7 @@
 		\end{aligned}
 	\end{equation}
 	
-	\subsubsection{Price setting}
+	\subsubsection{Price setting} \label{nk_price_setting}
 	The main innovation of the NK model lies in modelling inflation. As mentioned in the above inflation arises from the imperfect substitutability of consumption goods, endowing firms with price setting power. Modelling the price setting process is consequently at the heart of the NK model. In doing so the standard model relies on the Calvo-pricing mechanism (ref). Firms are able to reset prices in any period with the probability $\theta$. This is equal to saying that every period a share $\theta$ of firms can reset its price to its optimum $\hat{P}_t$ while $1-\theta$ firms remain with last periods price $P_{t-1}$. This allows to describe the evolution of the price level as an in the following intertemporal equation, which if divided by $P_{t-1}$ yields an expression for inflation.
 	\begin{equation}
 		P_t = 
@@ -444,7 +446,7 @@
 		N_t = \int_{0}^{1} \left( \frac{Y_t}{N_{it}} \right)^{\frac{1}{1 - \alpha}}
 	\end{equation}
 	
-	\subsubsection{Log linearisation}
+	\subsubsection{Log linearisation} \label{nk_log_lin}
 	This completes the number of equations required for the derivation of the New Keynesian model. As the above equations are a non-linear system without a closed form solution some method of linearisation is required. The below will follow the procedure of \cite{gali_monetary_2008} and apply log-linearisation first order Taylor approximations. Throughout the log-linearisation some further reasoning is needed for the Euler equation. This can be found in \nameref{appc}. In the below lower-case expressions are the log-equivalent to previous upper case variables $\ln(X_t) \equiv x_t$.\\
 		
 	Euler equation
@@ -475,17 +477,16 @@
 		y_t = c_t
 	\end{equation}
 
-	\subsubsection{New Keynesian Phillips and IS curve}
-	
+	\subsubsection{New Keynesian Phillips and IS curve} \label{nk_nkp_is}
 	The next step is the derivation of an expression for real marginal cost $mr_{t}^r$ contained in the optimal price setting. In the absence of other production factors the marginal product of labour $MPN_t = \frac{\partial Y}{\partial N} = A_t (1- \alpha) N_t^{-\alpha}$ corresponds to nominal marginal cost $mc_t^n$. Real marginal cost can thus be obtained as $MC_t^r = \frac{W_t}{P_t MCN_t}$. This allows to formulate the below property in logs by including the production function \eqref{eq:llprod}.
-	\begin{equation}
+	\begin{equation} \label{eq:26}
 		\begin{aligned}
 			mc_t^r = w_t - p_t - a_t - mpn_t \\
 %			mc_t^r = w_t - p_t - a_t - \ln(1 - \alpha) + \alpha n_t \\
 			mc_t^r = w_t - p_t - \frac{a_t - \alpha y_t}{1 - \alpha} - \ln(1 - \alpha) \\
 		\end{aligned}
 	\end{equation}
-	This expression is at the provides the basis for two essential conclusions. 
+	This expression supplies two essential conclusions. 
 	Firstly, it allows to derive a relation between $mc_t^r$ and output $y_t$. Using labour supply \eqref{eq:llslabour} and the production function \eqref{eq:llprod} one can rephrase the above as. 
 	\begin{equation}
 		\begin{aligned}
@@ -504,26 +505,23 @@
 			+ \ln(1-\alpha)
 		\end{aligned}
 	\end{equation}
-	In the steady state marginal cost should be equal to its natural level and $mc_t^r = mc^r$. In this case the above describes natural output $y_t^n$. This fact can be used to derive an expression for the gap between marginal cost and its steady state value in logs $\hat{mc_t}^r \equiv = mc_t^r - mc^r$. In doing so one 
-	Reformulating the above by replacing $mc_t^r$ by $mc^r$ yields an expression of the output gap in terms of the marginal cost gap. 
+	In the steady state marginal cost should be equal to its natural level and $mc_t^r = mc^r$. In this case the above describes natural output $y_t^n$. This fact can be used to derive an expression for the gap between marginal cost and its steady state value in logs $\hat{mc_t}^r \equiv mc_t^r - mc^r$. Reformulating the above by replacing $mc_t^r$ by $mc^r$ yields an expression of the marginal cost gap and the output gap defined as $\tilde{y}_t \equiv y_t - y_t^n$ . 
 	\begin{equation} \label{eq:llmcrhat}
 		\begin{aligned}
 			\hat{mc_t}^r = \frac{\sigma (1 - \alpha) + \phi + \alpha}
-			{1 - \alpha)} (y_t - y_t^n)
+			{1 - \alpha)} \tilde{y}_t
 		\end{aligned}
 	\end{equation}
-	The second insight arising from the real marginal cost is its translation in period $t+k$. Combining this with the share of consumption good $i$ in the overall basket as well as the market clearing condition \eqref{eq:lleq} logs gives 
-% mc_{t+l}^r = w_{t+k} - p_{t+k} - \frac{a_ {t+k} - \alpha y_{i,t+k|t}}{1 - \alpha} - \ln(1 - \alpha)
-% check this
+	The second insight arising from \eqref{eq:26} is its translation in period $t+k$. Combined with the share of consumption good $i$ \eqref{eq:cshare} and the market clearing condition \eqref{eq:lleq} results in:
 	\begin{equation}
 		y_{t+k|t} = -\epsilon(p_{t+k|t} - p_{t+k}) + y_{t+k}
 	\end{equation}
-	Combining the two yields an expression of marginal cost and the price level.
+	Brought to period $t+k$ an expression of marginal cost and the price level can be derived.
 	\begin{equation}
 		mc_{i, t+k|t}^r = mc_{t+k}^r - \frac{\epsilon \alpha}{1 - \alpha}(\hat{p}_t - p_{t+k})
 	\end{equation}
-	The above combined with the expression for the optimal price level.
-% more math??	
+	The above combined with the expression for the optimal price level \eqref{eq:llpstar} yields:
+
 	\begin{equation}
 		\begin{aligned}
 			\hat{p}_t - p_{t-1} =
@@ -542,58 +540,53 @@
 			\theta \beta \E_t (\hat{p}_{t+1} - p_{t}) + (1 - \theta \beta) \Theta (mc_{t+k}^r - mc^r) + (1 - \theta) (\hat{p}_t - p_{t-1})
 		\end{aligned}		
 	\end{equation} 
-
-	This can be rewritten in more compact form as \footnote{where $\Theta \equiv \frac{1 - \alpha}{1 - \alpha + \alpha \epsilon} \leq 1$} \footnote{	where $\lambda \equiv \frac{(1-\theta)(1-\beta\theta)}{\theta} \Theta$}
+	Writing the above in more compact form leads to an expression of inflation and marginal cost gap \footnote{where $\Theta \equiv \frac{1 - \alpha}{1 - \alpha + \alpha \epsilon} \leq 1$} \footnote{	where $\lambda \equiv \frac{(1-\theta)(1-\beta\theta)}{\theta} \Theta$}.
 	\begin{equation}
 		\pi_t = \beta E_t [\pi_{t+1}] + \lambda \hat{mc}_{t}
 	\end{equation}
-
-	The above combined with \eqref{eq:llmcrhat} allows to construct the New-Keynesian Phillips curve, on of the two core equations of the NK model.\footnote{where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}{1 - \alpha)}$}
+	The above combined with \eqref{eq:llmcrhat} allows to construct the \ac{NKP}, on of the two core equations of the NK model\footnote{where $\kappa = \lambda \frac{\sigma (1 - \alpha) + \phi + \alpha}{1 - \alpha)}$}.
 	\begin{equation} \label{eq:llnkp}
 		\begin{aligned}
 			\pi_t = \beta E_t [\pi_{t+1}] + \kappa \tilde{y}_t
 		\end{aligned}
 	\end{equation}
-	
-	The second core equation of the New-Keynesian model is derived from the Euler equation \eqref{eq:lleuler}, the equilibrium condition \eqref{eq:lleq} and the log linear Fisher identity $r_t \equiv i_t - \E_t[\pi_{t+1}]$. Inserting $y_t$ for $c_t$ and introducing the difference between output and its natural level as $\tilde{y}_t \equiv y_t - y_t^n$ allows to write
-	\begin{equation}
-		\tilde{y}_t = 
-		\left[
-		\E_t[y_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t[\pi_{t+1}])
-		\right]
-		-
-		\left[
-		\E_t[y_{t+1}^n] - \frac{1}{\sigma} (r_t^n - \rho)
-		\right]
-	\end{equation}
-	This provides the New-Keynesian IS curve.
-	\begin{equation} \label{eq:llnkis}
-		\tilde{y}_t = \E_t[\tilde{y}_{t+1}] - \frac{1}{\sigma} (i_t - r_t^n - \E_t[\pi_{t+1}])
+	The second core equation of the New-Keynesian model is derived from the Euler equation \eqref{eq:lleuler}, the equilibrium condition \eqref{eq:lleq} and the log linear Fisher identity $r_t \equiv i_t - \E_t[\pi_{t+1}]$. Inserting $y_t$ for $c_t$ and introducing the yields the \ac{IS}:
+	\begin{equation}  \label{eq:llnkis}
+		\begin{aligned}
+			\tilde{y}_t = 
+			\left[
+			\E_t[y_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t[\pi_{t+1}])
+			\right]
+			-
+			\left[
+			\E_t[y_{t+1}^n] - \frac{1}{\sigma} (r_t^n - \rho)
+			\right] \\
+			\tilde{y}_t = \E_t[\tilde{y}_{t+1}] - \frac{1}{\sigma} (i_t - r_t^n - \E_t[\pi_{t+1}])
+		\end{aligned}
 	\end{equation}
 	
-	Having arrived at the core of the New-Keynesian model the New-Keynesian Phillips Curve (K) \eqref{eq:llnkp} and IS \eqref{eq:llnkis} deserve some perspective. 
-	The Phillips curve relates inflation not to unemployment but to the output gap, a relation also established in traditional literature through Okun's law (ref). It stipulates that expected inflation is an autoregressive process of order one plus the output gap. In doing so the \ac{NKP} uses the mark-up channel to describe inflation. Firms set prices according to the optimisation programme of Section~\ref{nk_the_firm}, where their mark-up collapsed to the its natural level in the steady state. Inflation expectation is accordingly mainly driven by the firm and gives little influence to the consumer. The consumer aspect is supplemented by endowing the consumer with wage negotiation power in more complex models \cite{smets_shocks_2007}. However, inflation remains a push-mechanism through which inflation results as a mark-up on raising input prices.
-
-	The New-Keynesian \ac{IS} curve results from the Euler equation and brings the consumer's perspective to the equilibrium. It describes the output dynamics as driven by consumption choice. Next periods output is an AR(1) process plus a term of the real interest rate gap. As the real interest rate diverges from its equilibrium value future output is increased according to the elasticity of consumption $\sigma$. This represents the steering capability of interest rates on the economy as theorised by Keynesian literature (ref). While in the traditional Keynesian model interest rate affect output through investment the NK model derives a similar effect solely based on consumption.
+	Having arrived at the core of the New-Keynesian model the New-Keynesian Phillips Curve \eqref{eq:llnkp} and the Investment-Savings curve \eqref{eq:llnkis} deserve some perspective. 
+	The Phillips curve relates inflation not to unemployment but to the output gap, a relation also established in traditional Keynesian literature through Okun's law (ref). The NKP describes expected inflation as an autoregressive process of order one plus a multiple of the output gap. In doing so the \ac{NKP} uses the mark-up channel to describe inflation. Firms set prices according to the optimisation programme of Section~\ref{nk_the_firm}, where their mark-up collapsed to the its natural level in the steady state. Inflation expectation is accordingly driven by the firms, putting little emphasis on the consumer. In more complex models the consumer expectation is introduced through wage negotiation power \cite{smets_shocks_2007}. However, in the NK model regardless of complexity inflation remains a push-mechanism of optimal mark-ups beyond marginal cost. As cost rise prices are gradually adjusted through the mark-up chain resulting in inflation outside of the equilibrium.
+	
+	The New-Keynesian \ac{IS} curve results from the Euler equation and as such brings the consumer's behaviour to the equilibrium. Output gap expectations are an AR(1) process plus a term of the real interest rate gap. As the real interest rate diverges from its equilibrium value future output is adjusted according to the elasticity of consumption $\sigma$. This represents the steering capability of interest rates on the economy as theorised by Keynesian literature (ref). While in the traditional Keynesian model interest rates affect output through investment the NK model derives a similar effect solely based on consumption. 
 
 	\subsubsection{Monetary policy}
-	Closing the model requires an interest rate rule, describing the behaviour of the central bank. This work will rely on a traditional Taylor rule with an exogenous interest rate shock following \cite{gali_monetary_2008}.
+	Having derived the core equations of household and firm optimality closing the model requires an equation characterising the monetary authority. This work will rely on a traditional Taylor rule with an exogenous interest rate shock following Galì (2008) \cite{gali_monetary_2008}.
 	\begin{equation}
 		\begin{aligned}
 			i_t = \rho + \phi_{\pi} \pi_t + \phi_{y} \tilde{y}_t + v_t \\
-			v_t = \rho_v v_{t-1} + \epsilon_t^v
+			v_t = \rho_v v_{t-1} + \epsilon_t^v \\
+			\epsilon_{v,t} \sim N(0, \sigma_{\epsilon_v})
 		\end{aligned}
 	\end{equation}
+	
+	At this point the NK model is complete, across this work it has been implemented using gEconpy (ref). The log-linear model specification provided to the software can be found in \nameref{appe}. As with the RBC the Eigenvalue stability condition of Blanchard-Kahn (1980) have been verified for each specification using gEconpy \cite{blanchard_solution_1980} (ref).
 
-	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability, based on the eigenvalues of the transition matrix \cite{blanchard_solution_1980}. These have been checked for each parameter specification.
-
-	\section{NKE}
-	The below is an extension of the standard NK model by petrol as a consumption good as well as factor of production. There is no domestic production of petrol, instead it is imported and its price is assumed to be exogenous. Beyond the import of petrol there is no foreign trade, all closed economy assumptions thus hold. 
-	Given the exogenous nature of petrol the model is quite similar to the standard NK model. The below will therefore depart from (section) and only outline the changes to the model from petrol production. 	
+	\section{New-Keynesian energy model}
+	The below is an extension of the standard NK model by petrol as a consumption good and factor of production. It is based on the work of Blanchard \& Galì (2008) \cite{blanchard_macroeconomic_2007}. Across this model petrol is assumed to be an import good with an exogenous price. Beyond petrol there is no foreign trade and all closed economy assumptions hold, making the model very similar to the standard NK model. The below therefore departs from Section~\ref{sec:NK} pointing out the differences and extensions to the standard model.
 	
 	\subsection{Bundler}
-	Petrol is considered a consumption good and as such enters into the good basket $C_t$. This inclusion is modelled across the bundling process, deriving the optimal basket across two classes of goods, domestic and foreign. 
-	The bundling of domestic goods follows from the same procedure as outlined in (section). Variables $C_{q,t}$ and $P_{q,t}$ are aggregated consumption and price respectively. The optimisation across the continuum of goods results in the same properties as above. These are share of good $C_{i,q,t}$ in the consumption basket $C_{q,t}$ and the aggregated price index $P_{q,t}$ as well as an expression of aggregate consumption. \\
+	Petrol is considered a consumption good and as such enters into the good basket $C_t$. This of course affects the bundling process now encompassing domestic and foreign goods. The bundling of domestic goods follows from Section~\ref{nk_bundle}. Variables $C_{q,t}$ and $P_{q,t}$ are aggregated consumption and its price. The optimisation across the continuum of goods results in the same properties as with the NK model. These are share of good $C_{i,q,t}$ in the consumption basket $C_{q,t}$ and the aggregated price index $P_{q,t}$ as well as an expression of aggregate consumption.
 	\begin{equation} \label{eq:o_pindex}
 		P_{q,t} = \left( \int_{0}^{1} P_{i,q,t}^{1 - \epsilon} di \right)^{\frac{1}{1-\epsilon}} \\
 	\end{equation}
@@ -603,19 +596,17 @@
 	\begin{equation} \label{eq:o_pcon}
 		\int_{0}^{1} P_{it} C_{it} di = Z_t = P_t C_t
 	\end{equation}
-	Foreign goods consumption $C_{m,t}$ exclusively consists of petrol and its share in overall consumption $C_t$ is assumed to be constant. Parameter $\chi$ represents this share. 
-	This assumption, though a multiplication, is viable as consumption demand for petrol is relatively inelastic in the short-run. Empirical evidence suggests that due to the inability replace durable goods (e.g. cars) that usually are at heart of consumption demand this demand is inelastic (ref). Overall consumption this is defined as \footnote{where $\Theta = \chi^{-\chi}(1-\chi)^{(\chi-1)}$}
+	Foreign goods consumption $C_{m,t}$ exclusively consists of petrol and its share $\chi$ in overall consumption $C_t$ is assumed to be constant. The assumption of a constant share is supported by empirical evidence for the short-run. As replacing durable petrol consuming goods (e.g. cars) is expensive, households cannot substitute away from petrol in the short-run \cite{blanchard_macroeconomic_2007}. Overall consumption is defined as: \footnote{where $\Theta = \chi^{-\chi}(1-\chi)^{(\chi-1)}$}
 	\begin{equation}
 		C_t \equiv \Theta_\chi C_{m,t}^\chi C_{q,t}^{1-\chi}
 	\end{equation}
-	From this the overall price level of the consumption basket $P_{c,t}$ is derived, introducing $S_t \equiv \frac{P_{m,t}}{P_{q,t}}^\chi$ the real price of oil.
+	The over overall price level $P_{c,t}$ of the consumption basket $C_t$ can then be derived, introducing $S_t \equiv \frac{P_{m,t}}{P_{q,t}}^\chi$, the real price of oil.
 	\begin{equation}
 		P_{c,t} \equiv P_{m,t}^\chi P_{q,t}^{1-\chi} 
 			= P_{q,t} \frac{P_{m,t}}{P_{q,t}}^\chi
 			= P_{q,t} S_t^\chi
 	\end{equation}
-		
-	Following this reasoning and using \eqref{eq:o_pcon} overall consumption can be written as 
+	Following this reasoning and using \eqref{eq:o_pcon} an expression for overall consumption can be written as:
 	\begin{equation}
 		C_t P_{c,t} = C_{m,t}P_{m,t} + C_{q,t}P_{q,t}
 	\end{equation}
@@ -633,7 +624,7 @@
 		\end{aligned}
 	\end{equation}
 	
-	The authors use a log-utilty function $U(C_t,L_t) \equiv \log(C_t) - \frac{N_t^(1+\phi)}{1+\phi}$ which results in the following first order conditions.
+	The authors use a log-utilty function $U(C_t,L_t) \equiv \log(C_t) - \frac{N_t^{(1+\phi)}}{1+\phi}$ which results in the following first order conditions.
 	\begin{equation}
 		\begin{aligned}
 			Q_t = \beta \E_t \left[ \frac{C_t}{C_{t+1}} \frac{P_{c,t}}{P_{c,t+1}} \right] \\
@@ -642,40 +633,38 @@
 	\end{equation}
 
 	\subsection{The Firm}
-	Petrol serving as a second factor of production the firm's optimisation problem is extended from the standard NK model. As in the RBC the firm obtains its production factor demand by equalising their marginal cost.  
+	Now faced by a two-factor production function firms are conduct static optimisation as in the RBC, obtaining the optimal factor demands by equalising marginal costs.  
 	\begin{equation}
 		\begin{aligned}
 %			\max_{M_{i,t}} \quad A_t M_{i,t}^{\alpha_m}
-			\max_{M_t} \quad & A_t M_{it}^{\alpha_m} N_{it}^{\alpha_n} \\
-			\textrm{s.t.} \quad & Y_{i,q,t} = W_t N_{i,t} + M_{i,t} P_{m,t}\\
+			\max_{M_t} \quad A_t M_{it}^{\alpha_m} N_{it}^{\alpha_n} \\
+			\textrm{s.t.} \quad Y_{i,q,t} = W_t N_{i,t} + M_{i,t} P_{m,t}\\
 			\textrm{FOC:} \\
-			\quad & W_{i,t} = \alpha_n A_t M_{i,t}^{\alpha_m} N_{i,t}^{\alpha_n -1}\\
-			\quad & K_{i,t} = \alpha_m A_t M_{i,t}^{\alpha_m -1} N_{i,t}^{\alpha_n}
+			\quad W_{t} = \alpha_n A_t M_{i,t}^{\alpha_m} N_{i,t}^{\alpha_n -1}\\
+			\quad P_{m,t} = \alpha_m A_t M_{i,t}^{\alpha_m -1} N_{i,t}^{\alpha_n}
 		\end{aligned}
 	\end{equation}
-	The real marginal cost can thus be expressed at the equality of marginal input cost of labour and petrol. This constitutes a deviation from the standard NK model,  The the firms nominal marginal cost $MC_{t}^n$ is therefore.
+	An expression for nominal marginal cost $MC_t^n$ thus can be defined at the intersection of marginal labour and petrol costs. 
 	\begin{equation}
 		MC_t^n = \frac{W_{i,t}}{\alpha_n Y_{i,q,t} N_{i,t}^{-1}} = \frac{P_{m,t}}{\alpha_m Y_{i,q,t} M_{i,t}^{-1}}
 	\end{equation}
-	Having obtained nominal marginal cost an expression for the firm's mark-up can be defined as $MC_{i,t}^r \equiv \frac{P_{q,t}}{MC_{i,t}^n}$. With some further manipulation \cite{blanchard_macroeconomic_2007} uses this to obtain the demand for petrol.
+	Using the above an expression for the firm's gross mark-up is defined as $\xi_{i,t} \equiv \frac{P_{q,t}}{MC_{i,t}^n}$. With some further manipulation Blanchard \& Galì (2007) use this to obtain the demand for petrol \cite{blanchard_macroeconomic_2007}.
 	\begin{equation}
 		\begin{aligned}
-		MC_{i,t}^r \frac{P_{m,t}}{P_{q,t}} M_{i,t} = \alpha_m Q_{i,t} \frac{P_{i,q,t}}{P_{q,t}} \\
-		M_{i,t} = \alpha_m \frac{Q_{i,t}}{S_t MC_{i,t}^r} \frac{P_{i,q,t}}{P_{q,t}}
+		\xi_{i,t} \frac{P_{m,t}}{P_{q,t}} M_{i,t} = \alpha_m Q_{i,t} \frac{P_{i,q,t}}{P_{q,t}} \\
+		M_{i,t} = \alpha_m \frac{Q_{i,t}}{S_t \xi_{i,t}} \frac{P_{i,q,t}}{P_{q,t}}
 	\end{aligned}
 	\end{equation}
 
 	\subsection{Price setting}
-	The price setting problem of the firm is equivalent to the price setting in the standard NK model. It diverges in only one notion, the real marginal cost $MC_t^r$. \\
-	
-	The expression for inflation is obtained as in the standard model where the ratio $\Pi_{q,t} = \frac{P_{q,t}}{P_{q,t-1}}$ provides \ac{CPI} inflation.
+	The price setting problem for domestic goods follows straightforward from the NK model in Section~\ref{nk_price_setting}. \ac{CPI} inflation is obtained from the ratio $\Pi_{q,t} = \frac{P_{q,t}}{P_{q,t-1}}$.
 	\begin{equation}
 		P_{q,t} = 
 		\left[ 
 		\theta P_{q,t-1}^{1 - \epsilon} + (1 - \theta) \hat{P}_t^{1 - \epsilon}
 		\right]^{\frac{1}{1 - \epsilon}}
 	\end{equation}
-	The firm solves the same optimisation problem as in the above. 
+	The firm solves the same optimisation problem as in Section~\ref{nk_price_setting}. 
 	\begin{equation}
 		\begin{aligned}
 			\max_{\hat{P}_t}
@@ -688,12 +677,9 @@
 			\right] \\
 			\textrm{s.t.}\\
 			\quad
-			Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k}
-		\end{aligned}
-	\end{equation}
-	with the first order condition 
-	\begin{equation}
-		\begin{aligned}
+			Y_{it+k|t} = \left(\frac{\hat{P}_t}{P_{t+k}} \right)^{-\epsilon} C_{t+k} \\
+			\textrm{FOC:} \\ 
+			\quad
 			\sum_{k=0}^{\infty} \theta^k \E_t 
 			\left[
 			Q_{t,t+k} Y_{q,t+k|t} 
@@ -706,19 +692,20 @@
 	\end{equation}
 
 	\subsection{Equilibrium}
-	The equilibrium conditions follow the standard NK model in assuming the resource constraint $Y_{i,q,t} = C_{i,q,t}$ on individual firm level. As showed in (section) of the standard NK model overall domestic output can be linked to consumption of domestic goods: 
+	The equilibrium conditions follow the standard NK model in assuming the resource constraint $Y_{i,q,t} = C_{i,q,t}$ on individual firm level. As showed in Section~\ref{nk_eqili} overall domestic output can be linked to consumption of domestic goods as follows: 
 	\begin{equation}
 		Y_{q,t} = \left( \int_{0}^{1} Y_{it}^{1-\frac{1}{\epsilon}} di \right)^{\frac{\epsilon}{\epsilon - 1}} = C_{q,t}
 	\end{equation}
 	Using this fact and the resource constraint casted into the \eqref{eq:o_cshare}, resulting in $Y_{q,t} = \frac{P_{i,q,t}}{P_{q,t}}$ allows to derive an expression for oil as a production factor solely depending on domestic output.
 	\begin{equation} \label{eq:oil_prod}
-		M_t = \frac{\alpha_m Y_{q,t}}{MC_{t}^r S_t}
+		M_t = \frac{\alpha_m Y_{q,t}}{\xi_{t} S_t}
 	\end{equation}
 	Using \eqref{eq:oil_prod} and the fact that bond holdings are zero in equilibrium allows to derive an expression for the overall price level, factoring out petrol:
 	\begin{equation}
-		P_{c,t}C_t = P_{q,t} C_{q,t} - P_{m,t}M_t = \left(1 - \frac{\alpha_m}{\xi_t^n} \right) P_{q,t} Y_{q,t}
+		P_{c,t}C_t = P_{q,t} C_{q,t} - P_{m,t}M_t = \left(1 - \frac{\alpha_m}{\xi_t} \right) P_{q,t} Y_{q,t}
 	\end{equation}
-	To this point the model is closed and one could proceed to log-linearisation. However, domestic output $Y_{q,t}$ does not correspond to overall output as it does not account for the petrol consumption by the economy. The model in its current form can thus not be linked to data as the case with the NK model. The solution proposed by Blanchard \& Galì (2007)  is to define a GDP deflator $P_{y,t}$ \cite{blanchard_macroeconomic_2007}, allowing them to obtain overall GDP $Y_t$ from domestic output.
+	To this point the model is closed and one could proceed to log-linearisation.
+	However, no expression for overall output has been derived yet. The model can in this state not be linked the real data, as domestic output $Y_{q,t}$ account for petrol consumption. The solution proposed by Blanchard \& Galì (2007) is to define a GDP deflator $P_{y,t}$ trough which overall GDP $Y_t$ can be obtained off domestic output $Y_{q,t}$ \cite{blanchard_macroeconomic_2007}.
 	\begin{equation}
 		\begin{aligned}
 		P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}
@@ -727,12 +714,12 @@
 	\end{equation}
 		
 	\subsubsection{Log linearisation}
-	The equations derived in the above can be log-linearise into the following form. The procedure largely follows that of the standards NK model. 	
-	\begin{table}
+	The model be log-linearise in the following form, closely following the standard NK model.
+	\begin{table}[H]
 		\centering
-		\fontsize{8pt}{8pt}
+		\fontsize{9pt}{9pt}\selectfont
 		\caption{New-Keynesian Energy model log-linear equations}
-		\begin{tabular}{llr}
+		\begin{tabular}{lll}
 			Equation name & Equation & Log-linear Equation \\
 			\hline
 			 Euler equation & 
@@ -745,16 +732,16 @@
 			 
 			 Oil demand &
 			 $M_t = \frac{\alpha_m Y_{q,t}}{\xi_t^n S_t}$ &
-			 $m_t = -\mu_t^n - st + y_{q,t}$ \footnotemark \\
+			 $m_t = -\mu_t - st + y_{q,t}$ \footnotemark \\
 			 
 			 Production &
 		%A_t M_t^{\alpha_m} N_t^{\alpha_n} = 
 			 $Y_{q,t} = A_t N_t^{\alpha_n} \left( \frac{\alpha_m Y_{q,t}}{\xi_t^n S_t} \right)^{\alpha_m}$ &
-			 $y_{q,t} = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t - \alpha_m s_t - \alpha_m \mu_t^n)$ \\
+			 $y_{q,t} = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t - \alpha_m s_t - \alpha_m \mu_t)$ \\
 			 
 			 Gross output & 
 			 $P_{c,t}C_t = (1-\frac{\alpha_m}{\xi_t^n})P_{q,t}Y_{q,t}$ &
-			 $c_t = y_{q,t} - \chi s_t + \eta \mu_t^n$ \footnotemark \\
+			 $c_t = y_{q,t} - \chi s_t + \eta \mu_t$ \footnotemark \\
 			 
 			 GDP deflator &
 			 $P_{q,t} \equiv P_{y,t}^{1-\alpha_m} P_{m,t}^{\alpha_m}$ &
@@ -762,7 +749,7 @@
 			
 			GDP &
 			$P_{y,t}Y_t = \left(1-\frac{\alpha_m}{\xi_t^n}\right) P_{q,t}Y_{q,t}$ &
-			$y_t = y_{q,t} + \frac{\alpha_m}{1-\alpha_m}s_t + \eta \mu_t^n$ \\
+			$y_t = y_{q,t} + \frac{\alpha_m}{1-\alpha_m}s_t + \eta \mu_t$ \\
 			
 			Inflation & 
 			$\left[\frac{P_{q,t}}{P_{q,t-1}}\right]^{-\epsilon}= \theta + (1 - \theta) \pi_t$ &
@@ -777,26 +764,26 @@
 			\right)
 			\right]
 			= 0$ &			
-			$\pi_{q,t} = \beta E_t [\pi_{q,t+1}] + \lambda \hat{mc}_{t}$ \\
+			$\pi_{q,t} = \beta E_t [\pi_{q,t+1}] + \lambda (\mu_t - \mu)$ \\
 			\hline
 		\end{tabular}
 	\end{table}
-% fix footnotes
-	\footnotetext{where $\rho \equiv - \ln(\beta)$ and $i_t = \ln(Q_t)$}
-	\footnotetext{where $\mu_t^n \equiv \ln(\xi_t^n)$}
-	\footnotetext{where $\eta \equiv \frac{\alpha_m}{\xi_t^n-\alpha_m}$}
+	\footnotetext[6]{where $\rho \equiv - \ln(\beta)$ and $i_t = -\ln(Q_t)$}
+	\footnotetext[7]{where $\mu_t^n \equiv \ln(\xi_t^n)$}
+	\footnotetext[8]{where $\eta \equiv \frac{\alpha_m}{\xi^n-\alpha_m}$}
 
-	Combining the expressions for $y_t$, $c_t$ and $m_t$ through the mark-up $\mu_t^n$ a simplified expression for output and consumption can be derived, In doing so Blanchard \& Galì (2008) make the assumption that steady-state mark-up $mc^r$ is small enough so that $\frac{alpha_m}{mc^r - \alpha_m}-\frac{alpha_m}{a - \alpha_m} mc_t^r \approx 0$. This yields the below expressions for output and consumption.
+	Combining the expressions for $y_t$, $c_t$ and $m_t$ through the mark-up $\mu_t$ a simplified expression for output and consumption can be derived, In doing so Blanchard \& Galì (2008) make the assumption that steady-state mark-up $\mu^n$ is small enough so that $\frac{alpha_m}{mc^r - \alpha_m}-\frac{alpha_m}{a - \alpha_m} \mu^n \approx 0$. This yields the below expressions for output and consumption.
 	\begin{equation}
 		\begin{aligned}
 			y_t = \frac{1}{1-\alpha_m} (a_t + \alpha_n n_t) \\
 			c_t = y_t - (\frac{\alpha_m}{1-\alpha_m} + \chi) s_t \\
+%			\mu_t^n = - \Gamma_n n_t - \Gamma_s s_t
 		\end{aligned}
 	\end{equation}
 	In order to close the model an exogenous law of motion for the oil price is required, and defined as follows: 
 	\begin{equation}
 		\begin{aligned}
-			s_t = s_{t-1} + \epsilon_{s,t} \\
+			s_t = \rho_s s_{t-1} + \epsilon_{s,t} \\
 			\epsilon_{s,t} \sim N(0, \sigma_{\epsilon_{s}})
 		\end{aligned}
 	\end{equation}
@@ -807,17 +794,34 @@
 		\end{aligned}
 	\end{equation}
 
-	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability, based on the eigenvalues of the transition matrix \cite{blanchard_solution_1980}. These have been checked for each parameter specification.	
+	The above combined with the Euler condition and law of price setting yield the model's core equations the \ac{NKP} and the \ac{IS} curve.
+	\begin{equation}
+		\begin{aligned}
+			y_t = \E_t[y_{t+1}] - (i_t - \E_t[\pi_{q,t+1}]) + \frac{\alpha_m (1-\rho_s)}{1-\alpha_m} s_t \\
+			\pi_{q,t} = \beta \E_t[\pi_{t+1}] + \kappa y_t + \lambda_p \Gamma_p s_t
+		\end{aligned}
+	\end{equation}
+	where $\kappa \equiv \lambda_p \Gamma_n \frac{1-\alpha_m}{\alpha_n}$ and 
+	$\Gamma_n \equiv \frac{(1 - \alpha_n - \alpha_m) + (1 - \alpha_m) (1 + \phi_{\pi})}{1 - \alpha_m - (1 - \alpha_m) \eta}$
+	and $\frac{\frac{(1 - \theta)(1 - \beta \theta)}{\theta}}{1 + (1 - \alpha_m + \alpha_n)(\epsilon - 1)}$.
+	
+	In this NK model extended by petrol the core equations are extended by the petrol price. This illustrates the theorised direct impact of petrol prices on inflation and consequently output. As prices rise firms marginal cost change, which through their mark-up $\mu_t^n$ carries forward into the optimal price. This leads to changes in inflation. 
+	As with inflation expectations the output is similarly depend on petrol prices. Moreover, the IS equation no longer takes the natural rate of interest into account. This is linked to the fact that this model's no longer uses the output gap as its instrument. Instead it relies on output itself. Apart from these changes the expectation formation is structurally similar to the New-Keynesian model. 
+	
+	This model has been implemented using gEconpy, where the log-linear model as provided to the simulation programme can be found in \nameref{appe}. The system's stability has been assessed according to the Blanchard-Kahn conditions of stability for each parameter specification \cite{blanchard_solution_1980}. 
 	
 	\section{Data}
-	This work relies quarterly macroeconomic variables from 1975 to 2020. All data is obtained from the St. Louis Federal Reserve data base, where it has been seasonally adjusted and deflated \cite{noauthor_federal_nodate}. The specific data codes can be found in the  Table~\ref{tab:fred_variables} in the \nameref{appb}. Most data used across this work is standard to the DSGE literature. However, some extensions are necessary to allow for the inclusion of a petrol sector. The below will briefly outline the use of standard data, while providing more detail on the data specific to this work.
+	This work relies quarterly macroeconomic variables from 1975 to 2020. All data is obtained from the St. Louis Federal Reserve data base, where it has been seasonally adjusted and deflated \cite{noauthor_federal_nodate}. The specific data codes can be found in Table~\ref{tab:fred_variables} in the \nameref{appb}. Most data used across this work is standard to the DSGE literature. However, some extensions are necessary to allow for the inclusion of a petrol sector. The below will briefly outline the use of standard data, while providing more detail on the data specific to this work.
+	
 	The common variables for DSGE model evaluation are nominal interest rates, consumption, wage and labour hours. The nominal interest rate is proxied by the federal funds effective rate as suggested Herbst \& Schorfheide 2016 \cite{herbst_bayesian_2016}. Consumption is measured by household expenditure data. Labour hours and wage refer to non-farm business total hours worked and average hourly wage. The exclusion of the agricultural sector is generally recommended for the US economy \cite{guerron-quintana_bayesian_2013}. Moreover, this work employs the WTI Crude Oil Index as proxy for the price of petrol. The WTI dates back longer than the more recent Brent Crude Oil Index, wherefore this work will rely on it.
-	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. The NK energy model's aim is to analyse inflation under the inclusion of petrol in the economy. Relying on the CPI, which includes petrol prices, would thus be counterproductive as the model should generate inflation resulting from petrol endogenously. In order to accurately reflect the models ability energy price need to be removed from inflation data. In the NK energy model therefore relies on the "Sticky Price Consumer Price Index less Food and Energy". Similar reasoning applies to consumption expenditure which for the NK energy model specifically excludes expenditure for energy and utilities.
+	With regards to inflation $\pi$ this work relies on the median consumer price index for the RBC and the NK model. The NK energy model's aim is to analyse inflation under the inclusion of petrol in the economy. Relying on the CPI, which includes petrol prices, would thus be counterproductive as the model should generate inflation resulting from petrol endogenously. In order to accurately reflect the models ability, energy prices need to be removed from inflation data. In the NKE model therefore relies on the St. Louis Fed's "Sticky Price Consumer Price Index less Food and Energy". Similar reasoning applies to consumption expenditure which for the NKE specifically excludes expenditure for energy and utilities.
 	
 	\subsection{Preprocessing}
-	Economic data is usually considered in per capita terms in order to account for different population dynamics (ref). Population dynamics are not continuously collected and usually a mix of actual measurement and imputation. As a result population data exhibits significant irregularities \cite{pfeifer_guide_2021}. Using such noisy records would distort the data of more carefully collected economic variables. Population data thus requires some preprocessing on its own. Smoothing the data with the Hodrick-Prescott (HP) filter's at a smoothing factor of 10,000 is recommended in order to de-noise the data \cite{edge_judging_2013}. The smoothed time series captures the real population dynamics and can then be used to obtain per capita variables. 
-	Having removed population dynamic and inflation the next step is to separate the cyclicality off trending variables. As DSGE models are defined in terms of log-deviations from the steady state, as such the data need to be transformed accordingly. This requires an identification of the steady state and its evolution over time. Separating the long-term trend of GDP from its cyclical deviations commonly relies on the HP filter. The filter separates trend and deviation. In the case of quarterly variables a smoothing parameter of 1600 is recommended \cite{ravn_adjusting_2002}. As DSGE models are log-linearised they describe deviation in terms of logarithm, which for small values approximates percentage deviations. In order to transform data into log-deviations from their underlying trend the HP filter is fed with log-transformed time series. This procedure by construction yields stationary time series of cyclicality. However, to comply with common standards stationarity is formally confirmed by the Augmented-Dickey Fuller test (ref). Having transformed all trending variables have into stationary log-deviation from their natural level only the percentage variables remain, namely inflation and interest rate. They require no such treatment, however need translation from annual to quarterly rates. This has been done according to the following formula $(1 + \frac{\matr{X}}{100})^{1/4} - 1$.
-	
+	Economic data is usually considered in per capita terms in order to account for different population dynamics. Since population dynamics are not continuously collected they usually commingle actual measurements and imputations. This leads to irregularity in the data, which if divided by would distort more carefully collected economic variables \cite{pfeifer_guide_2021}. Population data thus requires some preprocessing on its own. Smoothing the data with the \ac{HP} at a smoothing factor of 10,000 is recommended in order to de-noise population data \cite{edge_judging_2013}. The smoothed time series then captures the real population dynamics and can be used to obtain per capita variables. 
+	Having removed population dynamic the next step is to separate the cyclicality off trending variables. As DSGE models are defined in terms of log-deviations from the steady state data needs to be transformed accordingly. This requires an identification of the steady state and its evolution over time, which commonly relies on the \ac{HP} filter. The filter separates trend and deviation with at smoothing parameter of 1600 for quarterly variables \cite{ravn_adjusting_2002}. As input to the HP filter data is usually log-transformed, in order to account for the log-deviation definition of DSGE models. 
+	This procedure by construction yields stationary time series of cyclicality. However, to comply with common standards stationarity is formally confirmed by the Augmented-Dickey Fuller test (ref). Having transformed all trending variables have into stationary log-deviation from their natural level only the percentage variables remain, namely inflation and interest rate. They require no such treatment, however need translation from annual to quarterly rates. This has been done according to the following formula $(1 + \frac{x}{100})^{1/4} - 1$.
+		
+	\subsection{Data description}
 	\input{{./graphs/data_descriptives.tex}}
 	\begin{figure}[H]
 		\begin{center}
@@ -826,10 +830,9 @@
 			\label{fig:data}
 		\end{center}
 	\end{figure}
-	
-	\subsection{Analysis of models}
-	The data used for the analysis spans from 1985 to 2020. Moreover, data from 1975 to 1985 have been used to derive parameter prior distribution from historical averages. 
-	As can be seen across the transformed GDP series \ref{fig:data} this period spans across three major economic crisis, the 2000 dot.com bubble, the 2008 financial crisis and most recently the Covid-19 pandemic. These are similarly present across consumption, labour hours and investment. When turning to the interest rate great differences across the sample period become apparent. The mid-80s still influenced by the Volker-shock have a comparability high interest rates when compared to the more recent low-interest environment starting as of 2009.
+
+	The data used for the analysis spans from 1985 to 2020. Moreover, data from 1975 to 1985 has been used to inform the choice of the parameters' prior distributions. 
+	As can be seen across the transformed GDP series \ref{fig:data} the period of analysis spans three major economic crisis, the 2000 dot.com bubble, the 2008 financial crisis and most recently the Covid-19 pandemic. These recessions are similarly present across consumption, labour hours and investment. When turning to the interest rate great differences across the sample period become apparent. The mid-80s, still influenced by the Volker-shock, have rather high interest rates when compared to the more recent low-interest environment starting as of 2009.
 	\begin{figure}[H]
 		\begin{center}
 			\includegraphics[width=.9\textwidth]{bvar_forecast1.png}
@@ -837,26 +840,25 @@
 			\label{fig:bvar_2lags}
 		\end{center}
 	\end{figure}
-	Running a first two-lag \ac{BVAR} on output $y$, consumption $c$ and labour $l$ reveals the difficulty of forecasting. Depicted in blue in Figure~\ref{fig:bvar_2lags} systematic bias across output and consumption forecasts becomes apparent. Similarly labour hours are forecasted to be much more volatile than actually the case. A more comprehensive \ac{VAR} model will be presented later in \nameref{forecast_bvar}. The initial success of RBC literature was based on the fact that a model was able to replicate data with the same first and second order moments as real data. For this purpose covariance matrices this work includes the covariance matrix for each of the above models as well as the data covariance matrix in \nameref{appa}.
+	Running a first two-lag \ac{BVAR} on output $y$, consumption $c$ and labour $l$ reveals the difficulty of forecasting. Depicted in blue in Figure~\ref{fig:bvar_2lags} systematic bias across output and consumption forecasts becomes apparent. Similarly labour hours are forecasted to be much more volatile than actually the case. A more comprehensive \ac{VAR} model will be presented later in \nameref{forecast_bvar}.
+	The initial success of RBC literature has been based on its ability to replicate real data's first and second order moments.
+	For this purpose covariance matrices of real data and the model specifications where compared. This work follows suit and includes the covariance matrix for each of the above models as well as the data covariance matrix in \nameref{appa}.
 			
 	\section{Bayesian Estimation}
-	As explained in the above the RBC and NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1981 critique, as their parameters do not depend on behaviour of agents but describe their preferences \cite{lucas_jr_tobin_1981}. Parameters thus describe the time invariant dynamic system underling the economy. Evaluating the accuracy of such system is thus tied to evaluating its parameters in capturing the true dynamics \cite{herbst_bayesian_2016}. In this aim two main approaches of evaluation have been drawn up by research over time, frequentist or Bayesian methods. 
-	The frequentist approach first relied on the simulation method of moments, which latter developed into the general method of moments (GMM) \cite{blanchard_solution_1980}. This approach attempts to minimize the distance between simulated and real data moments, allowing to discriminate between several specification of the same structural model \cite{christiano_current_1992}. However, as the number of parameters grew GMM conditions were no longer sufficient to estimate model fit \cite{guerron-quintana_bayesian_2013}. Instead, maximum-likelihood (ML) estimation was used but likewise unable to estimate the growing number of parameters \cite{guerron-quintana_bayesian_2013}. Bayesian statistics offered remedy in the convenient formulation of conditional likelihood \cite{guerron-quintana_bayesian_2013}. Based on Bayes's law the parameters' posterior distribution can be found through the definition of a prior distribution and the conditional likelihood. 
-	Bayes' law suggests that the posterior of parameter vector $\Theta$ can be obtained by multiplying the prior $P(\Theta)$ with the conditional likelihood of the data $Y_t$ given the parameters $\Theta$. 
+	As explained in the above the RBC and NK models are based on structural parameters of the economy. As such they are not subject to the Lucas 1981 critique as their parameters do not depend on behaviour of agents but describe their preferences \cite{lucas_jr_tobin_1981}. Parameters thus describe the time invariant dynamic system underling the economy. Evaluating the accuracy of such system is thus tied to evaluating its parameters in capturing the true dynamics \cite{herbst_bayesian_2016}. In this aim two main approaches of evaluation have been drawn up by research over time, frequentist and Bayesian methods. 
+	The frequentist approach first on \ac{GMM}, attempting to minimize the distance between simulated and real data moments \cite{blanchard_solution_1980}. This allowed to discriminate between several specification of the same structural model \cite{christiano_current_1992}. However, as the number of parameters grew GMM conditions were no longer sufficient to estimate model fit \cite{guerron-quintana_bayesian_2013}. Instead, maximum-likelihood  estimation was used but likewise unable to estimate the growing number of parameters \cite{guerron-quintana_bayesian_2013}. Bayesian statistics offered remedy in the convenient formulation of conditional likelihood \cite{guerron-quintana_bayesian_2013}. Based on Baye's law the posterior of parameter vector $\Theta$ can be obtained by multiplying the prior $P(\Theta)$ with the conditional likelihood of the data $Y_t$ given the parameters. 
 	\begin{equation} \label{eq:blaw}
 		P( \Theta | Y_{T}) = P(\Theta) L(Y_{T} | \Theta)
 	\end{equation}
-	Based on Bayes law parameters and its dynamic system can be evaluated using the data the system is meant to generate \cite{herbst_bayesian_2016}. For that three ingredients are required, a distribution reflecting prior believes about the parameters, a likelihood function and an iterative procedure allowing to sample from the posterior. The following section will introduce these three concepts. Moreover, it will introduce the forecasting properties that naturally arise from joining the three. 
-
-%	 DSGE literature has developed a rich body of literature covering the case of the canonical DSGE model rather well (ref). The state of research is currently concerned with the estimation of larger models and non-linear and not normally distributed posterior distributions (ref). However, given the simplicity of the above discussed models current techniques are more than sufficient for this thesis purposes.
+	Three ingredients are thus required, a distribution reflecting prior believes about the parameters, a likelihood function and an iterative procedure allowing to sample from the posterior. The following section will introduce these three concepts. Moreover, it will point out the forecasting properties that naturally arise from joining the three. 
 		
 	\subsection{Kalman Filter}
-	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous held knowledge to the posterior \cite{herbst_bayesian_2016}. In this an expression of conditional likelihood is needed \eqref{eq:blaw}. In obtaining the likelihood of a linear system one can make use of the fact that the system is itself a data generating process \cite{andrews_kalman_2008}. The likelihood function is obtained through evaluating the probability of a given data series being generated by the system. 
-	A method allowing to do so is the Kalman filter, a method originally developed for tracking moving objects across several sensors \cite{kalman_new_1960}. In order to track any object the filter requires the object's position and velocity to be described in a linear system. The filter then uses this system and sensor data to form a believe about the object's position, also referred to as the system's state \cite{andrews_kalman_2008}. Applied to DSGE modelling the system is the above derived model and its state are the magnitude to which the variables deviate from their respective steady state.	
-	In forming a believe about the system states the filter takes into account that sensor signals are inherently noisy. The Kalman filter exploits its knowledge about the nature of this measurement noise in using it to reduce the variance of its believe about the current system state \cite{andrews_kalman_2008}. In doing so the Kalman filter imposes the assumption of Gaussian distributed noise \cite{kalman_new_1960}. This assumption makes use of the fact that multiplying Gaussian distributions results in another Gaussian distribution with lower or equal variance. Decreasing a distribution's variance is equivalent to narrowing down the believe about the current state of the tracked object. Applied to DSGE modelling the assumption of Gaussian noise implies that the joint distribution of model shocks must be Gaussian \cite{herbst_bayesian_2016}. This is satisfied for small scale New Keynesian models if the individual shocks are Gaussian \cite{herbst_bayesian_2016}. 	
-	The Kalman filter is especially desirable for two properties. For one it translates its believe about a system's state into a likelihood function \cite{kalman_new_1960}. Moreover, it is the optimal forecast for a linear system \cite{kalman_new_1960}. The below will briefly explain how the filter operates as well as its construction of the likelihood function. In implementing the below in code this has drawn from filterpy, a library for Bayesian filtering (ref).
+	Bayesian analysis of DSGE models is concerned with the transition from a prior distribution reflecting previous held knowledge to its posterior \cite{herbst_bayesian_2016}. In this an expression of conditional likelihood is needed \eqref{eq:blaw}. In obtaining the likelihood of a linear system one can make use of the fact that the system is itself a data generating process \cite{andrews_kalman_2008}. The likelihood function is obtained through evaluating the probability of a given data series being generated by the system. 
+	A method allowing to do so is the Kalman filter, a method originally developed for tracking moving objects across several sensors \cite{kalman_new_1960}. In order to track any object the filter requires the object's position and velocity to be described in a linear system. The filter then uses this system alongside the measurement data to form a believe about the object's position, also referred to as the system's state \cite{andrews_kalman_2008}. Applied to DSGE modelling the system is the above derived model and its state are the magnitude to which the variables deviate from their respective steady state.	
 	
-	In a generic linear system with transition matrix $\matr{F}$, the state variables $\matr{X}_{k-1}$ is propagated to $\matr{X}_k$. The shock noise matrix $\matr N$ describes the effect of shocks on the transition process. In forming a believe about the current state $\matr{X}_k$ the Kalman filter proceeds in two steps, a forecast and an update step.
+	In forming a believe about the system states the filter exploits the fact that sensor signals are inherently noisy \cite{andrews_kalman_2008}. The filter imposes the assumption of Gaussian distributed noise, making use of the fact that multiplying Gaussian distributions results in another Gaussian distribution with lower or equal variance \cite{kalman_new_1960}. Decreasing a distribution's variance is equivalent to narrowing down the believe about the current state of the tracked object. Applied to DSGE modelling the assumption of Gaussian noise implies that the joint distribution of model shocks must be Gaussian \cite{herbst_bayesian_2016}. This is satisfied for small scale New Keynesian models if the individual shocks are Gaussian \cite{herbst_bayesian_2016}. 
+	
+	The Kalman filter is especially desirable for two properties. For one it translates its believe about a system's state into a likelihood function \cite{kalman_new_1960}. Moreover, it is the optimal forecast for a linear system \cite{kalman_new_1960}. The below will briefly explain how the filter operates as well as its construction of the likelihood function. For that it will refer to the generic linear system with transition matrix $\matr{F}$, which propagates state variables $\matr{X}_{k-1}$ to $\matr{X}_k$. The shock noise matrix $\matr N$ describes the effect of shocks on this transition process. In forming a believe about the current state $\matr{X}_k$ the Kalman filter proceeds in two steps, a forecast and an update step. In implementing the below in python this work has from filterpy, a library for Bayesian filtering (ref).
 	\begin{equation}
 		\begin{aligned}
 			\matr{X}_k = \matr F \matr{X}_{k-1} + \matr N \matr{\epsilon}_k \\
@@ -869,14 +871,13 @@
 	\[
 		\matr{\hat{X}}_{k|k-1} = \matr F \matr X_{k-1|k-1}
 	\]
-	The second key aspect to the Kalman Filter is the system state variable's covariance matrix $\matr P_{k}$, which is also time dependent. As pointed out in the above, this matrix is assumed to be Gaussian, thus semi-definite positive \cite{andrews_kalman_2008}. The covariance matrix $\matr P_{k}$ is propagated in similar fashion. In doing so measurement noise $\matr Q$ is added to reflect the uncertainty around measurements. This results in $\matr{P}_{k| k-1}$ another Gaussian distribution, reflecting the uncertainty the predicted state $matr{\hat{X}}_{k|k-1}$.
-	This procedure without the filter step is used to obtain the three period ahead forecasts used in \nameref{forecast_eval}. The filter's forecast is repeatedly applied without taking reference to a measurement. The confidence intervals of this forecast are derived from the multivariate distribution $\matr{P}_{k| k-1}$ representing the certainty of the believe about state $\matr{\hat{X}}_{k|k-1}$. It's diagonal contains the state variable's standard deviation and is used to construct confidence interval around the predicted state. 
+	The second key aspect to the Kalman Filter is the system state variable's covariance matrix $\matr P_{k}$. As pointed out in the above, this matrix is assumed to be Gaussian, thus semi-definite positive \cite{andrews_kalman_2008}. In propagating the covariance matrix $\matr P_{k}$ the process noise $\matr Q$ is used to reflect variance around new measurements. This results in $\matr{P}_{k| k-1}$ another Gaussian distribution, reflecting the uncertainty around the predicted state $matr{\hat{X}}_{k|k-1}$.
+	This procedure, without the below filtering step, is used to obtain the three period ahead forecasts used in \nameref{forecast_eval}. The filter's forecast is repeatedly applied without taking reference to a measurement. The confidence intervals of this forecast are derived from the multivariate distribution $\matr{P}_{k| k-1}$ representing the certainty of the believe about state $\matr{\hat{X}}_{k|k-1}$. It's diagonal contains the state variable's standard deviation and is used to construct confidence interval around the predicted state. 
 	\[
 		\matr{P}_{k| k-1} = \matr F \matr{P}_{k-1| k-1} \matr{F}^T + \matr Q
 	\]
 	\subsubsection{Kalman filter step}
-	Once the predicted state $\matr{\hat{X}}$ and its covariance matrix $\matr{P}_{k| k-1}$ have been obtained Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state measurement $\matr{z}_t$ and its measurement noise. 
-	Due to measurement noise the system's real state is in-between its predicted state $\matr{X}_{k| k-1}$ and its measurement $\matr{z}_k$. The objective of filtering is to identify the exact point in-between the two \cite{andrews_kalman_2008}. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, a weighting function between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building $\matr{K}_{k| k-1}$ the filter takes into account the process noise, the covariance matrix and the accuracy of past iterations.	
+	Once the predicted state $\matr{\hat{X}}$ and its covariance matrix $\matr{P}_{k| k-1}$ have been obtained the Kalman filter proceeds to identifying the most likely system state. For this it takes into account the state measurement $\matr{z}_t$ as well as its noise. Due to this noise the system's real state is in-between its predicted state $\matr{X}_{k| k-1}$ and its measurement $\matr{z}_k$. The objective of filtering is to form a believe about the exact point in-between the two \cite{andrews_kalman_2008}. For this purpose the Kalman filter derives the Kalman gain $\matr{K}_{k| k-1}$, a weighting function between $\matr{X}_{k| k-1}$ and $\matr{z}_k$. In building $\matr{K}_{k| k-1}$ the filter takes into account the process noise, the covariance matrix and the accuracy of past iterations.	
 	This requires $\matr{y}_k$ a measure of distance between measurement and prediction is derived. In calculating $\matr{y}_k$ the measurement matrix $\matr H$ translats measurement $\matr{z}_t$ into the same units as the predicted state $\matr{X}_{k| k-1}$. For the purposes of this work all unit transformation has been done prior to filtering, wherefore the measurement matrix corresponds to the identity matrix $\matr{I}$.
 	\[
 		\matr{y}_{k} = \matr{z}_k - \matr H \matr{X}_{k| k-1}
