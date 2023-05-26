@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     # get yfinance data
     wti = get_yf_ticker_data(['CL=F'], fred_start, fred_end)
-    wti.rename(columns={'CL=F': 'S'}, inplace=True)
+    wti.rename(columns={'CL=F': 's'}, inplace=True)
     wti['quarter'] = pd.PeriodIndex(wti.index, freq='Q')
     wti = wti.drop_duplicates('quarter', keep='first')
 
