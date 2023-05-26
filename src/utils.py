@@ -84,8 +84,12 @@ def printProgBar(iteration, total, prefix = '', suffix = '', decimals = 1, lengt
     pass
 
 
-def get_most_recent_mod_output(path: str, mod_name: str, return_all: bool = False) -> str:
+def get_most_recent_mod_output(path: str, mod_name: str, return_all: bool = False, not_in_str=None) -> str:
     mod_list = [item for item in os.listdir(path) if mod_name in item]
+
+    if not_in_str is not None:
+        mod_list = [item for item in mod_list if not_in_str not in item]
+
     if len(mod_list) == 0:
         raise KeyError('No model file found')
     else:

@@ -9,9 +9,13 @@ from src.utils import sample_from_priors, solve_updated_mod
 
 import arviz as az
 
+def get_Sigma(priors: dict, mod_params: dict, shock_names: list) -> (dict, dict, dict):
+    params = {k: v for k, v in zip(priors.keys(), [item.std() for item in priors.values()]) if k in mod_params}
+    shocks = {k: v for k, v in zip(priors.keys(), [item.std() for item in priors.values()]) if k in shock_names}
+    return params, shocks
 
 def run_kalman_filter_forecast(model, observed_vars: list, train_data: pd.DataFrame, test_data: pd.DataFrame, prior_dist: dict,
-                               mod_params: list, parameters: dict):
+                               mod_params: list, parameters: dict, observation_noise: float = .01, update_filter:bool=True):
     shock_names = [x.base_name for x in model.shocks]
     state_variables = [x.base_name for x in model.variables]
 
@@ -26,7 +30,7 @@ def run_kalman_filter_forecast(model, observed_vars: list, train_data: pd.DataFr
     H, Z, T, R, QN, zs = set_up_kalman_filter(R=R, T=T, observed_data=train_data[observed_vars].values,
                                               observed_vars=observed_vars,
                                               shock_names=shock_names, shocks_drawn_prior=shocks,
-                                              state_variables=state_variables, H0=.01)
+                                              state_variables=state_variables, H0=observation_noise)
 
     kfilter = KalmanFilter(len(state_variables), len(observed_vars))
     kfilter.F = T
@@ -46,7 +50,7 @@ def run_kalman_filter_forecast(model, observed_vars: list, train_data: pd.DataFr
                                 index=train_data.index)
 
     # forecasting
-    mu, cov, ll_test = kalman_filter_forecast(kfilter, test_data[observed_vars].values)
+    mu, cov, ll_test = kalman_filter_forecast(kfilter, test_data[observed_vars].values, update_filter=update_filter)
 
     mu_df_test = pd.DataFrame(mu.reshape(len(mu), -1),
                               columns=[item.base_name for item in model.variables],
@@ -184,7 +188,7 @@ def kalman_filter(R: np.array, T: np.array, state_variables: list, observed_vars
     return np.array(X_out), np.array(P), np.array(LL_out), solved
 
 
-def kalman_filter_forecast(kfilter, data):
+def kalman_filter_forecast(kfilter, data, update_filter:bool=True):
     mu, cov, ll = [], [], []
     zs = data.copy()
     for i, z in enumerate(zs):
@@ -192,7 +196,8 @@ def kalman_filter_forecast(kfilter, data):
         mu.append(kfilter.x)
         cov.append(kfilter.P)
 
-        kfilter.update(z)
+        if update_filter:
+            kfilter.update(z)
         ll.append(kfilter.log_likelihood)
 
     return np.array(mu), np.array(cov), np.array(ll)

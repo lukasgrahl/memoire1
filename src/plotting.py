@@ -86,4 +86,4 @@ def plot_dfs(dfs_data: list, plotfunc, fig_title: str=None, cols: int = 3, figsi
     if fig_title is not None: fig.suptitle(fig_title)
     fig.tight_layout()
     plt.show()
-    pass
+    return fig
