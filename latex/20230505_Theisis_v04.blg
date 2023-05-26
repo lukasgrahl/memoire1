@@ -2,53 +2,54 @@ This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: 20230505_Theisis_v04.aux
 Reallocating 'name_of_file' (item size: 1) to 6 items.
-The style file: abbrv.bst
+The style file: alpha.bst
 Reallocating 'name_of_file' (item size: 1) to 17 items.
 Database file #1: 20230505_m1_dsge.bib
-Warning--I didn't find a database entry for "vasconez_what_nodate"
 Warning--to sort, need author or key in noauthor_federal_nodate
+Warning--empty note in bergholt_basic_2023
 Warning--empty journal in kalman_new_1960
 Warning--empty note in pfeifer_guide_2021
 Warning--empty publisher in romer_advanced_2018
-You've used 32 entries,
-            2118 wiz_defined-function locations,
-            691 strings with 9116 characters,
-and the built_in function-call counts, 9824 in all, are:
-= -- 1022
-> -- 367
-< -- 7
-+ -- 152
-- -- 114
-* -- 629
-:= -- 1632
-add.period$ -- 109
-call.type$ -- 32
-change.case$ -- 153
-chr.to.int$ -- 0
-cite$ -- 36
-duplicate$ -- 386
-empty$ -- 790
-format.name$ -- 114
-if$ -- 2063
-int.to.chr$ -- 0
-int.to.str$ -- 32
-missing$ -- 30
-newline$ -- 174
-num.names$ -- 62
-pop$ -- 134
+Warning--empty journal in vasconez_what_2015
+You've used 40 entries,
+            2543 wiz_defined-function locations,
+            794 strings with 10910 characters,
+and the built_in function-call counts, 14648 in all, are:
+= -- 1521
+> -- 584
+< -- 25
++ -- 188
+- -- 181
+* -- 989
+:= -- 2395
+add.period$ -- 135
+call.type$ -- 40
+change.case$ -- 227
+chr.to.int$ -- 40
+cite$ -- 47
+duplicate$ -- 594
+empty$ -- 1086
+format.name$ -- 235
+if$ -- 2991
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 34
+newline$ -- 217
+num.names$ -- 117
+pop$ -- 192
 preamble$ -- 1
-purify$ -- 121
+purify$ -- 267
 quote$ -- 0
-skip$ -- 292
+skip$ -- 526
 stack$ -- 0
-substring$ -- 656
-swap$ -- 77
-text.length$ -- 7
-text.prefix$ -- 0
+substring$ -- 853
+swap$ -- 83
+text.length$ -- 25
+text.prefix$ -- 16
 top$ -- 0
-type$ -- 120
-warning$ -- 4
-while$ -- 104
-width$ -- 34
-write$ -- 370
-(There were 5 warnings)
+type$ -- 304
+warning$ -- 6
+while$ -- 147
+width$ -- 45
+write$ -- 536
+(There were 6 warnings)

@@ -1,198 +1,246 @@
-\begin{thebibliography}{10}
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{BGW{\etalchar{+}}97}
 
-\bibitem{noauthor_federal_nodate}
-Federal {Reserve} {Economic} {Data} {\textbar} {FRED} {\textbar} {St}. {Louis}
-  {Fed}.
+\bibitem[And08]{andrews_kalman_2008}
+Angus~P. Andrews.
+\newblock {\em Kalman {Filtering}: {Theory} and {Practice} {Using} {MATLAB}}.
+\newblock John Wiley \& Sons, Hoboken, NJ USA, 3rd edition, 2008.
 
-\bibitem{acurio_vasconez_what_2015}
-V.~Acurio~Vásconez.
+\bibitem[AV15]{acurio_vasconez_what_2015}
+Verónica Acurio~Vásconez.
 \newblock What if oil is less substitutable? {A} {New}-{Keynesian} {Model} with
   oil, {Price} and {Wage} {Stickiness} including {Capital} {Accumulation}.
 \newblock Technical report, HAL, 2015.
 
-\bibitem{andrews_kalman_2008}
-A.~P. Andrews.
-\newblock {\em Kalman {Filtering}: {Theory} and {Practice} {Using} {MATLAB}}.
-\newblock John Wiley \& Sons, Hoboken, NJ USA, 3rd edition, 2008.
+\bibitem[Ber23]{bergholt_basic_2023}
+Drago Bergholt.
+\newblock {THE} {BASIC} {NEW} {KEYNESIAN} {MODEL}.
+\newblock 2023.
 
-\bibitem{barsky_oil_2002}
-R.~B. Barsky and L.~Kilian.
-\newblock Oil and the macroeconomy since the 1970s.
-\newblock {\em Journal of Economic Perspectives}, 18(4):115--134, 2002.
-\newblock Publisher: American Economic Association.
+\bibitem[BG07]{blanchard_macroeconomic_2007}
+Olivier Blanchard and Jordi Gali.
+\newblock The {Macroeconomic} {Effects} of {Oil} {Shocks}: {Why} are the 2000s
+  {So} {Different} from the 1970s?
+\newblock Technical Report w13368, National Bureau of Economic Research,
+  Cambridge, MA, September 2007.
 
-\bibitem{bernanke_systematic_1997}
-B.~S. Bernanke, M.~Gertler, M.~Watson, C.~A. Sims, and B.~M. Friedman.
+\bibitem[BGW{\etalchar{+}}97]{bernanke_systematic_1997}
+Ben~S. Bernanke, Mark Gertler, Mark Watson, Christopher~A. Sims, and
+  Benjamin~M. Friedman.
 \newblock Systematic monetary policy and the effects of oil price shocks.
 \newblock {\em Brookings papers on economic activity}, 1997(1):91--157, 1997.
 \newblock Publisher: JSTOR.
 
-\bibitem{blanchard_macroeconomic_2007}
-O.~Blanchard and J.~Gali.
-\newblock The {Macroeconomic} {Effects} of {Oil} {Shocks}: {Why} are the 2000s
-  {So} {Different} from the 1970s?
-\newblock Technical Report w13368, National Bureau of Economic Research,
-  Cambridge, MA, Sept. 2007.
-
-\bibitem{blanchard_solution_1980}
-O.~J. Blanchard and C.~M. Kahn.
+\bibitem[BK80]{blanchard_solution_1980}
+Olivier~Jean Blanchard and Charles~M. Kahn.
 \newblock The solution of linear difference models under rational expectations.
 \newblock {\em Econometrica: Journal of the Econometric Society}, pages
   1305--1311, 1980.
 \newblock Publisher: JSTOR.
 
-\bibitem{campbell_inspecting_1994}
-J.~Y. Campbell.
+\bibitem[BK02]{barsky_oil_2002}
+Robert~B. Barsky and Lutz Kilian.
+\newblock Oil and the macroeconomy since the 1970s.
+\newblock {\em Journal of Economic Perspectives}, 18(4):115--134, 2002.
+\newblock Publisher: American Economic Association.
+
+\bibitem[Cal83]{calvo_staggered_1983}
+Guillermo~A. Calvo.
+\newblock Staggered prices in a utility-maximizing framework.
+\newblock {\em Journal of monetary Economics}, 12(3):383--398, 1983.
+\newblock Publisher: Elsevier.
+
+\bibitem[Cam94]{campbell_inspecting_1994}
+John~Y. Campbell.
 \newblock Inspecting the mechanism: {An} analytical approach to the stochastic
   growth model.
 \newblock {\em Journal of Monetary Economics}, 33(3):463--506, June 1994.
 
-\bibitem{chin_bayesian_2019}
-K.-H. Chin and X.~Li.
-\newblock Bayesian forecast combination in {VAR}-{DSGE} models.
-\newblock {\em Journal of Macroeconomics}, 59:278--298, Mar. 2019.
-
-\bibitem{christiano_current_1992}
-L.~J. Christiano and M.~Eichenbaum.
+\bibitem[CE92]{christiano_current_1992}
+Lawrence~J. Christiano and Martin Eichenbaum.
 \newblock Current real-business-cycle theories and aggregate labor-market
   fluctuations.
 \newblock {\em The American Economic Review}, pages 430--450, 1992.
 \newblock Publisher: JSTOR.
 
-\bibitem{del_negro_forming_2008}
-M.~Del~Negro and F.~Schorfheide.
+\bibitem[CL19]{chin_bayesian_2019}
+Kuo-Hsuan Chin and Xue Li.
+\newblock Bayesian forecast combination in {VAR}-{DSGE} models.
+\newblock {\em Journal of Macroeconomics}, 59:278--298, March 2019.
+
+\bibitem[DF79]{dickey_distribution_1979}
+David~A. Dickey and Wayne~A. Fuller.
+\newblock Distribution of the estimators for autoregressive time series with a
+  unit root.
+\newblock {\em Journal of the American statistical association},
+  74(366a):427--431, 1979.
+\newblock Publisher: Taylor \& Francis.
+
+\bibitem[DNS08]{del_negro_forming_2008}
+Marco Del~Negro and Frank Schorfheide.
 \newblock Forming priors for {DSGE} models (and how it affects the assessment
   of nominal rigidities).
-\newblock {\em Journal of Monetary Economics}, 55(7):1191--1208, Oct. 2008.
+\newblock {\em Journal of Monetary Economics}, 55(7):1191--1208, October 2008.
 
-\bibitem{edge_judging_2013}
-R.~M. Edge, R.~S. Gürkaynak, and B.~Kisacikoglu.
+\bibitem[DS77]{dixit_monopolistic_1977}
+Avinash~K. Dixit and Joseph~E. Stiglitz.
+\newblock Monopolistic competition and optimum product diversity.
+\newblock {\em The American economic review}, 67(3):297--308, 1977.
+\newblock Publisher: JSTOR.
+
+\bibitem[EGK13]{edge_judging_2013}
+Rochelle~M. Edge, Refet~S. Gürkaynak, and Burçin Kisacikoglu.
 \newblock Judging the {DSGE} model by its forecast.
 \newblock Technical report, mimeo, 2013.
 
-\bibitem{gali_monetary_2008}
-J.~Galí.
+\bibitem[Gal08]{gali_monetary_2008}
+Jordi Galí.
 \newblock {\em Monetary policy, inflation, and the business cycle: an
   introduction to the new {Keynesian} framework}.
 \newblock Princeton University Press, Princeton, N.J, 2008.
 \newblock OCLC: ocn177826088.
 
-\bibitem{gelman_weak_1997}
-A.~Gelman, W.~R. Gilks, and G.~O. Roberts.
+\bibitem[GGR97]{gelman_weak_1997}
+Andrew Gelman, Walter~R. Gilks, and Gareth~O. Roberts.
 \newblock Weak convergence and optimal scaling of random walk {Metropolis}
   algorithms.
 \newblock {\em The annals of applied probability}, 7(1):110--120, 1997.
 \newblock Publisher: Institute of Mathematical Statistics.
 
-\bibitem{guerron-quintana_bayesian_2013}
-P.~A. Guerrón-Quintana and J.~M. Nason.
+\bibitem[GQN13]{guerron-quintana_bayesian_2013}
+Pablo~A. Guerrón-Quintana and James~M. Nason.
 \newblock Bayesian estimation of {DSGE} models.
 \newblock In {\em Handbook of research methods and applications in empirical
   macroeconomics}, pages 486--512. Edward Elgar Publishing, 2013.
 
-\bibitem{harrison_evaluating_2010}
-R.~Harrison and O.~Oomen.
+\bibitem[HMW16]{hou_oil_2016}
+Keqiang Hou, Dean~C. Mountain, and Ting Wu.
+\newblock Oil price shocks and their transmission mechanism in an oil-exporting
+  economy: {A} {VAR} analysis informed by a {DSGE} model.
+\newblock {\em Journal of International Money and Finance}, 68:21--49, November
+  2016.
+
+\bibitem[HO10]{harrison_evaluating_2010}
+Richard Harrison and Ozlem Oomen.
 \newblock Evaluating and {Estimating} a {DSGE} {Model} for the {United}
   {Kingdom}.
 \newblock {\em SSRN Electronic Journal}, 2010.
 
-\bibitem{harrison_impact_2011}
-R.~Harrison, R.~Thomas, and I.~de~Weymarn.
+\bibitem[HS16]{herbst_bayesian_2016}
+Edward~P. Herbst and Frank Schorfheide.
+\newblock {\em Bayesian estimation of {DSGE} models}.
+\newblock Princeton University Press, 2016.
+
+\bibitem[HTdW11]{harrison_impact_2011}
+Richard Harrison, Ryland Thomas, and Iain de~Weymarn.
 \newblock The {Impact} of {Permanent} {Energy} {Price} {Shocks} on the {UK}
   {Economy}.
 \newblock {\em SSRN Electronic Journal}, 2011.
 
-\bibitem{herbst_bayesian_2016}
-E.~P. Herbst and F.~Schorfheide.
-\newblock {\em Bayesian estimation of {DSGE} models}.
-\newblock Princeton University Press, 2016.
+\bibitem[jes23]{jessegrabowski_geconpy_2023}
+jessegrabowski.
+\newblock {gEconpy}, April 2023.
+\newblock original-date: 2021-09-19T07:31:14Z.
 
-\bibitem{hou_oil_2016}
-K.~Hou, D.~C. Mountain, and T.~Wu.
-\newblock Oil price shocks and their transmission mechanism in an oil-exporting
-  economy: {A} {VAR} analysis informed by a {DSGE} model.
-\newblock {\em Journal of International Money and Finance}, 68:21--49, Nov.
-  2016.
-
-\bibitem{kalman_new_1960}
-R.~E. Kalman.
+\bibitem[Kal60]{kalman_new_1960}
+Rudolph~Emil Kalman.
 \newblock A new approach to linear filtering and prediction problems.
 \newblock 1960.
 
-\bibitem{kocherlakota_model_2007}
-N.~R. Kocherlakota.
+\bibitem[Koc07]{kocherlakota_model_2007}
+Narayana~R. Kocherlakota.
 \newblock Model fit and model selection.
 \newblock {\em Review-Federal Reserve Bank of Saint Louis}, 89(4):349, 2007.
 \newblock Publisher: FEDERAL RESERVE BANK OF ST LOUIS.
 
-\bibitem{kydland_time_1982}
-F.~E. Kydland and E.~C. Prescott.
+\bibitem[KP82]{kydland_time_1982}
+Finn~E. Kydland and Edward~C. Prescott.
 \newblock Time to build and aggregate fluctuations.
 \newblock {\em Econometrica: Journal of the Econometric Society}, pages
   1345--1370, 1982.
 \newblock Publisher: JSTOR.
 
-\bibitem{leduc_quantitative_2004}
-S.~Leduc and K.~Sill.
-\newblock A quantitative analysis of oil-price shocks, systematic monetary
-  policy, and economic downturns.
-\newblock {\em Journal of Monetary Economics}, 51(4):781--808, 2004.
-\newblock Publisher: Elsevier.
+\bibitem[Lab23]{labbe_rlabbefilterpy_2023}
+Roger Labbe.
+\newblock rlabbe/filterpy, May 2023.
+\newblock original-date: 2014-07-15T02:15:19Z.
 
-\bibitem{lees_introducing_2009}
-K.~Lees.
+\bibitem[Lee09]{lees_introducing_2009}
+Kirdan Lees.
 \newblock Introducing {KITT}: {The} {Reserve} {Bank} of {New} {Zealand} new
   {DSGE} model for forecasting and policy design.
 \newblock {\em Reserve Bank of New Zealand Bulletin}, 72(2):5--20, 2009.
 \newblock Publisher: Reserve Bank of New Zealand.
 
-\bibitem{lucas_jr_tobin_1981}
-R.~E. Lucas~Jr.
+\bibitem[LJ81]{lucas_jr_tobin_1981}
+Robert~E. Lucas~Jr.
 \newblock Tobin and monetarism: a review article, 1981.
 
-\bibitem{malakhovskaya_are_2014}
-O.~Malakhovskaya and A.~Minabutdinov.
+\bibitem[LS04]{leduc_quantitative_2004}
+Sylvain Leduc and Keith Sill.
+\newblock A quantitative analysis of oil-price shocks, systematic monetary
+  policy, and economic downturns.
+\newblock {\em Journal of Monetary Economics}, 51(4):781--808, 2004.
+\newblock Publisher: Elsevier.
+
+\bibitem[MM14]{malakhovskaya_are_2014}
+Oxana Malakhovskaya and Alexey Minabutdinov.
 \newblock Are commodity price shocks important? {A} {Bayesian} estimation of a
   {DSGE} model for {Russia}.
 \newblock {\em International Journal of Computational Economics and
   Econometrics}, 4(1-2):148--180, 2014.
 \newblock Publisher: Inderscience Publishers.
 
-\bibitem{pfeifer_guide_2021}
-J.~Pfeifer.
+\bibitem[noa]{noauthor_federal_nodate}
+Federal {Reserve} {Economic} {Data} {\textbar} {FRED} {\textbar} {St}. {Louis}
+  {Fed}.
+
+\bibitem[Pfe21]{pfeifer_guide_2021}
+Johannes Pfeifer.
 \newblock A {Guide} to {Specifying} {Observation} {Equations} for the
   {Estimation} of {DSGE} {Models}.
-\newblock Sept. 2021.
+\newblock September 2021.
 
-\bibitem{prescott_theory_1986}
-E.~C. Prescott.
+\bibitem[Pre86]{prescott_theory_1986}
+Edward~C. Prescott.
 \newblock Theory ahead of business-cycle measurement.
 \newblock In {\em Carnegie-{Rochester} conference series on public policy},
   volume~25, pages 11--44. Elsevier, 1986.
 
-\bibitem{ravn_adjusting_2002}
-M.~O. Ravn and H.~Uhlig.
+\bibitem[Rom18]{romer_advanced_2018}
+David Romer.
+\newblock {\em Advanced {Macroeconomics}}.
+\newblock 4 edition, 2018.
+
+\bibitem[RU02]{ravn_adjusting_2002}
+Morten~O. Ravn and Harald Uhlig.
 \newblock On {Adjusting} the {Hodrick}-{Prescott} {Filter} for the {Frequency}
   of {Observations}.
 \newblock {\em Review of Economics and Statistics}, 84(2):371--376, May 2002.
 \newblock Puhlisher: JSTOR.
 
-\bibitem{romer_advanced_2018}
-D.~Romer.
-\newblock {\em Advanced {Macroeconomics}}.
-\newblock 4 edition, 2018.
+\bibitem[Sch36]{schumpeter_general_1936}
+Joseph~A. Schumpeter.
+\newblock The {General} {Theory} of {Employment}, {Interest} and {Money}.,
+  1936.
 
-\bibitem{schorfheide_loss_2000}
-F.~Schorfheide.
+\bibitem[Sch00]{schorfheide_loss_2000}
+Frank Schorfheide.
 \newblock Loss function-based evaluation of {DSGE} models.
 \newblock {\em Journal of Applied Econometrics}, 15(6):645--670, 2000.
 \newblock Publisher: Wiley Online Library.
 
-\bibitem{smets_shocks_2007}
-F.~Smets and R.~Wouters.
+\bibitem[SW07]{smets_shocks_2007}
+Frank Smets and Rafael Wouters.
 \newblock Shocks and frictions in {US} business cycles: {A} {Bayesian} {DSGE}
   approach.
 \newblock {\em American economic review}, 97(3):586--606, 2007.
 \newblock Publisher: American Economic Association.
+
+\bibitem[Vá15]{vasconez_what_2015}
+Verónica~Acurio Vásconez.
+\newblock What if oil is less substitutable? {A} {New}-{Keynesian} {Model} with
+  {Oil}, {Price} and {Wage} {Stickiness} including {Capital} {Accumulation}.
+\newblock 2015.
 
 \end{thebibliography}
