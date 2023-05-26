@@ -140,6 +140,7 @@
 	\section*{List of Acronyms}
 	\begin{acronym}
 		\acro{BVAR}{Bayesian Vector Autogreression}
+		\acro{CES}{Constant Elasiticty of Substitution}
 		\acro{CPI}{Consumer Price Index}
 		\acro{DSGE}{Dynamic Stochastic General Equilibrium}
 		\acro{GDP}{Gross Domestic Product}
@@ -164,9 +165,11 @@
 	
 	 \section{Introduction}
 	 The recent simultaneous surge in energy prices and inflation has reintroduced questions about a connection between both variables. Already the late 1970s oil shock illustrated such link, causing a recession across most western economies. Later oil price shocks in the 90s and 2000s, despite being of similar magnitude, did not match their predecessor's economic impact \cite{blanchard_macroeconomic_2007}. Recent events however, seem to suggest that such link has re-emerged. This calls for an reevaluation of the literature on inflation dynamics.
-	 Research in this area has for much of the recent past relied on structural rational expectation models. These models analyse the transition mechanism of inflation, while allowing to take into account confounding factors such as oil prices. Relying on structural models in analysing its effect on the inflation mechanism has thus a broad base in literature. This work draws from this past literature and applies it to recent events. In doing so three strains of literature are merged, namely: \ac{RBC} and \ac{NK} literature, Bayesian estimation of structural models and literature on structural models encompassing petrol. \ac{RBC} and \ac{NK} models are often also labelled \ac{DSGE} models. They emerged as a response to the Lucas critique (1981), providing micro-based models in which parameters were not longer subject households behaviour \cite{lucas_jr_tobin_1981}. Instead parameters describe static agent preferences \cite{gali_monetary_2008}. This property made DSGE models attractive for policy analysis, wherefore they became the predominant modelling approach in macroeconomics. In their success Bayesian estimation of structural models provided an important stepping stone. It linked \ac{DSGE} models to data by providing means of estimating the time independent model parameters. Moreover, it introduced methods of comparing the models' data generating process against real data allowing for further evaluation and forecasting \cite{del_negro_forming_2008}. This provided an new criteria to the evaluation of structural models \cite{kocherlakota_model_2007}. Lastly, a body of literature on the link between oil prices and inflation in structural models has emerged. This work will review this literature and draw from one model in particular \cite{blanchard_macroeconomic_2007}. 
+	 Research in this area has for much of the recent past relied on structural rational expectation models. These models analyse the transition mechanism of inflation, while allowing to take into account confounding factors such as oil prices. This work draws from this past literature and applies it to recent events. In doing so three strains of literature are merged, namely: \ac{RBC} and \ac{NK} literature, Bayesian estimation of structural models and literature on structural models encompassing petrol. 
 	 
-	 The purpose of this work is to analyse the inclusion of petrol prices into the DSGE framework, as well as to evaluate the pertinence of such exercise. In its evaluation this work will employ two standard models of macroeconomic literature, the RBC and NK model. Both will be compared to a model including petrol in their fit to real data as well as forecasting performance. Lastly, a \ac{VAR} will be used as a forecasting benchmark. This work is organised as follows. First a literature review on structural models and their incorporation of oil price inflation will be provided. Three subsequent sections will be dedicated to developing the mathematical reasoning behind the RBC, the standard NK and lastly the \ac{NKE} model. Having demonstrated the assumptions involved in drawing up structural models and their linearisation this work will proceed in discussing the data used model evaluation. A fifth section will then be dedicated to introducing Bayesian estimation and forecasting procedures. The obtained estimation will  be discussed in a seventh section. A final section will outline this work's results and its implications.
+	 \ac{RBC} and \ac{NK} models are often also labelled \ac{DSGE} models. They emerged as a response to the Lucas critique (1981), providing a micro-based approach in which parameters were no longer subject households behaviour \cite{lucas_jr_tobin_1981}. They instead describe static agent preferences \cite{gali_monetary_2008}. This property made DSGE models attractive for policy analysis, making them the predominant modelling approach across macroeconomics. In their success Bayesian estimation provided an important stepping stone by linking \ac{DSGE} models to data. This link provided means of estimating the time independent model parameters as well as to compare the models' data generating process against real data. DSGE models could thus be evaluated based on their fit to data and forecasting properties \cite{del_negro_forming_2008}. This provided an new criteria to the evaluation of structural models \cite{kocherlakota_model_2007}. Lastly, a body of literature on the link between oil prices and inflation in structural models has emerged. This work will review this literature and draw from one model in particular \cite{blanchard_macroeconomic_2007}. 
+	 
+	 The purpose of this work is to analyse the inclusion of petrol prices into the DSGE framework and to evaluate the pertinence of such exercise. In its evaluation this work will employ two standard models of macroeconomic literature, the RBC and NK model. Both will be compared to a petrol model in their fit to real data and forecasting performance . Lastly, a \ac{VAR} will be used as a forecasting benchmark. This work is organised as follows. First a literature review on structural models and their incorporation of oil price inflation will be provided. Three subsequent sections will be dedicated to developing the mathematical reasoning behind the RBC, the standard NK and lastly the \ac{NKE} model. Having demonstrated the assumptions involved in drawing up structural models and their linearisation this work will proceed in discussing the data used model evaluation. A fifth section will then be dedicated to introducing Bayesian estimation and forecasting procedures. The obtained estimation will  be discussed in a seventh section, while a final section will outline the results implications of this work.
 	 
 	\section{Literature Review}
 	The RBC literature was the first to introduce structural models of time-invariant parameters. Its parameters are rooted in the optimising behaviour of representative agents and consequently convey their preferences. Preferences are thought off as time-invariant \cite{prescott_theory_1986}. The RBC literature further contributed in providing an argument on business cycle efficiency. Previously seen as inefficient divergence from the steady state, the RBC model suggests that in absence of nominal rigidities business cycles are driven by technology innovation and consequently are efficient adjustments towards the economy's steady state \cite{christiano_current_1992}. This notion of efficiency was subsequently questioned by New-Keynesian literature demonstrating that under nominal rigidities changes in the interest rate are not matched by immediate changes in expected inflation \cite{gali_monetary_2008}. Following the New-Keynesian argument business cycles are driven by interventionist monetary policy, causing a gap in agent expectation and thus inefficiency\cite{gali_monetary_2008}. Following the oil price induced stagflation crisis of the 1970s a rich body of economic literature has been dedicated to the effects of oil prices on inflation and the economy at large \cite{barsky_oil_2002, bernanke_systematic_1997}. The majority of these approaches were empiric. However, the growing DSGE literature was soon applied to questions of energy prices and inflation. In doing so two dominant approaches were pursued.
@@ -288,18 +291,19 @@
 	Having specified the steady state values and log-linear equations, the system's stability has to be checked. This work relies on the Eigenvalue condition of Blanchard-Kahn (1980), which for each value of the parameter vector will be checked using gEconpy \cite{blanchard_solution_1980}.
 
 	\section{NK} \label{sec:NK}
-	The New-Keynesian model developed in this section is based on the work of \cite{gali_monetary_2008}. It diverges from the RBC model in three key aspects.
-	Firstly, the NK model introduces nominal rigidities through monopolistic competition. Since firms are endowed with some market power, they can reset prices above marginal cost, introducing a gap between real and nominal marginal cost. This dynamic results in inflation. This extension has several consequences. For one monetary policy is neutral in the short-run, thus changes in interest are note directly matched by changes in expected inflation \cite{gali_monetary_2008}. This gap in expectations becomes the driver of short-run fluctuation in the economy. Business cycles is thus no-longer driven by technological progress but result from an adjustment of the interest rates. The standard New-Keynesian model thus presents a perspective in which the intervention of a monetary authority leads to inefficient short-term adjustments of the economy. The NK returns Keyne's perspective, regarding regarded business cycles as inefficient. The the main divergence from RBC literature consists in this change of perspective.
+	The New-Keynesian model developed in this section is based on the work of Galì (2008) \cite{gali_monetary_2008}. It diverges from the RBC model in two key aspects.
 	
-	Secondly, the NK model in its simplest form analyses an economy without capital. The capital stock is thus no longer the intertemporal instrument. Instead the NK model uses the gap between actual and nominal output, where nominal refers to the output without price frictions \cite{gali_monetary_2008}.
+	First of all, the NK model introduces nominal rigidities through monopolistic competition. Firms being endowed with some market power allows them to reset prices above marginal cost. This introduces a gap between real and nominal marginal cost, resulting in inflation. This extension has several consequences. This is, changes in the interest are note directly matched by changes in expected inflation, hence monetary policy is neutral in the short-run \cite{gali_monetary_2008}. The expectation gap then becomes the driver of short-run fluctuation in the economy. Business cycles are thus no-longer driven by technological progress but result from interest rate adjustments. The standard New-Keynesian model therefore presents a perspective in which a monetary policy interventions cause inefficient short-term adjustments of the economy \cite{gali_monetary_2008}. The NK returns to Keyne's (1936) perspective, who regarded business cycles as inefficient (ref). 
 	
+	Second of all the NK model in its standard form analyses an economy without capital. Capital stock is thus no longer the intertemporal instrument, instead the model relies on the gap between actual and nominal output \cite{gali_monetary_2008}.
+		
 	\subsection{Consumption bundle}
-	The New-Keynesian framework introduces imperfectly substitutable goods as source of market power in order to introduce monopolistic competition. This results in the firms ability to set a price beyond marginal cost for their good of production. This implies that there is not one single good but a continuum of differentiated goods. Consequently, the households allocation problem becomes twofold.
-	For one households need to decide on the basket of products that optimises their utility. Only once the optimal basket and its price is determined the household is able decide on the optimal allocation of income across consumption and leisure. The consumption basket composition thus needs to be solved prior to the consumption-leisure trade-off. 
-	Across the DSGE literature the aggregation of consumption is also sometimes referred to as the output of a good bundling firm. This intermediary party determines the optimal basket of goods according to the household preferences. In a perfectly competitive environment the household buys the optimal bundle at no mark up beyond the initial producer's mark-up.
-	Determining the optimal basket requires some function of aggregation across the continuum of goods. The most commonly employed aggregator is the Dixit-Stiglitz function (ref). This aggregator has appealing properties, namely a constant elasticity of substitution (CES), which will become important later in deriving marginal cost.
+	The \ac{NK} framework introduces imperfectly substitutable goods as source of market power, resulting in monopolistic competition \cite{gali_monetary_2008}. Consequently, firms are able to set a price beyond marginal cost. Moreover, imperfect substitution requires goods to be considered as a continuum, hence the RBC's assumption of a singular good and firm no longer hods. As a result the households allocation problem no is twofold, encompassing the composition of the optimal consumption basket and the consumption-leisure trade-off \cite{gali_monetary_2008}.
 	
-	The bundling optimisation problem reads as follows where each good $C_{it}$ is matched by its price $P_{it}$ purchased with budget $Z_t$.
+	Households need to determine the basket of products that optimises their utility. Only once the optimal basket and its price is determined the household is able decide on the optimal allocation of income across consumption and leisure. The consumption basket problem thus needs to be solved prior to the consumption-leisure trade-off. Across the DSGE literature the aggregation of consumption is also sometimes referred to as the output of a good bundling firm. This intermediary party determines the optimal basket of goods according to the household preferences. In a perfectly competitive environment the household buys the optimal bundle at no mark up beyond the producer's mark-up \cite{gali_monetary_2008}.
+	Determining the optimal basket requires some function of aggregation across the continuum of goods. The most commonly employed aggregator is the Dixit-Stiglitz function (ref). This aggregator has appealing properties of a \ac{CES}. The CES will will become important later in deriving marginal cost.
+	
+	The bundling optimisation problem reads as follows where each good $C_{it}$ is matched by its price $P_{it}$ purchased with budget $Z_t$. The elasticity of substitution is given by $\epsilon$.
 	\begin{equation}
 		\begin{split}
 			\max_{C_{it}}
@@ -326,7 +330,7 @@
 	\end{equation}
 
 	\subsection{Household}
-	Having found $C_t$ and its price $P_t$ the household's consumption-leisure allocation can be formulated. The derivation follows from the RBC except for investment expenditure and the extension by bond holdings $B_t$. While $B_t$ is zero in equilibrium they introduce the nominal interest rate into the households problem. The nominal interest rate is contained in the discount factor $Q_t = \frac{1}{1+i_t}$ and the first step to introducing a monetary authority. Similar to the RBC a representative infinitely lived agent solves the optimisation problem for all future periods. 
+	Having found $C_t$ and its price $P_t$ the household's consumption-leisure allocation can be formulated. The derivation follows from the RBC with the exception of omitted investment expenditure and an extension by bond holdings $B_t$. While $B_t$ is zero in equilibrium it introduces the nominal interest rate into the households problem, contained in the discount factor $Q_t = \frac{1}{1+i_t}$. This is the first step to introducing a monetary authority. Similar to the RBC a representative infinitely lived agent solves the optimisation problem for all future periods. 
 	\begin{equation}
 		\begin{aligned}
 			\max_{B_t, C_t, L_t} \quad \sum_{\infty}^{t=0} \beta^{t} U(C_{t}, L_{t}) \\
@@ -336,7 +340,7 @@
 				Q_t = \beta \E_t \left[ \frac{U_{c, t+1}}{U_{c,t}}^\sigma \frac{P_t}{P_{t+1}} \right] 			
 		\end{aligned}
 	\end{equation}
-	Solving the optimisation problems yields the labour supply. In the NK it explicitly depends on the real wage. Moreover, as in the and the Euler equation is obtained. Assuming the function form of $U(C_t, L_t) = \frac{C_t^{1-\sigma}}{{1-\sigma}} - \frac{L_t^{1+\phi}}{1+\phi}$ and plugging its derivatives into the first order condition yields.
+	Solving the optimisation problems yields the labour supply, which now explicitly depends on the real wage. Moreover, the Euler equation is obtained, which now contains nominal interest $i_t$ instead of the rental rate of capital as well as the inflations inverse $\Pi_{t+1}^{-1} \equiv \frac{P_t}{P_{t+1}}$. Assuming the function form of $U(C_t, L_t) = \frac{C_t^{1-\sigma}}{{1-\sigma}} - \frac{L_t^{1+\phi}}{1+\phi}$ and plugging its partial derivatives into the first order condition yields.
 		\begin{equation} \label{eq:nk_hh_foc}
 		\begin{aligned}
 			C_t^\sigma L_t^\phi	= \frac{W_t}{P_t} \\
@@ -345,7 +349,7 @@
 	\end{equation}
 	
 	\subsubsection{Price setting}
-	The main innovation of the NK model lies in modelling inflation. As mentioned in the above inflation arises from the imperfect substitutability of consumption goods. This results in monopolistic competition endowing firm's price setting power. Modelling the price setting process is thus at the heart of the NK model. In doing so the standard model relies on the Calvo-pricing mechanism (ref). Firms are able to reset prices in any period with the probability $\theta$. This is equal to saying that every period a share $\theta$ of firms can reset prices to their optimal price $\hat{P}_t$ while $1-\theta$ firms have to remain with last periods price $P_{t-1}$. This allows to describe the evolution of the price level as an in the following intertemporal equation, which if divided by $P_{t-1}$ yields an expression of inflation.
+	The main innovation of the NK model lies in modelling inflation. As mentioned in the above inflation arises from the imperfect substitutability of consumption goods, endowing firms with price setting power. Modelling the price setting process is consequently at the heart of the NK model. In doing so the standard model relies on the Calvo-pricing mechanism (ref). Firms are able to reset prices in any period with the probability $\theta$. This is equal to saying that every period a share $\theta$ of firms can reset its price to its optimum $\hat{P}_t$ while $1-\theta$ firms remain with last periods price $P_{t-1}$. This allows to describe the evolution of the price level as an in the following intertemporal equation, which if divided by $P_{t-1}$ yields an expression for inflation.
 	\begin{equation}
 		P_t = 
 		\left[
@@ -353,17 +357,18 @@
 		\right]^{\frac{1}{1 - \epsilon}}
 	\end{equation}
 
-	\begin{equation} \label{eq: inlfation}
+	\begin{equation} \label{eq:inflation}
 		\Pi_t^{1-\epsilon} = \theta + (1 - \theta) \left(\frac{\hat{P}_t}{P_{t-1}} \right)^{1-\epsilon}
 	\end{equation}
-	The key aspect to price evolution thus lies in the optimal price $\hat{P_t}$. The further it is away from last periods price, the higher is inflation.
+	The key aspect to the price evolution problem lies in the optimal price $\hat{P_t}$, all other variables are known. The further $\hat{P}_t$ diverges from last periods price, the higher inflation in the period. 
 	
 	\subsubsection{The firm} \label{nk_the_firm}
-	In the RBC the firm solved a static optimisation problem providing labour and capital demand. In the NK model they are instead faced with setting the optimal price $\hat{P}_t$. For this the NK model assumes that a continuum of firms each producing one good provide factoring into the continuum of goods as outlined in (section). Setting the optimal price becomes an intertemporal problem as firms trade-off between two opposing forces. 	
-	As illustrated by (ref) the share of any good in the overall basket depends on its price relative to the CPI. This implies that setting a price far above $P_t$ leads to a lower demand for a firm's single good $C_{i,t}$. 
-	On the other hand, as firms are limited in their price frequency they need to set a price which they would be comfortable with in the future. Under the Calvo-scheme a price once set will be unchanged with probability $\theta^k$ for $k$ periods. Consequently, if the price once set is too low it will at some point allow for no further profits potentially even incur losses. 
-	Firms thus try to set a price that allows them an acceptable share in the basket of goods while also guaranteeing profitability across future periods. In this decision the size of $\theta \in [0,1]$ combined with the time discount factor $Q_t \beta$ weights the second force against the first. 
-	The problem can be formalised as a future discounted sum of revenue minus total cost. The notation of $Y_{t+k|t}$ hereby refers to the income in period $t+k$ at price of period $t$. The notation of $Q_{t,t+k}$ is the stochastic discount factor of today's discount carried forward into period $t+k$. The budget constraint makes use of the fact that under equilibrium assumption all output is consumed as part of the consumption basket $Y_{it} = C_{it}$. (section) will deliver a more in-depth perspective on this.	
+	In the RBC the firm solve a static optimisation problem providing labour and capital demand. In the NK's uni-factor production function the static optimisation collapsed to the production function. Moreover, firms are faced with setting the optimal price $\hat{P}_t$. For this a continuum of goods is assumed, where each firms produces one good. Firm output can therefore also be seen as a continuum and be summarised by the Dixig-Stiglitz aggregator (ref). 
+	
+	In setting the optimal price firms face the trade-off between two opposing forces. On the one hand, as illustrated by \eqref{eq:cshare} the share of any good in the overall consumption basket depends on its price relative to the CPI. This implies that setting a price far above $P_t$ leads to a lower demand for a firm's single good $C_{i,t}$. Firms thus have an interest of setting a price close to the CPI.
+	On the other hand, as firms are limited in their price setting frequency a price needs to satisfy future cost constraints. Under the Calvo-scheme a set price will be unchanged with probability $\theta^k$ for $k$ periods. If this price is too low it will at some point occur a loss. This provides the incentive of setting the highest price possible, in order to maximise future profits.
+	By implication, firms aim at a that allows for an acceptable share the basket of goods while also maximising profitability across future periods. In this decision the size of $\theta \in [0,1]$ combined with the time discount factor $Q_t \beta$ weights the two forces against each other. 
+	The problem can be formalised as a future discounted sum of revenue minus total cost. The notation of $Y_{t+k|t}$ hereby refers to the income in period $t+k$ at price of period $t$. The notation of $Q_{t,t+k}$ is the stochastic discount factor of today's discount carried forward into period $t+k$. The budget constraint makes use of the fact that under equilibrium assumption all output is consumed as part of the consumption basket $Y_{it} = C_{it}$, Section~\ref{nk_eqili} will discuss this further.	
 	\begin{equation}
 		\begin{aligned}
 			\max_{\hat{P}_t}
@@ -399,16 +404,18 @@
 		\E_t \sum_{k=0}^{\infty} \theta^k \beta^k C_{t+k}^{1-\sigma} (\frac{P_{t+k}}{P_t})^{\epsilon-1}
 		}
 	\end{equation}
-	The above describes the mark-up of the optimal price $\hat{P}_t$ beyond the price level CPI. The difference between the two directly drives inflation as it implies a higher price level as can be seen in \eqref{eq: inflation}. 
-	In the steady state inflation is zero by definition, implying that no firm resets prices. This is equivalent to saying that $\theta=0$. Multiplying the above by $P_t$ and setting $\theta=0$ results in $\hat{P}_t = \frac{\epsilon}{\epsilon-1} MC_t^n$. This allows to derive an important aspect to the NK model, the price-mark up over nominal marginal cost in the steady state. Firms are endowed with market power, allowing them to set a mark up above marginal cost. The real marginal defined as $MC_t^r \equiv \frac{MC_t^n}{P_t}$ cost can thus be derived. It is important to note that $MC^r$ are the real marginal cost in the steady state, wherefore they are time independent. They are complemented by $MC_t^r$, the time depended marginal cost, which can deviate from their steady state value leading to the gap of $\hat{MC}_t^r \equiv MC_t^r - MC^r$.
-	\begin{equation}
+	The above describes the mark-up of the optimal price $\hat{P}_t$ beyond the price level CPI. Recalling the definition of inflation \eqref{eq:inflation} illustrates the direct link of the mark-up to inflation. 
+	
+	A second property can be obtained from the above. Recognising that inflation is zero in the steady state implies that firms do not reset prices at equilibrium. This is equivalent to setting $\theta=0$. Multiplying the above by $P_t$ and setting $\theta=0$ results in the expression of price and marginal cost $\hat{P}_t = \frac{\epsilon}{\epsilon-1} MC_t^n$. This allows to derive an important aspect to the NK model, the price-mark up over nominal marginal cost in the steady state, resulting from firm market power. Defining real marginal as $MC_t^r \equiv \frac{MC_t^n}{P_t}$ and using the that in the steady state $\hat{P}_t = P_t$ the steady state mark-up $MC^r$ can be derived as:	
+	\begin{equation} \label{eq:nk_mark-up}
 		MC^r = \frac{\epsilon}{\epsilon-1}
 	\end{equation} 
+	This allows to define the gap between marginal-cost and its steady state value is defined as $\hat{MC}_t^r \equiv MC_t^r - MC^r$.
 	
-	\subsubsection{Equilibrium conditions}
-	To this point a number of optimal choices have been derived. The households decides on the consumption basket and consumption-leisure trade-off. The firm sets the optimal price and consequently mark-up over nominal marginal costs, yielding an expression for inflation. Having derived the optimality conditions for all agents the model now requires market clearing condition to describe their interaction. This is based on accounting identity on individual good and production level $Y_{it} = C_{it}$. In order to close the model one needs to demonstrate, that this property on individual goods level translates in the global property $Y_t = C_t$.
+	\subsubsection{Equilibrium conditions}  \label{nk_eqili}
+	To this point three optimal choices have been derived. The households decides on the consumption basket and consumption-leisure trade-off, firms set their optimal price. Closing the model now requires a market clearing condition connecting these optimality conditions. Market clearing implies that all individual output is consumed yielding the accounting identity $Y_{it} = C_{it}$. In order to close the model one needs to demonstrate that this property holds on an economy wide level $Y_t = C_t$ as well.
 	
-	Output $Y_t$ is defined as an aggregator function. The accounting identity combined with \eqref{eq: cshare} allows to link $Y_t$ to the the price level, allowing to demonstrate that $Y_t = C_t$ holds.
+	Overall output $Y_t$ is given by an aggregator function. Using the accounting identity combined with \eqref{eq:cshare} allows to link $Y_t$ to its relative price. Rephrasing then allows to obtain the accounting identity on a global level. 	
 	\begin{equation}
 			Y_t = 
 			\left( 
@@ -426,7 +433,7 @@
 			=
 			C_t
 	\end{equation}
-	A similar reasoning is required in order to derive an economy wide production function an expression from the firm's individual production functions $Y_{it} = A_t N_{it}$. This yields the below expression:
+	A similar reasoning is required in order to derive an economy wide production function from the firms' individual production functions $Y_{it} = A_t N_{it}$. This yields the below expression:
 	\begin{equation}
 		N_t = 	
 		\int_{0}^{1} \left( \frac{Y_t}{N_{it}} \right)^{\frac{1}{1 - \alpha}}
@@ -438,8 +445,8 @@
 	\end{equation}
 	
 	\subsubsection{Log linearisation}
-	This completes the number of equations required for the derivation of the New Keynesian model. As the above equations are a non-linear system without a closed form solution some method of linearisation is required. The below will follow the procedure of \cite{gali_monetary_2008} and apply log-linearisation first order Taylor approximations. Throughout the log-linearisation some further reasoning about is needed fro the Euler equation, which can be found in \nameref{appc}. Lower-case expressions are the log-equivalent to previous upper case variables. \\
-	
+	This completes the number of equations required for the derivation of the New Keynesian model. As the above equations are a non-linear system without a closed form solution some method of linearisation is required. The below will follow the procedure of \cite{gali_monetary_2008} and apply log-linearisation first order Taylor approximations. Throughout the log-linearisation some further reasoning is needed for the Euler equation. This can be found in \nameref{appc}. In the below lower-case expressions are the log-equivalent to previous upper case variables $\ln(X_t) \equiv x_t$.\\
+		
 	Euler equation
 	\begin{equation} \label{eq:lleuler}
 		c_t = \E_t[c_{t+1}] - \frac{1}{\sigma} (i_t - \rho - \E_t [\pi_{t+1}])
@@ -470,7 +477,7 @@
 
 	\subsubsection{New Keynesian Phillips and IS curve}
 	
-	The next step is the derivation of an expression for real marginal cost $mr_{t}^r$ contained in the optimal price setting. In the absence of other production factors the marginal product of labour $MPN_t = \frac{\partial Y}{\partial N} = A_t (1- \alpha) N_t^{-\alpha}$ corresponds to nominal marginal cost $mc_t^n$. Real marginal cost can thus be obtained from $MC_t^r = \frac{W_t}{P_t MCN_t}$. This allows to formulate the below property in logs by including the production function \eqref{eq:llprod}.
+	The next step is the derivation of an expression for real marginal cost $mr_{t}^r$ contained in the optimal price setting. In the absence of other production factors the marginal product of labour $MPN_t = \frac{\partial Y}{\partial N} = A_t (1- \alpha) N_t^{-\alpha}$ corresponds to nominal marginal cost $mc_t^n$. Real marginal cost can thus be obtained as $MC_t^r = \frac{W_t}{P_t MCN_t}$. This allows to formulate the below property in logs by including the production function \eqref{eq:llprod}.
 	\begin{equation}
 		\begin{aligned}
 			mc_t^r = w_t - p_t - a_t - mpn_t \\
